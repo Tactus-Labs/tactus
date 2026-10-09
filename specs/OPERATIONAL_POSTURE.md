@@ -1,7 +1,7 @@
 # Tactus — Operational Posture: Centralisation, Buffers and Fast-UX Claims
 
 **Status:** decision record — maintainer-accepted posture, 9 October 2026; not implementation evidence; no gate claims (G1–G9 remain OPEN)
-**Baseline:** [TACTUS_ARCHITECTURE_SPEC_v0.2.5.md](TACTUS_ARCHITECTURE_SPEC_v0.2.5.md) §1.3, §2; [DAG_ACCELERATION_NOTE.md](DAG_ACCELERATION_NOTE.md) §9; [O2_ACTIVATION_POLICY.md](O2_ACTIVATION_POLICY.md)
+**Baseline:** [TACTUS_ARCHITECTURE_SPEC_v0.2.6.md](TACTUS_ARCHITECTURE_SPEC_v0.2.6.md) §1.3, §2; [DAG_ACCELERATION_NOTE.md](DAG_ACCELERATION_NOTE.md) §9; [O2_ACTIVATION_POLICY.md](O2_ACTIVATION_POLICY.md)
 **Position in one line:** *Centralised performance where convenient, permissionless authority where essential, and CKB-backed recoverability where security matters.*
 
 ---
@@ -135,6 +135,17 @@ Fast-lane state derives from L1 origins at a chosen CKB confirmation depth, so s
 5. Which operations may consume soft state, and which must await CKB settlement?
 
 The priority inbox remains independent: refusing a fast service never costs a user canonical inclusion.
+
+**Refinement (9 October 2026, after MegaETH/Sonic review) — the liability dichotomy answers RQ4.** A preconfirmer's breach splits into two kinds with different provability:
+
+- **Equivocation** — the same preconfirmer signs conflicting commitments for the same history slot. Objectively provable from the signatures themselves; bondable and slashable.
+- **Non-inclusion** — a signed history is not adopted by CKB. Not attributable: it may equally reflect honest competition, miner choice, or a PoW reorg, none within the preconfirmer's control. Bonding it would bleed honest builders' collateral for L1 outcomes they cannot govern.
+
+Slashing rules that confuse the two are the primary design hazard of a bonded preconfirmation market. MegaETH supplies the borrowable mechanics: an on-chain signer registry with rotation history (any RPC can verify a mini-block's provenance); the **mini-block ≠ EVM block** two-tier — a live production precedent for the block model of DAG note §1.4/§9 (~10 ms signed mini-blocks without full headers beneath ~1 s tooling-compatible EVM blocks); and realtime API surfaces (subscriptions; `eth_callAfter`-style nonce-gated simulation), adopted only under §9's receipt-honesty labelling. Sonic supplies a boundary, not a module: its aBFT finality is its own consensus, and its exits to Ethereum still traverse gateway confirmations — *consensus speed is not settlement speed* — and Route C remains rejected.
+
+**Committee boundary (explicit).** A signer registry is not a committee so long as no closed set's consent is *necessary* for canonical ordering or settlement validity — the test Godwoken's PoA and Tendermint fail and a preconfirmation market passes, because spec §4.2 already forbids any signature from purchasing the right to propose. Registry semantics are therefore fixed: **bond-to-enter or verification-only** — a roster of currently bonded preconfirmers or a key-rotation record that any RPC may consult; never a licence, never administered as a choke point. The transplant deliberately drops MegaETH's single-sequencer exclusivity (§8's providers are plural and competitive); the residual committee risk is de facto dominance, governed by the claims discipline of §3 rather than by pretending the market cannot concentrate.
+
+**The product question, restated as risk tiers.** Whether users may build on CKB-revocable state is not binary: swap-class flows accept labelled soft-state risk (§9: rollback stated); high-value operations — CLOB positions, leverage, real-time liquidation — require one of canonical-gated execution, bonded preconfirmation with compensation (never irreversibility, per the no-next-proposer caveat), or eventually the Pulse domain for order-flow-heavy applications. This refines RQ5 without closing it.
 
 **Product fork (OPEN — maintainer decision):** a general EVM DeFi L2, or a chain with Hyperliquid-grade ordering determinism as a hard requirement? The two lanes keep the first open while researching the second; Route C is a thesis change, not an upgrade. Recorded recommendation: begin as the general L2 with Route B research — the ecosystem's demonstrated demand is AMM/lending/stablecoin class; B is additive and reversible; and C, if ever needed, is more honestly a separate product than a Tactus upgrade.
 

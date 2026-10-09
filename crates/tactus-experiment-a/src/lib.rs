@@ -12,7 +12,7 @@ pub mod sim_a2;
 pub mod sim_a3;
 
 /// Frozen architecture baseline this experiment runs against.
-pub const SPEC_BASELINE: &str = "TACTUS_ARCHITECTURE_SPEC_v0.2.5.md";
+pub const SPEC_BASELINE: &str = "TACTUS_ARCHITECTURE_SPEC_v0.2.6.md";
 
 /// Experiment arms (design §2).
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
@@ -89,6 +89,12 @@ pub enum Decision {
     RejectSnapshotSwitchingPolicy,
     /// Safe, recoverable, force-progressing, affordable.
     AdvanceToProductionReview,
+    /// Passed only under an assumed or unexercised primitive — e.g.
+    /// `challenge_forces_processing`, or a switching-policy gate whose delay
+    /// path was never measured — that no CKB lock/type script yet implements.
+    /// Not advanceable; revisited only with real script transitions and
+    /// adversarial devnet tests.
+    ConditionalEnforcementPrimitiveUnimplemented,
 }
 
 /// Measurement record — spec §14.4 including the v0.2.5 churn additions.

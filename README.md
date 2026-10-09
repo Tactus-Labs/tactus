@@ -11,7 +11,7 @@ permissionless CKB-based canonical sequencing, validity-enforced settlement.
 
 ## Status
 
-- **Architecture baseline:** frozen at [v0.2.5](specs/TACTUS_ARCHITECTURE_SPEC_v0.2.5.md) (9 October 2026).
+- **Architecture baseline:** frozen at [v0.2.5](specs/TACTUS_ARCHITECTURE_SPEC_v0.2.6.md) (9 October 2026).
 - **Evidence gates:** G1–G9 are all **OPEN**. Nothing here is an implemented
   protocol property, a measured performance result, or production authorisation.
 - **Current deliverable:** [Experiment A](specs/EXPERIMENT_A_DESIGN.md) — the
@@ -90,12 +90,6 @@ Crates are added only when their protocol boundary is justified; the canonical
 wire specification lives under `specs/` and is never defined implicitly by a
 Rust struct.
 
-## Relation to Myelin
-
-Tactus is independent of [Myelin](https://github.com/Myelin-Labs/Myelin). Myelin
-is a historical research influence and remains a separate CKB-isomorphic Cell
-session runtime; it is not an ordering, DA or settlement authority here, and no
-Myelin consensus or runtime dependency is required.
 
 ## Claim discipline
 

@@ -1,9 +1,9 @@
 # Tactus Architecture Specification
 
-**Version:** 0.2.5  
+**Version:** 0.2.6  
 **Status:** Architecture baseline / research specification — **not** implementation evidence or production authorisation  
 **Date:** 9 October 2026  
-**Project:** Tactus (independent of Myelin)  
+**Project:** Tactus  
 **Default deployment:** CKB-based EVM validity rollup with CKB data availability (O1)  
 **Scalability extension:** Separately secured external-DA validity domain (O2)  
 **Research alternative:** Bounded optimistic CKB-VM adjudication (O3)  
@@ -45,6 +45,10 @@ This document is the **integrated successor to v0.2.1**, incorporating the prior
 18. Promote A3′ to an independently tested candidate and record the **live-dependency freshness construction** with its proof obligations (§5.4, §14).
 19. Fix the stale version reference in §10.2.
 
+**Changes in v0.2.6 (editorial — removal of Myelin as a reference):**
+
+25. Remove Myelin as a reference and as a research-provenance mention. Per project decision it may appear only as one competitor for the optional O2 external-DA adapter slot, judged by the O2 activation policy's evidence gate (`specs/O2_ACTIVATION_POLICY.md`).
+
 **Changes in v0.2.5 (experiment-scope amendments and consistency fixes — architecture frozen at the v0.2.4 baseline; no architectural changes):**
 
 20. Record A3′ **read-dependency amplification**: the live-cell-dependency rule that provides freshness also invalidates pending batch anchors on lane-head updates; reframe the decisive question as **freshness versus batch-anchor liveness**, and note the dependency-churn censorship vector (§5.4).
@@ -67,7 +71,7 @@ This document is the **integrated successor to v0.2.1**, incorporating the prior
 
 | Decision | Baseline |
 |---|---|
-| Project boundary | Tactus is independent of Myelin; no Myelin consensus or runtime dependency is required. |
+| Project boundary | Tactus is a standalone protocol; no external consensus or runtime dependency is required. |
 | Authoritative ordering | CKB canonical chain and permissionless, script-validated batch succession. |
 | Candidate ordering | Professional batch builders may specialise, but have no exclusive canonical authority. |
 | Execution | A pinned Ethereum execution specification using mature Reth/revm components. |
@@ -422,7 +426,7 @@ A future StarkEx-style Volition mechanism needs its own state-isolation and tran
 
 ### 10.3 O3 and O4
 
-O3 is a CKB-DA optimistic settlement **research branch**: an authenticated EVM/RISC-V execution trace would be narrowed to bounded CKB-VM-verifiable steps under a challenge protocol. The existing Myelin CellTx court is not a drop-in implementation of this.
+O3 is a CKB-DA optimistic settlement **research branch**: an authenticated EVM/RISC-V execution trace would be narrowed to bounded CKB-VM-verifiable steps under a challenge protocol. No existing court implementation is a drop-in for this.
 
 O4 (optimistic + external DA) stays parked. Data withholding may prevent the discovery and construction of fraud proofs, so an availability-aware dispute and credible user recovery protocol must precede reconsideration.
 
@@ -582,7 +586,7 @@ Publish a real O1 batch, reconstruct its EVM state independently, settle the val
 
 ## 16. Implementation organisation and project boundary
 
-Tactus remains a standalone protocol and codebase. Myelin is a historical research influence, not an ordering, DA or settlement authority.
+Tactus remains a standalone protocol and codebase; its ordering, DA and settlement authorities are defined by this specification alone. (For the O2 external-DA slot, any provider — including a Myelin-derived adapter — competes on the O2 activation policy's evidence gate; see `specs/O2_ACTIVATION_POLICY.md`.)
 
 ```text
 tactus/
@@ -636,5 +640,4 @@ Every security-critical implementation must be traceable to a protocol invariant
 9. OP Stack Fault Proof Specification — https://specs.optimism.io/fault-proof/
 10. StarkEx data availability and Volition — https://docs.starkware.co/starkex/con_data_availability.html
 11. Godwoken — https://github.com/godwokenrises/godwoken
-12. Myelin — https://github.com/Myelin-Labs/Myelin
 

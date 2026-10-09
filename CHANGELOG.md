@@ -127,6 +127,28 @@
   exit, never contact-the-team); priority order with gas ranked last;
   product goal: fast enough to trade, reliable enough to build on,
   independently recoverable without its original operators.
+- MegaETH/Sonic review recorded (OPERATIONAL_POSTURE §8 refinement): the
+  liability dichotomy answers RQ4 — Equivocation (conflicting signed
+  commitments for the same slot; provable, slashable) vs Non-inclusion (not
+  adopted by CKB; not attributable — competition, miner choice, PoW reorg;
+  never bondable, or honest builders bleed collateral for L1 outcomes they
+  cannot govern); MegaETH borrowables (signer registry with rotation,
+  mini-block ≠ EVM block two-tier as a live precedent for the §1.4 block
+  model, realtime APIs under receipt-honesty labelling); Sonic boundary
+  (aBFT finality is its own consensus, exits still traverse gateway
+  confirmations — consensus speed ≠ settlement speed; Route C stays
+  rejected); product question restated as risk tiers (swap-class labelled
+  soft risk; CLOB/leverage/liquidation need canonical gating, bonded
+  compensation or the Pulse domain).
+- Committee boundary made explicit (OPERATIONAL_POSTURE §8): a signer
+  registry is not a committee while no closed set's consent is necessary for
+  canonical ordering or settlement (the test PoA/Tendermint fail, a
+  preconfirmation market passes; spec §4.2 forbids signatures purchasing
+  proposal rights); registry semantics fixed as bond-to-enter or
+  verification-only — never a licence or choke point; MegaETH's
+  single-sequencer exclusivity deliberately dropped (plural competitive
+  providers); residual risk is de facto dominance, governed by §3 claims
+  discipline.
 - OPERATIONAL_POSTURE §7: dispute-adjudication map (five dispute types);
   the complete no-committee argument (a committee solves a problem Tactus does
   not have and neither of the ones it does); preconfirmation services allowed

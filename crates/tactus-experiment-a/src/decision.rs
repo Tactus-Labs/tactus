@@ -34,6 +34,11 @@ pub fn decide_a1(s: &A1Stats) -> Decision {
 
 /// A2: admission is contention-free by construction; the gate is whether
 /// challenges force actual processing before deadlines are materially missed.
+/// At simulation tier this can never yield `AdvanceToProductionReview`:
+/// `challenge_forces_processing` *assumes* the enforcement primitive — how a
+/// legal CKB challenge makes a refusing builder process — which no CKB
+/// lock/type script yet implements. A passing run is therefore conditional,
+/// and "eventually processed" is not "processed within deadline".
 #[must_use]
 pub fn decide_a2(s: &A2Stats) -> Decision {
     let forced = if s.challenges_fired == 0 {
@@ -45,7 +50,7 @@ pub fn decide_a2(s: &A2Stats) -> Decision {
     {
         Decision::G2NotPassed
     } else {
-        Decision::AdvanceToProductionReview
+        Decision::ConditionalEnforcementPrimitiveUnimplemented
     }
 }
 
@@ -55,7 +60,12 @@ pub fn decide_a2(s: &A2Stats) -> Decision {
 pub fn decide_a3(s: &A3Stats, sealed: bool) -> Decision {
     if sealed {
         let p95 = A3Stats::percentile(&s.processing_delays, 95.0);
-        if p95 > A3_SEALED_P95_LIMIT {
+        if p95.is_nan() {
+            // The processing-delay path was never exercised in this run: an
+            // unmeasured gate is untested, not satisfied (NaN comparisons
+            // would otherwise pass every limit silently).
+            Decision::ConditionalEnforcementPrimitiveUnimplemented
+        } else if p95 > A3_SEALED_P95_LIMIT {
             Decision::RejectSnapshotSwitchingPolicy
         } else {
             Decision::AdvanceToProductionReview

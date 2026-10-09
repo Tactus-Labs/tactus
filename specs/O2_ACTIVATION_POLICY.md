@@ -1,7 +1,7 @@
 # Tactus — O2 External Data Availability: Day-0 Boundary and Activation Policy
 
 **Status:** decision record — maintainer-accepted posture, 9 October 2026; not implementation evidence; no gate claims (G1–G9 remain OPEN)
-**Baseline:** [TACTUS_ARCHITECTURE_SPEC_v0.2.5.md](TACTUS_ARCHITECTURE_SPEC_v0.2.5.md) §10; [DAG_ACCELERATION_NOTE.md](DAG_ACCELERATION_NOTE.md) §8
+**Baseline:** [TACTUS_ARCHITECTURE_SPEC_v0.2.6.md](TACTUS_ARCHITECTURE_SPEC_v0.2.6.md) §10; [DAG_ACCELERATION_NOTE.md](DAG_ACCELERATION_NOTE.md) §8
 **Position in one line:** *Day 0: O1 ZK rollup with CKB DA. O2-ready architecture, not O2-ready implementation.*
 
 ---

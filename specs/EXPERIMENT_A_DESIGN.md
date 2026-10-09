@@ -1,7 +1,7 @@
 # Experiment A — Priority Admission Comparison
 
 **Status:** experiment design, pre-implementation
-**Baseline:** [TACTUS_ARCHITECTURE_SPEC_v0.2.5.md](TACTUS_ARCHITECTURE_SPEC_v0.2.5.md) §14 (as amended by changes 20–24)
+**Baseline:** [TACTUS_ARCHITECTURE_SPEC_v0.2.6.md](TACTUS_ARCHITECTURE_SPEC_v0.2.6.md) §14 (as amended by changes 20–24)
 **Blocking gate:** **G2 — censorship resistance.** No average-TPS figure may substitute for it.
 
 ## 1. Purpose

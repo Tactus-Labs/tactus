@@ -1,7 +1,7 @@
 //! Tactus protocol primitives.
 //!
 //! Illustrative field sets mirroring the architecture specification
-//! (`specs/TACTUS_ARCHITECTURE_SPEC_v0.2.5.md` §3.2). These types are
+//! (`specs/TACTUS_ARCHITECTURE_SPEC_v0.2.6.md` §3.2). These types are
 //! specification companions and test fixtures, **not** an approved canonical
 //! encoding: the canonical wire format is defined under `specs/` with fixed
 //! test vectors before any script or settlement logic may depend on it.
