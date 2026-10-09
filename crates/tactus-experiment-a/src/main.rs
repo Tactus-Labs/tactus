@@ -27,6 +27,9 @@ fn main() {
     // ---- Analytic churn sensitivity (design §3) --------------------------
     analytic(&mut report);
 
+    // ---- Starvation synthesis (added on review) --------------------------
+    starvation(&mut report);
+
     footer(&mut report);
     print!("{report}");
     fs::write("specs/EXPERIMENT_A_REPORT.md", &report).expect("write report");
@@ -185,10 +188,18 @@ fn a3_arms(out: &mut String) {
         }
     }
     let _ = writeln!(out);
+    let sealed_p95 = sealed_stats
+        .as_ref()
+        .map(|s| A3Stats::percentile(&s.processing_delays, 95.0))
+        .unwrap_or(f64::NAN);
+    let sealed_note = if sealed_p95.is_nan() {
+        "its p95 processing delay was **not measured** in this run (the processing-delay path was never exercised), so the switching-policy limit is untested, not satisfied".to_string()
+    } else {
+        format!("its p95 processing delay measured {sealed_p95:.0} blocks against the switching-policy limit")
+    };
     let _ = writeln!(
         out,
-        "**A3′ verdict:** live-head references collapse under adversarial churn (L3) and degrade with per-lane load (L1), while the aggregate-fixed regime (L2) stays comparable — matching the analytic model. The sealed control arm is churn-immune and its p95 processing delay ({:.0} blocks, seal period 12) stays within the switching-policy limit.",
-        sealed_stats.as_ref().map(|s| A3Stats::percentile(&s.processing_delays, 95.0)).unwrap_or(f64::NAN)
+        "**A3′ verdict:** live-head references collapse under adversarial churn (L3) and degrade with per-lane load (L1), while the aggregate-fixed regime (L2) stays comparable — matching the analytic model. The sealed control arm is churn-immune; {sealed_note}. Sealing cadence, sealing authority, post-seal mandatory latency and builder evasion of the next snapshot remain open. No reading of this table puts G2 near passing."
     );
     let _ = writeln!(out);
 }
@@ -257,7 +268,7 @@ fn a2_arms(out: &mut String) {
     let _ = writeln!(out);
     let _ = writeln!(
         out,
-        "**A2 verdict:** admission is contention-free by construction (100% at every configuration); the open question is exactly the one the design predicted — penalties without forced inclusion leave messages unprocessed (`G2NotPassed`), while a challenge that forces processing restores them at bounded delay."
+        "**A2 verdict:** admission is contention-free by construction (100% at every configuration). Penalties without forced inclusion leave messages unprocessed (`G2NotPassed`). The forced-inclusion row passes **only by simulation assumption** — `challenge_forces_processing` presupposes the enforcement primitive (how a legal CKB challenge makes a refusing builder process) that no CKB lock/type script yet implements — so it is recorded as `ConditionalEnforcementPrimitiveUnimplemented`; and 98.6% of deadlines were violated before enforcement caught up, so even the simulated success is eventual, not within deadline. The devnet tier must implement, not assume, the enforcement path."
     );
     let _ = writeln!(out);
 }
@@ -279,12 +290,31 @@ fn analytic(out: &mut String) {
     let _ = writeln!(out, "---");
     let _ = writeln!(
         out,
-        "_Decisions referenced: `{:?}` · `{:?}` · `{:?}` · `{:?}` · `{:?}`._",
+        "_Decisions referenced: `{:?}` · `{:?}` · `{:?}` · `{:?}` · `{:?}` · `{:?}`._",
         Decision::KeepA1AsReferenceOnly,
         Decision::G2NotPassed,
         Decision::RejectLiveHeadDependencyStrategy,
         Decision::RejectSnapshotSwitchingPolicy,
-        Decision::AdvanceToProductionReview
+        Decision::AdvanceToProductionReview,
+        Decision::ConditionalEnforcementPrimitiveUnimplemented
     );
+    let _ = writeln!(out);
+}
+
+fn starvation(out: &mut String) {
+    let _ = writeln!(
+        out,
+        "## Starvation — what it is, why it happens, what the simulation found"
+    );
+    let _ = writeln!(out);
+    let _ = writeln!(out, "**Definition.** Starvation is the failure of a legitimate participant to make progress through the priority path *while every safety property continues to hold*. It is a liveness failure, not a safety failure: nothing invalid is ever accepted — the valid thing simply never lands. The simulation isolated one distinct form per arm, each with a distinct cause.");
+    let _ = writeln!(out);
+    let _ = writeln!(out, "**Form 1 — admission starvation (A1).** A wallet user reads head `H`, signs across a delay of *d* blocks, and broadcasts; meanwhile a professional builder has already consumed `H` and advanced to `H′`. The user's transaction is dead on arrival — invalid from the moment it enters the mempool, at any fee, because fee priority arbitrates only among simultaneously *valid* competing spends and never resurrects an already-invalid one. The cause is a structural asymmetry: builders are resident, re-submit instantly and pipeline successors, whilst wallet users traverse a signing round trip. The two-variable design separates these cleanly — fee ×2 and ×10 produce identical results at every delay, whereas increasing the signing delay from 1 to 3 blocks drives DOA from 7.1% to 34.4%. Retries eventually rescue headline success (98.7% at delay 3), but a third of all attempts die on arrival, which trips the worst-case rule: `KeepA1AsReferenceOnly`. **Cause: staleness, not price.**");
+    let _ = writeln!(out);
+    let _ = writeln!(out, "**Form 2 — progression starvation (A3′, live-head variant).** Here the starved party is not the user's admission but canonical batch progression itself. Because a cell dependency must resolve to a live cell, every lane-head update invalidates each prepared anchor referencing the previous head — and exploiting this requires no control over any builder, only continuous valid enqueues. Under the L3 adversary, anchor survival collapses to 0.01 with 99% invalidation and canonical progression falls to 0.002 batches per block (`RejectLiveHeadDependencyStrategy`). The cause is the coupling of anchor validity to mutable live state that anyone may move; the sealed control arm removes exactly that coupling by referencing immutable sealed snapshots and is churn-immune — survival 1.00, progression 0.250 per block — though its processing-delay gate went unexercised and stays conditional. **Cause: live-state coupling; cure: immutable references.**");
+    let _ = writeln!(out);
+    let _ = writeln!(out, "**Form 3 — processing starvation (A2).** Admission succeeds by construction (100% at every configuration) — and on its own feeds nobody. With a penalty-only challenge, 98.6% of deadlines are violated and **zero** per cent of messages are force-processed: admitted messages starve of processing while the guilty party pays for the privilege of ignoring them (`G2NotPassed`). The cause is retrospective liability without an enforcement path. The forced-inclusion challenge restores processing at a bounded delay (p50 = p95 = 21 blocks, forced fraction 1.00) — *in simulation, by assumption*: the enforcement primitive is unimplemented, so the row is recorded as `ConditionalEnforcementPrimitiveUnimplemented`. **Cause: liability without enforcement; the cure is an implemented primitive, not an assumed one.**");
+    let _ = writeln!(out);
+    let _ = writeln!(out, "**The common lesson.** In every arm the safety machinery behaved exactly as specified — single-consumption linearisation never accepted a conflicting successor — and starvation occurred anyway. Safety is structural; liveness is an adversary-dependent property that must be purchased separately: A1 needs an admission path that does not race a resident professional counterparty; A3′ needs sealed, immutable references; A2 needs enforcement that exists in CKB scripts, not only in the simulator. No fee market fixes any of the three, because each failure mode is invalidity rather than priority — which is precisely why design §5 forbids substituting any average-throughput figure for G2.");
     let _ = writeln!(out);
 }

@@ -62,6 +62,19 @@ Four questions require their own specification before the serial EVM baseline is
 
 This decision is independent of DAG scheduling and should be settled first; the DAG scheduler follows, never leads.
 
+**Elevation (9 October 2026, on review).** The block model is promoted from this note to **Architecture Spec v0.2.6** as the P0 work package — these are consensus-critical execution semantics, not an optimisation. The frozen v0.2.5 objects do not yet carry the adopted decision:
+
+| Gap in v0.2.5 | Required rule |
+|---|---|
+| `OrderingHead` records batch number, no EVM-block frontier | a new anchor continues from the previous anchor's last EVM block number |
+| `BatchManifest` binds only a transaction-sequence root | bind ordered EVM block headers and block boundaries |
+| 100 ms production | `TIMESTAMP` monotonicity and tolerance — second-granular EVM timestamps mean many fast blocks share one timestamp, moving TWAP, interest and block-number-dependent logic |
+| multi-block gas | per-block `GASLIMIT`, `BASEFEE` and EIP-1559 behaviour |
+| `BLOCKHASH` | deterministic query rules over canonical and speculative predecessors |
+| proof coverage | a validity proof spans consecutive intervals, attesting every per-block header and state transition |
+
+Completion requires normative test vectors. Until the block-model content lands in a spec revision, "multi-block per anchor" remains a direction, not a specification (v0.2.6 currently carries only editorial changes).
+
 ## 2. The arithmetic that decides the question
 
 An anchor is **O(1) in transaction count**: it carries commitments, not transaction bodies. Suppose a domain sustaining 5,000 transactions per second with one anchor per CKB block (~10 seconds): each batch covers ~50,000 transactions, yet the on-chain anchor remains a fixed-size commitment. From this, an earlier draft concluded that the ordering frontier "remains non-binding well into the tens of thousands of TPS". That conclusion was stronger than the argument: sustainable settled throughput is bounded by
@@ -157,11 +170,11 @@ If Scheme B is adopted — the direction §1.4 recommends — day 0 carries the 
 
 ### 5.5 StarkEx-style volition — the counter-case: neither capability nor activation on day 0
 
-The reserve-on-day-0 rule of §5.2 rests on two preconditions: the capability is already specified, and the reservation is free. StarkEx-style volition — per-mode dual state trees with explicit transfers between a rollup tree and a validium tree — satisfies neither, and the specification already records the verdict: "A future StarkEx-style Volition mechanism needs its own state-isolation and transfer specification; this is not part of this specification" (spec §10.2).
+The reserve-on-day-0 rule of §5.2 (as corrected) turns on the block model; StarkEx-style volition — per-mode dual state trees with explicit transfers between a rollup tree and a validium tree — fails even the corrected test on every axis, and the specification already records the verdict: "A future StarkEx-style Volition mechanism needs its own state-isolation and transfer specification; this is not part of this specification" (spec §10.2).
 
 | Test from §5.2 | Microbatch DAG | StarkEx-style volition |
 |---|---|---|
-| Specified in the baseline? | Yes — spec §3 permits multi-microbatch manifests | No — deferred pending its own specification |
+| Specified in the baseline? | No — absent from the frozen baseline (§1.2); specifiable pre-genesis as block-model content (§1.4) | No — deferred pending its own specification |
 | Reservation cost at genesis | Negligible — N = 1 and N > 1 are the same on-chain object | Real — dual trees alter state commitments, proof public inputs, vault scripts and exit rules from day one |
 | Cost of omitting the reservation | A format change, hence the full G8 machinery | Absent — the chosen O2 architecture (separate security domains, spec §10.2) means the O1 domain is never retrofitted; volition, if ever, is a third construct stitching two already-validated domains |
 | Prerequisite | Multiple builders or pipelines | O1 validated, O2 validated under its declared assumptions, then a cross-domain transfer specification |

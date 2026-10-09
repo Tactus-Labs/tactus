@@ -70,6 +70,24 @@ permissionless CKB-based canonical sequencing, validity-enforced settlement.
   would make it O2, behind the gate). Combined-stack direction: Tactus (EVM
   DeFi) + Fiber (payments) + CKB (settlement); Day 0 takes no dependency —
   interop interfaces designed, not assumed.
+- **Work plan (9 October 2026, post-review):** architecture stays; resources
+  shift from designing features to proving the two hardest properties —
+  **G2** (forced inclusion under a hostile builder) and **W-12** (no accepted
+  canonical batch may permanently stall settlement; the batch-admission
+  envelope is protocol-enforced, never builder self-restraint). **P0** —
+  EVM Block Model v0.2.6 (multi-block semantics with test vectors; gap table
+  in the DAG note §1.4) · Experiment A devnet (implement, don't assume,
+  forced processing) · Experiment B (end-to-end proof) · Experiment C
+  (operator-independent recovery). **P1** — Fast-Head Continuity (soft-reorg
+  UX under two independent builders) · CellScript integration (first joint
+  prototype targets SettlementTip + Vault/Withdrawal, not the Priority
+  Inbox). **P2** — Pulse/O2, parallel execution, Fiber, on measured need.
+  If G2 proves unsatisfiable under existing CKB Script capabilities, the
+  security claims are re-examined honestly — up to and including a minimal
+  CKB consensus extension — never masked by soft TPS or larger penalties.
+- **Simulation-tier honesty note:** A2's forced-inclusion row and the sealed
+  A3′ arm are recorded as `ConditionalEnforcementPrimitiveUnimplemented` —
+  they pass only under simulator assumptions; no G2 credit is taken.
 - **Research notes:** [DAG acceleration and external DA](specs/DAG_ACCELERATION_NOTE.md)
   — execution-engine parallelism carries no protocol consequence but real
   engineering cost; batch-construction DAG depends on the **L2 block model**

@@ -140,6 +140,27 @@
   rejected); product question restated as risk tiers (swap-class labelled
   soft risk; CLOB/leverage/liquidation need canonical gating, bonded
   compensation or the Pulse domain).
+- Post-review corrections (simulation honesty): A2's `challenge_forces_processing`
+  is an *assumption* of the enforcement primitive no CKB script implements —
+  all A2 rows and the sealed A3′ arm (whose processing-delay gate was never
+  exercised; NaN silently passed limits) now decide
+  `ConditionalEnforcementPrimitiveUnimplemented`, never
+  `AdvanceToProductionReview` at simulation tier; "eventually processed" is
+  not "processed within deadline" (98.6% violations recorded); starvation
+  synthesis folded into the report generator (reproducible). No G2 credit
+  taken.
+- Block model elevated (DAG note §1.4): promoted to Architecture Spec v0.2.6
+  as the P0 work package with the six-row gap table (EVM-block frontier in
+  OrderingHead, ordered block-header binding, TIMESTAMP monotonicity under
+  shared second timestamps, per-block gas/EIP-1559, deterministic BLOCKHASH,
+  multi-block proof coverage) — consensus-critical semantics requiring
+  normative test vectors, not an optimisation; stale §5.5 claim
+  ("spec §3 permits multi-microbatch manifests") corrected.
+- Work plan recorded (README): G2 and W-12 co-equal top research priorities;
+  P0 = Block Model v0.2.6 + Experiments A-devnet/B/C; P1 = Fast-Head
+  Continuity + CellScript (first prototype: SettlementTip + Vault/Withdrawal);
+  P2 = Pulse/parallel/Fiber on measured need; honest re-examination clause if
+  G2 is unsatisfiable under existing CKB Script capabilities.
 - Committee boundary made explicit (OPERATIONAL_POSTURE §8): a signer
   registry is not a committee while no closed set's consent is necessary for
   canonical ordering or settlement (the test PoA/Tendermint fail, a
