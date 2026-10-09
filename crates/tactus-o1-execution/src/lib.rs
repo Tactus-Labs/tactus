@@ -1,4 +1,5 @@
 //! Pinned serial execution. See specs/EXECUTION_V1.md for the rollup rules.
+pub mod store;
 use alloy_consensus::{
     transaction::SignerRecoverable, Header, Receipt, ReceiptEnvelope, Transaction, TxEnvelope,
 };

@@ -108,7 +108,11 @@ truncated batch prefix. These are focused regressions, not a complete Ethereum
 state-test corpus. A separate [Geth comparison](EXECUTION_DIFFERENTIAL_REPORT.md)
 now verifies 9 scenarios and 14 blocks against independent Go execution.
 
-Still required: persistent crash-safe journal/state, full canonical CKB-to-EVM
+An [append-only durable journal](EXECUTION_JOURNAL.md) now replays inputs on
+restart and validates saved roots; storage-fault and cross-process restart tests
+cover this local path.
+
+Still required: persistent state checkpoints and full canonical CKB-to-EVM
 recovery and network-driven reorg handling, broader differential conformance,
 standard JSON-RPC/tool deployment, proved resource bounds, authenticated genesis
 and priority semantics, zkVM guest/prover and CKB validity settlement. No execution
