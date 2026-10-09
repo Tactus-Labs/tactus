@@ -1,0 +1,225 @@
+{
+  "schema_version": 1,
+  "evidence_sha256": "fa784bf4ad1381dbdff5776f7291155847cc30decba0917e173804f35f1c17d3",
+  "metadata": {
+    "consensus": {
+      "block_version": "0x0",
+      "cellbase_maturity": "0x10000000000",
+      "dao_type_hash": "0x82d76d1b75fe2fd9a27dfbaa65a039221a380d76c926f378d3f81cf3e7e13f2e",
+      "epoch_duration_target": "0x50",
+      "genesis_hash": "0xddd6aea22911805968ca3f89bda08aa9d8024fc00b2c9ffb07b1bcd170673c6a",
+      "hardfork_features": [
+        {
+          "epoch_number": "0x0",
+          "rfc": "0028"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0029"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0030"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0031"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0032"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0036"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0038"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0048"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0049"
+        }
+      ],
+      "id": "ckb_dev",
+      "initial_primary_epoch_reward": "0xae6c73c3e070",
+      "max_block_bytes": "0x91c08",
+      "max_block_cycles": "0x2540be400",
+      "max_block_proposals_limit": "0x5dc",
+      "max_uncles_num": "0x2",
+      "median_time_block_count": "0x25",
+      "orphan_rate_target": {
+        "denom": "0x28",
+        "numer": "0x1"
+      },
+      "permanent_difficulty_in_dummy": true,
+      "primary_epoch_reward_halving_interval": "0x2238",
+      "proposer_reward_ratio": {
+        "denom": "0xa",
+        "numer": "0x4"
+      },
+      "secondary_epoch_reward": "0x37d0c8e28542",
+      "secp256k1_blake160_multisig_all_type_hash": "0x5c5069eb0857efc65e1bca0c07df34c31663b3622fd3876c876320fc9634e2a8",
+      "secp256k1_blake160_sighash_all_type_hash": "0x9bd7e06f3ecf4be0f2fcd2188b23f1b9fcc88e5d4b65a8637b17723bbda3cce8",
+      "softforks": {
+        "light_client": {
+          "rfc0043": {
+            "bit": 1,
+            "min_activation_epoch": "0x0",
+            "period": "0xa",
+            "start": "0x0",
+            "threshold": {
+              "denom": "0x4",
+              "numer": "0x3"
+            },
+            "timeout": "0x0"
+          },
+          "status": "rfc0043"
+        }
+      },
+      "tx_proposal_window": {
+        "closest": "0x2",
+        "farthest": "0xa"
+      },
+      "tx_version": "0x0",
+      "type_id_code_hash": "0x00000000000000000000000000000000000000000000000000545950455f4944"
+    },
+    "lock_code_hash": "0x1a79ae4b82f5588e07fc0b94a0e8fbcf61f1adc06d05d753d13e2e63eec76dee",
+    "node_version": "0.210.0 (2592ddf 2026-09-17)",
+    "ordering_code_hash": "0x9860ce7888517c2b225c70ebc2ee04ed596afe719772c4bcbaa6e516b4e127bc",
+    "production_ready": false,
+    "script_path": "artifacts/tactus_o1_anchor_script.elf",
+    "sealed_code_hash": "0x1ca46958fda55469ae405f0d6c9b6ef6889a0ab79bebc1f3a49e7723303f7528",
+    "tier": "isolated CKB devnet, deterministic block generation"
+  },
+  "results": {
+    "G2": "OPEN",
+    "complete": true,
+    "error": null,
+    "production_ready": false,
+    "proof_settlement": "NOT_IMPLEMENTED",
+    "scenarios": [
+      {
+        "G2": "OPEN",
+        "active_churn_mutations": 8,
+        "canonical_batches": 24,
+        "consumed_snapshot_messages": 8,
+        "execution_head": {
+          "baseFeePerGas": "0x26b084b",
+          "difficulty": "0x0",
+          "extraData": "0x730b83f94a3736a967af102d558067fa326d7e57a053ff3abdfa7955bda60b87",
+          "gasLimit": "0xf4240",
+          "gasUsed": "0x0",
+          "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "miner": "0x0303030303030303030303030303030303030303",
+          "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "nonce": "0x0000000000000000",
+          "number": "0x18",
+          "parentHash": "0xa94915c924b167b21027988f4350e866922e069535c3388b59b3907d445d164b",
+          "receiptsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+          "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+          "stateRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+          "timestamp": "0x18",
+          "transactionsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+          "withdrawalsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421"
+        },
+        "independent_sealer": true,
+        "lanes": 1,
+        "maximum_payload_snapshot_bytes": null,
+        "planned_seal_and_batch_reorg_recovered": true,
+        "post_seal_victim_batches_to_inclusion": 10,
+        "pre_signed_admission_survived_schedule_change": true,
+        "pre_signed_batch_survived_churn": true,
+        "scope": "Mandatory publication under canonical batch progress; no wall-clock, admission fairness or validity-proof claim",
+        "second_snapshot_messages": 8,
+        "snapshot_retention": true
+      },
+      {
+        "G2": "OPEN",
+        "active_churn_mutations": 16,
+        "canonical_batches": 24,
+        "consumed_snapshot_messages": 16,
+        "execution_head": {
+          "baseFeePerGas": "0x26b084b",
+          "difficulty": "0x0",
+          "extraData": "0x598eb5b3a6d44e15a1748ea1fde973af93b6e7534e8746524842732ba8754c0f",
+          "gasLimit": "0xf4240",
+          "gasUsed": "0x0",
+          "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "miner": "0x0303030303030303030303030303030303030303",
+          "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "nonce": "0x0000000000000000",
+          "number": "0x18",
+          "parentHash": "0x7d4158fb0a9fc7f4827089f67a51127dac349649c8deb0fc6bdebe1f35aef722",
+          "receiptsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+          "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+          "stateRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+          "timestamp": "0x18",
+          "transactionsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+          "withdrawalsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421"
+        },
+        "independent_sealer": true,
+        "lanes": 2,
+        "maximum_payload_snapshot_bytes": null,
+        "planned_seal_and_batch_reorg_recovered": true,
+        "post_seal_victim_batches_to_inclusion": 12,
+        "pre_signed_admission_survived_schedule_change": true,
+        "pre_signed_batch_survived_churn": true,
+        "scope": "Mandatory publication under canonical batch progress; no wall-clock, admission fairness or validity-proof claim",
+        "second_snapshot_messages": 16,
+        "snapshot_retention": true
+      },
+      {
+        "G2": "OPEN",
+        "active_churn_mutations": 32,
+        "canonical_batches": 32,
+        "consumed_snapshot_messages": 32,
+        "execution_head": {
+          "baseFeePerGas": "0xd4b481",
+          "difficulty": "0x0",
+          "extraData": "0x46c604699bc9fb68354c29d1b3651b5d22e1458aa76722a666707722a841a1ef",
+          "gasLimit": "0xf4240",
+          "gasUsed": "0x0",
+          "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "miner": "0x0303030303030303030303030303030303030303",
+          "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "nonce": "0x0000000000000000",
+          "number": "0x20",
+          "parentHash": "0x69134c99df072700edaab3d7d1d69b11a3e189c529e818bb0ff0e1a13d320ce1",
+          "receiptsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+          "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+          "stateRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+          "timestamp": "0x20",
+          "transactionsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+          "withdrawalsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421"
+        },
+        "independent_sealer": true,
+        "lanes": 4,
+        "maximum_payload_snapshot_bytes": 33385,
+        "planned_seal_and_batch_reorg_recovered": true,
+        "post_seal_victim_batches_to_inclusion": 16,
+        "pre_signed_admission_survived_schedule_change": true,
+        "pre_signed_batch_survived_churn": true,
+        "scope": "Mandatory publication under canonical batch progress; no wall-clock, admission fairness or validity-proof claim",
+        "second_snapshot_messages": 32,
+        "snapshot_retention": true
+      }
+    ],
+    "suite": "a3-mandatory-sealed-gate-v1"
+  },
+  "transactions": {
+    "committed_evidence_records": 210,
+    "rejected_records": 69
+  },
+  "estimated_cycles": {
+    "samples": 210,
+    "minimum": 1620743,
+    "maximum": 15309016
+  },
+  "interpretation": "Boundary suite completed; full Experiment A and production gates remain OPEN."
+}

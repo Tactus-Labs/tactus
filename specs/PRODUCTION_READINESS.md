@@ -48,17 +48,19 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
   The [real-node comparator](A2_OBLIGATION_REPORT.md) demonstrates that standalone
   challenge markers still fail forced inclusion; G2 remains OPEN.
 
-- The [bounded A3 sealed schedule](A3_SEALED_V1.md) now has canonical codecs and
-  tested pure transitions for complete sealing, FIFO interleave and finite batch
-  quotas. Its mandatory CKB gate and real-node enforcement are not implemented
-  yet; these host tests do not provide an authenticated snapshot or G2 result.
+- The [bounded A3 sealed schedule](A3_SEALED_V1.md) now has a mandatory CKB gate,
+  authentic all-lane seals, retained snapshots and FIFO prefix enforcement.
+  [Real-node evidence](A3_SEALED_REPORT.md) measures hostile switching, active-lane
+  churn, full queues, maximum snapshots and planned seal/batch rollback. This
+  establishes publication duties under batch progress, not wall-clock liveness,
+  admission fairness or proof settlement.
 
 ## Work that still blocks the user's production objective
 
 | Priority | Boundary | Required completion evidence |
 |---|---|---|
-| P0 | Full Experiment A / G2 | Add mandatory forced processing beyond the measured challenge-only failure; finish authenticated A3 sealing/switching, proof-bound pending-record recovery, hostile miner policies and unplanned reorgs. Individual A2 authenticity, bounded overload/drain and planned-reorg carry-forward now have measurements. |
-| P0 | Batch admission / W-12 | The implemented input encoding/inline-DA bounds have optional authenticated A2 input prefixes, but still need mandatory priority-set enforcement, L1 timestamp bounds, on-chain/proved binding to the new Ethereum envelope and deterministic rejection semantics, plus proved execution resource limits. |
+| P0 | Full Experiment A / G2 | Add mandatory forced processing beyond the measured challenge-only failure; qualify the implemented A3 sealing/switching under admission contention, proof-bound pending-record recovery, hostile miner policies and unplanned reorgs. Individual A2 authenticity, bounded overload/drain and planned-reorg carry-forward now have measurements. |
+| P0 | Batch admission / W-12 | The implemented input encoding/inline-DA bounds have optional authenticated A2 input prefixes and an A3 mandatory sealed-set gate, but still need the production enforcement selection, L1 timestamp bounds, on-chain/proved binding to the new Ethereum envelope and deterministic rejection semantics, plus proved execution resource limits. |
 | P0 | Execution / G5 | Authenticate the implemented pinned execution profile; add state checkpoints, broader differential conformance and ordinary Ethereum tool deployment; replace experimental genesis/supply limits. |
 | P0 | Validity settlement / G3 | Real prover and CKB verifier with wrong-state, wrong-order, wrong-domain and wrong-key rejection, plus a full proven batch. |
 | P0 | Recovery / G6 | Authenticate genesis allocation; extend measured CKB-to-EVM reconstruction to proving inputs and settlement by another prover, with unplanned network reorgs. |
@@ -72,8 +74,9 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
 First close Experiment A's enforcement gap and define the production batch
 admission envelope. Keep A1 as a correctness reference and reject live mutable
 A3 dependencies for canonical anchors. Treat A2 obligations and authenticated
-sealed snapshots as candidate constructions requiring implementation and hostile
-execution, not approved alternatives.
+sealed snapshots as candidate constructions with bounded mechanism evidence,
+requiring admission fairness, proof-bound fulfillment and hostile-network
+qualification before selection as a production mechanism.
 
 Then implement one complete path: Ethereum transaction → deterministic execution
 → CKB-published data and anchor → validity proof → verified settlement → withdrawal.

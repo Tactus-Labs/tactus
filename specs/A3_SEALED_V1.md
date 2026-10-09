@@ -1,11 +1,10 @@
 # A3 bounded sealed-epoch candidate, v1
 
-**Implementation phase: pure protocol transitions and adversarial host tests.**
-The mandatory CKB adapter, real-node sealing/switching experiments and production
-qualification are still required. Passing these functions does not authenticate
-caller-supplied lanes. This document defines the exact candidate to implement;
-it does not upgrade the earlier untyped immutable-copy experiment into an
-authenticated result.
+**Implementation phase: pure transitions plus a mandatory CKB gate and real-node
+experiments.** The [measured gate report](A3_SEALED_REPORT.md) records its scope.
+Production qualification, proof settlement, admission fairness and unplanned
+network reorgs remain outstanding. The original untyped immutable-copy experiment
+is separate historical evidence, not the authenticated construction specified here.
 
 ## Chosen schedule and boundaries
 
@@ -101,10 +100,12 @@ The policy hash uses `tactus/o1/sealed-policy/v1`, the semantic descriptor in
 bytes, priority messages per batch, batches per epoch, maximum Lane bytes and
 maximum Snapshot bytes. Policy changes require a different domain identity.
 
-## Required CKB adapter
+## CKB adapter contract and remaining qualification
 
-The following are implementation requirements, not properties already established
-by the pure library:
+`tactus-o1-sealed-script` enforces items 1–6 and the transaction/script resource
+bounds in item 7. Real-node evidence covers the local scenarios of item 8; proved
+execution, settlement, public miner scheduling and unplanned network reorgs are
+still required. The pure functions alone do not establish these properties:
 
 1. Create a unique genesis Schedule and complete lane configuration; reject
    replacement identities, extra/missing lanes and creation of later-epoch heads.
@@ -145,3 +146,57 @@ snapshot; and counter-overflow/cursor-forgery rejection.
 These tests check the pure transition contract and canonical representation.
 They are not a substitute for the CKB adapter checklist or a G2 pass. Current
 production blockers remain in [PRODUCTION_READINESS.md](PRODUCTION_READINESS.md).
+
+## Script and transaction interface
+
+The `data1` program has three roles, sharing the same code hash:
+
+- Args `0 || type_script_hash[32]`: co-input lock. An input carrying that exact
+  type must be present in the transaction. The anchor and Schedule share the
+  Schedule-bound lock; each lane has its own lane-type-bound lock.
+- Args `1 || gate_identity[32] || lane_index_u8`: unique lane type.
+- Args `2 || gate_identity[32]`: Schedule type. Its identity is CKBHash of the
+  first 44-byte input followed by the Schedule output's absolute u64le index.
+- Empty args always reject, supplying the immutable snapshot lock.
+
+Schedule creation requires a genesis anchor with its Schedule-bound lock and
+all configured genesis lanes in the same transaction. Lane creation requires a
+fresh co-created Schedule of the matching identity; a later Schedule spend
+cannot authorize minting another head. Lane genesis reserves enough fixed
+capacity for its maximum 8330-byte data. All Schedule/lane successors preserve
+their type, protocol lock and capacity, with exactly one output per type group.
+
+Ordinary append uses a lane input and its exact one-message successor. It has no
+mutable Schedule dependency. The gate is therefore not invalidated by admission,
+and ordinary Schedule advances do not invalidate an already signed lane append.
+
+The Schedule input's `WitnessArgs.input_type` selects an operation:
+
+- `[1]`: advance a batch. Both named anchor input/output must be present; the
+  anchor's own input witness supplies the 4-byte DA output index. The Schedule
+  validates the real batch and exact successor and enforces its mandatory prefix.
+- `[0] || snapshot_output_index_u32le`: seal. All configured lane inputs and
+  exact cleared successors must be present. An anchor input/output is forbidden
+  in this operation, preventing a seal from hiding an unmetered batch advance.
+
+For nonzero schedule epochs, a batch transaction references its immutable snapshot
+as a cell dependency. The gate scans a bounded set of resolved dependencies,
+checks the complete snapshot commitment, epoch, gate and lane configuration, and
+requires the exact immutable program lock and no type. A caller-created snapshot
+with different bytes cannot replace the pinned commitment. An identical retained
+copy has the same authenticated contents; no particular indexer or publisher is
+trusted. Oversized unrelated code dependencies are skipped before data allocation.
+
+The adapter bounds transaction inputs to 8, outputs to 10, resolved cell
+dependencies to 10 and witnesses to 12. Total witness length overhead, including
+8 bytes per witness, is at most 4096 bytes and is checked before witness decoding.
+Each accepted sealed-program script is capped at 20,000,000 cycles, with a
+4096-cycle exit reserve. The end check bounds acceptance, not preemption of failed
+work. Generic CKB transaction/block limits also apply; this is not an aggregate
+20-million-cycle transaction claim. The existing BatchInput bounds and first EVM
+block gas profile still apply; on-chain validity proof enforcement is pending.
+
+Error codes: 1 args, 2 cardinality, 3 codec, 4 identity, 5 lock/capacity,
+6 genesis, 7 missing co-input/creation authority, 8 configured lane missing,
+9 snapshot, 10 anchor, 11 witness/operation, 12 resource limit, 13 cycle budget,
+14 epoch/quota, 15 mandatory prefix, 16 transition mismatch.

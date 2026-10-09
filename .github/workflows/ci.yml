@@ -87,6 +87,11 @@ jobs:
           TACTUS_CKB_VERSION: ${{ matrix.ckb }}
           TACTUS_DEVNET_SUITE: replay-batch
         run: CKB_BIN="$RUNNER_TEMP/ckb/ckb" scripts/run-devnet-experiments.sh
+      - name: Verify mandatory A3 sealed snapshots and hostile switching
+        env:
+          TACTUS_CKB_VERSION: ${{ matrix.ckb }}
+          TACTUS_DEVNET_SUITE: replay-sealed
+        run: CKB_BIN="$RUNNER_TEMP/ckb/ckb" scripts/run-devnet-experiments.sh
       - name: Verify A2 obligations and challenge-only forced-inclusion counterexample
         env:
           TACTUS_CKB_VERSION: ${{ matrix.ckb }}
@@ -133,3 +138,10 @@ jobs:
             artifacts/priority-*/node.log
             artifacts/priority-*/node/ckb.toml
             artifacts/priority-*/node/specs/dev.toml
+            artifacts/sealed-*/evidence.json
+            artifacts/sealed-*/summary.json
+            artifacts/sealed-*/manifest.json
+            artifacts/sealed-*/replay.log
+            artifacts/sealed-*/node.log
+            artifacts/sealed-*/node/ckb.toml
+            artifacts/sealed-*/node/specs/dev.toml

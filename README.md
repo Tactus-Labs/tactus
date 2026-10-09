@@ -121,7 +121,8 @@ but snapshot switching and mandatory processing must survive hostile conditions.
 
 Read the [simulation report](specs/EXPERIMENT_A_REPORT.md), the
 [A2 challenge counterexample](specs/A2_OBLIGATION_REPORT.md), or the
-[A3 sealed-snapshot design](specs/A3_SEALED_V1.md). Simulation assumptions are
+[A3 sealed-snapshot design](specs/A3_SEALED_V1.md) and its
+[mandatory-gate node experiments](specs/A3_SEALED_REPORT.md). Simulation assumptions are
 recorded separately from real-node evidence; full Experiment A remains open.
 
 ## Run it locally

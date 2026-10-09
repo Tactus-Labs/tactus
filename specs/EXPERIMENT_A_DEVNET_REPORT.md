@@ -105,6 +105,11 @@ The per-lane/aggregate rows are controlled update schedules, not Poisson-rate or
 throughput measurements. L2 and L3 each update one referenced lane in this fixture;
 their identical outcome is not independent evidence about attacker timing.
 
+The later [mandatory A3 gate experiment](A3_SEALED_REPORT.md) adds authenticated
+all-lane sealing, retained snapshots and mandatory prefix/switching rules. It is a
+separate experiment with a real protocol implementation. The untyped-copy controls
+above retain their original conditional interpretation.
+
 ## Script and recovery controls
 
 Eleven freshly signed invalid cases were rejected by the expected OrderingHead

@@ -3036,6 +3036,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "tactus-o1-sealed-script"
+version = "0.1.0"
+dependencies = [
+ "ckb-std",
+ "tactus-o1-protocol",
+]
+
+[[package]]
 name = "tap"
 version = "1.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"

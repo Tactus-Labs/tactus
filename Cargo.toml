@@ -8,6 +8,7 @@ members = [
     "crates/tactus-o1-head-lock",
     "crates/tactus-o1-anchor-script",
     "crates/tactus-o1-priority-script",
+    "crates/tactus-o1-sealed-script",
     "crates/tactus-o1-execution",
 ]
 

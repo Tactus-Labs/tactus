@@ -10,11 +10,11 @@ cd "$(dirname "$0")/.."
 
 rustup target add riscv64imac-unknown-none-elf
 cargo build --locked --release --target riscv64imac-unknown-none-elf \
-  -p tactus-o1-ordering-script -p tactus-o1-head-lock -p tactus-o1-anchor-script -p tactus-o1-priority-script
+  -p tactus-o1-ordering-script -p tactus-o1-head-lock -p tactus-o1-anchor-script -p tactus-o1-priority-script -p tactus-o1-sealed-script
 
 LLD="$(rustc --print sysroot)/lib/rustlib/$(rustc -vV | sed -n 's/^host: //p')/bin/rust-lld"
 mkdir -p artifacts
-for name in tactus_o1_ordering_script tactus_o1_head_lock tactus_o1_anchor_script tactus_o1_priority_script; do
+for name in tactus_o1_ordering_script tactus_o1_head_lock tactus_o1_anchor_script tactus_o1_priority_script tactus_o1_sealed_script; do
   "$LLD" -flavor gnu \
     -o "artifacts/$name.elf" \
     "target/riscv64imac-unknown-none-elf/release/lib$name.a" \
