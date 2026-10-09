@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- Define and implement BatchInput v1 with explicit multi-block boundaries,
+  domain-separated commitments, streaming bounded decoding and independent
+  Python wire vectors. Reject malformed suffixes before visitor effects.
+- Add a distinct CKB-VM anchor that validates complete batch bytes published in
+  the same transaction, binds the unique predecessor and preserves head capacity.
+  Publication cells are unspendable under the anchor program's empty-args lock.
+- Verify 24 rejection controls, exact 256 KiB publication and canonical-input
+  recovery through a planned reorg on CKB 0.121.0 and 0.210.0. Execution/proof,
+  priority enforcement and production W-12 remain open.
+
 - Add isolated A1/A2/A3 CKB mechanism experiments on 0.121.0 and 0.210.0,
   with raw evidence, independent actor keys, fee/delay races, omission and
   dependency-churn controls, planned reorg and canonical head recovery.

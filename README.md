@@ -24,6 +24,11 @@ permissionless CKB-based canonical sequencing, validity-enforced settlement.
   [Raw evidence and scope](specs/EXPERIMENT_A_DEVNET_REPORT.md) are checked in;
   full Experiment A and G1–G9 remain OPEN. Reproduce with
   `CKB_BIN=/path/to/ckb scripts/run-devnet-experiments.sh`.
+- **Batch input / data publication:** [BatchInput v1](specs/BATCH_INPUT_V1.md)
+  binds ordered block inputs and publishes their complete bytes atomically in
+  immutable CKB outputs. Both node versions pass limit, mutation and reorg-input
+  recovery tests ([evidence](specs/BATCH_INPUT_REPORT.md)). This is not yet
+  execution totality, EVM state recovery or validity settlement.
 - **Current deliverable:** [Experiment A](specs/EXPERIMENT_A_DESIGN.md) — the
   priority-admission comparison of A1 (atomic OrderingHead reference), A2
   (independent Priority Message Cells) and A3′ (sharded lane heads, with an
@@ -113,6 +118,7 @@ crates/
   tactus-o1-protocol/     # protocol primitives (illustrative companions to the spec)
   tactus-o1-experiment-a/ # Experiment A simulation: workload models, metrics, scenarios
   tactus-o1-ordering-script/ # host-tested + CKB-VM experimental state transitions
+  tactus-o1-anchor-script/  # bounded multi-block inputs and atomic immutable CKB DA
   tactus-o1-head-lock/      # permissionless lock bound to the head type
   tactus-o1-devnet-driver/  # real transactions, isolated experiments, head recovery
 scripts/                # RISC-V build, disposable devnet launcher, evidence summary

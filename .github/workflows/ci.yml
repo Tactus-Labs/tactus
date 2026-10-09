@@ -19,6 +19,10 @@ jobs:
       - run: cargo fmt --all -- --check
       - run: cargo clippy --locked --workspace --all-targets -- -D warnings
       - run: cargo test --locked --workspace --quiet
+      - name: Independent batch codec vectors
+        run: |
+          python3 scripts/generate-batch-vectors.py
+          git diff --exit-code -- specs/test-vectors/batch-v1
       - name: Harness smoke (regression on the A1 fee-effect)
         run: cargo run --locked --quiet --bin tactus-o1-experiment-a >/dev/null
 
@@ -53,6 +57,11 @@ jobs:
         env:
           TACTUS_CKB_VERSION: ${{ matrix.ckb }}
         run: CKB_BIN="$RUNNER_TEMP/ckb/ckb" scripts/run-devnet-experiments.sh
+      - name: Verify inline batch data, limits and reorg recovery
+        env:
+          TACTUS_CKB_VERSION: ${{ matrix.ckb }}
+          TACTUS_DEVNET_SUITE: replay-batch
+        run: CKB_BIN="$RUNNER_TEMP/ckb/ckb" scripts/run-devnet-experiments.sh
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -65,3 +74,10 @@ jobs:
             artifacts/a123-*/node.log
             artifacts/a123-*/node/ckb.toml
             artifacts/a123-*/node/specs/dev.toml
+            artifacts/batch-*/evidence.json
+            artifacts/batch-*/summary.json
+            artifacts/batch-*/manifest.json
+            artifacts/batch-*/replay.log
+            artifacts/batch-*/node.log
+            artifacts/batch-*/node/ckb.toml
+            artifacts/batch-*/node/specs/dev.toml

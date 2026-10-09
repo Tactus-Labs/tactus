@@ -21,7 +21,7 @@ summary = {
     'transactions': {'committed_evidence_records': len(committed), 'rejected_records': len(rejected)},
     'estimated_cycles': {'samples': len(cycles), 'minimum': min(cycles) if cycles else None,
                          'maximum': max(cycles) if cycles else None},
-    'interpretation': 'Mechanism suite completed; full Experiment A and production gates remain OPEN.',
+    'interpretation': 'Boundary suite completed; full Experiment A and production gates remain OPEN.',
 }
 pathlib.Path(sys.argv[2]).write_text(json.dumps(summary, indent=2) + '\n')
 print(json.dumps(summary['transactions']))

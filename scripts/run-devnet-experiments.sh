@@ -13,10 +13,12 @@ if [[ "$($CKB_BIN --version)" != "ckb $required_version "* ]]; then
   echo "Experiments require CKB $required_version; set CKB_BIN to that binary." >&2
   exit 1
 fi
-cargo build --locked --bin replay-a123
+suite="${TACTUS_DEVNET_SUITE:-replay-a123}"
+case "$suite" in replay-a123|replay-batch) ;; *) echo 'Unknown devnet suite' >&2; exit 1 ;; esac
+cargo build --locked --bin "$suite"
 bash scripts/build-ordering-script.sh
 mkdir -p artifacts
-run_dir="$(mktemp -d "$PWD/artifacts/a123-XXXXXXXX")"
+run_dir="$(mktemp -d "$PWD/artifacts/${suite#replay-}-XXXXXXXX")"
 export TACTUS_CKB_RPC_ADDR="127.0.0.1:${TACTUS_DEVNET_RPC_PORT:-18714}"
 export TACTUS_DEVNET_AUTOMINE=1
 export TACTUS_EVIDENCE_PATH="$run_dir/evidence.json"
@@ -54,7 +56,7 @@ manifest={'node_version':subprocess.check_output([os.environ['TACTUS_CKB_BIN'],'
  'rustc':subprocess.check_output(['rustc','-Vv'],text=True),'git_head':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
  'git_diff_sha256':hashlib.sha256(subprocess.check_output(['git','diff','HEAD'])).hexdigest(),
  'files':{}}
-for name in ['Cargo.lock','scripts/build-ordering-script.sh','scripts/ordering-script.ld','artifacts/tactus_o1_ordering_script.elf','artifacts/tactus_o1_head_lock.elf',str(root/'node/ckb.toml'),str(p),os.environ['TACTUS_CKB_BIN']]:
+for name in ['Cargo.lock','scripts/build-ordering-script.sh','scripts/ordering-script.ld','artifacts/tactus_o1_ordering_script.elf','artifacts/tactus_o1_head_lock.elf','artifacts/tactus_o1_anchor_script.elf',str(root/'node/ckb.toml'),str(p),os.environ['TACTUS_CKB_BIN']]:
  manifest['files'][name]=hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest()
 paths=subprocess.check_output(['git','ls-files','--cached','--others','--exclude-standard','-z'],text=True).split('\0')
 manifest['source_files']={name:hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest()
@@ -78,6 +80,6 @@ for _ in range(150):
 else:raise SystemExit('Isolated CKB node did not start at genesis')
 PY
 printf 'Evidence directory: %s\n' "$run_dir"
-target/debug/replay-a123 2>&1 | tee "$run_dir/replay.log"
+"target/debug/$suite" 2>&1 | tee "$run_dir/replay.log"
 python3 scripts/summarize-experiments.py "$run_dir/evidence.json" "$run_dir/summary.json"
 printf 'Complete: %s\n' "$run_dir/summary.json"

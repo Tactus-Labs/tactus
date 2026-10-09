@@ -6,6 +6,7 @@ members = [
     "crates/tactus-o1-ordering-script",
     "crates/tactus-o1-devnet-driver",
     "crates/tactus-o1-head-lock",
+    "crates/tactus-o1-anchor-script",
 ]
 
 [workspace.package]

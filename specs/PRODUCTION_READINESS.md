@@ -19,12 +19,18 @@ rollup deployment or custody of user assets.
 See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
 [fixture wire format and limitations](DEVNET_WIRE_FORMAT.md).
 
+- Canonical bounded multi-block input encoding, tested against independent Python
+  vectors, plus a distinct CKB-VM anchor enforcing atomic immutable data publication.
+- Full batch-input recovery from canonical CKB blocks, including a maximum-size
+  publication and replacement of an orphaned branch. This is input recovery,
+  not recovery of executed EVM state. See [batch results](BATCH_INPUT_REPORT.md).
+
 ## Work that still blocks the user's production objective
 
 | Priority | Boundary | Required completion evidence |
 |---|---|---|
 | P0 | Full Experiment A / G2 | Implement actual authenticated obligations and forced processing; exercise saturation, carry-forward, consumed-but-unproven, hostile snapshot switching, miner policy and unplanned reorg scenarios. |
-| P0 | Batch admission / W-12 | Canonical multi-EVM-block encoding, hard resource bounds, payload/DA binding, authenticated priority prefix, and rejection of every accepted-but-unprovable input class. |
+| P0 | Batch admission / W-12 | The implemented input encoding/inline-DA bounds still need authenticated priority prefixes, L1 timestamp bounds, Ethereum envelope validation, deterministic rejection semantics and proved execution resource limits. |
 | P0 | Execution / G5 | Pinned serial EVM execution, persistent state, differential conformance and ordinary Ethereum tool deployment. |
 | P0 | Validity settlement / G3 | Real prover and CKB verifier with wrong-state, wrong-order, wrong-domain and wrong-key rejection, plus a full proven batch. |
 | P0 | Recovery / G6 | Independent reconstruction of EVM state and proving inputs using genesis plus CKB data, followed by settlement by another prover. |
@@ -67,3 +73,8 @@ reconfigured. The fixed keys are for these funded dummy chains only.
 
 CI also runs the reference devnet suite and uploads evidence on failure. Its
 presence in the workflow is not a claim that remote CI has run on unpushed changes.
+
+The input-publication suite can be run independently with
+`TACTUS_DEVNET_SUITE=replay-batch CKB_BIN=/absolute/path/to/ckb scripts/run-devnet-experiments.sh`.
+Its code and wire format are separate from the A1 bare-commitment reference so the
+latter cannot serve as an accidental fallback for the input-publication anchor.

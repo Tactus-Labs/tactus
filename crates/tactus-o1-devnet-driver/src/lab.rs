@@ -49,12 +49,16 @@ pub fn chain(left: &[u8; 32], right: &[u8; 32]) -> [u8; 32] {
 
 impl Lab {
     pub fn connect() -> Result<Self, String> {
+        Self::connect_with_script("artifacts/tactus_o1_ordering_script.elf")
+    }
+
+    /// Deploy a specifically selected experimental type program on the same lab.
+    pub fn connect_with_script(script_path: &str) -> Result<Self, String> {
         let consensus = rpc::require_devnet()?;
         let node = rpc::call("local_node_info", json!([]))?;
         let genesis = rpc::get_block_detailed(0)?;
         let secp = tx::find_secp_dep(&genesis)?;
-        let ordering_elf =
-            std::fs::read("artifacts/tactus_o1_ordering_script.elf").map_err(|e| e.to_string())?;
+        let ordering_elf = std::fs::read(script_path).map_err(|e| e.to_string())?;
         let lock_elf =
             std::fs::read("artifacts/tactus_o1_head_lock.elf").map_err(|e| e.to_string())?;
         let key = DevKey::dev();
@@ -82,6 +86,7 @@ impl Lab {
             metadata: json!({"consensus":consensus,"node_version":node["version"],
                 "ordering_code_hash":rpc::bytes_to_hex(&ckb_blake2b(&ordering_elf)),
                 "lock_code_hash":rpc::bytes_to_hex(&ckb_blake2b(&lock_elf)),
+                "script_path":script_path,
                 "tier":"isolated CKB devnet, deterministic block generation",
                 "production_ready":false}),
             ordering_elf,

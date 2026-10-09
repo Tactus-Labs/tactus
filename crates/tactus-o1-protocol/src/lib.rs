@@ -10,6 +10,12 @@
 //! integrity, PRI-3 freshness, PRI-4 deterministic outcome, PRI-5 recovery,
 //! PRI-6 admission liveness (OPEN), PRI-7 enforceable inclusion (OPEN).
 
+#![no_std]
+extern crate alloc;
+
+/// Canonical bounded batch inputs and inline-DA anchor state.
+pub mod batch;
+
 /// 32-byte domain-separated digest.
 pub type Hash32 = [u8; 32];
 

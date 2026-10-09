@@ -181,6 +181,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "tactus-o1-anchor-script"
+version = "0.1.0"
+dependencies = [
+ "ckb-std",
+ "tactus-o1-protocol",
+]
+
+[[package]]
 name = "tactus-o1-devnet-driver"
 version = "0.1.0"
 dependencies = [
@@ -188,6 +196,7 @@ dependencies = [
  "secp256k1",
  "serde_json",
  "tactus-o1-ordering-script",
+ "tactus-o1-protocol",
 ]
 
 [[package]]
@@ -215,6 +224,9 @@ dependencies = [
 [[package]]
 name = "tactus-o1-protocol"
 version = "0.1.0"
+dependencies = [
+ "blake2b-ref",
+]
 
 [[package]]
 name = "unicode-ident"
