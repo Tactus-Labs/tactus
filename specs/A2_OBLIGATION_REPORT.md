@@ -125,3 +125,15 @@ complete resource/economic qualification and overload policy. A3 still needs
 real authenticated sealing, mandatory snapshot switching and adversarial tests.
 Unplanned network reorgs and public-miner scheduling remain unmeasured. See
 [production readiness](PRODUCTION_READINESS.md) for the complete outstanding path.
+
+## Regression after adding the A3 pure protocol core
+
+Commit `418ca84` adds a separate protocol module without changing A2 semantics or
+Cargo.lock. Re-linking nevertheless changes the priority ELF SHA-256 to
+`cca551dc59bcdff7c32c7df0d8e11fbe1ba57430b4fe30d53b0689fab89e2b75`.
+Both CKB versions were therefore rerun against that actual binary. Each again
+records 24 committed events, 20 expected rejections, 21 live pending records and
+the same challenge-only forced-inclusion failure. New [raw evidence, manifests,
+configurations and summaries](evidence/a2-sealed-core-regression/) are retained
+separately from the original experiment. The earlier cycle table describes the
+original measured binary; the regression summaries describe the re-linked one.
