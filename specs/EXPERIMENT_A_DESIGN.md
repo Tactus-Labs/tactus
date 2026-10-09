@@ -1,8 +1,15 @@
 # Experiment A — Priority Admission Comparison
 
-**Status:** experiment design, pre-implementation
+**Status:** partially implemented and measured; full Experiment A and G2 remain OPEN
 **Baseline:** [TACTUS_O1_ARCHITECTURE_SPEC_v0.2.6.md](TACTUS_O1_ARCHITECTURE_SPEC_v0.2.6.md) §14 (as amended by changes 20–24)
 **Blocking gate:** **G2 — censorship resistance.** No average-TPS figure may substitute for it.
+
+Current evidence includes the [mechanism controls](EXPERIMENT_A_DEVNET_REPORT.md),
+[authenticated A2 obligations](A2_OBLIGATION_REPORT.md),
+[mandatory A3 sealed gate](A3_SEALED_REPORT.md), and
+[matched admission contention](ADMISSION_CONTENTION_REPORT.md). These measurements
+cover specific boundaries; the complete workload and acceptance requirements
+below remain the target, not a claim of completion.
 
 ## 1. Purpose
 

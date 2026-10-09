@@ -28,7 +28,7 @@ jobs:
 
   evm-differential:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@1.92.0
@@ -53,7 +53,7 @@ jobs:
 
   ckb-mechanisms:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     strategy:
       fail-fast: false
       matrix:
@@ -87,6 +87,11 @@ jobs:
           TACTUS_CKB_VERSION: ${{ matrix.ckb }}
           TACTUS_DEVNET_SUITE: replay-batch
         run: CKB_BIN="$RUNNER_TEMP/ckb/ckb" scripts/run-devnet-experiments.sh
+      - name: Compare authenticated A1/A2/A3 admission under matched races
+        env:
+          TACTUS_CKB_VERSION: ${{ matrix.ckb }}
+          TACTUS_DEVNET_SUITE: replay-admission
+        run: CKB_BIN="$RUNNER_TEMP/ckb/ckb" scripts/run-devnet-experiments.sh
       - name: Verify mandatory A3 sealed snapshots and hostile switching
         env:
           TACTUS_CKB_VERSION: ${{ matrix.ckb }}
@@ -107,6 +112,13 @@ jobs:
         with:
           name: ckb-experiment-evidence-${{ matrix.ckb }}
           path: |
+            artifacts/admission-*/evidence.json
+            artifacts/admission-*/summary.json
+            artifacts/admission-*/manifest.json
+            artifacts/admission-*/replay.log
+            artifacts/admission-*/node.log
+            artifacts/admission-*/node/ckb.toml
+            artifacts/admission-*/node/specs/dev.toml
             artifacts/a123-*/evidence.json
             artifacts/a123-*/summary.json
             artifacts/a123-*/manifest.json

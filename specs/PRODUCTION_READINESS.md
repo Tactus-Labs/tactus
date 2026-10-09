@@ -55,11 +55,16 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
   establishes publication duties under batch progress, not wall-clock liveness,
   admission fairness or proof settlement.
 
+- [Matched authenticated admission races](ADMISSION_CONTENTION_REPORT.md) compare
+  five arms on both CKB versions, with independent fee cells and identical delays
+  and absolute fees. A3 targeted same-lane conflicts retain A1's failure modes;
+  independent A2 and disjoint A3 admissions succeed in this bounded schedule.
+
 ## Work that still blocks the user's production objective
 
 | Priority | Boundary | Required completion evidence |
 |---|---|---|
-| P0 | Full Experiment A / G2 | Add mandatory forced processing beyond the measured challenge-only failure; qualify the implemented A3 sealing/switching under admission contention, proof-bound pending-record recovery, hostile miner policies and unplanned reorgs. Individual A2 authenticity, bounded overload/drain and planned-reorg carry-forward now have measurements. |
+| P0 | Full Experiment A / G2 | Add mandatory forced processing beyond the measured challenge-only failure; qualify the implemented A3 sealing/switching under sustained admission contention beyond the measured targeted-lane failure, proof-bound pending-record recovery, hostile miner policies and unplanned reorgs. Individual A2 authenticity, bounded overload/drain and planned-reorg carry-forward now have measurements. |
 | P0 | Batch admission / W-12 | The implemented input encoding/inline-DA bounds have optional authenticated A2 input prefixes and an A3 mandatory sealed-set gate, but still need the production enforcement selection, L1 timestamp bounds, on-chain/proved binding to the new Ethereum envelope and deterministic rejection semantics, plus proved execution resource limits. |
 | P0 | Execution / G5 | Authenticate the implemented pinned execution profile; add state checkpoints, broader differential conformance and ordinary Ethereum tool deployment; replace experimental genesis/supply limits. |
 | P0 | Validity settlement / G3 | Real prover and CKB verifier with wrong-state, wrong-order, wrong-domain and wrong-key rejection, plus a full proven batch. |

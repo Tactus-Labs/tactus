@@ -1,0 +1,808 @@
+{
+  "0.121.0": {
+    "events": {
+      "committed_evidence_records": 290,
+      "rejected_records": 36
+    },
+    "arms": {
+      "A1-shared-head": {
+        "races": 24,
+        "classifications": {
+          "live_pool_rejection": 6,
+          "victim_committed": 8,
+          "accepted_lost_conflict": 4,
+          "stale_input": 6
+        },
+        "both_committed": 0,
+        "wire_bytes": [
+          1034
+        ],
+        "cycles_min": 1671383,
+        "cycles_max": 1732715,
+        "first_output_capacity_ckb": [
+          336
+        ],
+        "cells": [
+          {
+            "delay_blocks": 0,
+            "fee_ratio": 1,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 0,
+            "fee_ratio": 2,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 0,
+            "fee_ratio": 10,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 1,
+            "fee_ratio": 1,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 1,
+            "fee_ratio": 2,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 1,
+            "fee_ratio": 10,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 3,
+            "fee_ratio": 1,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 3,
+            "fee_ratio": 2,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 3,
+            "fee_ratio": 10,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 6,
+            "fee_ratio": 1,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 6,
+            "fee_ratio": 2,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 6,
+            "fee_ratio": 10,
+            "victim_commits": 0
+          }
+        ]
+      },
+      "A2-independent-messages": {
+        "races": 24,
+        "classifications": {
+          "victim_committed": 24
+        },
+        "both_committed": 24,
+        "wire_bytes": [
+          999
+        ],
+        "cycles_min": 1681579,
+        "cycles_max": 1741740,
+        "first_output_capacity_ckb": [
+          396
+        ],
+        "cells": [
+          {
+            "delay_blocks": 0,
+            "fee_ratio": 1,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 0,
+            "fee_ratio": 2,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 0,
+            "fee_ratio": 10,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 1,
+            "fee_ratio": 1,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 1,
+            "fee_ratio": 2,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 1,
+            "fee_ratio": 10,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 3,
+            "fee_ratio": 1,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 3,
+            "fee_ratio": 2,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 3,
+            "fee_ratio": 10,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 6,
+            "fee_ratio": 1,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 6,
+            "fee_ratio": 2,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 6,
+            "fee_ratio": 10,
+            "victim_commits": 2
+          }
+        ]
+      },
+      "A3-four-lanes-disjoint": {
+        "races": 24,
+        "classifications": {
+          "victim_committed": 24
+        },
+        "both_committed": 24,
+        "wire_bytes": [
+          985
+        ],
+        "cycles_min": 1763400,
+        "cycles_max": 1834479,
+        "first_output_capacity_ckb": [
+          8472
+        ],
+        "cells": [
+          {
+            "delay_blocks": 0,
+            "fee_ratio": 1,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 0,
+            "fee_ratio": 2,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 0,
+            "fee_ratio": 10,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 1,
+            "fee_ratio": 1,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 1,
+            "fee_ratio": 2,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 1,
+            "fee_ratio": 10,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 3,
+            "fee_ratio": 1,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 3,
+            "fee_ratio": 2,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 3,
+            "fee_ratio": 10,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 6,
+            "fee_ratio": 1,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 6,
+            "fee_ratio": 2,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 6,
+            "fee_ratio": 10,
+            "victim_commits": 2
+          }
+        ]
+      },
+      "A3-four-lanes-targeted": {
+        "races": 24,
+        "classifications": {
+          "live_pool_rejection": 6,
+          "victim_committed": 8,
+          "accepted_lost_conflict": 4,
+          "stale_input": 6
+        },
+        "both_committed": 0,
+        "wire_bytes": [
+          985
+        ],
+        "cycles_min": 1763400,
+        "cycles_max": 1821069,
+        "first_output_capacity_ckb": [
+          8472
+        ],
+        "cells": [
+          {
+            "delay_blocks": 0,
+            "fee_ratio": 1,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 0,
+            "fee_ratio": 2,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 0,
+            "fee_ratio": 10,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 1,
+            "fee_ratio": 1,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 1,
+            "fee_ratio": 2,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 1,
+            "fee_ratio": 10,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 3,
+            "fee_ratio": 1,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 3,
+            "fee_ratio": 2,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 3,
+            "fee_ratio": 10,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 6,
+            "fee_ratio": 1,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 6,
+            "fee_ratio": 2,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 6,
+            "fee_ratio": 10,
+            "victim_commits": 0
+          }
+        ]
+      },
+      "A3-one-lane": {
+        "races": 24,
+        "classifications": {
+          "live_pool_rejection": 6,
+          "victim_committed": 8,
+          "accepted_lost_conflict": 4,
+          "stale_input": 6
+        },
+        "both_committed": 0,
+        "wire_bytes": [
+          985
+        ],
+        "cycles_min": 1784915,
+        "cycles_max": 1830724,
+        "first_output_capacity_ckb": [
+          8472
+        ],
+        "cells": [
+          {
+            "delay_blocks": 0,
+            "fee_ratio": 1,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 0,
+            "fee_ratio": 2,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 0,
+            "fee_ratio": 10,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 1,
+            "fee_ratio": 1,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 1,
+            "fee_ratio": 2,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 1,
+            "fee_ratio": 10,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 3,
+            "fee_ratio": 1,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 3,
+            "fee_ratio": 2,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 3,
+            "fee_ratio": 10,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 6,
+            "fee_ratio": 1,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 6,
+            "fee_ratio": 2,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 6,
+            "fee_ratio": 10,
+            "victim_commits": 0
+          }
+        ]
+      }
+    },
+    "raw_sha256": "8ac26a6d649c79803cee363362ea3f2f7ffc86aeb37615e37d42ea22d8e2e00a"
+  },
+  "0.210.0": {
+    "events": {
+      "committed_evidence_records": 290,
+      "rejected_records": 36
+    },
+    "arms": {
+      "A1-shared-head": {
+        "races": 24,
+        "classifications": {
+          "live_pool_rejection": 6,
+          "victim_committed": 8,
+          "accepted_lost_conflict": 4,
+          "stale_input": 6
+        },
+        "both_committed": 0,
+        "wire_bytes": [
+          1034
+        ],
+        "cycles_min": 1671383,
+        "cycles_max": 1732715,
+        "first_output_capacity_ckb": [
+          336
+        ],
+        "cells": [
+          {
+            "delay_blocks": 0,
+            "fee_ratio": 1,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 0,
+            "fee_ratio": 2,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 0,
+            "fee_ratio": 10,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 1,
+            "fee_ratio": 1,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 1,
+            "fee_ratio": 2,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 1,
+            "fee_ratio": 10,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 3,
+            "fee_ratio": 1,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 3,
+            "fee_ratio": 2,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 3,
+            "fee_ratio": 10,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 6,
+            "fee_ratio": 1,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 6,
+            "fee_ratio": 2,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 6,
+            "fee_ratio": 10,
+            "victim_commits": 0
+          }
+        ]
+      },
+      "A2-independent-messages": {
+        "races": 24,
+        "classifications": {
+          "victim_committed": 24
+        },
+        "both_committed": 24,
+        "wire_bytes": [
+          999
+        ],
+        "cycles_min": 1681579,
+        "cycles_max": 1741740,
+        "first_output_capacity_ckb": [
+          396
+        ],
+        "cells": [
+          {
+            "delay_blocks": 0,
+            "fee_ratio": 1,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 0,
+            "fee_ratio": 2,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 0,
+            "fee_ratio": 10,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 1,
+            "fee_ratio": 1,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 1,
+            "fee_ratio": 2,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 1,
+            "fee_ratio": 10,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 3,
+            "fee_ratio": 1,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 3,
+            "fee_ratio": 2,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 3,
+            "fee_ratio": 10,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 6,
+            "fee_ratio": 1,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 6,
+            "fee_ratio": 2,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 6,
+            "fee_ratio": 10,
+            "victim_commits": 2
+          }
+        ]
+      },
+      "A3-four-lanes-disjoint": {
+        "races": 24,
+        "classifications": {
+          "victim_committed": 24
+        },
+        "both_committed": 24,
+        "wire_bytes": [
+          985
+        ],
+        "cycles_min": 1763400,
+        "cycles_max": 1834479,
+        "first_output_capacity_ckb": [
+          8472
+        ],
+        "cells": [
+          {
+            "delay_blocks": 0,
+            "fee_ratio": 1,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 0,
+            "fee_ratio": 2,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 0,
+            "fee_ratio": 10,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 1,
+            "fee_ratio": 1,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 1,
+            "fee_ratio": 2,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 1,
+            "fee_ratio": 10,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 3,
+            "fee_ratio": 1,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 3,
+            "fee_ratio": 2,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 3,
+            "fee_ratio": 10,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 6,
+            "fee_ratio": 1,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 6,
+            "fee_ratio": 2,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 6,
+            "fee_ratio": 10,
+            "victim_commits": 2
+          }
+        ]
+      },
+      "A3-four-lanes-targeted": {
+        "races": 24,
+        "classifications": {
+          "live_pool_rejection": 6,
+          "victim_committed": 8,
+          "accepted_lost_conflict": 4,
+          "stale_input": 6
+        },
+        "both_committed": 0,
+        "wire_bytes": [
+          985
+        ],
+        "cycles_min": 1763400,
+        "cycles_max": 1821069,
+        "first_output_capacity_ckb": [
+          8472
+        ],
+        "cells": [
+          {
+            "delay_blocks": 0,
+            "fee_ratio": 1,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 0,
+            "fee_ratio": 2,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 0,
+            "fee_ratio": 10,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 1,
+            "fee_ratio": 1,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 1,
+            "fee_ratio": 2,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 1,
+            "fee_ratio": 10,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 3,
+            "fee_ratio": 1,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 3,
+            "fee_ratio": 2,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 3,
+            "fee_ratio": 10,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 6,
+            "fee_ratio": 1,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 6,
+            "fee_ratio": 2,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 6,
+            "fee_ratio": 10,
+            "victim_commits": 0
+          }
+        ]
+      },
+      "A3-one-lane": {
+        "races": 24,
+        "classifications": {
+          "live_pool_rejection": 6,
+          "victim_committed": 8,
+          "accepted_lost_conflict": 4,
+          "stale_input": 6
+        },
+        "both_committed": 0,
+        "wire_bytes": [
+          985
+        ],
+        "cycles_min": 1784915,
+        "cycles_max": 1830724,
+        "first_output_capacity_ckb": [
+          8472
+        ],
+        "cells": [
+          {
+            "delay_blocks": 0,
+            "fee_ratio": 1,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 0,
+            "fee_ratio": 2,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 0,
+            "fee_ratio": 10,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 1,
+            "fee_ratio": 1,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 1,
+            "fee_ratio": 2,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 1,
+            "fee_ratio": 10,
+            "victim_commits": 2
+          },
+          {
+            "delay_blocks": 3,
+            "fee_ratio": 1,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 3,
+            "fee_ratio": 2,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 3,
+            "fee_ratio": 10,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 6,
+            "fee_ratio": 1,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 6,
+            "fee_ratio": 2,
+            "victim_commits": 0
+          },
+          {
+            "delay_blocks": 6,
+            "fee_ratio": 10,
+            "victim_commits": 0
+          }
+        ]
+      }
+    },
+    "raw_sha256": "5dff45f3280c953fbcba60896d3b80fb5303898cbca46d9fb04624b2b44d03e1"
+  }
+}

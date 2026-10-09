@@ -1,0 +1,242 @@
+deploy immutable code and independent actor funds: committed 0xd33fc56b67c8d72c28bb99fd4bd90bc258cb518b8258185ea3c4cab0fc5447fd
+admission/deploy comparator programs: committed 0xc91a8fc51575c74cbbaf993f9c4dc074834ceb6429e41ec8c319ee1548e43743
+unique head genesis: committed 0xa754e3bf07d784c2f8a06032cb3aa380d2f6f7934112565a3ba75f7ae5e9b9c4
+A1-shared-head/delay-0/fee-1/repeat-0: live_pool_rejection, canonical=[true, false]
+unique head genesis: committed 0xf7224b4f1db5cf1106a41b3c775a272dbfd37802dcbb00c187d45d521405729e
+A1-shared-head/delay-0/fee-1/repeat-1: live_pool_rejection, canonical=[true, false]
+unique head genesis: committed 0x436a266285e4d607be5ba35a2c2f50249c0a5dd1ab75fd1a3c436b8f8f01f15d
+A1-shared-head/delay-0/fee-2/repeat-0: victim_committed, canonical=[false, true]
+unique head genesis: committed 0x7a6a075e34951bf8a376d9f329a040791799df2528b22b1ede7e653f687212d2
+A1-shared-head/delay-0/fee-2/repeat-1: victim_committed, canonical=[false, true]
+unique head genesis: committed 0xfcb17d15c27daf5656f3696fc71ef2736281b74f277433b631a3ba4c2c940e3c
+A1-shared-head/delay-0/fee-10/repeat-0: victim_committed, canonical=[false, true]
+unique head genesis: committed 0x53ff132b2a99c897a1e18208ef0526c695b2502c2ff2eda4a97b0927d36f238d
+A1-shared-head/delay-0/fee-10/repeat-1: victim_committed, canonical=[false, true]
+unique head genesis: committed 0x03d515f675b85c13cc4d0ef4229fb2cd20b91dd599c43308f9252c6a73f391d4
+A1-shared-head/delay-1/fee-1/repeat-0: live_pool_rejection, canonical=[true, false]
+unique head genesis: committed 0x78e66758027cb7a6c4ac9fb45b19cbb97fb04e0bb7481b73d352bb2630ebeee3
+A1-shared-head/delay-1/fee-1/repeat-1: live_pool_rejection, canonical=[true, false]
+unique head genesis: committed 0xb45208d9fbf3485d6639dbd1de46556e59ad551b6ff96f5ee3b0bff4e7bda3fe
+A1-shared-head/delay-1/fee-2/repeat-0: victim_committed, canonical=[false, true]
+unique head genesis: committed 0xcb531b95ac13bd9af7972edc7020e455ab41993f25f5e4d74bbe6a59f4f694e8
+A1-shared-head/delay-1/fee-2/repeat-1: victim_committed, canonical=[false, true]
+unique head genesis: committed 0x341f192ba617358e011513822b91032a6092de29907281be7c7163e514a9406a
+A1-shared-head/delay-1/fee-10/repeat-0: victim_committed, canonical=[false, true]
+unique head genesis: committed 0x88ccfc9c170ed92291b597a6ab06134939d69e7c9602396da1e4080021208add
+A1-shared-head/delay-1/fee-10/repeat-1: victim_committed, canonical=[false, true]
+unique head genesis: committed 0x9e352d180d88e9e187ee42b7807b050c14c09b49d4aa0bdd4774ec23b303cd9a
+A1-shared-head/delay-3/fee-1/repeat-0: live_pool_rejection, canonical=[true, false]
+unique head genesis: committed 0xf5c2de0a5ee7b4ad1260fe25f512531ae5ed67db1e970dcd3f6193787d93c6f8
+A1-shared-head/delay-3/fee-1/repeat-1: live_pool_rejection, canonical=[true, false]
+unique head genesis: committed 0x6e4525cb551201288b93490e4edd41f7a0676ab9250c9bc256625531f943af54
+A1-shared-head/delay-3/fee-2/repeat-0: accepted_lost_conflict, canonical=[true, false]
+unique head genesis: committed 0x1a7e74155b4146e27e2230ef05f4102b7d46ad25c138a37cf3f8aac719bf7637
+A1-shared-head/delay-3/fee-2/repeat-1: accepted_lost_conflict, canonical=[true, false]
+unique head genesis: committed 0xdc7f95d21ce618296f54c9771c890f290f6de5c2108be094f3052c8ca3e0d4da
+A1-shared-head/delay-3/fee-10/repeat-0: accepted_lost_conflict, canonical=[true, false]
+unique head genesis: committed 0x2bc859cef992b29d2617c9a3ba0ac5c82b681dd0b449dced12716a2df35db03a
+A1-shared-head/delay-3/fee-10/repeat-1: accepted_lost_conflict, canonical=[true, false]
+unique head genesis: committed 0x3907853551b2ded64cf47905f540d9ef8c46e9503dc611440f71443f558de84e
+A1-shared-head/delay-6/fee-1/repeat-0: stale_input, canonical=[true, false]
+unique head genesis: committed 0xb3cb7979808dd56d71d92ad0a30050ba594e47cbf27cedc81c8ae0df60c1d1e8
+A1-shared-head/delay-6/fee-1/repeat-1: stale_input, canonical=[true, false]
+unique head genesis: committed 0xc61649a6b73ce1c462fcdf870566a216faf0f54da24faa3173c5ba53b43919a8
+A1-shared-head/delay-6/fee-2/repeat-0: stale_input, canonical=[true, false]
+unique head genesis: committed 0x050aef3c02536807f8f9b68c8a0f2e70e100c5a2a01d0e0b14a1e90a5d4b3180
+A1-shared-head/delay-6/fee-2/repeat-1: stale_input, canonical=[true, false]
+unique head genesis: committed 0xf6438fc671d8866ddf4f3a7f3145879052f0c7765c076735e4f3051e946f690b
+A1-shared-head/delay-6/fee-10/repeat-0: stale_input, canonical=[true, false]
+unique head genesis: committed 0xf94c7c6d19740d020e6a592d2652fc734017722411ef902278d355034222c3ea
+A1-shared-head/delay-6/fee-10/repeat-1: stale_input, canonical=[true, false]
+sealed/1 lanes/genesis: committed 0xbb3403d3b58df6205d18cdd913901b9015bd74c5c6653e2dc5e5f556c225cb5f
+A2-independent-messages/delay-0/fee-1/repeat-0: victim_committed, canonical=[true, true]
+sealed/1 lanes/genesis: committed 0x0fb5b918a4c17656a07cbb8e357e0131ef664fa1d723c187a6867ea53d007ed9
+A2-independent-messages/delay-0/fee-1/repeat-1: victim_committed, canonical=[true, true]
+sealed/1 lanes/genesis: committed 0x6c4a5b22a0fcadbc3d14d71f8eb5abed122204c852d4d3690ea2be52dbece147
+A2-independent-messages/delay-0/fee-2/repeat-0: victim_committed, canonical=[true, true]
+sealed/1 lanes/genesis: committed 0xbe71a3e07cdbab8d8b433867749c61631d671f4b4d3049fd7d6b3d9d9699d89b
+A2-independent-messages/delay-0/fee-2/repeat-1: victim_committed, canonical=[true, true]
+sealed/1 lanes/genesis: committed 0xd6ed8ad3fe3e693f48b1ca060404284c48b3310e1107ef66a7a6922b2cd6dec6
+A2-independent-messages/delay-0/fee-10/repeat-0: victim_committed, canonical=[true, true]
+sealed/1 lanes/genesis: committed 0x1d33f7fd82a59ee63bf753e2ff6852a30feaf14458172aedddf19e51bed42e7d
+A2-independent-messages/delay-0/fee-10/repeat-1: victim_committed, canonical=[true, true]
+sealed/1 lanes/genesis: committed 0xae1624dfff0312746a02844ffdecfd9215b2a4cb5a6b2cab873add99e14e394f
+A2-independent-messages/delay-1/fee-1/repeat-0: victim_committed, canonical=[true, true]
+sealed/1 lanes/genesis: committed 0x8e952b056c15cbe52f71373bfb8ac45c19491a7f2dea2d9f24645365c8f65dd2
+A2-independent-messages/delay-1/fee-1/repeat-1: victim_committed, canonical=[true, true]
+sealed/1 lanes/genesis: committed 0xe7c5d5a8e241342e38de706551554a5ff67a2cb95f89ccc431d30247c43a163e
+A2-independent-messages/delay-1/fee-2/repeat-0: victim_committed, canonical=[true, true]
+sealed/1 lanes/genesis: committed 0x65b3723ebf8c353583bf903766db426ad0b73c6f1dd393b1bc888a060476cb78
+A2-independent-messages/delay-1/fee-2/repeat-1: victim_committed, canonical=[true, true]
+sealed/1 lanes/genesis: committed 0x16273ae933eb1351c8fbce00c80fa3a81a2b41beb89ea122de98b079e194684a
+A2-independent-messages/delay-1/fee-10/repeat-0: victim_committed, canonical=[true, true]
+sealed/1 lanes/genesis: committed 0xf69da28250e442502fd03fd9301075b799ebecf9d630ffb5f38f4bf11d9a07a4
+A2-independent-messages/delay-1/fee-10/repeat-1: victim_committed, canonical=[true, true]
+sealed/1 lanes/genesis: committed 0x8a110598ea2e543caf81978ac4584e26af172452a887675c41878319c7afab5c
+A2-independent-messages/delay-3/fee-1/repeat-0: victim_committed, canonical=[true, true]
+sealed/1 lanes/genesis: committed 0x1939890a73e3aed0855fa01375f3f9cd5710f80b07a9d4882ad34e96cd779e09
+A2-independent-messages/delay-3/fee-1/repeat-1: victim_committed, canonical=[true, true]
+sealed/1 lanes/genesis: committed 0x155dba89df497870313b815fd35c4972dd85a9e22599e66521e26cd98929c222
+A2-independent-messages/delay-3/fee-2/repeat-0: victim_committed, canonical=[true, true]
+sealed/1 lanes/genesis: committed 0xf0330ef401aa2bbe34814b6ab38392db97d17aa8835324bc875ff412254c2acb
+A2-independent-messages/delay-3/fee-2/repeat-1: victim_committed, canonical=[true, true]
+sealed/1 lanes/genesis: committed 0xd19c8883987a95917cf89d710ae64c5e4a19e75c54f9313f81f6a2107ba2405b
+A2-independent-messages/delay-3/fee-10/repeat-0: victim_committed, canonical=[true, true]
+sealed/1 lanes/genesis: committed 0xca464c70dcdafcfd37685a6a9fd32ad9feaea297a968a21587fd9c9f9e622046
+A2-independent-messages/delay-3/fee-10/repeat-1: victim_committed, canonical=[true, true]
+sealed/1 lanes/genesis: committed 0xfb355e930ea90f378a52c9c2bf45c6b44077352553a3d13023f38e052486e406
+A2-independent-messages/delay-6/fee-1/repeat-0: victim_committed, canonical=[true, true]
+sealed/1 lanes/genesis: committed 0x1d4e09300f6df4ae68d1bc5b548c5003d7c71d4e12233064dda03c6b8d0e0e3c
+A2-independent-messages/delay-6/fee-1/repeat-1: victim_committed, canonical=[true, true]
+sealed/1 lanes/genesis: committed 0xcecfcc2dff6fef077196a7f6a5f9d794b432d342c763f204d9eb681bb68c7053
+A2-independent-messages/delay-6/fee-2/repeat-0: victim_committed, canonical=[true, true]
+sealed/1 lanes/genesis: committed 0x4e1b5814cf162ffabadd47620cf3eb360b615c1852749f79178069504f3ee040
+A2-independent-messages/delay-6/fee-2/repeat-1: victim_committed, canonical=[true, true]
+sealed/1 lanes/genesis: committed 0x15e54a2efe15fd186fcce14de20b420030df940f32f34fe3d6720274b589fe75
+A2-independent-messages/delay-6/fee-10/repeat-0: victim_committed, canonical=[true, true]
+sealed/1 lanes/genesis: committed 0xb96f40ea8212c062027d81139466b3a69a7fe56ae3d1cd517ca9485aa78d9816
+A2-independent-messages/delay-6/fee-10/repeat-1: victim_committed, canonical=[true, true]
+sealed/1 lanes/genesis: committed 0xc01db3b2a68a5ebcd4f5cc64d09684ffc84c2274288beb61a73501b784bb74f6
+A3-one-lane/delay-0/fee-1/repeat-0: live_pool_rejection, canonical=[true, false]
+sealed/1 lanes/genesis: committed 0x032381efb3aaaf748424a3af96c87663aa39e508da78aba41ef75ada08fc656b
+A3-one-lane/delay-0/fee-1/repeat-1: live_pool_rejection, canonical=[true, false]
+sealed/1 lanes/genesis: committed 0xfd604280bc5ea45ff8300137dba34d56ea6e7bdaba007ab18da4618094f74d0b
+A3-one-lane/delay-0/fee-2/repeat-0: victim_committed, canonical=[false, true]
+sealed/1 lanes/genesis: committed 0xb9229d87933583bf07bbea70fbaf5a04e40e04235bcc3c4ac6e9f67b0a161dce
+A3-one-lane/delay-0/fee-2/repeat-1: victim_committed, canonical=[false, true]
+sealed/1 lanes/genesis: committed 0xc2489fb8a7bcd9f3da44dd91fb97e06293e106a1a542af3365a1bc1c9267359c
+A3-one-lane/delay-0/fee-10/repeat-0: victim_committed, canonical=[false, true]
+sealed/1 lanes/genesis: committed 0x7d4845fc77a7cd8f2cae752030207b25395b2ffef22415bc77046d0678878442
+A3-one-lane/delay-0/fee-10/repeat-1: victim_committed, canonical=[false, true]
+sealed/1 lanes/genesis: committed 0x5fef77cf60a983404003778586fad728734e132e4a59ff244e319e04e449beb0
+A3-one-lane/delay-1/fee-1/repeat-0: live_pool_rejection, canonical=[true, false]
+sealed/1 lanes/genesis: committed 0x47ce65e120821b281d718fc292302163f6c4999e83145763b8ccbb7bb4b7c498
+A3-one-lane/delay-1/fee-1/repeat-1: live_pool_rejection, canonical=[true, false]
+sealed/1 lanes/genesis: committed 0x1fb540e84f3b00534323aed6523a9367b4628156228fed63e7f63e256485384f
+A3-one-lane/delay-1/fee-2/repeat-0: victim_committed, canonical=[false, true]
+sealed/1 lanes/genesis: committed 0xf77db9f7ec062ba9eb369e6e0f195c0ee7771054a5368a9514dd60d4e5f4ba63
+A3-one-lane/delay-1/fee-2/repeat-1: victim_committed, canonical=[false, true]
+sealed/1 lanes/genesis: committed 0xbb6b0fbfffd5658bf63936740b192825f71657b7a89666b5650599d534b82882
+A3-one-lane/delay-1/fee-10/repeat-0: victim_committed, canonical=[false, true]
+sealed/1 lanes/genesis: committed 0x6f6a362ec7e26ee3f3eef36b703763e0f7851918a2d4ae8ab9de107ec6e12ca5
+A3-one-lane/delay-1/fee-10/repeat-1: victim_committed, canonical=[false, true]
+sealed/1 lanes/genesis: committed 0x184711a3d41232c6354bd71a63c8306cdcf771437b135c56584a70b77cd84e7b
+A3-one-lane/delay-3/fee-1/repeat-0: live_pool_rejection, canonical=[true, false]
+sealed/1 lanes/genesis: committed 0xda8d84c2ba5b45fb7d91f879c3621790c8986b842543521f96878ef984abbf81
+A3-one-lane/delay-3/fee-1/repeat-1: live_pool_rejection, canonical=[true, false]
+sealed/1 lanes/genesis: committed 0x054654ed90fbbf286e1bed96191517f733610dd5d2f0a336ca24b29011b89c2a
+A3-one-lane/delay-3/fee-2/repeat-0: accepted_lost_conflict, canonical=[true, false]
+sealed/1 lanes/genesis: committed 0xaa66149e8c5aeb5be46a2a4f8bfcdccc5a3a95e10fdece48c390e0ba79214d1b
+A3-one-lane/delay-3/fee-2/repeat-1: accepted_lost_conflict, canonical=[true, false]
+sealed/1 lanes/genesis: committed 0xbbe46741cb2f0c4992afad47dab405754b08607b2692ecfbaa73b05cfac5592b
+A3-one-lane/delay-3/fee-10/repeat-0: accepted_lost_conflict, canonical=[true, false]
+sealed/1 lanes/genesis: committed 0x450ac2841ba45bc70d62fafc5a567bd2bc2cb6bc6858546d989b2710a82c7a8d
+A3-one-lane/delay-3/fee-10/repeat-1: accepted_lost_conflict, canonical=[true, false]
+sealed/1 lanes/genesis: committed 0x9b9c0bcc72be54862b1d01b8a5cec064d647f5a0d1909441ba8a0ea7ea5bca06
+A3-one-lane/delay-6/fee-1/repeat-0: stale_input, canonical=[true, false]
+sealed/1 lanes/genesis: committed 0x7c274b6005491e77f620008362e475d9beb9de889682ac08300dbc8e41b37c42
+A3-one-lane/delay-6/fee-1/repeat-1: stale_input, canonical=[true, false]
+sealed/1 lanes/genesis: committed 0x13f4ebdf8c01b5457089f209ae95906c66c9fdf91d3d1c6219cdbe03f79a0407
+A3-one-lane/delay-6/fee-2/repeat-0: stale_input, canonical=[true, false]
+sealed/1 lanes/genesis: committed 0x06052d31b91698268f590cc65ff725c335155fb4587499c614c401a00c1d869e
+A3-one-lane/delay-6/fee-2/repeat-1: stale_input, canonical=[true, false]
+sealed/1 lanes/genesis: committed 0xef2c7e1f7b6f7a16d3fae80afa138f3b2d2651309da85ae7f638e9e14f3bbbab
+A3-one-lane/delay-6/fee-10/repeat-0: stale_input, canonical=[true, false]
+sealed/1 lanes/genesis: committed 0x8a139cdfe47d5f0a7cdad0ff94768d0ec80e6cb50319b8f4620c77eaf75df978
+A3-one-lane/delay-6/fee-10/repeat-1: stale_input, canonical=[true, false]
+sealed/4 lanes/genesis: committed 0xbeabebc2ed00cabe28dd5d77200b358ebe785200a8397a95d06bf7b9a5cec8ae
+A3-four-lanes-targeted/delay-0/fee-1/repeat-0: live_pool_rejection, canonical=[true, false]
+sealed/4 lanes/genesis: committed 0x74ff91e6d62b5d9877e3971d9ad74bcad089ebe7a77cdeb5d5185cd46925d789
+A3-four-lanes-targeted/delay-0/fee-1/repeat-1: live_pool_rejection, canonical=[true, false]
+sealed/4 lanes/genesis: committed 0xc2a59cc0cee0a35897e43ccc3b1ffcc9d38f07acb497d7151fbd3e86ff929551
+A3-four-lanes-targeted/delay-0/fee-2/repeat-0: victim_committed, canonical=[false, true]
+sealed/4 lanes/genesis: committed 0xc3a2283feefb9a745516809dc03046a36fa3061d1319c108f8323bd6bdc77c46
+A3-four-lanes-targeted/delay-0/fee-2/repeat-1: victim_committed, canonical=[false, true]
+sealed/4 lanes/genesis: committed 0xb8bbca0faed65dce618229e7899ae2defb875b1330074ba57e9f39444bb2424e
+A3-four-lanes-targeted/delay-0/fee-10/repeat-0: victim_committed, canonical=[false, true]
+sealed/4 lanes/genesis: committed 0xe3c7bf48dfc261ae40356daeca02f87a6ca0bf28b95d47b42c78737786ca18a5
+A3-four-lanes-targeted/delay-0/fee-10/repeat-1: victim_committed, canonical=[false, true]
+sealed/4 lanes/genesis: committed 0xb419666d1ec0ef4abf65ed6e84d2b3cbc5ad7a39b7bf0d20267337b23878c35d
+A3-four-lanes-targeted/delay-1/fee-1/repeat-0: live_pool_rejection, canonical=[true, false]
+sealed/4 lanes/genesis: committed 0xccd1fea77779c2c9cf989a2df917c48a3516d36e7ecdc064d1fd57d1beed5de0
+A3-four-lanes-targeted/delay-1/fee-1/repeat-1: live_pool_rejection, canonical=[true, false]
+sealed/4 lanes/genesis: committed 0xabcf77f78cebeb255abc47c4e9fd258fb60912ae67a12d532628c3686797df94
+A3-four-lanes-targeted/delay-1/fee-2/repeat-0: victim_committed, canonical=[false, true]
+sealed/4 lanes/genesis: committed 0x5c1e980b35ebb9ab63be1c2d6b4efd19af5db38214e708b1b05cdab316f68f54
+A3-four-lanes-targeted/delay-1/fee-2/repeat-1: victim_committed, canonical=[false, true]
+sealed/4 lanes/genesis: committed 0xa8ecb9f71d5261d4f09336537213083e37627f0fddc6a0885f8908da0157a352
+A3-four-lanes-targeted/delay-1/fee-10/repeat-0: victim_committed, canonical=[false, true]
+sealed/4 lanes/genesis: committed 0xaf80914e9a5075b0ac5fd9669c2ca2d70dd5d3023b5ba222ee4157dcbd4edb20
+A3-four-lanes-targeted/delay-1/fee-10/repeat-1: victim_committed, canonical=[false, true]
+sealed/4 lanes/genesis: committed 0xa250641381878b5371948f2576e503c83303af725d21f10e8975cba92c43a615
+A3-four-lanes-targeted/delay-3/fee-1/repeat-0: live_pool_rejection, canonical=[true, false]
+sealed/4 lanes/genesis: committed 0xc0055946bc87a2238350d09fe62237626c7dd6522e63ab1ac04d6c2dc54244d8
+A3-four-lanes-targeted/delay-3/fee-1/repeat-1: live_pool_rejection, canonical=[true, false]
+sealed/4 lanes/genesis: committed 0x1dc65dc1d16bf99872df6f1d00bb66f32e35e2f0070dcb49cb2b4ad2a8a0fde8
+A3-four-lanes-targeted/delay-3/fee-2/repeat-0: accepted_lost_conflict, canonical=[true, false]
+sealed/4 lanes/genesis: committed 0x281c2d2bf02976fb84052e2eafff6ee291f5385e4fbbd61fcd594124412db504
+A3-four-lanes-targeted/delay-3/fee-2/repeat-1: accepted_lost_conflict, canonical=[true, false]
+sealed/4 lanes/genesis: committed 0xd63e5b823eb0d8739e9dd132e1fa042fa9a976f56f4070d82e78995d7bbffd55
+A3-four-lanes-targeted/delay-3/fee-10/repeat-0: accepted_lost_conflict, canonical=[true, false]
+sealed/4 lanes/genesis: committed 0x6160aa59feba42409b8c43de79fa3a015aade5603c6b96c108b7468d98563202
+A3-four-lanes-targeted/delay-3/fee-10/repeat-1: accepted_lost_conflict, canonical=[true, false]
+sealed/4 lanes/genesis: committed 0xf09cc51a4872afec9c8331e0dd396040f800339d157b6c2beafb65723fd3131b
+A3-four-lanes-targeted/delay-6/fee-1/repeat-0: stale_input, canonical=[true, false]
+sealed/4 lanes/genesis: committed 0x5116362f4b62399e079a3101fb7c110508c1327797ba1f685b9c1d213561e249
+A3-four-lanes-targeted/delay-6/fee-1/repeat-1: stale_input, canonical=[true, false]
+sealed/4 lanes/genesis: committed 0xaa41fb7899e7ac14d5286b498aa0a69e2aa7fad3d7200c9749af05a11097d566
+A3-four-lanes-targeted/delay-6/fee-2/repeat-0: stale_input, canonical=[true, false]
+sealed/4 lanes/genesis: committed 0x4721822d5220f8bb315ab8e98bd0695c339778ebfce49435f39c43cb3bb57034
+A3-four-lanes-targeted/delay-6/fee-2/repeat-1: stale_input, canonical=[true, false]
+sealed/4 lanes/genesis: committed 0x86d55e7582a57c1ee839a4f89ffaf647dcd795841815e134603fcc5dd1e2cf95
+A3-four-lanes-targeted/delay-6/fee-10/repeat-0: stale_input, canonical=[true, false]
+sealed/4 lanes/genesis: committed 0x0f9f91cfcc9d59e44e1a7300d5b97c9a8f89abd26b4d178528ca268fc2ab767d
+A3-four-lanes-targeted/delay-6/fee-10/repeat-1: stale_input, canonical=[true, false]
+sealed/4 lanes/genesis: committed 0xdd44676df3e39238b7d633e5ff6aa590a03904dcbffb287c43259465390f01ca
+A3-four-lanes-disjoint/delay-0/fee-1/repeat-0: victim_committed, canonical=[true, true]
+sealed/4 lanes/genesis: committed 0x75349433cb0a888e0069b36e6bfd267b8290318d8cb2276c812477f45d02970e
+A3-four-lanes-disjoint/delay-0/fee-1/repeat-1: victim_committed, canonical=[true, true]
+sealed/4 lanes/genesis: committed 0xfa3457426db882d5f66fba7c0a408144b74faebd40986422fd011533ae9f0965
+A3-four-lanes-disjoint/delay-0/fee-2/repeat-0: victim_committed, canonical=[true, true]
+sealed/4 lanes/genesis: committed 0x9708e1fac2c799249e89a16791343eb9c9bf0fd476ef32b6858b2312e4aa99cf
+A3-four-lanes-disjoint/delay-0/fee-2/repeat-1: victim_committed, canonical=[true, true]
+sealed/4 lanes/genesis: committed 0xfc849984883830cd3a3e3c12fd8f6b991eceba2faa019f18611e135719066c4a
+A3-four-lanes-disjoint/delay-0/fee-10/repeat-0: victim_committed, canonical=[true, true]
+sealed/4 lanes/genesis: committed 0x901458fd1feeb302a4583e12de25b9ec0d97d606a598ad51ac1f118d956aef13
+A3-four-lanes-disjoint/delay-0/fee-10/repeat-1: victim_committed, canonical=[true, true]
+sealed/4 lanes/genesis: committed 0x681edda52d419e8043f7d7be51ce240d8ed759d1198b9cc0591b907bd2ca3fff
+A3-four-lanes-disjoint/delay-1/fee-1/repeat-0: victim_committed, canonical=[true, true]
+sealed/4 lanes/genesis: committed 0x7e7058079e5e30aaddb659490735a265635b173cef9b73d6bad2d9ae28bee749
+A3-four-lanes-disjoint/delay-1/fee-1/repeat-1: victim_committed, canonical=[true, true]
+sealed/4 lanes/genesis: committed 0xf0d4583345367739958b340b93882f44f15966a95809444048e870c76e5907f7
+A3-four-lanes-disjoint/delay-1/fee-2/repeat-0: victim_committed, canonical=[true, true]
+sealed/4 lanes/genesis: committed 0x61bb63406849aacabf87ba31f8257d7e8ab7e975b538c542cda082f9eb772d7a
+A3-four-lanes-disjoint/delay-1/fee-2/repeat-1: victim_committed, canonical=[true, true]
+sealed/4 lanes/genesis: committed 0x7e419142786dd1d55e5e0de46b59654a00a0b391b75f27f190d9612727f3bd63
+A3-four-lanes-disjoint/delay-1/fee-10/repeat-0: victim_committed, canonical=[true, true]
+sealed/4 lanes/genesis: committed 0x2729406153ea24cdc49b9b049d795591717b5991feb0c3f48f94c5d63e8cfacc
+A3-four-lanes-disjoint/delay-1/fee-10/repeat-1: victim_committed, canonical=[true, true]
+sealed/4 lanes/genesis: committed 0x2ef069ebcc09e3b21bc3e9ecd235da97c5bb9e9b7df39728a955708cd2f0b150
+A3-four-lanes-disjoint/delay-3/fee-1/repeat-0: victim_committed, canonical=[true, true]
+sealed/4 lanes/genesis: committed 0xd2d66d5791f97d94f64f2153759b6d47db1a67b5254665bfe40ff15be0d792b1
+A3-four-lanes-disjoint/delay-3/fee-1/repeat-1: victim_committed, canonical=[true, true]
+sealed/4 lanes/genesis: committed 0x29dd086e90bc03aabd92d8c8cdc2c36d38c629b967baebcb4a2fffa631410a98
+A3-four-lanes-disjoint/delay-3/fee-2/repeat-0: victim_committed, canonical=[true, true]
+sealed/4 lanes/genesis: committed 0xaa690dc3da746faff4481f57799f8950240c94144f9e3c04b96b9ecd16b1b1d6
+A3-four-lanes-disjoint/delay-3/fee-2/repeat-1: victim_committed, canonical=[true, true]
+sealed/4 lanes/genesis: committed 0xd8f8dc32e095c99fc68d738f0781d21627ee2529c220dbb7853ed9be5a72cc74
+A3-four-lanes-disjoint/delay-3/fee-10/repeat-0: victim_committed, canonical=[true, true]
+sealed/4 lanes/genesis: committed 0x9fb47bafc5b8750e902d69019935cecf71eee101644207e557f43a07a0e4a649
+A3-four-lanes-disjoint/delay-3/fee-10/repeat-1: victim_committed, canonical=[true, true]
+sealed/4 lanes/genesis: committed 0x43a1a8415f7572cd53fd2703f8fa91be059cac000e884d7c89f52db8e12810a0
+A3-four-lanes-disjoint/delay-6/fee-1/repeat-0: victim_committed, canonical=[true, true]
+sealed/4 lanes/genesis: committed 0x9c017b50e60880196c89d7d38f117936ff3757829ba8319466c70c455d0c3ac9
+A3-four-lanes-disjoint/delay-6/fee-1/repeat-1: victim_committed, canonical=[true, true]
+sealed/4 lanes/genesis: committed 0xe6051f1d68fef6c9712426e369060c69549972d63b3c1cb51a036c0d63e70d66
+A3-four-lanes-disjoint/delay-6/fee-2/repeat-0: victim_committed, canonical=[true, true]
+sealed/4 lanes/genesis: committed 0x11cd5dca2c688487bca371fd42463e4bcfb8099b01495a41d6afc4fff6f80f60
+A3-four-lanes-disjoint/delay-6/fee-2/repeat-1: victim_committed, canonical=[true, true]
+sealed/4 lanes/genesis: committed 0xf45a03d12a48ee91588fb36e57d521bd724feb02e93caa58fb8540c4e9bb17aa
+A3-four-lanes-disjoint/delay-6/fee-10/repeat-0: victim_committed, canonical=[true, true]
+sealed/4 lanes/genesis: committed 0xb727a7adb39759e7d676558c4152f1db02fed898477bde70ebf50f100d3d7cb2
+A3-four-lanes-disjoint/delay-6/fee-10/repeat-1: victim_committed, canonical=[true, true]
