@@ -1,0 +1,9 @@
+[package]
+name = "tactus-protocol"
+description = "Tactus protocol primitives — illustrative companions to the architecture specification"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
