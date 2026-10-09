@@ -1,0 +1,27 @@
+deploy immutable code and independent actor funds: committed 0x54fb6f4041a4a8faa76fc0478e40c9ba7574de6021590b8aea102c2120ce1687
+checkpoint/deploy immutable code: committed 0x17dc7453133bdfe4040f0f866fea44b6fb68b5e0ca45be99530059e88668a989
+batch/genesis: committed 0x3b0820d110bde8d9cdb1d4074ffdb3ff00de33d69dbad39c9ae8395a675169f6
+checkpoint/tamper-magic: rejected (error code 7)
+checkpoint/tamper-rollup: rejected (error code 7)
+checkpoint/tamper-batch: rejected (error code 7)
+checkpoint/tamper-history: rejected (error code 7)
+checkpoint/tamper-block: rejected (error code 7)
+checkpoint/tamper-time: rejected (error code 7)
+checkpoint/tamper-rules: rejected (error code 7)
+checkpoint/tamper-da: rejected (error code 7)
+checkpoint/tamper-limits: rejected (error code 7)
+checkpoint/tamper-chain: rejected (error code 7)
+checkpoint/wrong-anchor: rejected (error code 4)
+checkpoint/short-key: rejected (error code 1)
+checkpoint/short-data: rejected (error code 5)
+checkpoint/long-data: rejected (error code 5)
+checkpoint/duplicate: rejected (error code 2)
+checkpoint/no-anchor-transition: rejected (error code 4)
+checkpoint/anchor-dependency-only: rejected (error code 4)
+checkpoint/advance-0: committed 0x29cb31fd51e81929dfd4d1d8ce6687241f3325f888a0ee6cc5a8118ceefda8f6
+checkpoint/0-consume: rejected (error code 2)
+checkpoint/0-replace: rejected (error code 2)
+checkpoint/advance-1: committed 0x6d3c5a63e7a079bdda3ab9295c3b5867e9a01ae105ac51a837f9c77f9509d648
+checkpoint/1-consume: rejected (error code 2)
+checkpoint/1-replace: rejected (error code 2)
+checkpoint/stale-anchor-dependency: rejected (TransactionFailedToResolve)

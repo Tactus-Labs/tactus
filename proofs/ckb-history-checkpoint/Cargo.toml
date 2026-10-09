@@ -1,0 +1,13 @@
+[package]
+name = "tactus-o1-history-checkpoint-script"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.92"
+[workspace]
+[dependencies]
+ckb-std = { version = "=0.15.3", default-features = false, features = ["ckb-types", "allocator"] }
+[lib]
+crate-type = ["staticlib", "rlib"]
+[profile.release]
+debug = false
+panic = "abort"

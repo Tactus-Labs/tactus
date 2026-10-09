@@ -1,0 +1,21 @@
+   Compiling find-msvc-tools v0.1.14
+   Compiling shlex v2.0.1
+   Compiling cc v1.6.0
+   Compiling cfg-if v1.0.5
+   Compiling molecule v0.7.5
+   Compiling ckb-gen-types v0.112.1
+   Compiling ckb-std v0.15.3
+   Compiling buddy-alloc v0.5.1
+   Compiling gcd v2.3.0
+   Compiling tactus-o1-history-checkpoint-script v0.1.0 (/home/arthur/RustRoverProjects/tactus-o1/proofs/ckb-history-checkpoint)
+warning: unused import: `ckb_types::prelude::*`
+  --> src/lib.rs:25:9
+   |
+25 |         ckb_types::prelude::*,
+   |         ^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `tactus-o1-history-checkpoint-script` (lib) generated 1 warning (run `cargo fix --lib -p tactus-o1-history-checkpoint-script` to apply 1 suggestion)
+    Finished `release` profile [optimized] target(s) in 7.98s
+fa52904ee4075e0ae2863627d409c5854b211e065785540cb4432dbabcc94521  artifacts/tactus_o1_history_checkpoint_script.elf

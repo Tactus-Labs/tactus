@@ -26,3 +26,12 @@ jobs:
         run: |
           (cd specs/evidence/proof-execution && sha256sum --check SHA256SUMS)
           (cd specs/evidence/execution-core-proof && sha256sum --check SHA256SUMS)
+          (cd specs/evidence/history-checkpoint && sha256sum --check SHA256SUMS)
+      - name: Reconcile retained checkpoint transactions (not script execution)
+        run: |
+          for version in 0.121.0 0.210.0; do
+            gzip -dc "specs/evidence/history-checkpoint/$version/evidence.json.gz" > "$RUNNER_TEMP/checkpoint-$version.json"
+            python3 scripts/check-history-checkpoints.py "$RUNNER_TEMP/checkpoint-$version.json"
+          done
+      - name: Check bounded history checkpoint state rules
+        run: cargo test --locked --manifest-path proofs/ckb-history-checkpoint/Cargo.toml

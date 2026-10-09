@@ -96,6 +96,14 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
   retained. Compression, authenticated CKB verification and settlement succession
   remain absent; this does not close G3 or qualify production proving economics.
 
+- [Transition-authenticated history checkpoints](HISTORY_CHECKPOINT_V1.md) now
+  retain exact Anchor successor states in immutable typed cells. Both CKB versions
+  reject 22 negative controls and allow later ordering to reference old checkpoints
+  while rejecting a spent mutable Anchor dependency. This supplies a bounded
+  history mechanism; the proof-consuming SettlementTip and reorg qualification
+  are still absent. The [Groth16 receipt harness](PROOF_RECEIPT_V1.md) is implemented,
+  with its first real compressed proof still pending at this milestone.
+
 - [Repeated fresh seal contention](SEAL_CONTENTION_REPORT.md) now attains the
   finite `8 × lane_count` valid-append budget, rejects further full-queue churn,
   seals the complete set and processes every payload across two consecutive

@@ -1,0 +1,5 @@
+wrong anchor identity: rejected (Anchor type hash differs)
+wrong retained data: rejected (checkpoint does not equal advanced Anchor)
+missing rejection: rejected (wrong or duplicate evidence count)
+missing historical dependency: rejected (missing historical checkpoint dependency)
+wrong rejection code: rejected (wrong script rejection)

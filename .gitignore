@@ -1,6 +1,7 @@
 /target
 /proofs/sp1/target
 /proofs/ckb-proof-check/target
+/proofs/ckb-history-checkpoint/target
 .idea/
 .vscode/
 *.log

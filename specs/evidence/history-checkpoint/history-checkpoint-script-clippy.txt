@@ -1,0 +1,8 @@
+    Checking cfg-if v1.0.5
+    Checking gcd v2.3.0
+    Checking molecule v0.7.5
+    Checking buddy-alloc v0.5.1
+    Checking ckb-gen-types v0.112.1
+    Checking ckb-std v0.15.3
+    Checking tactus-o1-history-checkpoint-script v0.1.0 (/home/arthur/RustRoverProjects/tactus-o1/proofs/ckb-history-checkpoint)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.02s

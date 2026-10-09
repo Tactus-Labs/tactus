@@ -1,0 +1,12 @@
+{
+  "evidence_sha256": "9be9e2b960843af5f5b9bd37a6e4005e980504c615730f3ae73674c4f678caac",
+  "checkpoint_cycles": [
+    1799031,
+    1807877
+  ],
+  "committed_records": 5,
+  "negative_controls": 22,
+  "settled": false,
+  "production_ready": false,
+  "script_execution_performed_by_this_checker": false
+}

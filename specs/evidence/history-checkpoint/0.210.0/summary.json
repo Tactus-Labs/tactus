@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "evidence_sha256": "1d229b50e75dd85a4c8c28b36fce15d9e2e7f96cc0307d418b5c99aedd70e2fc",
+  "metadata": {
+    "consensus": {
+      "block_version": "0x0",
+      "cellbase_maturity": "0x10000000000",
+      "dao_type_hash": "0x82d76d1b75fe2fd9a27dfbaa65a039221a380d76c926f378d3f81cf3e7e13f2e",
+      "epoch_duration_target": "0x50",
+      "genesis_hash": "0xddd6aea22911805968ca3f89bda08aa9d8024fc00b2c9ffb07b1bcd170673c6a",
+      "hardfork_features": [
+        {
+          "epoch_number": "0x0",
+          "rfc": "0028"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0029"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0030"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0031"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0032"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0036"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0038"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0048"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0049"
+        }
+      ],
+      "id": "ckb_dev",
+      "initial_primary_epoch_reward": "0xae6c73c3e070",
+      "max_block_bytes": "0x91c08",
+      "max_block_cycles": "0x2540be400",
+      "max_block_proposals_limit": "0x5dc",
+      "max_uncles_num": "0x2",
+      "median_time_block_count": "0x25",
+      "orphan_rate_target": {
+        "denom": "0x28",
+        "numer": "0x1"
+      },
+      "permanent_difficulty_in_dummy": true,
+      "primary_epoch_reward_halving_interval": "0x2238",
+      "proposer_reward_ratio": {
+        "denom": "0xa",
+        "numer": "0x4"
+      },
+      "secondary_epoch_reward": "0x37d0c8e28542",
+      "secp256k1_blake160_multisig_all_type_hash": "0x5c5069eb0857efc65e1bca0c07df34c31663b3622fd3876c876320fc9634e2a8",
+      "secp256k1_blake160_sighash_all_type_hash": "0x9bd7e06f3ecf4be0f2fcd2188b23f1b9fcc88e5d4b65a8637b17723bbda3cce8",
+      "softforks": {
+        "light_client": {
+          "rfc0043": {
+            "bit": 1,
+            "min_activation_epoch": "0x0",
+            "period": "0xa",
+            "start": "0x0",
+            "threshold": {
+              "denom": "0x4",
+              "numer": "0x3"
+            },
+            "timeout": "0x0"
+          },
+          "status": "rfc0043"
+        }
+      },
+      "tx_proposal_window": {
+        "closest": "0x2",
+        "farthest": "0xa"
+      },
+      "tx_version": "0x0",
+      "type_id_code_hash": "0x00000000000000000000000000000000000000000000000000545950455f4944"
+    },
+    "lock_code_hash": "0x1a79ae4b82f5588e07fc0b94a0e8fbcf61f1adc06d05d753d13e2e63eec76dee",
+    "node_version": "0.210.0 (2592ddf 2026-09-17)",
+    "ordering_code_hash": "0xd45c646714e5ecf90eb2f5373ae2de759db4988ad1e5b0e787259da1fb5be032",
+    "production_ready": false,
+    "script_path": "artifacts/tactus_o1_anchor_script.elf",
+    "tier": "isolated CKB devnet, deterministic block generation"
+  },
+  "results": {
+    "G3": "OPEN",
+    "anchor_type_hash": "0x5263af4376b693dc9f29ee033d791b908a40545fbeb89d7d68c623c2b14526d9",
+    "checkpoint_code_hash": "0xb2784f9a45abb5000102f1d2216228c8b48463dc327137bf2fe690508103d442",
+    "checkpoints": [
+      {
+        "capacity_shannons": 32600000000,
+        "data": "0x544f31414e43303146369ce3a72c051a4de7d89e17b92df554fb2206e11d2a7e44122d9a1da105d70100000000000000677fb7173bd691ee1ad5481f9e5892a56a20fd3fd219f2a3845dea2c94229304010000000000000001000000000000000909090909090909090909090909090909090909090909090909090909090909cbade3c38e59f094284ba219216e9ad766068045ef6d737e49b6581bc5a081ccaad9910dae8e2160fa0c03c47d5cbebcc9a5a9377a50478b3daabf3be313a4b30903000000000000",
+        "hash": "0x29cb31fd51e81929dfd4d1d8ce6687241f3325f888a0ee6cc5a8118ceefda8f6",
+        "output_index": 0
+      },
+      {
+        "capacity_shannons": 32600000000,
+        "data": "0x544f31414e43303146369ce3a72c051a4de7d89e17b92df554fb2206e11d2a7e44122d9a1da105d70200000000000000eb8afacd32250d5397cb244e6e4ec71e2a36958962b69ff19a0cf6f458a18b71020000000000000002000000000000000909090909090909090909090909090909090909090909090909090909090909cbade3c38e59f094284ba219216e9ad766068045ef6d737e49b6581bc5a081ccaad9910dae8e2160fa0c03c47d5cbebcc9a5a9377a50478b3daabf3be313a4b30903000000000000",
+        "hash": "0x6d3c5a63e7a079bdda3ab9295c3b5867e9a01ae105ac51a837f9c77f9509d648",
+        "output_index": 0
+      }
+    ],
+    "complete": true,
+    "error": null,
+    "production_ready": false,
+    "settled": false,
+    "suite": "authenticated-history-checkpoint-v1",
+    "valid_preflight_cycles": {
+      "cycles": "0x1b7377"
+    }
+  },
+  "transactions": {
+    "committed_evidence_records": 5,
+    "rejected_records": 22
+  },
+  "estimated_cycles": {
+    "samples": 5,
+    "minimum": 1644147,
+    "maximum": 1807877
+  },
+  "interpretation": "Boundary suite completed; full Experiment A and production gates remain OPEN."
+}

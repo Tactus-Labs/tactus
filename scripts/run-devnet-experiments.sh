@@ -14,7 +14,7 @@ if [[ "$($CKB_BIN --version)" != "ckb $required_version "* ]]; then
   exit 1
 fi
 suite="${TACTUS_DEVNET_SUITE:-replay-a123}"
-case "$suite" in replay-a123|replay-batch|replay-evm|replay-priority|replay-sealed|replay-admission|replay-network|replay-load|replay-seal-contention|replay-proof-verifier) ;; *) echo 'Unknown devnet suite' >&2; exit 1 ;; esac
+case "$suite" in replay-a123|replay-batch|replay-evm|replay-priority|replay-sealed|replay-admission|replay-network|replay-load|replay-seal-contention|replay-proof-verifier|replay-history-checkpoint) ;; *) echo 'Unknown devnet suite' >&2; exit 1 ;; esac
 cargo build --locked --bin "$suite"
 if [[ "$suite" == replay-evm || "$suite" == replay-network ]]; then
   cargo build --locked --bin recover-execution
@@ -25,6 +25,9 @@ fi
 bash scripts/build-ordering-script.sh
 if [[ "$suite" == replay-proof-verifier ]]; then
   bash scripts/build-proof-check-script.sh
+fi
+if [[ "$suite" == replay-history-checkpoint ]]; then
+  bash scripts/build-history-checkpoint-script.sh
 fi
 mkdir -p artifacts
 run_dir="$(mktemp -d "$PWD/artifacts/${suite#replay-}-XXXXXXXX")"
@@ -82,6 +85,8 @@ if os.environ['TACTUS_DEVNET_SUITE']=='replay-proof-verifier':
  binaries.append('artifacts/tactus_o1_proof_check_script.elf')
  proof_dir=pathlib.Path(os.environ['TACTUS_PROOF_DIR'])
  binaries.extend(str(proof_dir/name) for name in ['result.json','public-values.bin','groth16-proof.bin','proof.bin'])
+if os.environ['TACTUS_DEVNET_SUITE']=='replay-history-checkpoint':
+ binaries.append('artifacts/tactus_o1_history_checkpoint_script.elf')
 for name in binaries:manifest['files'][name]=hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest()
 
 paths=subprocess.check_output(['git','ls-files','--cached','--others','--exclude-standard','-z'],text=True).split('\0')
