@@ -1,42 +1,87 @@
-//! Devnet diagnostics: local re-verification of a signed spend and an
-//! on-chain message-rule probe. Current status (2026-10-09, ckb v0.210.0
-//! devnet): even ckb-cli-signed transactions are rejected with secp error
-//! -31 (pubkey/args mismatch) on this chain, so the blocker is environmental,
-//! not in this driver. See specs/EXPERIMENT_A_DEVNET_REPORT.md.
-// Message-rule enumeration with spendable cells — the chain judges.
+//! Offline: rebuild the committed ground-truth tx and test whether MY message
+//! construction verifies ITS signature. Pure local computation.
 fn main() {
     use secp256k1::{ecdsa, Message, Secp256k1};
     use tactus_o1_devnet_driver::molecule;
     use tactus_o1_devnet_driver::rpc;
-    use tactus_o1_devnet_driver::tx::{self, DevKey, OutSpec};
-    use tactus_o1_ordering_script::ckb_blake2b;
+    use tactus_o1_ordering_script::{ckb_blake2b, ckb_blakeb160};
 
-    let key = DevKey::dev();
-    let secp = Secp256k1::new();
-    let genesis = rpc::get_block_detailed(0).unwrap();
-    let secp_dep = tx::find_secp_dep(&genesis).unwrap();
-    let tip = rpc::get_tip_block_number().unwrap();
-    let cells: Vec<_> = tx::collect_coinbase(tip, &key.args, 300)
-        .unwrap()
-        .into_iter()
-        .take(2)
-        .collect();
-    let total: u64 = cells.iter().map(|(_, c)| c).sum();
-    let outputs = vec![OutSpec {
-        capacity: total - tx::TX_FEE,
-        lock: key.lock_script(),
-        type_script: None,
-        data: vec![],
-    }];
-    let (bytes, mut json) = tx::build_and_sign(&key, &secp_dep, &cells, &outputs, None).unwrap();
-    let off_w = u32::from_le_bytes(bytes[8..12].try_into().unwrap()) as usize;
-    let raw = &bytes[12..off_w];
-    let tx_hash = ckb_blake2b(raw);
-    let witnesses: Vec<Vec<u8>> = json["witnesses"]
+    let tx = rpc::call(
+        "get_transaction",
+        serde_json::json!(["0x336a247f0481f9dc88bda15e246fa22d0ddd7598e24873456129af60931ad1d5"]),
+    )
+    .unwrap()
+    .get("transaction")
+    .cloned()
+    .unwrap();
+
+    // Rebuild raw from the JSON.
+    let hx = |s: &str| rpc::hex_to_bytes(s);
+    let deps: Vec<Vec<u8>> = tx["cell_deps"]
         .as_array()
         .unwrap()
         .iter()
-        .map(|w| rpc::hex_to_bytes(w.as_str().unwrap()))
+        .map(|d| {
+            let op = &d["out_point"];
+            molecule::cell_dep(
+                &molecule::out_point(
+                    &hx(op["tx_hash"].as_str().unwrap()).try_into().unwrap(),
+                    u32::from_str_radix(op["index"].as_str().unwrap().trim_start_matches("0x"), 16)
+                        .unwrap(),
+                ),
+                if d["dep_type"] == "dep_group" { 1 } else { 0 },
+            )
+        })
+        .collect();
+    let inputs: Vec<Vec<u8>> = tx["inputs"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .map(|i| {
+            let op = &i["previous_output"];
+            molecule::cell_input(
+                0,
+                &molecule::out_point(
+                    &hx(op["tx_hash"].as_str().unwrap()).try_into().unwrap(),
+                    u32::from_str_radix(op["index"].as_str().unwrap().trim_start_matches("0x"), 16)
+                        .unwrap(),
+                ),
+            )
+        })
+        .collect();
+    let outputs: Vec<Vec<u8>> = tx["outputs"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .map(|o| {
+            let l = &o["lock"];
+            let lock = molecule::script(
+                &hx(l["code_hash"].as_str().unwrap()).try_into().unwrap(),
+                if l["hash_type"] == "type" { 1 } else { 0 },
+                &hx(l["args"].as_str().unwrap()),
+            );
+            let cap =
+                u64::from_str_radix(o["capacity"].as_str().unwrap().trim_start_matches("0x"), 16)
+                    .unwrap();
+            molecule::cell_output(cap, &lock, None)
+        })
+        .collect();
+    let out_data: Vec<Vec<u8>> = tx["outputs_data"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .map(|d| molecule::bytes(&hx(d.as_str().unwrap())))
+        .collect();
+    let raw = molecule::raw_transaction(&deps, &inputs, &outputs, &out_data);
+    let tx_hash = ckb_blake2b(&raw);
+    println!("my tx_hash: {}", hex(&tx_hash));
+    println!("real hash:  336a247f0481f9dc88bda15e246fa22d0ddd7598e24873456129af60931ad1d5");
+
+    let witnesses: Vec<Vec<u8>> = tx["witnesses"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .map(|w| hx(w.as_str().unwrap()))
         .collect();
     let hdr = u32::from_le_bytes(witnesses[0][4..8].try_into().unwrap()) as usize;
     let llen = u32::from_le_bytes(witnesses[0][hdr..hdr + 4].try_into().unwrap()) as usize;
@@ -44,76 +89,52 @@ fn main() {
     for b in &mut blank0[hdr + 4..hdr + 4 + llen] {
         *b = 0;
     }
-    let empties = &witnesses[1..];
-    let push = |buf: &mut Vec<u8>, w: &[u8]| {
+    let sig65 = witnesses[0][hdr + 4..hdr + 4 + llen].to_vec();
+
+    // Variant A: u64 length prefixes for every witness.
+    let mut buf = tx_hash.to_vec();
+    buf.extend_from_slice(&(blank0.len() as u64).to_le_bytes());
+    buf.extend_from_slice(&blank0);
+    for w in &witnesses[1..] {
         buf.extend_from_slice(&(w.len() as u64).to_le_bytes());
         buf.extend_from_slice(w);
-    };
-
-    let variants: Vec<(&str, Vec<u8>)> = vec![
-        ("A C-source rule", {
-            let mut b = tx_hash.to_vec();
-            push(&mut b, &blank0);
-            for w in empties {
-                push(&mut b, w);
-            }
-            b
-        }),
-        ("B blank0 only", {
-            let mut b = tx_hash.to_vec();
-            push(&mut b, &blank0);
-            b
-        }),
-        ("C raw tx hash only", tx_hash.to_vec()),
-        ("D witness0 zeroed-fully", {
-            let e = molecule::witness_args(None, None, None);
-            let mut b = tx_hash.to_vec();
-            push(&mut b, &e);
-            for w in empties {
-                push(&mut b, w);
-            }
-            b
-        }),
-        ("E hash full tx (raw+wit)", ckb_blake2b(&bytes).to_vec()),
-        ("F hash raw ‖ witnesses (no lens)", {
-            let mut b = raw.to_vec();
-            b.extend_from_slice(&blank0);
-            for w in empties {
-                b.extend_from_slice(w);
-            }
-            b
-        }),
-        ("G hash tx ‖ blank0 (no lens)", {
-            let mut b = tx_hash.to_vec();
-            b.extend_from_slice(&blank0);
-            b
-        }),
-        ("H hash tx ‖ raw ‖ blank0", {
-            let mut b = tx_hash.to_vec();
-            b.extend_from_slice(raw);
-            push(&mut b, &blank0);
-            for w in empties {
-                push(&mut b, w);
-            }
-            b
-        }),
-    ];
-
-    for (name, buf) in &variants {
-        let m = ckb_blake2b(buf);
-        let sig: ecdsa::RecoverableSignature =
-            secp.sign_ecdsa_recoverable(&Message::from_digest_slice(&m).unwrap(), &key.secret);
-        let (rid, data) = sig.serialize_compact();
-        let mut s65 = data.to_vec();
-        s65.push(rid.to_i32() as u8);
-        let w0 = molecule::witness_args(Some(&s65), None, None);
-        json["witnesses"][0] = serde_json::Value::String(rpc::bytes_to_hex(&w0));
-        match rpc::send_transaction_json(&json) {
-            Ok(h) => {
-                println!("{name}: ACCEPTED {h}");
-                break;
-            }
-            Err(e) => println!("{name}: no ({})", e.contains("-101")),
-        }
     }
+    let secp = Secp256k1::new();
+    let try_rec = |m: [u8; 32], tag: &str| {
+        if let Ok(rec) = ecdsa::RecoverableSignature::from_compact(
+            &sig65[..64],
+            ecdsa::RecoveryId::from_i32(i32::from(sig65[64])).unwrap(),
+        ) {
+            if let Ok(pk) = secp.recover_ecdsa(&Message::from_digest_slice(&m).unwrap(), &rec) {
+                println!(
+                    "{tag}: recovered {} match={}",
+                    hex(&ckb_blakeb160(&pk.serialize())),
+                    ckb_blakeb160(&pk.serialize())[..]
+                        == [
+                            0xc1, 0x55, 0xc0, 0x11, 0x33, 0x55, 0xa0, 0x61, 0x17, 0x3d, 0x1f, 0xf2,
+                            0x10, 0x75, 0xec, 0x37, 0x75, 0x4e, 0xc1, 0xca
+                        ][..]
+                );
+                return;
+            }
+        }
+        println!("{tag}: recover FAILED");
+    };
+    try_rec(ckb_blake2b(&buf), "A u64 lens");
+
+    // Variant B: skip empty trailing witnesses entirely.
+    let mut b2 = tx_hash.to_vec();
+    b2.extend_from_slice(&(blank0.len() as u64).to_le_bytes());
+    b2.extend_from_slice(&blank0);
+    for w in &witnesses[1..] {
+        if w.is_empty() {
+            continue;
+        }
+        b2.extend_from_slice(&(w.len() as u64).to_le_bytes());
+        b2.extend_from_slice(w);
+    }
+    try_rec(ckb_blake2b(&b2), "B skip empties");
+}
+fn hex(b: &[u8]) -> String {
+    b.iter().map(|x| format!("{x:02x}")).collect()
 }

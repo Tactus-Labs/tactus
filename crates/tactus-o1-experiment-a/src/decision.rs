@@ -68,11 +68,40 @@ pub fn decide_a3(s: &A3Stats, sealed: bool) -> Decision {
         } else if p95 > A3_SEALED_P95_LIMIT {
             Decision::RejectSnapshotSwitchingPolicy
         } else {
-            Decision::AdvanceToProductionReview
+            Decision::ConditionalEnforcementPrimitiveUnimplemented
         }
     } else if s.invalidation_rate() > A3_INVALIDATION_THRESHOLD {
         Decision::RejectLiveHeadDependencyStrategy
     } else {
         Decision::AdvanceToProductionReview
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn simulated_snapshot_latency_never_proves_unimplemented_enforcement() {
+        let measured = A3Stats {
+            processing_delays: vec![1, 2, 3],
+            ..A3Stats::default()
+        };
+        assert_eq!(
+            decide_a3(&measured, true),
+            Decision::ConditionalEnforcementPrimitiveUnimplemented
+        );
+        let late = A3Stats {
+            processing_delays: vec![49, 100],
+            ..A3Stats::default()
+        };
+        assert_eq!(
+            decide_a3(&late, true),
+            Decision::RejectSnapshotSwitchingPolicy
+        );
+        assert_eq!(
+            decide_a3(&A3Stats::default(), true),
+            Decision::ConditionalEnforcementPrimitiveUnimplemented
+        );
     }
 }

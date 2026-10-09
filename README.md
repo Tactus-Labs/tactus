@@ -14,8 +14,16 @@ permissionless CKB-based canonical sequencing, validity-enforced settlement.
 ## Status
 
 - **Architecture baseline:** frozen at [v0.2.5](specs/TACTUS_O1_ARCHITECTURE_SPEC_v0.2.6.md) (9 October 2026).
-- **Evidence gates:** G1–G9 are all **OPEN**. Nothing here is an implemented
-  protocol property, a measured performance result, or production authorisation.
+- **Evidence gates:** G1–G9 are all **OPEN**. Local mechanism evidence does not
+  establish end-to-end protocol guarantees or authorise production.
+- **Production readiness:** **NOT READY**. The [readiness tracker](specs/PRODUCTION_READINESS.md)
+  lists the missing execution, proof, DA, inclusion and exit boundaries.
+- **Devnet mechanism tier:** A1 competition, A2 omission baseline, A3 dependency
+  churn and immutable controls now run on isolated CKB **0.121.0 and 0.210.0**.
+  Both runs include 11 script rejection cases and planned reorg/head recovery.
+  [Raw evidence and scope](specs/EXPERIMENT_A_DEVNET_REPORT.md) are checked in;
+  full Experiment A and G1–G9 remain OPEN. Reproduce with
+  `CKB_BIN=/path/to/ckb scripts/run-devnet-experiments.sh`.
 - **Current deliverable:** [Experiment A](specs/EXPERIMENT_A_DESIGN.md) — the
   priority-admission comparison of A1 (atomic OrderingHead reference), A2
   (independent Priority Message Cells) and A3′ (sharded lane heads, with an
@@ -25,7 +33,7 @@ permissionless CKB-based canonical sequencing, validity-enforced settlement.
   with deterministic seeds and pre-committed decision rules; reproduce with
   `cargo run --bin tactus-o1-experiment-a` and read
   [`specs/EXPERIMENT_A_REPORT.md`](specs/EXPERIMENT_A_REPORT.md). Headline
-  simulation-tier findings (not gate passes; devnet tier pending):
+  simulation-tier findings (not gate passes; mechanism-tier devnet evidence now available):
   - **A1** — fee priority rescues conflicts it can reach, never stale
     OutPoints: at a 3-block signing delay, DOA reaches 34% even at 10× fees
     → reference implementation only.
@@ -103,7 +111,11 @@ permissionless CKB-based canonical sequencing, validity-enforced settlement.
 specs/               # frozen architecture spec + experiment designs
 crates/
   tactus-o1-protocol/     # protocol primitives (illustrative companions to the spec)
-  tactus-o1-experiment-a/ # Experiment A harness: workload models, metrics, scenarios
+  tactus-o1-experiment-a/ # Experiment A simulation: workload models, metrics, scenarios
+  tactus-o1-ordering-script/ # host-tested + CKB-VM experimental state transitions
+  tactus-o1-head-lock/      # permissionless lock bound to the head type
+  tactus-o1-devnet-driver/  # real transactions, isolated experiments, head recovery
+scripts/                # RISC-V build, disposable devnet launcher, evidence summary
 ```
 
 Crates are added only when their protocol boundary is justified; the canonical

@@ -12,12 +12,56 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
+      - uses: dtolnay/rust-toolchain@1.92.0
         with:
           components: rustfmt, clippy
       - uses: Swatinem/rust-cache@v2
       - run: cargo fmt --all -- --check
-      - run: cargo clippy --all-targets -- -D warnings
-      - run: cargo test --quiet
+      - run: cargo clippy --locked --workspace --all-targets -- -D warnings
+      - run: cargo test --locked --workspace --quiet
       - name: Harness smoke (regression on the A1 fee-effect)
-        run: cargo run --quiet --bin tactus-o1-experiment-a >/dev/null
+        run: cargo run --locked --quiet --bin tactus-o1-experiment-a >/dev/null
+
+  ckb-mechanisms:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - ckb: '0.121.0'
+            sha256: '87502b4906790317ca5cc8f33849d49286a8befc808dcc769876b120f1558ea1'
+          - ckb: '0.210.0'
+            sha256: 'f7ea14476229883153eaef2f96aa3ae9e67c6f7254fe642aa06014cc6333d017'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@1.92.0
+        with:
+          targets: riscv64imac-unknown-none-elf
+      - uses: Swatinem/rust-cache@v2
+      - name: Install pinned reference CKB
+        shell: bash
+        env:
+          CKB_VERSION: ${{ matrix.ckb }}
+          CKB_SHA256: ${{ matrix.sha256 }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/ckb"
+          curl --fail --location --retry 3 "https://github.com/nervosnetwork/ckb/releases/download/v$CKB_VERSION/ckb_v${CKB_VERSION}_x86_64-unknown-linux-gnu-portable.tar.gz" -o "$RUNNER_TEMP/ckb.tar.gz"
+          printf '%s  %s/ckb.tar.gz\n' "$CKB_SHA256" "$RUNNER_TEMP" | sha256sum --check
+          tar -xzf "$RUNNER_TEMP/ckb.tar.gz" --strip-components=1 -C "$RUNNER_TEMP/ckb"
+      - name: Run isolated A1/A2/A3 mechanisms and VM rejection tests
+        env:
+          TACTUS_CKB_VERSION: ${{ matrix.ckb }}
+        run: CKB_BIN="$RUNNER_TEMP/ckb/ckb" scripts/run-devnet-experiments.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ckb-experiment-evidence-${{ matrix.ckb }}
+          path: |
+            artifacts/a123-*/evidence.json
+            artifacts/a123-*/summary.json
+            artifacts/a123-*/manifest.json
+            artifacts/a123-*/replay.log
+            artifacts/a123-*/node.log
+            artifacts/a123-*/node/ckb.toml
+            artifacts/a123-*/node/specs/dev.toml

@@ -76,3 +76,12 @@ _Decisions referenced: `KeepA1AsReferenceOnly` · `G2NotPassed` · `RejectLiveHe
 - Per design §5, no average-throughput figure substitutes for G2; decisions above are inputs to the devnet tier, not gate passes.
 - Next tier: identical arms against a CKB devnet under a dominant-builder driver (design §8).
 
+
+## Devnet follow-up — 10 October 2026
+
+The isolated [CKB mechanism suite](EXPERIMENT_A_DEVNET_REPORT.md) now reproduces
+A1 fee/staleness races, A2 independent-cell omission and A3 live-dependency churn
+on CKB 0.121.0 and 0.210.0. This supplements the simulation evidence; it does not
+implement the A2/A3 enforcement assumptions or pass G2. The simulator decision
+function now also keeps a low-latency sealed result conditional, since measuring
+latency cannot prove an unimplemented enforcement primitive.

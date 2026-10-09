@@ -7,7 +7,7 @@
 //! - dynamic vectors and tables (`DynVec`/`Table`): `u32` total size,
 //!   `u32` header size (= 8 + 4·(n−1)), then `n − 1` offsets for items
 //!   2..n — the first item starts at the header size with an implicit
-//!   offset. An empty `DynVec` serializes as a single zero `u32`.
+//!   offset. An empty `DynVec` serializes as a single `u32` equal to 4.
 //!   `None` table fields occupy zero bytes (adjacent offsets equal).
 
 fn u32_le(v: u32) -> [u8; 4] {
@@ -20,7 +20,7 @@ fn u64_le(v: u64) -> [u8; 8] {
 
 fn dyn_collection(items: &[Vec<u8>]) -> Vec<u8> {
     if items.is_empty() {
-        return u32_le(0).to_vec();
+        return u32_le(4).to_vec();
     }
     let header_len = 8 + 4 * (items.len() - 1);
     let payload: usize = items.iter().map(|i| i.len()).sum();
@@ -130,7 +130,7 @@ pub fn script_to_json(script: &[u8]) -> serde_json::Value {
     let args = &script[header + 37..header + 37 + args_len];
     serde_json::json!({
         "code_hash": crate::rpc::bytes_to_hex(code_hash),
-        "hash_type": if hash_type == 1 { "type" } else { "data" },
+        "hash_type": match hash_type { 0 => "data", 1 => "type", 2 => "data1", 4 => "data2", _ => panic!("unsupported hash type") },
         "args": crate::rpc::bytes_to_hex(args),
     })
 }
@@ -219,8 +219,8 @@ mod tests {
     }
 
     #[test]
-    fn empty_dynvec_serializes_as_single_zero() {
-        assert_eq!(dyn_collection(&[]), vec![0, 0, 0, 0]);
+    fn empty_dynvec_serializes_its_total_size() {
+        assert_eq!(dyn_collection(&[]), vec![4, 0, 0, 0]);
     }
 
     #[test]

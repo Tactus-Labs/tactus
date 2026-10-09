@@ -7,3 +7,7 @@
 pub mod molecule;
 pub mod rpc;
 pub mod tx;
+
+pub mod lab;
+
+pub mod recovery;

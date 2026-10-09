@@ -2,6 +2,20 @@
 
 ## Unreleased
 
+- Add isolated A1/A2/A3 CKB mechanism experiments on 0.121.0 and 0.210.0,
+  with raw evidence, independent actor keys, fee/delay races, omission and
+  dependency-churn controls, planned reorg and canonical head recovery.
+- Implement seed-bound unique OrderingHead genesis, forbid split/burn/lock
+  takeover/capacity drain, reject counter wrap and add a type-bound permissionless
+  lock. Use VM v1 (`data1`); validate the linked ELF on actual CKB.
+- Repair deployment inputs, fee funding, group-aware signing, SECP dependency
+  discovery, Molecule empty vectors and occupied-capacity accounting. Bound RPC
+  waits, isolate devnet writes, and require the exact expected rejection reason.
+- Add a pinned two-version CI matrix and production-readiness/fixture-boundary
+  documentation. Full Experiment A and all production gates remain OPEN.
+- Fresh 0.210.0 devnet signatures pass; retract the earlier broad attribution of
+  signature failures to that node version. The old chain's root cause is unresolved.
+
 - Rename the O1 project and repository to `tactus-o1` (display name: Tactus O1),
   including crate names, source imports, build artifacts, CI commands and spec links.
   Tactus Pulse and Tactus Beat retain their separate names. Existing devnet hash
@@ -196,6 +210,19 @@
 - Experiment A report: added a starvation synthesis section — definition,
   three observed forms (admission / progression / processing starvation) with
   causes, and the safety-versus-liveness lesson; linked from README.
+
+- OPERATIONAL_POSTURE §8 second refinement: the certificate-gating test (does
+  the OrderingHead accept a valid batch without a committee certificate —
+  soft-confirmations-only vs protocol-level ordering veto); shared mempools
+  and hash-ordering conventions cannot yield a network-unique soft head;
+  staged coordination plan P0 permissionless → P1 open preconfirmation market
+  (measure fulfilment rate, soft-reorg frequency, divergence, compensation
+  cost, switching time) → P2 threshold/BFT only on demonstrated need, never a
+  precondition for OrderingHead advancement; builder vs sequencing-coordinator
+  role separation (PBS-flavoured); red line recorded — G2 is never solved via
+  a fast committee (a committee can collectively refuse a user); research
+  question: an economically credible shared fast head under CKB PoW without
+  exclusive canonical sequencing rights.
 
 ## 0.1.1 — 2026-10-09
 

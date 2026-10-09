@@ -76,6 +76,10 @@ pub enum ValidationError {
     BadAppendBatch,
     /// Script args do not match the head's rollup identity.
     IdentityMismatch,
+    BadGenesis,
+    BadCellCount,
+    InvalidState,
+    CellProtectionChanged,
 }
 
 fn chain_hash(left: &[u8; 32], right: &[u8; 32]) -> [u8; 32] {
@@ -120,12 +124,31 @@ impl OrderingHead {
         })
     }
 
+    /// Initial state is empty; identity is derived from the consumed genesis seed.
+    pub fn validate_genesis(&self) -> Result<(), ValidationError> {
+        if self.protocol_version != 1
+            || self.next_batch_number != 0
+            || self.batch_accumulator_root != [0; 32]
+            || self.inbox_root != [0; 32]
+            || self.inbox_tail != 0
+            || self.processed_inbox_cursor != 0
+        {
+            return Err(ValidationError::BadGenesis);
+        }
+        Ok(())
+    }
+
     /// Validate one OrderingHead transition (spec §4.1–4.2).
     pub fn validate_transition(
         &self,
         next: &OrderingHead,
         transition: Transition,
     ) -> Result<(), ValidationError> {
+        if self.processed_inbox_cursor > self.inbox_tail
+            || next.processed_inbox_cursor > next.inbox_tail
+        {
+            return Err(ValidationError::InvalidState);
+        }
         // Genesis-bound identity (spec §3.1, §10.2): immutable for life.
         if self.rollup_id != next.rollup_id
             || self.protocol_version != next.protocol_version
@@ -137,7 +160,7 @@ impl OrderingHead {
         match transition {
             Transition::Enqueue { message_commitment } => {
                 if next.inbox_root != chain_hash(&self.inbox_root, &message_commitment)
-                    || next.inbox_tail != self.inbox_tail.wrapping_add(1)
+                    || Some(next.inbox_tail) != self.inbox_tail.checked_add(1)
                     || next.next_batch_number != self.next_batch_number
                     || next.batch_accumulator_root != self.batch_accumulator_root
                     || next.processed_inbox_cursor != self.processed_inbox_cursor
@@ -148,7 +171,7 @@ impl OrderingHead {
             Transition::AppendBatch { batch_commitment } => {
                 if next.batch_accumulator_root
                     != chain_hash(&self.batch_accumulator_root, &batch_commitment)
-                    || next.next_batch_number != self.next_batch_number.wrapping_add(1)
+                    || Some(next.next_batch_number) != self.next_batch_number.checked_add(1)
                     || next.inbox_root != self.inbox_root
                     || next.inbox_tail != self.inbox_tail
                     || next.processed_inbox_cursor > next.inbox_tail
@@ -162,15 +185,26 @@ impl OrderingHead {
     }
 }
 
+/// Unique genesis identity: CKB Type ID construction over the first input
+/// and the absolute output index. Its seed can be consumed only once.
+pub fn genesis_identity(first_input: &[u8; 44], output_index: u64) -> [u8; 32] {
+    let mut seed = [0; 52];
+    seed[..44].copy_from_slice(first_input);
+    seed[44..].copy_from_slice(&output_index.to_le_bytes());
+    ckb_blake2b(&seed)
+}
+
 #[cfg(target_arch = "riscv64")]
 mod onchain {
-    use crate::{OrderingHead, Transition, ValidationError, HEAD_LEN};
+    use crate::{genesis_identity, OrderingHead, Transition, ValidationError};
     ckb_std::default_alloc!();
-
     use ckb_std::ckb_constants::Source;
-    use ckb_std::ckb_types::prelude::Unpack;
-    use ckb_std::high_level::{load_cell_data, load_script, load_witness_args};
-
+    use ckb_std::ckb_types::prelude::*;
+    use ckb_std::error::SysError;
+    use ckb_std::high_level::{
+        load_cell_capacity, load_cell_data, load_cell_lock_hash, load_cell_type_hash, load_input,
+        load_script, load_script_hash, load_witness_args,
+    };
     ckb_std::entry!(script);
 
     fn error_code(e: ValidationError) -> i8 {
@@ -181,59 +215,92 @@ mod onchain {
             ValidationError::BadEnqueue => 4,
             ValidationError::BadAppendBatch => 5,
             ValidationError::IdentityMismatch => 6,
+            ValidationError::BadGenesis => 7,
+            ValidationError::BadCellCount => 8,
+            ValidationError::InvalidState => 9,
+            ValidationError::CellProtectionChanged => 10,
         }
     }
 
     fn script() -> i8 {
-        match run() {
-            Ok(()) => 0,
-            Err(e) => error_code(e),
-        }
+        run().map_or_else(error_code, |_| 0)
     }
 
     fn run() -> Result<(), ValidationError> {
-        // Script args carry the rollup identity this deployment serves.
         let args = load_script()
             .map_err(|_| ValidationError::BadWitness)?
-            .args();
-        let args: alloc::vec::Vec<u8> = ckb_std::ckb_types::prelude::Unpack::unpack(&args);
-        let head_args: [u8; 32] = args
-            .as_slice()
+            .args()
+            .raw_data();
+        let identity: [u8; 32] = args
+            .as_ref()
             .try_into()
             .map_err(|_| ValidationError::IdentityMismatch)?;
-
-        // The type-group's first input witness carries the 32-byte
-        // commitment in WitnessArgs::input_type (devnet-tier convention).
-        let witness_args =
+        // Exactly one output and at most one input; no split, merge or burn.
+        if load_cell_capacity(1, Source::GroupInput) != Err(SysError::IndexOutOfBound)
+            || load_cell_capacity(1, Source::GroupOutput) != Err(SysError::IndexOutOfBound)
+        {
+            return Err(ValidationError::BadCellCount);
+        }
+        let out_bytes =
+            load_cell_data(0, Source::GroupOutput).map_err(|_| ValidationError::BadCellCount)?;
+        let next = OrderingHead::from_bytes(&out_bytes)?;
+        if next.rollup_id != identity {
+            return Err(ValidationError::IdentityMismatch);
+        }
+        let in_bytes = match load_cell_data(0, Source::GroupInput) {
+            Ok(data) => data,
+            Err(SysError::IndexOutOfBound) => {
+                let script_hash = load_script_hash().map_err(|_| ValidationError::BadGenesis)?;
+                let mut index = 0;
+                loop {
+                    let hash = load_cell_type_hash(index, Source::Output)
+                        .map_err(|_| ValidationError::BadGenesis)?;
+                    if hash == Some(script_hash) {
+                        break;
+                    }
+                    index += 1;
+                }
+                let input =
+                    load_input(0, Source::Input).map_err(|_| ValidationError::BadGenesis)?;
+                let seed: [u8; 44] = input
+                    .as_slice()
+                    .try_into()
+                    .map_err(|_| ValidationError::BadGenesis)?;
+                if identity != genesis_identity(&seed, index as u64) {
+                    return Err(ValidationError::IdentityMismatch);
+                }
+                return next.validate_genesis();
+            }
+            Err(_) => return Err(ValidationError::BadLength),
+        };
+        let current = OrderingHead::from_bytes(&in_bytes)?;
+        if current.rollup_id != identity {
+            return Err(ValidationError::IdentityMismatch);
+        }
+        // State capacity is not a fee pot; preserve its lock and capacity.
+        if load_cell_lock_hash(0, Source::GroupInput)
+            .map_err(|_| ValidationError::CellProtectionChanged)?
+            != load_cell_lock_hash(0, Source::GroupOutput)
+                .map_err(|_| ValidationError::CellProtectionChanged)?
+            || load_cell_capacity(0, Source::GroupInput)
+                .map_err(|_| ValidationError::CellProtectionChanged)?
+                != load_cell_capacity(0, Source::GroupOutput)
+                    .map_err(|_| ValidationError::CellProtectionChanged)?
+        {
+            return Err(ValidationError::CellProtectionChanged);
+        }
+        let witness =
             load_witness_args(0, Source::GroupInput).map_err(|_| ValidationError::BadWitness)?;
-        let packed = witness_args
+        let packed = witness
             .input_type()
             .to_opt()
             .ok_or(ValidationError::BadWitness)?;
-        let commitment_bytes: alloc::vec::Vec<u8> =
-            ckb_std::ckb_types::prelude::Unpack::unpack(&packed);
-        if commitment_bytes.len() != 32 {
-            return Err(ValidationError::BadWitness);
-        }
-        let mut commitment = [0u8; 32];
-        commitment.copy_from_slice(&commitment_bytes);
-
-        let in_bytes =
-            load_cell_data(0, Source::GroupInput).map_err(|_| ValidationError::BadWitness)?;
-        let out_bytes =
-            load_cell_data(0, Source::GroupOutput).map_err(|_| ValidationError::BadWitness)?;
-        if in_bytes.len() != HEAD_LEN || out_bytes.len() != HEAD_LEN {
-            return Err(ValidationError::BadLength);
-        }
-        let current = OrderingHead::from_bytes(&in_bytes)?;
-        let next = OrderingHead::from_bytes(&out_bytes)?;
-        if current.rollup_id != head_args {
-            return Err(ValidationError::IdentityMismatch);
-        }
-
-        // ENQUEUE iff the inbox tail advances; both branches are then fully
-        // validated, so a misclassified transition still fails.
-        let transition = if next.inbox_tail == current.inbox_tail.wrapping_add(1) {
+        let commitment: [u8; 32] = packed
+            .raw_data()
+            .as_ref()
+            .try_into()
+            .map_err(|_| ValidationError::BadWitness)?;
+        let transition = if Some(next.inbox_tail) == current.inbox_tail.checked_add(1) {
             Transition::Enqueue {
                 message_commitment: commitment,
             }
@@ -369,7 +436,67 @@ mod tests {
                     batch_commitment: [3u8; 32]
                 }
             ),
+            Err(ValidationError::InvalidState)
+        );
+    }
+    #[test]
+    fn exhausted_counters_never_wrap() {
+        let mut current = genesis();
+        let commitment = [42; 32];
+        current.inbox_tail = u64::MAX;
+        let mut next = current;
+        next.inbox_tail = 0;
+        next.inbox_root = chain_hash(&current.inbox_root, &commitment);
+        assert_eq!(
+            current.validate_transition(
+                &next,
+                Transition::Enqueue {
+                    message_commitment: commitment
+                }
+            ),
+            Err(ValidationError::BadEnqueue)
+        );
+        current.next_batch_number = u64::MAX;
+        next = current;
+        next.next_batch_number = 0;
+        next.batch_accumulator_root = chain_hash(&current.batch_accumulator_root, &commitment);
+        assert_eq!(
+            current.validate_transition(
+                &next,
+                Transition::AppendBatch {
+                    batch_commitment: commitment
+                }
+            ),
             Err(ValidationError::BadAppendBatch)
+        );
+    }
+
+    #[test]
+    fn genesis_must_be_empty_and_identity_is_seed_bound() {
+        let mut head = genesis();
+        head.inbox_root = [0; 32];
+        assert_eq!(head.validate_genesis(), Ok(()));
+        head.inbox_tail = 1;
+        assert_eq!(head.validate_genesis(), Err(ValidationError::BadGenesis));
+        assert_ne!(genesis_identity(&[0; 44], 0), genesis_identity(&[0; 44], 1));
+        assert_ne!(genesis_identity(&[0; 44], 0), genesis_identity(&[1; 44], 0));
+    }
+
+    #[test]
+    fn corrupted_cursor_is_not_carried_forward() {
+        let mut head = genesis();
+        head.processed_inbox_cursor = 1;
+        let mut next = head;
+        next.inbox_tail = 1;
+        next.inbox_root = chain_hash(&head.inbox_root, &[1; 32]);
+        assert_eq!(
+            head.validate_transition(
+                &next,
+                Transition::Enqueue {
+                    message_commitment: [1; 32]
+                }
+            ),
+            Err(ValidationError::InvalidState)
         );
     }
 }

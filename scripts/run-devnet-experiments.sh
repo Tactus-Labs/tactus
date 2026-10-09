@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+# Run against an isolated, funded, loopback-only chain. Never touches an existing node.
+set -euo pipefail
+cd "$(dirname "$0")/.."
+CKB_BIN="${CKB_BIN:-ckb}"
+CKB_BIN="$(command -v "$CKB_BIN")"
+required_version="${TACTUS_CKB_VERSION:-0.121.0}"
+if [[ "$required_version" != 0.121.0 && "$required_version" != 0.210.0 ]]; then
+  echo 'Supported laboratory versions: 0.121.0, 0.210.0.' >&2
+  exit 1
+fi
+if [[ "$($CKB_BIN --version)" != "ckb $required_version "* ]]; then
+  echo "Experiments require CKB $required_version; set CKB_BIN to that binary." >&2
+  exit 1
+fi
+cargo build --locked --bin replay-a123
+bash scripts/build-ordering-script.sh
+mkdir -p artifacts
+run_dir="$(mktemp -d "$PWD/artifacts/a123-XXXXXXXX")"
+export TACTUS_CKB_RPC_ADDR="127.0.0.1:${TACTUS_DEVNET_RPC_PORT:-18714}"
+export TACTUS_DEVNET_AUTOMINE=1
+export TACTUS_EVIDENCE_PATH="$run_dir/evidence.json"
+export TACTUS_RUN_DIR="$run_dir"
+export TACTUS_CKB_BIN="$CKB_BIN"
+python3 - <<'PY'
+import os,socket
+host,port=os.environ['TACTUS_CKB_RPC_ADDR'].split(':')
+s=socket.socket()
+s.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
+try:
+ s.bind((host,int(port)))
+ s.listen(1)
+except OSError:raise SystemExit('Selected RPC port is occupied; refusing to connect to an existing node')
+s.close()
+PY
+"$CKB_BIN" init -C "$run_dir/node" --chain dev --rpc-port "${TACTUS_DEVNET_RPC_PORT:-18714}" \
+  --p2p-port "${TACTUS_DEVNET_P2P_PORT:-18715}" \
+  --ba-arg 0xc155c0113355a061173d1ff21075ec37754ec1ca --genesis-message tactus-o1-experiment-a-v1 > "$run_dir/init.log"
+python3 - <<'PY'
+import os,pathlib,hashlib,json,subprocess
+root=pathlib.Path(os.environ['TACTUS_RUN_DIR']);p=root/'node/ckb.toml'
+s=p.read_text().replace('"Experiment", "Debug"','"Experiment", "Debug", "IntegrationTest"').replace('/ip4/0.0.0.0/','/ip4/127.0.0.1/')
+assert '"IntegrationTest"' in s
+p.write_text(s)
+p=root/'node/specs/dev.toml';s=p.read_text();i=s.index('[params]')
+s=s[:i]+'''[[genesis.issued_cells]]
+capacity = 20000000000000000
+lock.code_hash = "0x9bd7e06f3ecf4be0f2fcd2188b23f1b9fcc88e5d4b65a8637b17723bbda3cce8"
+lock.args = "0xc155c0113355a061173d1ff21075ec37754ec1ca"
+lock.hash_type = "type"
+
+'''+s[i:];p.write_text(s)
+manifest={'node_version':subprocess.check_output([os.environ['TACTUS_CKB_BIN'],'--version'],text=True).strip(),
+ 'rustc':subprocess.check_output(['rustc','-Vv'],text=True),'git_head':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
+ 'git_diff_sha256':hashlib.sha256(subprocess.check_output(['git','diff','HEAD'])).hexdigest(),
+ 'files':{}}
+for name in ['Cargo.lock','scripts/build-ordering-script.sh','scripts/ordering-script.ld','artifacts/tactus_o1_ordering_script.elf','artifacts/tactus_o1_head_lock.elf',str(root/'node/ckb.toml'),str(p),os.environ['TACTUS_CKB_BIN']]:
+ manifest['files'][name]=hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest()
+paths=subprocess.check_output(['git','ls-files','--cached','--others','--exclude-standard','-z'],text=True).split('\0')
+manifest['source_files']={name:hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest()
+ for name in sorted(set(paths)) if name and pathlib.Path(name).is_file()
+ and (name.startswith(('crates/','scripts/','.github/')) or name in ('Cargo.toml','Cargo.lock','rust-toolchain.toml'))}
+(root/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
+PY
+"$CKB_BIN" run -C "$run_dir/node" --indexer > "$run_dir/node.log" 2>&1 &
+node_pid=$!
+cleanup() { kill "$node_pid" 2>/dev/null || true; wait "$node_pid" 2>/dev/null || true; }
+trap cleanup EXIT
+python3 - <<'PY'
+import os,urllib.request,json,time
+url='http://'+os.environ['TACTUS_CKB_RPC_ADDR']
+for _ in range(150):
+ try:
+  req=urllib.request.Request(url,json.dumps({'jsonrpc':'2.0','id':1,'method':'get_tip_block_number','params':[]}).encode(),{'Content-Type':'application/json'})
+  if json.load(urllib.request.urlopen(req,timeout=1))['result']=='0x0':break
+ except (OSError,KeyError):pass
+ time.sleep(.1)
+else:raise SystemExit('Isolated CKB node did not start at genesis')
+PY
+printf 'Evidence directory: %s\n' "$run_dir"
+target/debug/replay-a123 2>&1 | tee "$run_dir/replay.log"
+python3 scripts/summarize-experiments.py "$run_dir/evidence.json" "$run_dir/summary.json"
+printf 'Complete: %s\n' "$run_dir/summary.json"

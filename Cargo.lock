@@ -198,6 +198,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "tactus-o1-head-lock"
+version = "0.1.0"
+dependencies = [
+ "ckb-std",
+]
+
+[[package]]
 name = "tactus-o1-ordering-script"
 version = "0.1.0"
 dependencies = [
