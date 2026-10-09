@@ -88,14 +88,23 @@ impl A1Stats {
     #[must_use]
     pub fn success_rate(&self) -> f64 {
         let done = self.admissions + self.admission_failures;
-        if done == 0 { f64::NAN } else { self.admissions as f64 / done as f64 }
+        if done == 0 {
+            f64::NAN
+        } else {
+            self.admissions as f64 / done as f64
+        }
     }
 
     /// DOA-before-broadcast rate over all signings (attempts + re-signings).
     #[must_use]
     pub fn stale_rate(&self) -> f64 {
-        let signings = self.stale_before_broadcast + self.superseded_after_broadcast + self.admissions;
-        if signings == 0 { f64::NAN } else { self.stale_before_broadcast as f64 / signings as f64 }
+        let signings =
+            self.stale_before_broadcast + self.superseded_after_broadcast + self.admissions;
+        if signings == 0 {
+            f64::NAN
+        } else {
+            self.stale_before_broadcast as f64 / signings as f64
+        }
     }
 
     /// `p`-th percentile of admission delay in blocks (0..=100).
@@ -150,8 +159,14 @@ struct MempoolTx {
 
 /// Runs one A1 scenario and returns the raw stats plus the mapped metrics record.
 pub fn run_a1(params: &A1Params) -> (A1Stats, RunMetrics) {
-    assert!(params.wclose >= 1 && params.wfar > params.wclose, "invalid proposal window");
-    assert!(params.signing_delay >= 1, "signing delay of at least one block models wallet latency");
+    assert!(
+        params.wclose >= 1 && params.wfar > params.wclose,
+        "invalid proposal window"
+    );
+    assert!(
+        params.signing_delay >= 1,
+        "signing delay of at least one block models wallet latency"
+    );
 
     let mut rng = Rng(params.seed);
     let mut stats = A1Stats::default();
@@ -206,7 +221,12 @@ pub fn run_a1(params: &A1Params) -> (A1Stats, RunMetrics) {
                         stats.enqueue_attempts += 1;
                     }
                 }
-                UserState::Signing { target_head, remaining, attempts, first_tick } => {
+                UserState::Signing {
+                    target_head,
+                    remaining,
+                    attempts,
+                    first_tick,
+                } => {
                     *remaining -= 1;
                     if *remaining == 0 {
                         if *target_head == head {
@@ -219,7 +239,11 @@ pub fn run_a1(params: &A1Params) -> (A1Stats, RunMetrics) {
                                 fee: params.builder_fee * params.user_fee_multiplier,
                                 proposed: t,
                             });
-                            *user = UserState::Waiting { tx: id, attempts: *attempts, first_tick: *first_tick };
+                            *user = UserState::Waiting {
+                                tx: id,
+                                attempts: *attempts,
+                                first_tick: *first_tick,
+                            };
                         } else {
                             // Signed against a head that had already advanced:
                             // dead on arrival, never entered the mempool.
@@ -236,7 +260,11 @@ pub fn run_a1(params: &A1Params) -> (A1Stats, RunMetrics) {
         //    highest fee density wins; ties go to the earlier proposal.
         let winner = mempool
             .iter()
-            .filter(|tx| tx.head == head && t - tx.proposed >= params.wclose && t - tx.proposed <= params.wfar)
+            .filter(|tx| {
+                tx.head == head
+                    && t - tx.proposed >= params.wclose
+                    && t - tx.proposed <= params.wfar
+            })
             .max_by(|a, b| {
                 a.fee
                     .partial_cmp(&b.fee)
@@ -303,9 +331,16 @@ pub fn run_a1(params: &A1Params) -> (A1Stats, RunMetrics) {
 fn restart_or_fail(user: &mut UserState, head: u64, max_retries: u32, stats: &mut A1Stats) {
     // Preserve the original first_tick: admission delay is user-perceived.
     let (attempts, first_tick) = match user {
-        UserState::Signing { attempts, first_tick, .. } | UserState::Waiting { attempts, first_tick, .. } => {
-            (*attempts, *first_tick)
+        UserState::Signing {
+            attempts,
+            first_tick,
+            ..
         }
+        | UserState::Waiting {
+            attempts,
+            first_tick,
+            ..
+        } => (*attempts, *first_tick),
         UserState::Idle => return,
     };
     if attempts < max_retries {
@@ -330,7 +365,8 @@ fn map_metrics(stats: &A1Stats, params: &A1Params) -> RunMetrics {
         priority_admission_delay_blocks_p99: stats.delay_percentile(99.0),
         head_stale_before_broadcast_rate: stats.stale_rate(),
         retry_and_resign_count: stats.stale_before_broadcast + stats.superseded_after_broadcast,
-        ckb_fee_paid_per_successful_priority_admission: params.builder_fee * params.user_fee_multiplier,
+        ckb_fee_paid_per_successful_priority_admission: params.builder_fee
+            * params.user_fee_multiplier,
         reorg_recovery_and_checkpoint_dependency_results: vec![format!(
             "reorgs={} (depth-1 model)",
             stats.reorgs
@@ -359,7 +395,11 @@ mod tests {
             ..A1Params::default()
         };
         let (s, _) = run_a1(&p);
-        assert!(s.admissions > 50, "expected many admissions, got {}", s.admissions);
+        assert!(
+            s.admissions > 50,
+            "expected many admissions, got {}",
+            s.admissions
+        );
         assert_eq!(s.admission_failures, 0);
         assert_eq!(s.stale_before_broadcast, 0);
         assert!((s.delay_percentile(50.0) - (p.signing_delay + p.wclose) as f64).abs() < 0.5);
@@ -369,12 +409,21 @@ mod tests {
     fn doa_rate_grows_with_signing_delay() {
         // The design's DOA variable: slower wallets sign against heads that
         // have already advanced. Higher delay ⇒ strictly higher DOA rate.
-        let fast = A1Params { signing_delay: 1, ..A1Params::default() };
-        let slow = A1Params { signing_delay: 3, ..A1Params::default() };
+        let fast = A1Params {
+            signing_delay: 1,
+            ..A1Params::default()
+        };
+        let slow = A1Params {
+            signing_delay: 3,
+            ..A1Params::default()
+        };
         let (s_fast, _) = run_a1(&fast);
         let (s_slow, _) = run_a1(&slow);
         assert!(s_slow.stale_rate() > s_fast.stale_rate());
-        assert!(s_fast.stale_rate() > 0.0, "some DOA expected even at delay 1");
+        assert!(
+            s_fast.stale_rate() > 0.0,
+            "some DOA expected even at delay 1"
+        );
     }
 
     #[test]
@@ -392,7 +441,10 @@ mod tests {
             user_fee_multiplier: 1.0,
             ..A1Params::default()
         };
-        let rich = A1Params { user_fee_multiplier: 10.0, ..base.clone() };
+        let rich = A1Params {
+            user_fee_multiplier: 10.0,
+            ..base.clone()
+        };
         let (s_base, _) = run_a1(&base);
         let (s_rich, _) = run_a1(&rich);
         let resign_base = s_base.stale_before_broadcast + s_base.superseded_after_broadcast;

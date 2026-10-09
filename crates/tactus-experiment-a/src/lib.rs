@@ -6,7 +6,10 @@
 //! OrderingHead admission model under a dominant builder, exercising the
 //! fee-ratio and dead-on-arrival variables of design §7.1.
 
+pub mod decision;
 pub mod sim;
+pub mod sim_a2;
+pub mod sim_a3;
 
 /// Frozen architecture baseline this experiment runs against.
 pub const SPEC_BASELINE: &str = "TACTUS_ARCHITECTURE_SPEC_v0.2.5.md";
@@ -154,6 +157,9 @@ mod tests {
     #[test]
     fn adversarial_model_has_no_analytic_answer() {
         let p = survival_probability(30.0, &[0.1; 4], LoadModel::AdversarialConcentrated);
-        assert!(p.is_nan(), "adversarial regime must be measured, not modelled");
+        assert!(
+            p.is_nan(),
+            "adversarial regime must be measured, not modelled"
+        );
     }
 }

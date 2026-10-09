@@ -19,6 +19,20 @@ permissionless CKB-based canonical sequencing, validity-enforced settlement.
   (independent Priority Message Cells) and A3′ (sharded lane heads, with an
   epoch-sealed snapshot control arm) under identical adversarial CKB devnet
   conditions. G2 — censorship resistance — is the blocking gate.
+- **Simulation tier: complete.** All three arms plus the sealed control run
+  with deterministic seeds and pre-committed decision rules; reproduce with
+  `cargo run --bin tactus-experiment-a` and read
+  [`specs/EXPERIMENT_A_REPORT.md`](specs/EXPERIMENT_A_REPORT.md). Headline
+  simulation-tier findings (not gate passes; devnet tier pending):
+  - **A1** — fee priority rescues conflicts it can reach, never stale
+    OutPoints: at a 3-block signing delay, DOA reaches 34% even at 10× fees
+    → reference implementation only.
+  - **A3′ live-head references** — collapse under adversarial churn
+    (survival 0.01) and degrade as per-lane load grows, while the
+    epoch-sealed control arm is churn-immune at bounded processing delay.
+  - **A2** — admission is contention-free by construction; challenges that
+    only exact a penalty leave messages unprocessed (`G2 not passed`),
+    forced inclusion restores them at bounded delay.
 
 ## Repository layout
 
