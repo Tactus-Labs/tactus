@@ -28,24 +28,17 @@ needed for replay. A separate proof-and-settlement path is intended to establish
 that the resulting state is correct before funds can be withdrawn.
 
 ```mermaid
+%%{init: {"htmlLabels": false, "flowchart": {"htmlLabels": false, "nodeSpacing": 24, "rankSpacing": 36, "padding": 16}, "themeVariables": {"fontFamily": "Arial, sans-serif", "fontSize": "15px"}}}%%
 flowchart TB
-    tx(["Signed Ethereum transactions"])
+    tx(["Ethereum transactions"])
+    builder["01 · Execute<br/>Serial EVM"]
+    batch["Build a batch<br/>Blocks + full inputs"]
+    anchor["02 · Anchor on CKB<br/>Order + immutable data"]
+    replay["03 · Replay<br/>Rebuild EVM state"]
+    proof["Prove execution"]
+    settlement["Verify and settle<br/>Bridge + withdrawals"]
 
-    subgraph execution["01 · EXECUTE OFF-CHAIN"]
-        builder["Builder<br/>Serial EVM execution"]
-        batch["Candidate batch<br/>Ordered EVM blocks + full inputs"]
-        builder --> batch
-    end
-
-    subgraph ckb["02 · ANCHOR ON CKB"]
-        anchor["Canonical batch order<br/>Immutable input publication"]
-    end
-
-    subgraph verification["03 · REPLAY & VERIFY"]
-        replay["Independent replay<br/>Reconstruct EVM state"]
-        proof["Validity proof"]
-        settlement["Verified settlement<br/>Bridge and withdrawals"]
-    end
+    builder --> batch
 
     tx --> builder
     batch --> anchor
@@ -61,9 +54,6 @@ flowchart TB
     class anchor chain
     class replay recovery
     class proof,settlement future
-    style execution fill:transparent,stroke:#93c5fd
-    style ckb fill:transparent,stroke:#6ee7b7
-    style verification fill:transparent,stroke:#c4b5fd
 ```
 
 **Solid paths** have local implementation evidence. **Dashed paths** are still
@@ -101,17 +91,18 @@ process it, the protocol needs an enforceable route forward. **Experiment A**
 compares three ways to admit messages and make them part of the canonical order.
 
 ```mermaid
+%%{init: {"htmlLabels": false, "flowchart": {"htmlLabels": false, "nodeSpacing": 24, "rankSpacing": 36, "padding": 16}, "themeVariables": {"fontFamily": "Arial, sans-serif", "fontSize": "15px"}}}%%
 flowchart TB
-    question(["How does a user's message reach a batch?"])
+    question(["From message to batch"])
 
-    question --> a1["A1 · Shared head<br/>Submit against the current ordering state"]
-    question --> a2["A2 · Independent messages<br/>Publish without competing for one head"]
-    question --> a3["A3 · Sharded lanes<br/>Spread admission across several queues"]
+    question --> a1["A1 · Shared head"]
+    question --> a2["A2 · Message cells"]
+    question --> a3["A3 · Sharded lanes"]
 
-    a1 --> stale["Observed limit<br/>A moving head can invalidate a signed transaction"]
-    a2 --> omit["Observed limit<br/>A challenge alone does not force processing"]
-    a3 --> churn["Observed limit<br/>Changing lane heads invalidate live references"]
-    churn -.-> sealed["Candidate under validation<br/>Seal a stable snapshot, then require its ordered prefix"]
+    a1 --> stale["Head moves<br/>Signed input goes stale"]
+    a2 --> omit["Message omitted<br/>Challenge is insufficient"]
+    a3 --> churn["Lanes change<br/>Live references go stale"]
+    churn -.-> sealed["Sealed snapshot<br/>Required batch prefix<br/>(under validation)"]
 
     classDef entry fill:#f8fafc,stroke:#475569,color:#0f172a,stroke-width:1.5px
     classDef design fill:#eff6ff,stroke:#3b82f6,color:#1e3a8a,stroke-width:1.5px
