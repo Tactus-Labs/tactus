@@ -1,0 +1,5 @@
+{
+  "release": "https://github.com/succinctlabs/sp1/releases/tag/v6.8.1",
+  "asset": "https://github.com/succinctlabs/sp1/releases/download/v6.8.1/cargo_prove_v6.8.1_linux_amd64.tar.gz",
+  "sha256": "0c120463d00d2aaebbacdbae4b965ac7b12b88f6ae87411b1e388ff32e6782a7"
+}

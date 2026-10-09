@@ -84,6 +84,12 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
   The [Experiment A acceptance audit](EXPERIMENT_A_ACCEPTANCE_MATRIX.md) preserves
   remaining miner-policy, admission-fairness and proof-fulfillment requirements.
 
+- [Execution proof guest](EXECUTION_PROOF_V1.md) now executes a real three-transfer
+  batch inside SP1 and matches the native/Geth roots. Its canonical public journal
+  binds deployment context, allocation, interval history and both state roots.
+  This guest-execution evidence does not establish proof-accepted CKB settlement,
+  production proving cost, trusted setup/key provenance or withdrawal authority.
+
 - [Repeated fresh seal contention](SEAL_CONTENTION_REPORT.md) now attains the
   finite `8 × lane_count` valid-append budget, rejects further full-queue churn,
   seals the complete set and processes every payload across two consecutive

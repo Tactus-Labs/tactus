@@ -1,0 +1,12 @@
+{
+  "guest_execution": true,
+  "native_and_geth_roots_match": true,
+  "fixture_index": 0,
+  "signed_transactions": 3,
+  "blocks": 1,
+  "rv64_instructions": 15851885,
+  "execution_seconds_including_cpu_setup": 39.454,
+  "proof_verification": "not yet established at this archive boundary",
+  "ckb_settlement": false,
+  "production_ready": false
+}

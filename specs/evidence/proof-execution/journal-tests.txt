@@ -1,0 +1,22 @@
+   Compiling tactus-o1-proof-journal v0.1.0 (/home/arthur/RustRoverProjects/tactus-o1/proofs/sp1/journal)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.65s
+     Running unittests src/lib.rs (artifacts/proof-journal-target/debug/deps/tactus_o1_proof_journal-cebf8ef84a47e3ab)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/statement.rs (artifacts/proof-journal-target/debug/deps/statement-4d9e63bcd90d2a71)
+
+running 3 tests
+test rejects_empty_overflow_wrong_domain_and_noncanonical_journal ... ok
+test prefix_is_executed_and_order_and_allocation_cannot_be_substituted ... ok
+test real_signed_fixtures_commit_exact_host_and_geth_results ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.26s
+
+   Doc-tests tactus_o1_proof_journal
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s

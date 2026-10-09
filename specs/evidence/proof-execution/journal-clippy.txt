@@ -1,0 +1,2 @@
+    Checking tactus-o1-proof-journal v0.1.0 (/home/arthur/RustRoverProjects/tactus-o1/proofs/sp1/journal)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.32s

@@ -1,0 +1,11 @@
+[package]
+name = "tactus-o1-sp1-host"
+version = "0.1.0"
+edition = "2021"
+[dependencies]
+sp1-sdk = { version = "=6.8.1", default-features = false }
+tactus-o1-proof-journal = { path = "../journal" }
+tactus-o1-execution = { path = "../../../crates/tactus-o1-execution" }
+serde_json = "1"
+hex = "0.4"
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }

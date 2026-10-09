@@ -1,0 +1,5 @@
+[workspace]
+resolver = "2"
+members = ["journal", "guest", "host", "wrong-guest"]
+[profile.release]
+debug = 0

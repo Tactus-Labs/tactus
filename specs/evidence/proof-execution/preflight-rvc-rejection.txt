@@ -1,0 +1,13 @@
+CPU prover initialized in 47.630915172s
+
+thread 'main' (2767995) panicked at /home/arthur/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/sp1-core-executor-6.8.1/src/disassembler/rrs.rs:452:21:
+Cannot decode instruction: 0xfd867111
+stack backtrace:
+   0: __rustc::rust_begin_unwind
+   1: core::panicking::panic_fmt
+   2: sp1_core_executor::disassembler::rrs::transpile
+   3: <sp1_core_executor::program::Program>::from
+   4: <sp1_sdk::prover::execute::ExecuteRequest<sp1_sdk::cpu::CpuProver> as core::future::into_future::IntoFuture>::into_future::{closure#0}
+   5: tactus_local_proof_probe::main::{closure#0}
+   6: tactus_local_proof_probe::main
+note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
