@@ -14,7 +14,7 @@ if [[ "$($CKB_BIN --version)" != "ckb $required_version "* ]]; then
   exit 1
 fi
 suite="${TACTUS_DEVNET_SUITE:-replay-a123}"
-case "$suite" in replay-a123|replay-batch|replay-evm|replay-priority|replay-sealed|replay-admission|replay-network|replay-load|replay-seal-contention) ;; *) echo 'Unknown devnet suite' >&2; exit 1 ;; esac
+case "$suite" in replay-a123|replay-batch|replay-evm|replay-priority|replay-sealed|replay-admission|replay-network|replay-load|replay-seal-contention|replay-proof-verifier) ;; *) echo 'Unknown devnet suite' >&2; exit 1 ;; esac
 cargo build --locked --bin "$suite"
 if [[ "$suite" == replay-evm || "$suite" == replay-network ]]; then
   cargo build --locked --bin recover-execution
@@ -23,6 +23,9 @@ if [[ "$suite" == replay-sealed || "$suite" == replay-network ]]; then
   cargo build --locked --bin recover-sealed
 fi
 bash scripts/build-ordering-script.sh
+if [[ "$suite" == replay-proof-verifier ]]; then
+  bash scripts/build-proof-check-script.sh
+fi
 mkdir -p artifacts
 run_dir="$(mktemp -d "$PWD/artifacts/${suite#replay-}-XXXXXXXX")"
 export TACTUS_CKB_RPC_ADDR="127.0.0.1:${TACTUS_DEVNET_RPC_PORT:-18714}"
@@ -75,12 +78,16 @@ binaries=['target/debug/'+os.environ['TACTUS_DEVNET_SUITE']]
 if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-evm','replay-network'):binaries.append('target/debug/recover-execution')
 if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-sealed','replay-network'):binaries.append('target/debug/recover-sealed')
 if os.environ['TACTUS_DEVNET_SUITE']=='replay-network':binaries.extend([str(root/'peer/ckb.toml'),str(root/'peer/specs/dev.toml')])
+if os.environ['TACTUS_DEVNET_SUITE']=='replay-proof-verifier':
+ binaries.append('artifacts/tactus_o1_proof_check_script.elf')
+ proof_dir=pathlib.Path(os.environ['TACTUS_PROOF_DIR'])
+ binaries.extend(str(proof_dir/name) for name in ['result.json','public-values.bin','groth16-proof.bin','proof.bin'])
 for name in binaries:manifest['files'][name]=hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest()
 
 paths=subprocess.check_output(['git','ls-files','--cached','--others','--exclude-standard','-z'],text=True).split('\0')
 manifest['source_files']={name:hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest()
  for name in sorted(set(paths)) if name and pathlib.Path(name).is_file()
- and (name.startswith(('crates/','scripts/','.github/','.cargo/','specs/test-vectors/')) or name in ('Cargo.toml','Cargo.lock','rust-toolchain.toml'))}
+ and (name.startswith(('crates/','proofs/','scripts/','.github/','.cargo/','specs/test-vectors/')) or name in ('Cargo.toml','Cargo.lock','rust-toolchain.toml'))}
 (root/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
 PY
 "$CKB_BIN" run -C "$run_dir/node" --indexer > "$run_dir/node.log" 2>&1 &

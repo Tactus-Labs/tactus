@@ -1,0 +1,14 @@
+[package]
+name = "tactus-o1-proof-check-script"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.92"
+[workspace]
+[dependencies]
+sp1-verifier = { version = "=6.8.1", default-features = false }
+ckb-std = { version = "0.15", default-features = false, features = ["ckb-types", "allocator"] }
+[lib]
+crate-type = ["staticlib", "rlib"]
+[profile.release]
+debug = false
+panic = "abort"

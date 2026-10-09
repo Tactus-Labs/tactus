@@ -2,6 +2,8 @@
 name = "tactus-o1-sp1-host"
 version = "0.1.0"
 edition = "2021"
+[features]
+native-gnark = ["sp1-sdk/native-gnark"]
 [dependencies]
 sp1-sdk = { version = "=6.8.1", default-features = false }
 tactus-o1-proof-journal = { path = "../journal" }

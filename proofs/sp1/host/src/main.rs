@@ -9,6 +9,7 @@ use tactus_o1_proof_journal::{execute, Domain, Journal};
 
 #[tokio::main]
 async fn main() {
+    sp1_sdk::setup_logger();
     if let Err(error) = run().await {
         eprintln!("{error}");
         std::process::exit(1);
@@ -16,8 +17,19 @@ async fn main() {
 }
 async fn run() -> Result<(), String> {
     let args: Vec<String> = std::env::args().collect();
-    if args.len() < 6 || !["execute", "prove", "verify"].contains(&args[1].as_str()) {
-        return Err("usage: tactus-o1-sp1-host execute|prove|verify GUEST_ELF GETH_FIXTURE CASE_INDEX OUTPUT_DIR [WRONG_GUEST_ELF]".into());
+    if args.len() < 6
+        || !["execute", "prove", "prove-groth16", "verify"].contains(&args[1].as_str())
+    {
+        return Err("usage: tactus-o1-sp1-host execute|prove|prove-groth16|verify GUEST_ELF GETH_FIXTURE CASE_INDEX OUTPUT_DIR [WRONG_GUEST_ELF]".into());
+    }
+    let groth16 = args[1] == "prove-groth16";
+    if groth16 && !cfg!(feature = "native-gnark") {
+        return Err("Build with --features native-gnark for local Groth16 proving".into());
+    }
+    if groth16
+        && std::env::var("SP1_CIRCUIT_MODE").unwrap_or_else(|_| "release".into()) != "release"
+    {
+        return Err("Groth16 experiment requires release circuit artifacts".into());
     }
     let fixture: serde_json::Value =
         serde_json::from_slice(&fs::read(&args[3]).map_err(err)?).map_err(err)?;
@@ -95,8 +107,12 @@ async fn run() -> Result<(), String> {
     let execution_seconds = started.elapsed().as_secs_f64();
     eprintln!("Guest matched native and independent Geth roots after {execution_seconds:.3}s");
     let mut result = serde_json::json!({"schema":1,"case":case["name"],"fixture_case_index":index,"backend":"local-cpu","sp1":"6.8.1","guest_verifying_key":key,"public_values_hex":hex::encode(public.as_slice()),"native_and_geth_roots_match":true,"execution_seconds_including_setup":execution_seconds,"proof_generated":false,"ckb_settlement":false,"production_ready":false,"domain":"explicit laboratory identities 01/02/03; no CKB authentication"});
-    if args[1] == "prove" {
-        let proof = prover.prove(&pk, stdin).core().await.map_err(err)?;
+    if args[1] == "prove" || groth16 {
+        let proof = if groth16 {
+            prover.prove(&pk, stdin).groth16().await.map_err(err)?
+        } else {
+            prover.prove(&pk, stdin).core().await.map_err(err)?
+        };
         if proof.public_values.as_slice() != expected.encode() {
             return Err("proof public values differ".into());
         }
@@ -144,7 +160,17 @@ async fn run() -> Result<(), String> {
             rejected.push("wrong-guest-key");
         }
         result["proof_generated"] = true.into();
-        result["proof_kind"] = "SP1 real core STARK".into();
+        result["proof_kind"] = if groth16 {
+            "SP1 real Groth16"
+        } else {
+            "SP1 real core STARK"
+        }
+        .into();
+        result["circuit_version"] = sp1_sdk::SP1_CIRCUIT_VERSION.into();
+        if groth16 {
+            // SDK wire bytes are the input to the small no_std verifier.
+            fs::write(output.join("groth16-proof.bin"), proof.bytes()).map_err(err)?;
+        }
         result["negative_controls"] = serde_json::json!(rejected);
         result["proof_bytes"] = fs::metadata(output.join("proof.bin"))
             .map_err(err)?
