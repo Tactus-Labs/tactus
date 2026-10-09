@@ -43,12 +43,17 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
   tip growth is accepted; wrong chain/type/genesis and replay-time reorgs are
   rejected. See [recovery evidence and limits](CKB_EVM_RECOVERY_REPORT.md).
 
+- Authentic individual A2 message/lock state machine with consensus-mature
+  challenges, bounded input-ordered publication and immutable pending records.
+  The [real-node comparator](A2_OBLIGATION_REPORT.md) demonstrates that standalone
+  challenge markers still fail forced inclusion; G2 remains OPEN.
+
 ## Work that still blocks the user's production objective
 
 | Priority | Boundary | Required completion evidence |
 |---|---|---|
-| P0 | Full Experiment A / G2 | Implement actual authenticated obligations and forced processing; exercise saturation, carry-forward, consumed-but-unproven, hostile snapshot switching, miner policy and unplanned reorg scenarios. |
-| P0 | Batch admission / W-12 | The implemented input encoding/inline-DA bounds still need authenticated priority prefixes, L1 timestamp bounds, on-chain/proved binding to the new Ethereum envelope and deterministic rejection semantics, plus proved execution resource limits. |
+| P0 | Full Experiment A / G2 | Add mandatory forced processing beyond the measured challenge-only failure; finish authenticated A3 sealing/switching, proof-bound pending-record recovery, hostile miner policies and unplanned reorgs. Individual A2 authenticity, bounded overload/drain and planned-reorg carry-forward now have measurements. |
+| P0 | Batch admission / W-12 | The implemented input encoding/inline-DA bounds have optional authenticated A2 input prefixes, but still need mandatory priority-set enforcement, L1 timestamp bounds, on-chain/proved binding to the new Ethereum envelope and deterministic rejection semantics, plus proved execution resource limits. |
 | P0 | Execution / G5 | Authenticate the implemented pinned execution profile; add state checkpoints, broader differential conformance and ordinary Ethereum tool deployment; replace experimental genesis/supply limits. |
 | P0 | Validity settlement / G3 | Real prover and CKB verifier with wrong-state, wrong-order, wrong-domain and wrong-key rejection, plus a full proven batch. |
 | P0 | Recovery / G6 | Authenticate genesis allocation; extend measured CKB-to-EVM reconstruction to proving inputs and settlement by another prover, with unplanned network reorgs. |
@@ -96,3 +101,9 @@ The input-publication suite can be run independently with
 `TACTUS_DEVNET_SUITE=replay-batch CKB_BIN=/absolute/path/to/ckb scripts/run-devnet-experiments.sh`.
 Its code and wire format are separate from the A1 bare-commitment reference so the
 latter cannot serve as an accidental fallback for the input-publication anchor.
+
+The authenticated A2 comparator runs with
+`TACTUS_DEVNET_SUITE=replay-priority CKB_BIN=/absolute/path/to/ckb scripts/run-devnet-experiments.sh`.
+A completed comparator records `forced_inclusion: FAILED`: this is the expected
+adversarial finding, never a G2 pass. Its rules and scope are specified in
+[A2_OBLIGATION_V1.md](A2_OBLIGATION_V1.md).

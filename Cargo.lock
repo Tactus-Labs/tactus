@@ -3021,6 +3021,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "tactus-o1-priority-script"
+version = "0.1.0"
+dependencies = [
+ "ckb-std",
+ "tactus-o1-protocol",
+]
+
+[[package]]
 name = "tactus-o1-protocol"
 version = "0.1.0"
 dependencies = [

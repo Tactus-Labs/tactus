@@ -29,6 +29,10 @@ permissionless CKB-based canonical sequencing, validity-enforced settlement.
   immutable CKB outputs. Both node versions pass limit, mutation and reorg-input
   recovery tests ([evidence](specs/BATCH_INPUT_REPORT.md)). This is not yet
   execution totality, EVM state recovery or validity settlement.
+- **Authenticated A2 comparator:** real message locks, consensus-mature challenges,
+  bounded publication prefixes and immutable pending records now have VM evidence.
+  The [challenge-only counterexample](specs/A2_OBLIGATION_REPORT.md) still fails
+  forced inclusion. G2 remains OPEN; run with `TACTUS_DEVNET_SUITE=replay-priority`.
 - **Current deliverable:** [Experiment A](specs/EXPERIMENT_A_DESIGN.md) — the
   priority-admission comparison of A1 (atomic OrderingHead reference), A2
   (independent Priority Message Cells) and A3′ (sharded lane heads, with an
@@ -119,6 +123,8 @@ crates/
   tactus-o1-experiment-a/ # Experiment A simulation: workload models, metrics, scenarios
   tactus-o1-ordering-script/ # host-tested + CKB-VM experimental state transitions
   tactus-o1-anchor-script/  # bounded multi-block inputs and atomic immutable CKB DA
+  tactus-o1-priority-script/ # authentic A2 messages; challenge-only failure comparator
+  tactus-o1-execution/      # pinned Shanghai, durable journal and Geth comparisons
   tactus-o1-head-lock/      # permissionless lock bound to the head type
   tactus-o1-devnet-driver/  # real transactions, isolated experiments, head recovery
 scripts/                # RISC-V build, disposable devnet launcher, evidence summary

@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "evidence_sha256": "a251c1ab6c62ea97cee16adb50cb26db7480707a559e77c4d47a3d29b5e86872",
+  "metadata": {
+    "consensus": {
+      "block_version": "0x0",
+      "cellbase_maturity": "0x10000000000",
+      "dao_type_hash": "0x82d76d1b75fe2fd9a27dfbaa65a039221a380d76c926f378d3f81cf3e7e13f2e",
+      "epoch_duration_target": "0x50",
+      "genesis_hash": "0xddd6aea22911805968ca3f89bda08aa9d8024fc00b2c9ffb07b1bcd170673c6a",
+      "hardfork_features": [
+        {
+          "epoch_number": "0x0",
+          "rfc": "0028"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0029"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0030"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0031"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0032"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0036"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0038"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0048"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0049"
+        }
+      ],
+      "id": "ckb_dev",
+      "initial_primary_epoch_reward": "0xae6c73c3e070",
+      "max_block_bytes": "0x91c08",
+      "max_block_cycles": "0x2540be400",
+      "max_block_proposals_limit": "0x5dc",
+      "max_uncles_num": "0x2",
+      "median_time_block_count": "0x25",
+      "orphan_rate_target": {
+        "denom": "0x28",
+        "numer": "0x1"
+      },
+      "permanent_difficulty_in_dummy": true,
+      "primary_epoch_reward_halving_interval": "0x2238",
+      "proposer_reward_ratio": {
+        "denom": "0xa",
+        "numer": "0x4"
+      },
+      "secondary_epoch_reward": "0x37d0c8e28542",
+      "secp256k1_blake160_multisig_all_type_hash": "0x5c5069eb0857efc65e1bca0c07df34c31663b3622fd3876c876320fc9634e2a8",
+      "secp256k1_blake160_sighash_all_type_hash": "0x9bd7e06f3ecf4be0f2fcd2188b23f1b9fcc88e5d4b65a8637b17723bbda3cce8",
+      "softforks": {
+        "light_client": {
+          "rfc0043": {
+            "bit": 1,
+            "min_activation_epoch": "0x0",
+            "period": "0xa",
+            "start": "0x0",
+            "threshold": {
+              "denom": "0x4",
+              "numer": "0x3"
+            },
+            "timeout": "0x0"
+          },
+          "status": "rfc0043"
+        }
+      },
+      "tx_proposal_window": {
+        "closest": "0x2",
+        "farthest": "0xa"
+      },
+      "tx_version": "0x0",
+      "type_id_code_hash": "0x00000000000000000000000000000000000000000000000000545950455f4944"
+    },
+    "lock_code_hash": "0x1a79ae4b82f5588e07fc0b94a0e8fbcf61f1adc06d05d753d13e2e63eec76dee",
+    "node_version": "0.121.0 (45e4c67 2025-01-22)",
+    "ordering_code_hash": "0x9860ce7888517c2b225c70ebc2ee04ed596afe719772c4bcbaa6e516b4e127bc",
+    "production_ready": false,
+    "script_path": "artifacts/tactus_o1_anchor_script.elf",
+    "tier": "isolated CKB devnet, deterministic block generation"
+  },
+  "results": {
+    "G5": "OPEN",
+    "G6": "OPEN",
+    "canonical_batches": 2,
+    "canonical_blocks": 3,
+    "complete": true,
+    "error": null,
+    "final_execution": {
+      "anchor": {
+        "output_index": 0,
+        "state": "0x544f31414e4330313765d0d40e34aa8d574db444e49da09d06e7381fa10f92fdeeabf2484a0e35c4020000000000000084c59f88ca89b0e27755b53cd682ee737af0a4ee3c43557172baad4e3eacac9403000000000000000b00000000000000aa685de3f4ba58abee5f8d39af916be6ebac884496b5e0c3904acb7af2dd258ecbade3c38e59f094284ba219216e9ad766068045ef6d737e49b6581bc5a081ccaad9910dae8e2160fa0c03c47d5cbebcc9a5a9377a50478b3daabf3be313a4b3697a000000000000",
+        "transaction": "0xb44879540e5ce18df6d43b92d57e5655d0b0cb10c0b0144c78d783e6b7e5ed6c"
+      },
+      "batch_count": 2,
+      "ckb": {
+        "anchor_type_script": "0x550000001000000030000000310000009860ce7888517c2b225c70ebc2ee04ed596afe719772c4bcbaa6e516b4e127bc02200000003765d0d40e34aa8d574db444e49da09d06e7381fa10f92fdeeabf2484a0e35c4",
+        "ckb_genesis_hash": "0xddd6aea22911805968ca3f89bda08aa9d8024fc00b2c9ffb07b1bcd170673c6a"
+      },
+      "execution_rules_hash": "0xaa685de3f4ba58abee5f8d39af916be6ebac884496b5e0c3904acb7af2dd258e",
+      "genesis_hash": "0x864e897636725ecad54176174e7b231acc2907f06ac9f0047a9acb1e220e8901",
+      "hash": "0x72da64df8feb8a6e74d339881b0a106d1e1c789b132073edcbb50c9d0b5ba7ef",
+      "header": {
+        "baseFeePerGas": "0x290dfbca",
+        "difficulty": "0x0",
+        "extraData": "0x4b2c78e2570df404fe4c2fab8083d9e1664983efdc7f1a05fc59846bd59f6eb2",
+        "gasLimit": "0xf4240",
+        "gasUsed": "0x62d4",
+        "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "miner": "0x0303030303030303030303030303030303030303",
+        "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "nonce": "0x0000000000000000",
+        "number": "0x3",
+        "parentHash": "0x298a5fdf80163cbb3991fc07712b59c88c91211098209a2303231da4a9c7686e",
+        "receiptsRoot": "0x2a70be7e71050b7e0967e4657900b824bd3f65a040f5007c3a100347883d4402",
+        "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+        "stateRoot": "0xa46880a2c6bfef65be5465910ac75d23525eca0275bf6bbe5fc6d5076a32bb2c",
+        "timestamp": "0xb",
+        "transactionsRoot": "0xb950358c6b163f4b8655befff0577af5b157deb75bc608fadd19fe9616e70018",
+        "withdrawalsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421"
+      },
+      "input_bytes": 1033,
+      "journal": "branch-0x84c59f88ca89b0e27755b53cd682ee737af0a4ee3c43557172baad4e3eacac94",
+      "pinned_hash": "0x5c97a382e9ea13b45715c545f028a7c4c90a101b252ad0fc55dff796232598c5",
+      "pinned_height": 17,
+      "schema": 1,
+      "settled": false,
+      "source": "canonical CKB input publications plus caller-pinned genesis",
+      "state_root": "0xa46880a2c6bfef65be5465910ac75d23525eca0275bf6bbe5fc6d5076a32bb2c"
+    },
+    "included_ethereum_transactions": 3,
+    "independent_processes": 8,
+    "operator_snapshot_used": false,
+    "production_ready": false,
+    "rejected_input_slots": 2,
+    "scope": "CKB-published input to durable serial EVM execution, isolated planned reorg and independent fresh recovery; no proof or settlement",
+    "suite": "ckb-evm-recovery-v1"
+  },
+  "transactions": {
+    "committed_evidence_records": 5,
+    "rejected_records": 0
+  },
+  "estimated_cycles": {
+    "samples": 5,
+    "minimum": 1620743,
+    "maximum": 1793786
+  },
+  "interpretation": "Boundary suite completed; full Experiment A and production gates remain OPEN."
+}

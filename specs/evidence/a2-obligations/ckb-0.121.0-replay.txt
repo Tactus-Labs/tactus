@@ -1,0 +1,43 @@
+deploy immutable code and independent actor funds: committed 0x2524aef334850a844b2d20b3c4de06f428a706dd6b83b0c589cc39676cb13a93
+priority/deploy immutable program: committed 0xf06b1516380209e37aebcaf27c44bd86d979ab9ef3c267cf569643f3923bbc43
+batch/genesis: committed 0x95f0ac2a2decd89acbc9fcf923aba08377f94ebebdd8a0cf01a1448771af93c9
+priority/cannot mint an included record: rejected (6)
+priority/cannot mint an arbitrary message identity: rejected (4)
+priority/no forged Proven stage: rejected (3)
+priority/payload allocation is bounded: rejected (12)
+priority/admission fanout is bounded: rejected (12)
+priority/independent admission without anchor dependency: committed 0x29045d6f37a6c85fb20c87ba49b59bb9104034c24c4f85e2ece57f85c786ddb6
+priority/challenge cannot omit consensus since: rejected (7)
+priority/message cannot be burned: rejected (2)
+priority/protocol lock cannot be substituted: rejected (5)
+priority/locked capacity cannot be removed: rejected (5)
+priority/challenge cannot alter admitted payload: rejected (6)
+priority/message cannot be split: rejected (12)
+priority/inclusion requires the real anchor transition: rejected (8)
+priority/independent actor matures challenge: committed 0xe2f435be775d2bee727efa0d040929461215b9675fbd0c1218f317824a4c0008
+priority/challenged victim omitted from batch 0: committed 0xb888921423cb87c3c56e508b07ce73185141ca109cb81578c049b72bc7bd981e
+priority/challenged victim omitted from batch 1: committed 0x175070fdbaabab52b6d439e6c111b5787bbb3779e4ec0c9c61612de9200b72bb
+priority/challenged victim omitted from batch 2: committed 0xcff4c48fa1b9ebedfac81bf7c5fbeb3bb94060d6a22ac3fa32ba7eb14d2b36c7
+priority/ordinary payload inclusion leaves obligation unconsumed: committed 0x92d2bc28f2b6055e44ff58310bf9604e3a5f78ce1b5a0f729207a5654c61554b
+priority/admit favorable subset independently: committed 0xfc91301bd485cad9edefc7a1171a1654ddad8717c375e19ca2c69d4916a73968
+priority/distinct messages cannot swap input order: rejected (11)
+priority/input count is bounded: rejected (12)
+priority/batch prefix must equal admitted bytes: rejected (11)
+priority/record cannot lie about slot: rejected (10)
+priority/input witnesses count toward byte limit: rejected (12)
+priority/process favorable four while challenged victim starves: committed 0x62fc74468c0eb220c9f1c2620a130607a6e2660f3f37b8ea2cac21607d20b487
+priority/included record cannot be spent or reprocessed: rejected (6)
+priority/unproven record cannot disappear: rejected (2)
+priority/saturation admit 0: committed 0xb1c63e2e5ad09db5ded7562da7887a056e270d426b8973dc471b54f0d392564a
+priority/saturation service 0: committed 0x1e0bc1f7bb3c62cfb8378076e0d653c9c3464ea8b333945d1b1247ebae94598e
+priority/saturation admit 1: committed 0x6f45e8096226e162d5face407e8b36f6231048b06fa36f7980141eba1e074152
+priority/saturation service 1: committed 0x3cab3553493ad790ca474bc6c109fd612344e1aac6447654c921bca3ec1ce8f4
+priority/saturation admit 2: committed 0x729688c26565b7591ba32647a9c9300469edbd18b7cf80a552b3d2c3f6820fd5
+priority/saturation service 2: committed 0x97ffe1e1c28a8e6c9b40cb29bc5e36ca71acd94b5b2f9baf221ae39f25d529b4
+priority/honest actor drains known laboratory backlog: committed 0xef26500be7de3f9af26b1bd6c5b1bfc8e48d83638f92e4e0cb8da715488a0e0e
+priority/honest actor drains known laboratory backlog: committed 0x25f87d1aaa9e22320fb74fcaefb33f5d75f557c79250907fdeae5d0d7f4463ab
+priority/honest actor drains known laboratory backlog: committed 0xc7a91f6791d268cbf81a35aa3b618e3ebe743712d484fe713ff0a4ee7177c8ac
+priority/admit maximum payloads: committed 0x6867e9b083db8553fa73614c474780cdf332869c0a50c65f1af40f1d8d1584cb
+priority/process maximum four payloads within burden bound: committed 0xcc075271606a25f80a4c64fe5054886e101ebbe728d2ea36d7fa9115932b06b5
+priority/include victim in planned orphan branch: committed 0x42db22f4de75bfa4a7c59d8d3cc1203d02a4611ecaab781ad4d663eb744a51fe
+priority/reinclude restored obligation in replacement branch: committed 0x00d4f344f805415fc10a625ea0155ac592babf242441f41d74d83de6e3f6a1da

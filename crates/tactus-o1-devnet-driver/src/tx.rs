@@ -306,6 +306,34 @@ pub fn build_with_permissionless_prefix(
     input_type: Option<&[u8]>,
     unsigned_prefix: usize,
 ) -> Result<(Vec<u8>, Value), String> {
+    build_with_permissionless_prefix_and_since(
+        key,
+        secp_dep,
+        extra_deps,
+        inputs,
+        outputs,
+        input_type,
+        unsigned_prefix,
+        &vec![0; inputs.len()],
+    )
+}
+
+/// Like the standard builder, but signs explicit consensus `since` values for
+/// every input. The RPC and Molecule representations use exactly the same values.
+#[allow(clippy::too_many_arguments)]
+pub fn build_with_permissionless_prefix_and_since(
+    key: &DevKey,
+    secp_dep: &CellOutPoint,
+    extra_deps: &[CellOutPoint],
+    inputs: &[(CellOutPoint, u64)],
+    outputs: &[OutSpec],
+    input_type: Option<&[u8]>,
+    unsigned_prefix: usize,
+    since: &[u64],
+) -> Result<(Vec<u8>, Value), String> {
+    if since.len() != inputs.len() {
+        return Err("since count must equal input count".into());
+    }
     if inputs.is_empty() || unsigned_prefix >= inputs.len() {
         return Err("at least one signed funding input required".into());
     }
@@ -332,7 +360,10 @@ pub fn build_with_permissionless_prefix(
     }
     let input_cells: Vec<Vec<u8>> = inputs
         .iter()
-        .map(|(o, _)| molecule::cell_input(0, &molecule::out_point(&o.tx_hash, o.index)))
+        .zip(since)
+        .map(|((o, _), value)| {
+            molecule::cell_input(*value, &molecule::out_point(&o.tx_hash, o.index))
+        })
         .collect();
     let out_cells: Vec<Vec<u8>> = outputs
         .iter()
@@ -386,7 +417,7 @@ pub fn build_with_permissionless_prefix(
     );
 
     let bytes = molecule::transaction(&raw, &witnesses);
-    let json = transaction_to_json(outputs, inputs, secp_dep, extra_deps, &witnesses);
+    let json = transaction_to_json(outputs, inputs, secp_dep, extra_deps, &witnesses, since);
     Ok((bytes, json))
 }
 
@@ -398,6 +429,7 @@ fn transaction_to_json(
     secp_dep: &CellOutPoint,
     extra_deps: &[CellOutPoint],
     witnesses: &[Vec<u8>],
+    since: &[u64],
 ) -> Value {
     let out_json: Vec<Value> = outputs
         .iter()
@@ -432,12 +464,12 @@ fn transaction_to_json(
         "version": "0x0",
         "cell_deps": cell_deps,
         "header_deps": [],
-        "inputs": inputs.iter().map(|(o, _)| json!({
+        "inputs": inputs.iter().zip(since).map(|((o, _), value)| json!({
             "previous_output": {
                 "tx_hash": rpc::bytes_to_hex(&o.tx_hash),
                 "index": format!("0x{:x}", o.index),
             },
-            "since": "0x0",
+            "since": format!("0x{value:x}"),
         })).collect::<Vec<_>>(),
         "outputs": out_json,
         "outputs_data": outputs.iter()

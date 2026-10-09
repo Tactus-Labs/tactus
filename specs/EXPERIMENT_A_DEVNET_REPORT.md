@@ -75,6 +75,13 @@ challenge enforcement, backlog limits and consumed-but-unproven settlement
 recovery remain unimplemented and untested. A zero processed count here cannot be
 presented as testing a protocol that does not yet exist.
 
+The later [authenticated A2 comparator](A2_OBLIGATION_REPORT.md) adds actual
+message locks, unique identities, mature challenges, bounded prefixes and pending
+records. It replaces the above baseline's implementation gap with measured
+individual-obligation controls and a stronger challenge-only counterexample.
+Mandatory forced processing and proven settlement remain absent; the historical
+ordinary-cell baseline is not retroactively presented as that implementation.
+
 ## A3 — live dependencies and immutable-copy controls
 
 24 scenarios per version: 1/2/4 lanes × no churn / per-lane updates / one aggregate
