@@ -1,0 +1,237 @@
+{
+  "schema_version": 1,
+  "evidence_sha256": "b65b6312ccd5cb902d65b55675d8f99b1ec644e9a0b878caf4f8f744ffd1b9eb",
+  "metadata": {
+    "consensus": {
+      "block_version": "0x0",
+      "cellbase_maturity": "0x10000000000",
+      "dao_type_hash": "0x82d76d1b75fe2fd9a27dfbaa65a039221a380d76c926f378d3f81cf3e7e13f2e",
+      "epoch_duration_target": "0x50",
+      "genesis_hash": "0xddd6aea22911805968ca3f89bda08aa9d8024fc00b2c9ffb07b1bcd170673c6a",
+      "hardfork_features": [
+        {
+          "epoch_number": "0x0",
+          "rfc": "0028"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0029"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0030"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0031"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0032"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0036"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0038"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0048"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0049"
+        }
+      ],
+      "id": "ckb_dev",
+      "initial_primary_epoch_reward": "0xae6c73c3e070",
+      "max_block_bytes": "0x91c08",
+      "max_block_cycles": "0x2540be400",
+      "max_block_proposals_limit": "0x5dc",
+      "max_uncles_num": "0x2",
+      "median_time_block_count": "0x25",
+      "orphan_rate_target": {
+        "denom": "0x28",
+        "numer": "0x1"
+      },
+      "permanent_difficulty_in_dummy": true,
+      "primary_epoch_reward_halving_interval": "0x2238",
+      "proposer_reward_ratio": {
+        "denom": "0xa",
+        "numer": "0x4"
+      },
+      "secondary_epoch_reward": "0x37d0c8e28542",
+      "secp256k1_blake160_multisig_all_type_hash": "0x5c5069eb0857efc65e1bca0c07df34c31663b3622fd3876c876320fc9634e2a8",
+      "secp256k1_blake160_sighash_all_type_hash": "0x9bd7e06f3ecf4be0f2fcd2188b23f1b9fcc88e5d4b65a8637b17723bbda3cce8",
+      "softforks": {
+        "light_client": {
+          "rfc0043": {
+            "bit": 1,
+            "min_activation_epoch": "0x0",
+            "period": "0xa",
+            "start": "0x0",
+            "threshold": {
+              "denom": "0x4",
+              "numer": "0x3"
+            },
+            "timeout": "0x0"
+          },
+          "status": "rfc0043"
+        }
+      },
+      "tx_proposal_window": {
+        "closest": "0x2",
+        "farthest": "0xa"
+      },
+      "tx_version": "0x0",
+      "type_id_code_hash": "0x00000000000000000000000000000000000000000000000000545950455f4944"
+    },
+    "lock_code_hash": "0x1a79ae4b82f5588e07fc0b94a0e8fbcf61f1adc06d05d753d13e2e63eec76dee",
+    "node_version": "0.121.0 (45e4c67 2025-01-22)",
+    "ordering_code_hash": "0xd45c646714e5ecf90eb2f5373ae2de759db4988ad1e5b0e787259da1fb5be032",
+    "production_ready": false,
+    "script_path": "artifacts/tactus_o1_anchor_script.elf",
+    "sealed_code_hash": "0x1ca46958fda55469ae405f0d6c9b6ef6889a0ab79bebc1f3a49e7723303f7528",
+    "tier": "isolated CKB devnet, deterministic block generation"
+  },
+  "results": {
+    "G2": "OPEN",
+    "complete": true,
+    "error": null,
+    "production_ready": false,
+    "proof_settlement": "NOT_IMPLEMENTED",
+    "scenarios": [
+      {
+        "G2": "OPEN",
+        "active_churn_mutations": 8,
+        "canonical_batches": 24,
+        "cold_observer_reconstructions": 5,
+        "cold_recovery_drives_reseal": true,
+        "consumed_snapshot_messages": 8,
+        "execution_head": {
+          "baseFeePerGas": "0x26b084b",
+          "difficulty": "0x0",
+          "extraData": "0xdb41197c3a7f1100dc514f55c20b44090f83f2e496ced25a2c6e159316d74c51",
+          "gasLimit": "0xf4240",
+          "gasUsed": "0x0",
+          "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "miner": "0x0303030303030303030303030303030303030303",
+          "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "nonce": "0x0000000000000000",
+          "number": "0x18",
+          "parentHash": "0xf29bb9177398b9f93ea4897559a97aa76477a658c2168297282d170b47ebcda6",
+          "receiptsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+          "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+          "stateRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+          "timestamp": "0x18",
+          "transactionsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+          "withdrawalsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421"
+        },
+        "independent_sealer": true,
+        "lanes": 1,
+        "maximum_payload_snapshot_bytes": null,
+        "ordinary_tip_growth_accepted": true,
+        "orphan_observer_prefix_rejected": true,
+        "planned_seal_and_batch_reorg_recovered": true,
+        "post_seal_victim_batches_to_inclusion": 10,
+        "pre_signed_admission_survived_schedule_change": true,
+        "pre_signed_batch_survived_churn": true,
+        "scope": "Mandatory publication under canonical batch progress; no wall-clock, admission fairness or validity-proof claim",
+        "second_snapshot_messages": 8,
+        "snapshot_retention": true
+      },
+      {
+        "G2": "OPEN",
+        "active_churn_mutations": 16,
+        "canonical_batches": 24,
+        "cold_observer_reconstructions": 5,
+        "cold_recovery_drives_reseal": true,
+        "consumed_snapshot_messages": 16,
+        "execution_head": {
+          "baseFeePerGas": "0x26b084b",
+          "difficulty": "0x0",
+          "extraData": "0x66276e07b6783d069d91b54401d8ffa7aaa066cec3d8933ba6efdeb6dbf0665a",
+          "gasLimit": "0xf4240",
+          "gasUsed": "0x0",
+          "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "miner": "0x0303030303030303030303030303030303030303",
+          "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "nonce": "0x0000000000000000",
+          "number": "0x18",
+          "parentHash": "0x59475111f8066098aaafd4e0de093ed82d365b2968a1542a1821a8170fe97ce3",
+          "receiptsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+          "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+          "stateRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+          "timestamp": "0x18",
+          "transactionsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+          "withdrawalsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421"
+        },
+        "independent_sealer": true,
+        "lanes": 2,
+        "maximum_payload_snapshot_bytes": null,
+        "ordinary_tip_growth_accepted": true,
+        "orphan_observer_prefix_rejected": true,
+        "planned_seal_and_batch_reorg_recovered": true,
+        "post_seal_victim_batches_to_inclusion": 12,
+        "pre_signed_admission_survived_schedule_change": true,
+        "pre_signed_batch_survived_churn": true,
+        "scope": "Mandatory publication under canonical batch progress; no wall-clock, admission fairness or validity-proof claim",
+        "second_snapshot_messages": 16,
+        "snapshot_retention": true
+      },
+      {
+        "G2": "OPEN",
+        "active_churn_mutations": 32,
+        "canonical_batches": 32,
+        "cold_observer_reconstructions": 5,
+        "cold_recovery_drives_reseal": true,
+        "consumed_snapshot_messages": 32,
+        "execution_head": {
+          "baseFeePerGas": "0xd4b481",
+          "difficulty": "0x0",
+          "extraData": "0xd5eafb2bfa1fd4d5b668e9a16d4fbb694aef981f035cdac3739981b21dfbbb01",
+          "gasLimit": "0xf4240",
+          "gasUsed": "0x0",
+          "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "miner": "0x0303030303030303030303030303030303030303",
+          "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "nonce": "0x0000000000000000",
+          "number": "0x20",
+          "parentHash": "0xbf31455c1b0ee150726f529c90562886fbc0f9f33a29aeb966c69a239a92788f",
+          "receiptsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+          "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+          "stateRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+          "timestamp": "0x20",
+          "transactionsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+          "withdrawalsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421"
+        },
+        "independent_sealer": true,
+        "lanes": 4,
+        "maximum_payload_snapshot_bytes": 33385,
+        "ordinary_tip_growth_accepted": true,
+        "orphan_observer_prefix_rejected": true,
+        "planned_seal_and_batch_reorg_recovered": true,
+        "post_seal_victim_batches_to_inclusion": 16,
+        "pre_signed_admission_survived_schedule_change": true,
+        "pre_signed_batch_survived_churn": true,
+        "scope": "Mandatory publication under canonical batch progress; no wall-clock, admission fairness or validity-proof claim",
+        "second_snapshot_messages": 32,
+        "snapshot_retention": true
+      }
+    ],
+    "suite": "a3-mandatory-sealed-gate-v1"
+  },
+  "transactions": {
+    "committed_evidence_records": 210,
+    "rejected_records": 69
+  },
+  "estimated_cycles": {
+    "samples": 210,
+    "minimum": 1631425,
+    "maximum": 15329506
+  },
+  "interpretation": "Boundary suite completed; full Experiment A and production gates remain OPEN."
+}

@@ -99,6 +99,12 @@ impl Store {
             Err(std::fs::TryLockError::Error(error)) => return Err(Error::Io(error)),
         }
         let lock = WriterLock(lock);
+        let canonical = Genesis::from_allocation(
+            genesis.rollup_id,
+            genesis.chain_id,
+            &genesis.allocation_bytes()?,
+        )?;
+        let genesis = &canonical;
         let mut engine = Executor::new(genesis)?;
         let mut records = Vec::new();
         for entry in fs::read_dir(&directory)? {

@@ -71,15 +71,21 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
   It uses real peer synchronization, not `truncate`; broader network qualification
   and validity settlement remain outstanding.
 
+- [Canonical genesis publication](GENESIS_ALLOCATION_REPORT.md) now binds the
+  allocation in the anchor type and retains its exact bytes in an immutable output.
+  Independent recovery derives genesis from CKB and rejects different caller
+  allocations. The updated domain passes the Geth comparison and both CKB suites;
+  proof-bound state-root derivation and production supply policy remain open.
+
 ## Work that still blocks the user's production objective
 
 | Priority | Boundary | Required completion evidence |
 |---|---|---|
 | P0 | Full Experiment A / G2 | Add mandatory forced processing beyond the measured challenge-only failure; qualify the implemented A3 sealing/switching under sustained admission contention beyond the measured targeted-lane failure, proof-bound pending-record recovery, hostile miner policies and unplanned reorgs. Individual A2 authenticity, bounded overload/drain and planned-reorg carry-forward now have measurements. |
 | P0 | Batch admission / W-12 | The implemented input encoding/inline-DA bounds have optional authenticated A2 input prefixes and an A3 mandatory sealed-set gate, but still need the production enforcement selection, L1 timestamp bounds, on-chain/proved binding to the new Ethereum envelope and deterministic rejection semantics, plus proved execution resource limits. |
-| P0 | Execution / G5 | Authenticate the implemented pinned execution profile; add state checkpoints, broader differential conformance and ordinary Ethereum tool deployment; replace experimental genesis/supply limits. |
+| P0 | Execution / G5 | Bind published genesis and the implemented execution profile into a verified state transition; add state checkpoints, broader differential conformance and ordinary Ethereum tool deployment; replace experimental genesis/supply limits. |
 | P0 | Validity settlement / G3 | Real prover and CKB verifier with wrong-state, wrong-order, wrong-domain and wrong-key rejection, plus a full proven batch. |
-| P0 | Recovery / G6 | Authenticate genesis allocation; extend measured CKB-to-EVM reconstruction to proving inputs and settlement by another prover, with unplanned network reorgs. |
+| P0 | Recovery / G6 | Extend allocation-bound CKB-to-EVM reconstruction to proving inputs and settlement by another prover, with unplanned network reorgs. |
 | P0 | Bridge and exits / G7 | Deposit/withdrawal conservation, replay resistance and operator-independent exit evidence; no release on experimental cursors. |
 | P1 | Operations / G9 | Qualify the local journal under hardware/long-run faults; add network-driven reorg handling, monitored archival retrieval, independent operators and long-duration fault injection. |
 | P1 | Governance / G8 | Enforced upgrade boundaries and exit-preserving rules. |

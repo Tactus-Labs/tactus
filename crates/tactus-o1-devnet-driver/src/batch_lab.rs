@@ -67,6 +67,17 @@ pub fn shape(
     .map(|(_, v)| v)
 }
 pub fn create(lab: &mut Lab, rules_hash: [u8; 32], chain_id: u64) -> Result<Anchor, String> {
+    let bytes = tactus_o1_protocol::genesis::Allocation::default()
+        .encode()
+        .unwrap();
+    create_with_allocation(lab, rules_hash, chain_id, &bytes)
+}
+pub fn create_with_allocation(
+    lab: &mut Lab,
+    rules_hash: [u8; 32],
+    chain_id: u64,
+    allocation: &[u8],
+) -> Result<Anchor, String> {
     let wallet = &lab.wallets[0];
     let seed: [u8; 44] = molecule::cell_input(
         0,
@@ -75,13 +86,17 @@ pub fn create(lab: &mut Lab, rules_hash: [u8; 32], chain_id: u64) -> Result<Anch
     .try_into()
     .unwrap();
     let id = genesis_identity(&seed, 0);
-    let script = tx::tactus_o1_type_script(&lab.ordering_elf, &id);
+    let script = tx::anchor_type_script(&lab.ordering_elf, &id, allocation)?;
     let lock = molecule::script(&ckb_blake2b(&lab.lock_elf), 2, &ckb_blake2b(&script));
     let immutable = molecule::script(&ckb_blake2b(&lab.ordering_elf), 2, &[]);
     let state = AnchorState::genesis(id, rules_hash, chain_id).map_err(|e| format!("{e:?}"))?;
     let capacity =
         OutSpec::required_capacity(&lock, Some(&script), batch::ANCHOR_LEN) + 10 * TX_FEE;
-    let change = wallet.capacity - capacity - TX_FEE;
+    let allocation_capacity = OutSpec::required_capacity(&immutable, None, allocation.len());
+    let change = wallet
+        .capacity
+        .checked_sub(capacity + allocation_capacity + TX_FEE)
+        .ok_or("insufficient genesis capacity")?;
     let anchor = Anchor {
         point: wallet.point,
         capacity,
@@ -92,6 +107,7 @@ pub fn create(lab: &mut Lab, rules_hash: [u8; 32], chain_id: u64) -> Result<Anch
     };
     let outputs = vec![
         head_output(&anchor, state),
+        da_output(&anchor, allocation),
         OutSpec {
             capacity: change,
             lock: wallet.key.lock_script(),
@@ -108,7 +124,7 @@ pub fn create(lab: &mut Lab, rules_hash: [u8; 32], chain_id: u64) -> Result<Anch
         None,
     )?;
     let hash = lab.commit("batch/genesis", &transaction)?;
-    lab.wallets[0].point = lab::point(&hash, 1)?;
+    lab.wallets[0].point = lab::point(&hash, 2)?;
     lab.wallets[0].capacity = change;
     Ok(Anchor {
         point: lab::point(&hash, 0)?,

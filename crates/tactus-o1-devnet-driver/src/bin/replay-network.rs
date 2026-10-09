@@ -157,7 +157,7 @@ fn observe(
     let protocol = child(
         "recover-sealed",
         &[
-            chain,
+            chain.clone(),
             rpc::bytes_to_hex(&net.gate.script),
             rpc::bytes_to_hex(&net.anchor.script),
         ],
@@ -168,9 +168,8 @@ fn observe(
     let execution = child(
         "recover-execution",
         &[
-            root.join("execution-genesis.json")
-                .to_string_lossy()
-                .into_owned(),
+            "--chain".into(),
+            chain,
             rpc::bytes_to_hex(&net.anchor.script),
             root.join("execution-observer")
                 .to_string_lossy()
@@ -206,8 +205,10 @@ fn run() -> Result<(), String> {
         let code = ckb_blake2b(&elf);
         let dep = lab.publish_cells("network/deploy sealed gate", &[elf], 0, true)?[0];
         lab.deps.push(dep);
-        let mut net = bootstrap(&mut lab, code, 4)?;
         let (mut genesis, [deploy, write, clear]) = fixture()?;
+        let allocation = genesis.allocation_bytes().map_err(|e| e.to_string())?;
+        let anchor_elf = lab.ordering_elf.clone();
+        let mut net = bootstrap_with_allocation(&mut lab, code, 4, &anchor_elf, &allocation)?;
         genesis.rollup_id = net.anchor.state.rollup_id.into();
         std::fs::write(
             root.join("execution-genesis.json"),

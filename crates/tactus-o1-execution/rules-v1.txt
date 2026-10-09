@@ -11,3 +11,4 @@ roots=ethereum-keccak-rlp-mpt;zero-storage=absent;empty-accounts=absent;blockhas
 header-extra-data=slot-outcomes-v1;outcomes=rollupid32,rules32,chain-u64le,batch-input-hash32,block-u64le,count-u32le,(input-keccak32,status-u8,gas-u64le,eth-index-u32le-or-ffffffff,output-keccak32,created-flag-u8,created-address20)*
 genesis-extra-data=ckbhash-domain-tactus/o1/genesis/v1-of-rollupid32-chain-u64le-rules32
 fatal-engine-error=abort-entire-batch;malformed-batch=abort-before-effects
+genesis-allocation=TO1GEN01;bytes-max=262144;accounts-max=1024;code-bytes-max=24576;storage-slots-per-account-max=4096;addresses-and-storage-keys=strict-ascending;zero-storage=omitted;empty-accounts=rejected;balance=u256be-with-total-u64-cap

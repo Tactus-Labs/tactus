@@ -101,9 +101,47 @@ pub struct RecoveredAnchor {
     pub pinned_height: u64,
     pub pinned_hash: String,
     pub genesis: tactus_o1_protocol::batch::AnchorState,
+    pub genesis_allocation: Vec<u8>,
     pub point: CellOutPoint,
     pub state: tactus_o1_protocol::batch::AnchorState,
     pub batches: Vec<RecoveredBatch>,
+}
+
+/// Resolve the unique allocation commitment embedded in a current anchor type.
+/// Legacy allocation-unbound anchors are intentionally not accepted here.
+pub fn allocation_from_genesis(
+    transaction: &serde_json::Value,
+    type_script: &[u8],
+) -> Result<Vec<u8>, String> {
+    let script = molecule::try_script_to_json(type_script)?;
+    if type_script.len() != 117 || script["hash_type"] != "data1" {
+        return Err("anchor must bind a genesis allocation".into());
+    }
+    let mut immutable = script;
+    immutable["args"] = json!("0x");
+    for (i, o) in transaction["outputs"]
+        .as_array()
+        .ok_or("genesis outputs")?
+        .iter()
+        .enumerate()
+        .take(16)
+    {
+        if o["type"].is_null() && o["lock"] == immutable {
+            let hex = transaction["outputs_data"][i]
+                .as_str()
+                .ok_or("allocation data")?;
+            if hex.len() > 2 + 2 * tactus_o1_protocol::genesis::MAX_BYTES {
+                return Err("allocation publication too large".into());
+            }
+            let bytes = rpc::decode_hex(hex)?;
+            if tactus_o1_protocol::genesis::commitment(&bytes)
+                .is_ok_and(|h| h == type_script[85..117])
+            {
+                return Ok(bytes);
+            }
+        }
+    }
+    Err("missing immutable committed genesis allocation".into())
 }
 
 /// Reconstruct the complete committed input sequence from canonical CKB blocks.
@@ -120,11 +158,16 @@ pub fn recover_published_batches(type_script: &[u8]) -> Result<RecoveredAnchor, 
     )
     .map_err(|e| e.to_string())?;
     let expected_type = molecule::try_script_to_json(type_script)?;
+    if type_script.len() != 117 || expected_type["hash_type"] != "data1" {
+        return Err("anchor must bind a genesis allocation".into());
+    }
+
     let mut immutable = expected_type.clone();
     immutable["args"] = json!("0x");
     let mut current: Option<(CellOutPoint, AnchorState)> = None;
     let mut batches = Vec::new();
     let mut genesis = None;
+    let mut genesis_allocation = None;
     let mut previous_hash = None;
     for number in 0..=height {
         let block = rpc::get_block_detailed(number)?;
@@ -199,6 +242,10 @@ pub fn recover_published_batches(type_script: &[u8]) -> Result<RecoveredAnchor, 
             } else {
                 next.validate_genesis()
                     .map_err(|e| format!("bad anchor genesis: {e:?}"))?;
+                if type_script[53..85] != next.rollup_id {
+                    return Err("allocation anchor rollup identity mismatch".into());
+                }
+                genesis_allocation = Some(allocation_from_genesis(transaction, type_script)?);
                 genesis = Some(next);
             }
             current = Some((lab::point(transaction_hash, output_index as u32)?, next));
@@ -218,6 +265,7 @@ pub fn recover_published_batches(type_script: &[u8]) -> Result<RecoveredAnchor, 
         pinned_height: height,
         pinned_hash,
         genesis: genesis.ok_or("anchor genesis missing")?,
+        genesis_allocation: genesis_allocation.ok_or("allocation missing")?,
         point,
         state,
         batches,

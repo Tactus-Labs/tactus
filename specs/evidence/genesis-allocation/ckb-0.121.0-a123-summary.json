@@ -1,0 +1,477 @@
+{
+  "schema_version": 1,
+  "evidence_sha256": "1ad8c788c7ccd1fe58844465ae3caa0b5f58b5ab87ec6b40429eb26d9ac6d5c4",
+  "metadata": {
+    "consensus": {
+      "block_version": "0x0",
+      "cellbase_maturity": "0x10000000000",
+      "dao_type_hash": "0x82d76d1b75fe2fd9a27dfbaa65a039221a380d76c926f378d3f81cf3e7e13f2e",
+      "epoch_duration_target": "0x50",
+      "genesis_hash": "0xddd6aea22911805968ca3f89bda08aa9d8024fc00b2c9ffb07b1bcd170673c6a",
+      "hardfork_features": [
+        {
+          "epoch_number": "0x0",
+          "rfc": "0028"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0029"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0030"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0031"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0032"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0036"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0038"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0048"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0049"
+        }
+      ],
+      "id": "ckb_dev",
+      "initial_primary_epoch_reward": "0xae6c73c3e070",
+      "max_block_bytes": "0x91c08",
+      "max_block_cycles": "0x2540be400",
+      "max_block_proposals_limit": "0x5dc",
+      "max_uncles_num": "0x2",
+      "median_time_block_count": "0x25",
+      "orphan_rate_target": {
+        "denom": "0x28",
+        "numer": "0x1"
+      },
+      "permanent_difficulty_in_dummy": true,
+      "primary_epoch_reward_halving_interval": "0x2238",
+      "proposer_reward_ratio": {
+        "denom": "0xa",
+        "numer": "0x4"
+      },
+      "secondary_epoch_reward": "0x37d0c8e28542",
+      "secp256k1_blake160_multisig_all_type_hash": "0x5c5069eb0857efc65e1bca0c07df34c31663b3622fd3876c876320fc9634e2a8",
+      "secp256k1_blake160_sighash_all_type_hash": "0x9bd7e06f3ecf4be0f2fcd2188b23f1b9fcc88e5d4b65a8637b17723bbda3cce8",
+      "softforks": {
+        "light_client": {
+          "rfc0043": {
+            "bit": 1,
+            "min_activation_epoch": "0x0",
+            "period": "0xa",
+            "start": "0x0",
+            "threshold": {
+              "denom": "0x4",
+              "numer": "0x3"
+            },
+            "timeout": "0x0"
+          },
+          "status": "rfc0043"
+        }
+      },
+      "tx_proposal_window": {
+        "closest": "0x2",
+        "farthest": "0xa"
+      },
+      "tx_version": "0x0",
+      "type_id_code_hash": "0x00000000000000000000000000000000000000000000000000545950455f4944"
+    },
+    "lock_code_hash": "0x1a79ae4b82f5588e07fc0b94a0e8fbcf61f1adc06d05d753d13e2e63eec76dee",
+    "node_version": "0.121.0 (45e4c67 2025-01-22)",
+    "ordering_code_hash": "0xe68b896127645dc8ad2e798561eddea5f003ac64a404e624a2cf627378165aea",
+    "production_ready": false,
+    "script_path": "artifacts/tactus_o1_ordering_script.elf",
+    "tier": "isolated CKB devnet, deterministic block generation"
+  },
+  "results": {
+    "A1": {
+      "decision": "KeepA1AsReferenceOnly",
+      "rows": [
+        {
+          "attempts": 2,
+          "builder_commits": 2,
+          "delay_blocks": 0,
+          "fee_ratio": 1,
+          "pool_rejections": 2,
+          "stale": 0,
+          "wallet_commits": 0
+        },
+        {
+          "attempts": 2,
+          "builder_commits": 0,
+          "delay_blocks": 0,
+          "fee_ratio": 2,
+          "pool_rejections": 0,
+          "stale": 0,
+          "wallet_commits": 2
+        },
+        {
+          "attempts": 2,
+          "builder_commits": 0,
+          "delay_blocks": 0,
+          "fee_ratio": 10,
+          "pool_rejections": 0,
+          "stale": 0,
+          "wallet_commits": 2
+        },
+        {
+          "attempts": 2,
+          "builder_commits": 2,
+          "delay_blocks": 1,
+          "fee_ratio": 1,
+          "pool_rejections": 2,
+          "stale": 0,
+          "wallet_commits": 0
+        },
+        {
+          "attempts": 2,
+          "builder_commits": 0,
+          "delay_blocks": 1,
+          "fee_ratio": 2,
+          "pool_rejections": 0,
+          "stale": 0,
+          "wallet_commits": 2
+        },
+        {
+          "attempts": 2,
+          "builder_commits": 0,
+          "delay_blocks": 1,
+          "fee_ratio": 10,
+          "pool_rejections": 0,
+          "stale": 0,
+          "wallet_commits": 2
+        },
+        {
+          "attempts": 2,
+          "builder_commits": 2,
+          "delay_blocks": 3,
+          "fee_ratio": 1,
+          "pool_rejections": 2,
+          "stale": 0,
+          "wallet_commits": 0
+        },
+        {
+          "attempts": 2,
+          "builder_commits": 2,
+          "delay_blocks": 3,
+          "fee_ratio": 2,
+          "pool_rejections": 0,
+          "stale": 0,
+          "wallet_commits": 0
+        },
+        {
+          "attempts": 2,
+          "builder_commits": 2,
+          "delay_blocks": 3,
+          "fee_ratio": 10,
+          "pool_rejections": 0,
+          "stale": 0,
+          "wallet_commits": 0
+        },
+        {
+          "attempts": 2,
+          "builder_commits": 2,
+          "delay_blocks": 6,
+          "fee_ratio": 1,
+          "pool_rejections": 0,
+          "stale": 2,
+          "wallet_commits": 0
+        },
+        {
+          "attempts": 2,
+          "builder_commits": 2,
+          "delay_blocks": 6,
+          "fee_ratio": 2,
+          "pool_rejections": 0,
+          "stale": 2,
+          "wallet_commits": 0
+        },
+        {
+          "attempts": 2,
+          "builder_commits": 2,
+          "delay_blocks": 6,
+          "fee_ratio": 10,
+          "pool_rejections": 0,
+          "stale": 2,
+          "wallet_commits": 0
+        }
+      ],
+      "scope": "deterministic first-broadcast and signing-delay schedule; 2 samples per cell, not a stochastic estimate"
+    },
+    "A2": {
+      "admitted": 8,
+      "canonical_batches_while_omitting": 8,
+      "consumed_but_unproven": "not tested; no settlement verifier implemented",
+      "decision": "G2NotPassed",
+      "forced_processing": 0,
+      "observation_blocks": 32,
+      "production_candidate_complete": false,
+      "scope": "independent-cell baseline only; typed obligation, challenge and validity-proof enforcement are absent",
+      "still_unconsumed": 8
+    },
+    "A3": {
+      "mandatory_processing_delay": null,
+      "production_candidate_complete": false,
+      "rows": [
+        {
+          "anchor_survived": true,
+          "decision": "ControlPassed",
+          "elapsed_blocks": 4,
+          "lanes": 1,
+          "regime": "no-churn",
+          "sealed": false,
+          "updates": 0
+        },
+        {
+          "anchor_survived": true,
+          "decision": "ConditionalEnforcementPrimitiveUnimplemented",
+          "elapsed_blocks": 4,
+          "lanes": 1,
+          "regime": "no-churn",
+          "sealed": true,
+          "updates": 0
+        },
+        {
+          "anchor_survived": false,
+          "decision": "RejectLiveHeadDependencyStrategy",
+          "elapsed_blocks": 4,
+          "lanes": 1,
+          "regime": "L1-per-lane",
+          "sealed": false,
+          "updates": 1
+        },
+        {
+          "anchor_survived": true,
+          "decision": "ConditionalEnforcementPrimitiveUnimplemented",
+          "elapsed_blocks": 8,
+          "lanes": 1,
+          "regime": "L1-per-lane",
+          "sealed": true,
+          "updates": 1
+        },
+        {
+          "anchor_survived": false,
+          "decision": "RejectLiveHeadDependencyStrategy",
+          "elapsed_blocks": 4,
+          "lanes": 1,
+          "regime": "L2-fixed-aggregate",
+          "sealed": false,
+          "updates": 1
+        },
+        {
+          "anchor_survived": true,
+          "decision": "ConditionalEnforcementPrimitiveUnimplemented",
+          "elapsed_blocks": 8,
+          "lanes": 1,
+          "regime": "L2-fixed-aggregate",
+          "sealed": true,
+          "updates": 1
+        },
+        {
+          "anchor_survived": false,
+          "decision": "RejectLiveHeadDependencyStrategy",
+          "elapsed_blocks": 4,
+          "lanes": 1,
+          "regime": "L3-targeted",
+          "sealed": false,
+          "updates": 1
+        },
+        {
+          "anchor_survived": true,
+          "decision": "ConditionalEnforcementPrimitiveUnimplemented",
+          "elapsed_blocks": 8,
+          "lanes": 1,
+          "regime": "L3-targeted",
+          "sealed": true,
+          "updates": 1
+        },
+        {
+          "anchor_survived": true,
+          "decision": "ControlPassed",
+          "elapsed_blocks": 4,
+          "lanes": 2,
+          "regime": "no-churn",
+          "sealed": false,
+          "updates": 0
+        },
+        {
+          "anchor_survived": true,
+          "decision": "ConditionalEnforcementPrimitiveUnimplemented",
+          "elapsed_blocks": 4,
+          "lanes": 2,
+          "regime": "no-churn",
+          "sealed": true,
+          "updates": 0
+        },
+        {
+          "anchor_survived": false,
+          "decision": "RejectLiveHeadDependencyStrategy",
+          "elapsed_blocks": 8,
+          "lanes": 2,
+          "regime": "L1-per-lane",
+          "sealed": false,
+          "updates": 2
+        },
+        {
+          "anchor_survived": true,
+          "decision": "ConditionalEnforcementPrimitiveUnimplemented",
+          "elapsed_blocks": 12,
+          "lanes": 2,
+          "regime": "L1-per-lane",
+          "sealed": true,
+          "updates": 2
+        },
+        {
+          "anchor_survived": false,
+          "decision": "RejectLiveHeadDependencyStrategy",
+          "elapsed_blocks": 4,
+          "lanes": 2,
+          "regime": "L2-fixed-aggregate",
+          "sealed": false,
+          "updates": 1
+        },
+        {
+          "anchor_survived": true,
+          "decision": "ConditionalEnforcementPrimitiveUnimplemented",
+          "elapsed_blocks": 8,
+          "lanes": 2,
+          "regime": "L2-fixed-aggregate",
+          "sealed": true,
+          "updates": 1
+        },
+        {
+          "anchor_survived": false,
+          "decision": "RejectLiveHeadDependencyStrategy",
+          "elapsed_blocks": 4,
+          "lanes": 2,
+          "regime": "L3-targeted",
+          "sealed": false,
+          "updates": 1
+        },
+        {
+          "anchor_survived": true,
+          "decision": "ConditionalEnforcementPrimitiveUnimplemented",
+          "elapsed_blocks": 8,
+          "lanes": 2,
+          "regime": "L3-targeted",
+          "sealed": true,
+          "updates": 1
+        },
+        {
+          "anchor_survived": true,
+          "decision": "ControlPassed",
+          "elapsed_blocks": 4,
+          "lanes": 4,
+          "regime": "no-churn",
+          "sealed": false,
+          "updates": 0
+        },
+        {
+          "anchor_survived": true,
+          "decision": "ConditionalEnforcementPrimitiveUnimplemented",
+          "elapsed_blocks": 4,
+          "lanes": 4,
+          "regime": "no-churn",
+          "sealed": true,
+          "updates": 0
+        },
+        {
+          "anchor_survived": false,
+          "decision": "RejectLiveHeadDependencyStrategy",
+          "elapsed_blocks": 16,
+          "lanes": 4,
+          "regime": "L1-per-lane",
+          "sealed": false,
+          "updates": 4
+        },
+        {
+          "anchor_survived": true,
+          "decision": "ConditionalEnforcementPrimitiveUnimplemented",
+          "elapsed_blocks": 20,
+          "lanes": 4,
+          "regime": "L1-per-lane",
+          "sealed": true,
+          "updates": 4
+        },
+        {
+          "anchor_survived": false,
+          "decision": "RejectLiveHeadDependencyStrategy",
+          "elapsed_blocks": 4,
+          "lanes": 4,
+          "regime": "L2-fixed-aggregate",
+          "sealed": false,
+          "updates": 1
+        },
+        {
+          "anchor_survived": true,
+          "decision": "ConditionalEnforcementPrimitiveUnimplemented",
+          "elapsed_blocks": 8,
+          "lanes": 4,
+          "regime": "L2-fixed-aggregate",
+          "sealed": true,
+          "updates": 1
+        },
+        {
+          "anchor_survived": false,
+          "decision": "RejectLiveHeadDependencyStrategy",
+          "elapsed_blocks": 4,
+          "lanes": 4,
+          "regime": "L3-targeted",
+          "sealed": false,
+          "updates": 1
+        },
+        {
+          "anchor_survived": true,
+          "decision": "ConditionalEnforcementPrimitiveUnimplemented",
+          "elapsed_blocks": 8,
+          "lanes": 4,
+          "regime": "L3-targeted",
+          "sealed": true,
+          "updates": 1
+        }
+      ],
+      "scope": "live-cell dependency mechanics; immutable copies have no enforced provenance or snapshot-switch deadline"
+    },
+    "G1": "OPEN",
+    "G2": "OPEN",
+    "complete": true,
+    "error": null,
+    "production_ready": false,
+    "reorg_recovery": {
+      "canonical_transaction": "0x6f8ce1834c420f2d3d90d2cbd5733bb6efad68de4325fb53c809ef9b218c40ce",
+      "operator_snapshot_used": false,
+      "orphan_transaction": "0xd4d575bdd96887f779ce64cfa84016335b8d663f42098e489c1204d42f422cd8",
+      "recovered_from_canonical_blocks": true,
+      "rolled_back_blocks": 4,
+      "scope": "planned local truncate/rebuild; no network partition or competing-PoW reorg; ordering state only, not EVM recovery"
+    },
+    "safety": {
+      "accepted_invalid_transitions": 0,
+      "independent_actor_enqueue": true,
+      "negative_cases": 11
+    }
+  },
+  "transactions": {
+    "committed_evidence_records": 198,
+    "rejected_records": 32
+  },
+  "estimated_cycles": {
+    "samples": 174,
+    "minimum": 1615028,
+    "maximum": 1732770
+  },
+  "interpretation": "Boundary suite completed; full Experiment A and production gates remain OPEN."
+}

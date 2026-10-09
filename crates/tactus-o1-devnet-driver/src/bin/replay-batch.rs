@@ -239,6 +239,124 @@ fn recovery_control(
     Ok(result)
 }
 
+fn genesis_controls(lab: &mut Lab) -> Result<Value, String> {
+    use tactus_o1_devnet_driver::{molecule, sealed_lab};
+    use tactus_o1_ordering_script::genesis_identity;
+    use tactus_o1_protocol::genesis::{self, Account, Allocation};
+    let allocation = Allocation::default().encode().unwrap();
+    for (mutation, label, expected) in [
+        (0, "missing allocation", 16),
+        (1, "wrong allocation commitment", 16),
+        (2, "spendable allocation", 16),
+        (3, "noncanonical allocation suffix", 16),
+        (4, "duplicate allocation addresses", 16),
+        (5, "legacy unbound identity", 1),
+        (6, "oversized allocation", 13),
+    ] {
+        let wallet = &lab.wallets[0];
+        let seed = molecule::cell_input(
+            0,
+            &molecule::out_point(&wallet.point.tx_hash, wallet.point.index),
+        )
+        .try_into()
+        .unwrap();
+        let id = genesis_identity(&seed, 0);
+        let mut bytes = allocation.clone();
+        if mutation == 3 {
+            bytes.push(0);
+        }
+        if mutation == 4 {
+            let a = Account {
+                address: [1; 20],
+                balance: [0; 32],
+                nonce: 1,
+                code: vec![],
+                storage: vec![],
+            };
+            let one = Allocation { accounts: vec![a] }.encode().unwrap();
+            bytes = one.clone();
+            bytes[8..12].copy_from_slice(&2u32.to_le_bytes());
+            bytes.extend_from_slice(&one[12..]);
+        }
+        if mutation == 6 {
+            bytes.resize(genesis::MAX_BYTES + 1, 0);
+        }
+        let mut commitment = batch::hash(b"tactus/o1/genesis-allocation/v1", &bytes);
+        if mutation == 1 {
+            commitment[0] ^= 1;
+        }
+        let mut args = id.to_vec();
+        if mutation != 5 {
+            args.extend_from_slice(&commitment);
+        }
+        let script = molecule::script(&ckb_blake2b(&lab.ordering_elf), 2, &args);
+        let lock = molecule::script(&ckb_blake2b(&lab.lock_elf), 2, &ckb_blake2b(&script));
+        let anchor = Anchor {
+            point: wallet.point,
+            capacity: OutSpec::required_capacity(&lock, Some(&script), batch::ANCHOR_LEN) + TX_FEE,
+            state: AnchorState::genesis(id, ckb_blake2b(b"genesis-controls"), 31337).unwrap(),
+            script,
+            lock,
+            immutable: molecule::script(&ckb_blake2b(&lab.ordering_elf), 2, &[]),
+        };
+        let mut outputs = vec![head_output(&anchor, anchor.state)];
+        if mutation != 0 {
+            let mut o = da_output(&anchor, &bytes);
+            if mutation == 2 {
+                o.lock = wallet.key.lock_script();
+                o.capacity = OutSpec::required_capacity(&o.lock, None, bytes.len());
+            }
+            outputs.push(o);
+        }
+        let tx = sealed_lab::shape(lab, 0, &[], outputs, &[], &[])?;
+        lab.reject(
+            &format!("genesis/{label}"),
+            &tx,
+            &format!("error code {expected}"),
+        )?;
+    }
+    let mut accounts = vec![];
+    for i in 0..11 {
+        accounts.push(Account {
+            address: [i; 20],
+            balance: [0; 32],
+            nonce: 1,
+            code: vec![
+                0;
+                if i == 10 {
+                    15624
+                } else {
+                    genesis::MAX_CODE_BYTES
+                }
+            ],
+            storage: vec![],
+        });
+    }
+    let maximum = Allocation { accounts }.encode().unwrap();
+    if maximum.len() != genesis::MAX_BYTES {
+        return Err("maximum allocation shape".into());
+    }
+    let anchor = batch_lab::create_with_allocation(
+        lab,
+        ckb_blake2b(b"maximum-allocation-control"),
+        31337,
+        &maximum,
+    )?;
+    immutable_control(
+        lab,
+        &anchor,
+        tactus_o1_devnet_driver::lab::point(&rpc::bytes_to_hex(&anchor.point.tx_hash), 1)?,
+        &maximum,
+    )?;
+    let recovered = tactus_o1_devnet_driver::recovery::recover_published_batches(&anchor.script)?;
+    if recovered.genesis_allocation != maximum {
+        return Err("maximum allocation recovery mismatch".into());
+    }
+    Ok(
+        json!({"invalid_genesis_rejections":7,"immutable_genesis_rejection":true,"maximum_allocation_bytes":maximum.len(),"maximum_allocation_recovered":true}),
+    )
+}
+
 fn run() -> Result<(), String> {
     let path = std::env::var("TACTUS_EVIDENCE_PATH")
         .unwrap_or_else(|_| "artifacts/batch-evidence.json".into());
@@ -246,6 +364,7 @@ fn run() -> Result<(), String> {
     let mut results =
         json!({"suite":"batch-input-v1","complete":false,"production_ready":false,"W12":"OPEN"});
     let outcome = (|| {
+        results["genesis_publication"] = genesis_controls(&mut lab)?;
         let mut anchor = batch_lab::create(
             &mut lab,
             ckb_blake2b(b"unimplemented-evm-execution-devnet-only"),

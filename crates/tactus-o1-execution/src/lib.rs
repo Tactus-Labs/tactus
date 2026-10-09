@@ -30,6 +30,60 @@ pub struct Genesis {
     pub accounts: BTreeMap<Address, GenesisAccount>,
 }
 
+impl Genesis {
+    pub fn allocation_bytes(&self) -> Result<Vec<u8>, Error> {
+        use tactus_o1_protocol::genesis::{Account, Allocation};
+        Allocation {
+            accounts: self
+                .accounts
+                .iter()
+                .map(|(address, a)| Account {
+                    address: address.0 .0,
+                    balance: a.balance.to_be_bytes(),
+                    nonce: a.nonce,
+                    code: a.code.to_vec(),
+                    storage: a
+                        .storage
+                        .iter()
+                        .filter(|(_, v)| !v.is_zero())
+                        .map(|(k, v)| (k.to_be_bytes(), v.to_be_bytes()))
+                        .collect(),
+                })
+                .collect(),
+        }
+        .encode()
+        .map_err(|_| Error::Genesis)
+    }
+    pub fn from_allocation(rollup_id: B256, chain_id: u64, bytes: &[u8]) -> Result<Self, Error> {
+        let allocation =
+            tactus_o1_protocol::genesis::Allocation::decode(bytes).map_err(|_| Error::Genesis)?;
+        let accounts = allocation
+            .accounts
+            .into_iter()
+            .map(|a| {
+                (
+                    Address::from(a.address),
+                    GenesisAccount {
+                        balance: U256::from_be_bytes(a.balance),
+                        nonce: a.nonce,
+                        code: a.code.into(),
+                        storage: a
+                            .storage
+                            .into_iter()
+                            .map(|(k, v)| (U256::from_be_bytes(k), U256::from_be_bytes(v)))
+                            .collect(),
+                    },
+                )
+            })
+            .collect();
+        Ok(Self {
+            rollup_id,
+            chain_id,
+            accounts,
+        })
+    }
+}
+
 #[derive(Clone, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct GenesisAccount {
@@ -110,6 +164,7 @@ pub struct Executor {
 
 impl Executor {
     pub fn new(genesis: &Genesis) -> Result<Self, Error> {
+        genesis.allocation_bytes()?;
         let anchor = AnchorState::genesis(genesis.rollup_id.0, rules_hash(), genesis.chain_id)?;
         let mut db = InMemoryDB::default();
         // With no issuance, this supply bound keeps all reachable base fees in

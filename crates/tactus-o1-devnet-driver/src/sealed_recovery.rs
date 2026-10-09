@@ -127,7 +127,7 @@ impl Scanner {
             || anchor["hash_type"] != "data1"
             || gate_script.len() != 86
             || gate_script[53] != 2
-            || anchor_script.len() != 85
+            || anchor_script.len() != 117
         {
             return Err("unsupported sealed or anchor type identity".into());
         }
@@ -147,6 +147,7 @@ impl Scanner {
         let a = output(t, &self.anchor_script)?.ok_or("gate genesis missing named anchor")?;
         let state = AnchorState::decode(&data(t, a, batch::ANCHOR_LEN)?).map_err(err)?;
         state.validate_genesis().map_err(err)?;
+        recovery::allocation_from_genesis(t, &self.anchor_script)?;
         if schedule
             != Schedule::genesis(
                 self.id,
@@ -173,7 +174,7 @@ impl Scanner {
         .unwrap();
         if genesis_identity(&seed, i as u64) != self.id
             || genesis_identity(&seed, a as u64) != state.rollup_id
-            || self.anchor_script[53..] != state.rollup_id
+            || self.anchor_script[53..85] != state.rollup_id
         {
             return Err("genesis Type ID mismatch".into());
         }

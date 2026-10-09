@@ -1,4 +1,4 @@
-use alloy_primitives::{hex, B256};
+use alloy_primitives::{hex, B256, U256};
 use serde_json::Value;
 use std::{
     fs,
@@ -234,4 +234,28 @@ fn cli_restarts_in_another_process_and_returns_identical_head() {
     let first = String::from_utf8(first.stdout).unwrap();
     let second = String::from_utf8(second.stdout).unwrap();
     assert_eq!(first.lines().last(), second.lines().last());
+}
+
+#[test]
+fn equivalent_zero_storage_encodings_share_one_canonical_genesis() {
+    let tmp = Temp::new();
+    let (g, input) = fixture();
+    let mut with_zero = g.clone();
+    with_zero
+        .accounts
+        .values_mut()
+        .next()
+        .unwrap()
+        .storage
+        .insert(U256::ZERO, U256::ZERO);
+    assert_eq!(
+        with_zero.allocation_bytes().unwrap(),
+        g.allocation_bytes().unwrap()
+    );
+    let mut store = Store::open(&tmp.0, &with_zero).unwrap();
+    store.append(&input).unwrap();
+    let expected = store.engine().unwrap().head().clone();
+    drop(store);
+    let reopened = Store::open(&tmp.0, &g).unwrap();
+    assert_eq!(reopened.engine().unwrap().head(), &expected);
 }

@@ -1,0 +1,6 @@
+    Checking tactus-o1-experiment-a v0.1.0 (/home/arthur/RustRoverProjects/tactus-o1/crates/tactus-o1-experiment-a)
+    Checking tactus-o1-sealed-script v0.1.0 (/home/arthur/RustRoverProjects/tactus-o1/crates/tactus-o1-sealed-script)
+    Checking tactus-o1-priority-script v0.1.0 (/home/arthur/RustRoverProjects/tactus-o1/crates/tactus-o1-priority-script)
+    Checking tactus-o1-ordering-script v0.1.0 (/home/arthur/RustRoverProjects/tactus-o1/crates/tactus-o1-ordering-script)
+    Checking tactus-o1-devnet-driver v0.1.0 (/home/arthur/RustRoverProjects/tactus-o1/crates/tactus-o1-devnet-driver)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.45s

@@ -481,7 +481,20 @@ fn transaction_to_json(
     })
 }
 
-/// Tactus O1 type script referencing the deployed ELF by data hash.
+/// Allocation-bound anchor identity. A1's older type helper remains separate.
+pub fn anchor_type_script(
+    elf: &[u8],
+    rollup_id: &[u8; 32],
+    allocation: &[u8],
+) -> Result<Vec<u8>, String> {
+    let hash = tactus_o1_protocol::genesis::commitment(allocation)
+        .map_err(|e| format!("genesis allocation: {e:?}"))?;
+    let mut args = rollup_id.to_vec();
+    args.extend_from_slice(&hash);
+    Ok(molecule::script(&ckb_blake2b(elf), 2, &args))
+}
+
+/// A1 type script referencing the deployed ELF by data hash.
 #[must_use]
 pub fn tactus_o1_type_script(elf: &[u8], rollup_id: &[u8; 32]) -> Vec<u8> {
     molecule::script(&ckb_blake2b(elf), 2, rollup_id)

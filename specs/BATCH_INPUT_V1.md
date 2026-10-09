@@ -69,10 +69,15 @@ AnchorState is exactly 200 bytes:
 || da_policy_id[32] || limits_hash[32] || chain_id:u64`.
 
 Genesis identity uses the CKB Type ID seed (`first_input[44] || output_index:u64`).
+The current program requires 64 type-argument bytes: that identity followed by
+its canonical genesis-allocation commitment. Creation atomically publishes the
+matching immutable allocation; see [GENESIS_ALLOCATION_V1.md](GENESIS_ALLOCATION_V1.md).
+Legacy 32-byte-argument input anchors require their historical program/profile.
 Counters, prior commitment and timestamp start at zero. Genesis must use the
 implemented inline-DA policy and exact admission limits hash. Chain ID is nonzero.
 Execution rules identify a separately pinned, nonzero execution program; the
-current devnet uses an explicit unimplemented-execution identifier.
+mechanism-only suite uses an explicit experimental identifier, while executed
+suites use the pinned supported execution rules.
 
 A transition consumes one AnchorState and recreates exactly one with the same
 capacity, lock and domain fields. The first group-input `WitnessArgs.input_type`

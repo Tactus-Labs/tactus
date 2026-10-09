@@ -31,6 +31,9 @@ header hashing. Empty withdrawal lists and no rewards match the profile. Malform
 raw envelope totality and forbidden unprotected signatures are separately tested
 in Rust because these are rollup input-admission decisions.
 
+The current fixture was refreshed after the allocation bounds/normalization were
+added to the execution rules descriptor; the independent comparison passed again.
+
 The [frozen Geth result](test-vectors/execution-v1/geth-1.17.8.json) includes genesis,
 batch input, all Geth results and the binary hash. The normal Rust workspace test
 replays these inputs and checks the frozen independent roots. The [raw archive](evidence/execution-v1/geth-raw.tar.gz)

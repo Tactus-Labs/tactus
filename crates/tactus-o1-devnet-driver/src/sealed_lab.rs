@@ -184,6 +184,18 @@ pub fn bootstrap_with_program(
     n: u8,
     anchor_elf: &[u8],
 ) -> Result<Network, String> {
+    let allocation = tactus_o1_protocol::genesis::Allocation::default()
+        .encode()
+        .unwrap();
+    bootstrap_with_allocation(lab, code, n, anchor_elf, &allocation)
+}
+pub fn bootstrap_with_allocation(
+    lab: &mut Lab,
+    code: [u8; 32],
+    n: u8,
+    anchor_elf: &[u8],
+    allocation: &[u8],
+) -> Result<Network, String> {
     let wallet = &lab.wallets[0];
     let seed: [u8; 44] = molecule::cell_input(
         0,
@@ -193,7 +205,7 @@ pub fn bootstrap_with_program(
     .unwrap();
     let rollup = genesis_identity(&seed, 0);
     let id = genesis_identity(&seed, 1);
-    let anchor_script = tx::tactus_o1_type_script(anchor_elf, &rollup);
+    let anchor_script = tx::anchor_type_script(anchor_elf, &rollup, allocation)?;
     let gate_script = role(&code, 2, &id, None);
     let gate = cell(wallet.point, &code, gate_script, s::SCHEDULE_BYTES);
     let anchor_lock = role(&code, 0, &ckb_blake2b(&gate.script), None);
@@ -224,6 +236,7 @@ pub fn bootstrap_with_program(
         outputs.push(c.output(lane.encode().unwrap()));
         lanes.push((c, lane));
     }
+    outputs.push(batch_lab::da_output(&anchor, allocation));
     let transaction = shape(lab, 0, &[], outputs, &[], &[])?;
     let hash = commit(lab, 0, &format!("sealed/{n} lanes/genesis"), &transaction)?;
     let mut network = Network {

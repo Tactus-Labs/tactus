@@ -1,0 +1,261 @@
+{
+  "schema": 1,
+  "production_ready": false,
+  "scope": "Allocation-bound deployment regression; finite mechanism evidence, no proof settlement or production liveness claim",
+  "source_audit": "Every source, binary and configuration hash in all 14 manifests matched the final pre-commit worktree. Documentation edits are outside the executable-source manifest.",
+  "concurrent_builds_identical": true,
+  "runs": [
+    {
+      "ckb_version": "0.121.0",
+      "suite": "batch",
+      "run_directory": "artifacts/batch-W99o9zNV",
+      "complete": true,
+      "transactions": {
+        "committed_evidence_records": 7,
+        "rejected_records": 32
+      },
+      "source_files_verified": 79,
+      "program_and_configuration_files_verified": 12,
+      "evidence_sha256": "4ab0464a51e4e68cb10d1129520cfe7443e6be8bbebb88bbcdc97f6926458749",
+      "estimated_cycles": {
+        "samples": 7,
+        "minimum": 1644795,
+        "maximum": 9133294
+      }
+    },
+    {
+      "ckb_version": "0.121.0",
+      "suite": "evm",
+      "run_directory": "artifacts/evm-xvvfsUjQ",
+      "complete": true,
+      "transactions": {
+        "committed_evidence_records": 5,
+        "rejected_records": 0
+      },
+      "source_files_verified": 79,
+      "program_and_configuration_files_verified": 13,
+      "evidence_sha256": "e4252ba4b7c268768ae933f703ae7898c5564440e0e63b22529cbf31d041aa64",
+      "estimated_cycles": {
+        "samples": 5,
+        "minimum": 1644795,
+        "maximum": 1768545
+      }
+    },
+    {
+      "ckb_version": "0.121.0",
+      "suite": "priority",
+      "run_directory": "artifacts/priority-MA2sLTbn",
+      "complete": true,
+      "transactions": {
+        "committed_evidence_records": 24,
+        "rejected_records": 20
+      },
+      "source_files_verified": 79,
+      "program_and_configuration_files_verified": 12,
+      "evidence_sha256": "a9fec30d4209cc13b68cf7e2f27b8a3e5e1a2060995269e506a6998c4da06f77",
+      "estimated_cycles": {
+        "samples": 24,
+        "minimum": 1623234,
+        "maximum": 13446272
+      }
+    },
+    {
+      "ckb_version": "0.121.0",
+      "suite": "sealed",
+      "run_directory": "artifacts/sealed-BibKr1mR",
+      "complete": true,
+      "transactions": {
+        "committed_evidence_records": 210,
+        "rejected_records": 69
+      },
+      "source_files_verified": 79,
+      "program_and_configuration_files_verified": 13,
+      "evidence_sha256": "b65b6312ccd5cb902d65b55675d8f99b1ec644e9a0b878caf4f8f744ffd1b9eb",
+      "estimated_cycles": {
+        "samples": 210,
+        "minimum": 1631425,
+        "maximum": 15329506
+      }
+    },
+    {
+      "ckb_version": "0.121.0",
+      "suite": "network",
+      "run_directory": "artifacts/network-z6j4v7Ow",
+      "complete": true,
+      "transactions": {
+        "committed_evidence_records": 27,
+        "rejected_records": 0
+      },
+      "source_files_verified": 79,
+      "program_and_configuration_files_verified": 16,
+      "evidence_sha256": "a522360d89a08d16cf7cfcf939ab733065bd1a62404ff32c4a8a92a9bd9009f5",
+      "estimated_cycles": {
+        "samples": 26,
+        "minimum": 1639986,
+        "maximum": 3667358
+      }
+    },
+    {
+      "ckb_version": "0.121.0",
+      "suite": "admission",
+      "run_directory": "artifacts/admission-qVGtUnEy",
+      "complete": true,
+      "transactions": {
+        "committed_evidence_records": 290,
+        "rejected_records": 36
+      },
+      "source_files_verified": 79,
+      "program_and_configuration_files_verified": 12,
+      "evidence_sha256": "713a2d843a2801b7f2d2e418cd391f8dc7770a0d7e88762c127e6e2d16af9ea1",
+      "estimated_cycles": {
+        "samples": 122,
+        "minimum": 1648133,
+        "maximum": 2827110
+      }
+    },
+    {
+      "ckb_version": "0.121.0",
+      "suite": "a123",
+      "run_directory": "artifacts/a123-b2XZhUPw",
+      "complete": true,
+      "transactions": {
+        "committed_evidence_records": 198,
+        "rejected_records": 32
+      },
+      "source_files_verified": 79,
+      "program_and_configuration_files_verified": 12,
+      "evidence_sha256": "1ad8c788c7ccd1fe58844465ae3caa0b5f58b5ab87ec6b40429eb26d9ac6d5c4",
+      "estimated_cycles": {
+        "samples": 174,
+        "minimum": 1615028,
+        "maximum": 1732770
+      }
+    },
+    {
+      "ckb_version": "0.210.0",
+      "suite": "batch",
+      "run_directory": "artifacts/batch-UPvq67TK",
+      "complete": true,
+      "transactions": {
+        "committed_evidence_records": 7,
+        "rejected_records": 32
+      },
+      "source_files_verified": 79,
+      "program_and_configuration_files_verified": 12,
+      "evidence_sha256": "b903a2bc0d3072714b8d5a72749f021ae1a1849272d844eb7624cbff1147538c",
+      "estimated_cycles": {
+        "samples": 7,
+        "minimum": 1644795,
+        "maximum": 9133294
+      }
+    },
+    {
+      "ckb_version": "0.210.0",
+      "suite": "evm",
+      "run_directory": "artifacts/evm-i3CIhYaX",
+      "complete": true,
+      "transactions": {
+        "committed_evidence_records": 5,
+        "rejected_records": 0
+      },
+      "source_files_verified": 79,
+      "program_and_configuration_files_verified": 13,
+      "evidence_sha256": "487b39f0820244d918b445f95c14cc42accf2f3ff0bc5116e11a760a222700f1",
+      "estimated_cycles": {
+        "samples": 5,
+        "minimum": 1644795,
+        "maximum": 1768545
+      }
+    },
+    {
+      "ckb_version": "0.210.0",
+      "suite": "priority",
+      "run_directory": "artifacts/priority-9W377grR",
+      "complete": true,
+      "transactions": {
+        "committed_evidence_records": 24,
+        "rejected_records": 20
+      },
+      "source_files_verified": 79,
+      "program_and_configuration_files_verified": 12,
+      "evidence_sha256": "842f83392ffb53da40e61396ea49c43a859a490a5750e608141ed956a2f7318a",
+      "estimated_cycles": {
+        "samples": 24,
+        "minimum": 1623234,
+        "maximum": 13446272
+      }
+    },
+    {
+      "ckb_version": "0.210.0",
+      "suite": "sealed",
+      "run_directory": "artifacts/sealed-Pt9k9WWf",
+      "complete": true,
+      "transactions": {
+        "committed_evidence_records": 210,
+        "rejected_records": 69
+      },
+      "source_files_verified": 79,
+      "program_and_configuration_files_verified": 13,
+      "evidence_sha256": "2d0b03178797f892ccb95075911638b0326b58c4818ef6b3ca250ddaf130949e",
+      "estimated_cycles": {
+        "samples": 210,
+        "minimum": 1631425,
+        "maximum": 15329506
+      }
+    },
+    {
+      "ckb_version": "0.210.0",
+      "suite": "network",
+      "run_directory": "artifacts/network-0RYq1eKt",
+      "complete": true,
+      "transactions": {
+        "committed_evidence_records": 27,
+        "rejected_records": 0
+      },
+      "source_files_verified": 79,
+      "program_and_configuration_files_verified": 16,
+      "evidence_sha256": "5ee62103f462a7ea6db673ff6ece1dba520d0d290741f1d6bc739c7eceecf956",
+      "estimated_cycles": {
+        "samples": 26,
+        "minimum": 1639986,
+        "maximum": 3667358
+      }
+    },
+    {
+      "ckb_version": "0.210.0",
+      "suite": "admission",
+      "run_directory": "artifacts/admission-8Y8oqzuN",
+      "complete": true,
+      "transactions": {
+        "committed_evidence_records": 290,
+        "rejected_records": 36
+      },
+      "source_files_verified": 79,
+      "program_and_configuration_files_verified": 12,
+      "evidence_sha256": "a3acfd8c5f194daed4d57feeef168ac35a5581024816968054f2b6b4da6a057f",
+      "estimated_cycles": {
+        "samples": 122,
+        "minimum": 1648133,
+        "maximum": 2827110
+      }
+    },
+    {
+      "ckb_version": "0.210.0",
+      "suite": "a123",
+      "run_directory": "artifacts/a123-JZmKcVpD",
+      "complete": true,
+      "transactions": {
+        "committed_evidence_records": 198,
+        "rejected_records": 32
+      },
+      "source_files_verified": 79,
+      "program_and_configuration_files_verified": 12,
+      "evidence_sha256": "cd43158e3f732531d9733577335601511cfece75479c9614852dd7d8164193a7",
+      "estimated_cycles": {
+        "samples": 174,
+        "minimum": 1615028,
+        "maximum": 1732770
+      }
+    }
+  ]
+}

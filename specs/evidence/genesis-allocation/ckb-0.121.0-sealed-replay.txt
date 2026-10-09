@@ -1,0 +1,294 @@
+deploy immutable code and independent actor funds: committed 0x54fb6f4041a4a8faa76fc0478e40c9ba7574de6021590b8aea102c2120ce1687
+sealed/deploy immutable gate and lane program: committed 0x1269f7e673633cca8eb0b85858ecfc9a4e875ffa27d898c2f439c449d3f59268
+sealed/1 lanes/genesis: committed 0x9485b39a5d3f395b5e25d028273da0c6175b8daf6a101d26faf1ef39d5b1bb11
+sealed/cold genesis observer: independent recovery matched
+sealed/anchor cannot omit schedule input: rejected (7)
+sealed/schedule cannot be burned: rejected (2)
+sealed/epoch cannot switch early: rejected (14)
+sealed/schedule lock cannot be replaced: rejected (5)
+sealed/schedule capacity cannot be drained: rejected (5)
+sealed/schedule cannot be split: rejected (12)
+sealed/batch advances while lane admission is pending: committed 0x916bb5d18f03ea926ba3655b1e418f06e56171347a0c0081afa69bfd50e01977
+sealed/pre-signed lane admission survives schedule change: committed 0x72db3bfe2dec66e3cdba0f924ba3612bb2b01448ce56c753500f8cf1d32c007c
+sealed/fill initial snapshot lanes: committed 0xe29d0bd8489e5efa0e0add4c8d1720fde0ea25a9a3cd1289af72acca27bbb4a9
+sealed/fill initial snapshot lanes: committed 0x141f3f9432ffae75c0dc0178b4f761d6eb2576aebbdf207867caf9d4d878a07d
+sealed/cannot recreate a lane without fresh gate genesis: rejected (7)
+sealed/partially filled lane cannot churn with no-op: rejected (16)
+sealed/lane queue cannot reset without seal authorization: rejected (7)
+sealed/genesis epoch batch: committed 0xcced9195cb4cc46487265f7ed43fc7eabfc1f1155393c6bf4a18e051bfb00b66
+sealed/genesis epoch batch: committed 0xea0ee18d29bed266b6003d58f2cbf19fe43039a1d4c64a459cc2a6016e3fa81c
+sealed/genesis epoch batch: committed 0x6512ea5b580380ac21f1a2b900cfa44ab3809af74ab2cd45cb5a8a67ff513c6c
+sealed/genesis epoch batch: committed 0x458df9c7c116948eb185001c55a323bfcff27f72627802ee2e15bda20db1a00b
+sealed/genesis epoch batch: committed 0x5006eadb943899a8046c8b116979f73d9c1347d0e7b247c1e37e697099a58c01
+sealed/genesis epoch batch: committed 0x073ef0ff4a4e1d42c5c5e1195a671883cf4878e16c9119a15f913a6a51608954
+sealed/genesis epoch batch: committed 0x031208203b52392aeca1fe087e2bb4253e6dd54c6362351f3982520a2a4b37df
+sealed/ninth batch must wait for seal: rejected (14)
+sealed/cannot omit configured lane at switch: rejected (8)
+sealed/snapshot bytes must equal authentic lane history: rejected (9)
+sealed/snapshot retention lock is mandatory: rejected (5)
+sealed/seal cannot disguise an unmetered anchor advance: rejected (10)
+sealed/authenticated complete first seal: committed 0xd464f6b3017f84c91a8c40fd865897172ecc34b82d06bdfa78af63e68536e3d2
+sealed/published snapshot cannot be destroyed: rejected (1)
+sealed/publish unrelated snapshot bytes: committed 0x1be6b25f39f5e7654d6d73c0597ca9211e8b275c4c5fc7d016e587fdd47d37af
+sealed/unrelated dependency is not the authenticated snapshot: rejected (9)
+sealed/builder cannot skip mandatory prefix: rejected (15)
+sealed/builder cannot reorder mandatory prefix: rejected (15)
+sealed/witness allocation has an executable byte bound: rejected (12)
+sealed/churn active heads up to finite queue bound: committed 0xb1efb43b49dc6bf72d4f4aa891766e1305002494efb1a4bf1a2a1545d9912221
+sealed/churn active heads up to finite queue bound: committed 0x8b10e2a40770f3145dfa94a1aad8b5b528e8b5218093f33046ffb43faf93e3ee
+sealed/churn active heads up to finite queue bound: committed 0xcd64881bac2d18ecb410632d97eb4b42cbd45c54e7393fbab26db425ad76ed45
+sealed/churn active heads up to finite queue bound: committed 0x05e73555032c89ca72ebb17db4c5974581c9f9bc342e6952d9fba1b8e315a786
+sealed/churn active heads up to finite queue bound: committed 0x6266c0d370acd7501a62cecc0d8fd3ad934a98e879efc5295956f7cd789228d7
+sealed/churn active heads up to finite queue bound: committed 0x2bb9a41629540cc1e886ba13e1c1d7b0041711dd8050b4410a11cc7f13609261
+sealed/churn active heads up to finite queue bound: committed 0x11b5ae0379c82dbf965211bac1089def5dda9ab670b737bad43194f6edb4504d
+sealed/churn active heads up to finite queue bound: committed 0xae0672603fdc5fd286e1d0741994526033acaebe1afdd8ec2428c9779d177f25
+sealed/full lane refuses a ninth admission: rejected (3)
+sealed/full lane cannot churn with no-op: rejected (12)
+sealed/pre-signed batch survives all active-lane churn: committed 0xd16c212cf28c21b68d3ed22ce63ed3043f71010fd0fbb643904ec52513982a59
+sealed/process frozen epoch without changing active lanes: committed 0x55f0bc0bde6a25339508b6b1f4e536b7a196768cf8691f663cbd455ee4c290e3
+sealed/process frozen epoch without changing active lanes: committed 0xeb4e84db2b8b341ff5bfc896ff5b1c8c9f12c3d854eb68e436b51001afab7b99
+sealed/process frozen epoch without changing active lanes: committed 0x6076ffe807d4a684d5ca4ca44c4f0970f377158d5815f2f8485fc137109f0d13
+sealed/process frozen epoch without changing active lanes: committed 0x9547d3b9720f526eec61a6a35e6019651bf848fc1e35ab15acf024016d2dc439
+sealed/process frozen epoch without changing active lanes: committed 0xa95d6f21ea1f5ea3b856c469961cac25d2b2606f0cedcdcf53b25d316645fa9f
+sealed/process frozen epoch without changing active lanes: committed 0xc4ba82964d2ec0f719a0d2de2290ba33bdc676624e19d2ebc5725fca401b9a81
+sealed/process frozen epoch without changing active lanes: committed 0xab3960c2b399bde75e417ee0144ddad7e222918fd52d9cbcb00191176bdddb74
+sealed/processed snapshot cannot be retained indefinitely: rejected (14)
+sealed/cold observer before rollback branch: independent recovery matched
+sealed/planned orphan second seal: committed 0x65205a89206492c2775f313862bdd49f4ca3c11ea028a3d6fb7e21f9f47b4148
+sealed/planned orphan first priority batch: committed 0x6701b17f43e43b2361d6ea6b022a45521b8c631bc3f98c140703dc7476cbd5d2
+sealed/cold observer sees orphan seal and batch: independent recovery matched
+sealed/cold observer restores canonical queues after rollback: independent recovery matched
+sealed/other actor reseals restored active heads: committed 0xfd05b8d4a4b8ba143c3548f0be885017f6c74e639a964f20f6411415bfcb2a75
+sealed/old snapshot rejected after mandatory switch: rejected (9)
+sealed/mandatory processing of post-seal messages: committed 0x5cdcf5732dc60a4266c8705755d8b5a18d9a9b32e87dcfde3e0bcc4186fd38a5
+sealed/mandatory processing of post-seal messages: committed 0xb945047ee69f473c0cc91b37f294705cd7f9527bfcd3bb28585ea87556916de4
+sealed/mandatory processing of post-seal messages: committed 0x1bc5dc40ea19ba85a305b37442671f07ad5c8e4addbbfc03d2fefc4564b6a98b
+sealed/mandatory processing of post-seal messages: committed 0x54d77d87df7134849d77aeb1168e1939dc4e3fa48341e5de1c9d67a1a52e313c
+sealed/mandatory processing of post-seal messages: committed 0x0b816e8fe2740952302862c759d3eb8738d503828b41ed54c64c273bc0b1d214
+sealed/mandatory processing of post-seal messages: committed 0xc45090db43d9d1f6345d56c167544d3bf24400415ed2d891a1586fda6e490cac
+sealed/mandatory processing of post-seal messages: committed 0xfbc61ed9d6aafbcc3422b5c516301b77fa90a324b5a0cc6d499d074996648370
+sealed/mandatory processing of post-seal messages: committed 0xba1523fce40a74ba0e70b56098f1def064f2fce7f5d4f8bea852c4de2ff69bad
+sealed/cold observer reconstructs final pending state: independent recovery matched
+sealed/2 lanes/genesis: committed 0xe90a46c7ac56fbfa11aa73d222ed9211762a5eacb3d5784df04a28a24abd1d9b
+sealed/cold genesis observer: independent recovery matched
+sealed/anchor cannot omit schedule input: rejected (7)
+sealed/schedule cannot be burned: rejected (2)
+sealed/epoch cannot switch early: rejected (14)
+sealed/schedule lock cannot be replaced: rejected (5)
+sealed/schedule capacity cannot be drained: rejected (5)
+sealed/schedule cannot be split: rejected (12)
+sealed/batch advances while lane admission is pending: committed 0x63f7c316c02fd0aa2bec7ef36f678ba6eab8f551fcc073c315117bc589210885
+sealed/pre-signed lane admission survives schedule change: committed 0xfb3d17c31ab12f27e7c800c85a85aad1fc57fd97d0c9232f7ba9eaeb837c9a4d
+sealed/fill initial snapshot lanes: committed 0xc800d5f8ac9e30232179323c846bf75e3746bdaefa3caf3d5e5c14fe96c577dc
+sealed/fill initial snapshot lanes: committed 0x2ce1a30a70993641243a5a9365bbe9118419b719166f1dedb12b648812e3a284
+sealed/fill initial snapshot lanes: committed 0xf2f4959d3f2dac2932948f902d7f63ab083dc8b50e0e7fa556df1f32739fb76b
+sealed/fill initial snapshot lanes: committed 0x987193af58375e2ed8b9199f213b6670fac67983dbbae81b5a136b8d18d47457
+sealed/fill initial snapshot lanes: committed 0xcd7a36a54029759819a2d1f7f48e84c472b05a4ae9f39f5a56b1dd6540491a13
+sealed/cannot recreate a lane without fresh gate genesis: rejected (7)
+sealed/partially filled lane cannot churn with no-op: rejected (16)
+sealed/lane queue cannot reset without seal authorization: rejected (7)
+sealed/genesis epoch batch: committed 0x918e73159ef75dffa0637290b9bcf48835e2907a5407403c44a86cdc4cdab9a7
+sealed/genesis epoch batch: committed 0xd8e7e3d281350909dbaa28befd1ffc5df94a5acf5c37b256de4d8fd4b8aa66b5
+sealed/genesis epoch batch: committed 0x3a43405a0cbaf482f1898b9b64005c3126ea0fb8ace9095f8c9ef5d7d5636711
+sealed/genesis epoch batch: committed 0xf6a8f2f57d6d24aa5d7c3da285a8382f53570da50c690603bc7a77cca03839e6
+sealed/genesis epoch batch: committed 0x50bfe607eb64e01fe2e30b0bb5c6c4281c674a2c230696f5cf098322dda75545
+sealed/genesis epoch batch: committed 0x688402bbfa9f32282407b4b2efe3a5ce70e046b5242c847f4c665c6067da8ebd
+sealed/genesis epoch batch: committed 0x9b7929963c4f0dd40e874e062b11833b73f4a2e96f5220c0ffc4917426bf6781
+sealed/ninth batch must wait for seal: rejected (14)
+sealed/cannot omit configured lane at switch: rejected (8)
+sealed/snapshot bytes must equal authentic lane history: rejected (9)
+sealed/snapshot retention lock is mandatory: rejected (5)
+sealed/seal cannot disguise an unmetered anchor advance: rejected (10)
+sealed/authenticated complete first seal: committed 0x55052b473115edec2f49f03d399146e51e48bfc4e5caa3065d446aea153f4d76
+sealed/published snapshot cannot be destroyed: rejected (1)
+sealed/publish unrelated snapshot bytes: committed 0xa65d887e117f942b2e313e252f2d44275342aeddf55aa35ea99a3342efb9c11e
+sealed/unrelated dependency is not the authenticated snapshot: rejected (9)
+sealed/builder cannot skip mandatory prefix: rejected (15)
+sealed/builder cannot reorder mandatory prefix: rejected (15)
+sealed/witness allocation has an executable byte bound: rejected (12)
+sealed/churn active heads up to finite queue bound: committed 0x2610b63daad7ea81ad63dbf0a9842138e1fa24afa70fa7e2b2c3904f2c1cb3d3
+sealed/churn active heads up to finite queue bound: committed 0x84ffe06e546b0137ede55d1744c7685a543474077ea27dfa8cc178e53ffe03a9
+sealed/churn active heads up to finite queue bound: committed 0x03cd6f38eaed0768f14488b3fe378350740e8e7a98894dfea8bd8a24b1c2e2dc
+sealed/churn active heads up to finite queue bound: committed 0x3516badc834aa66537e3ecbd9c14656a0b3acc76af3e49c604747d21df9e7a84
+sealed/churn active heads up to finite queue bound: committed 0x6cf6cf7bbf5f58072905fbbe98782d42afec0cedadf13eb3162f0bc6b1cf3ed9
+sealed/churn active heads up to finite queue bound: committed 0x83cc743880165a0916555dec6cfd58d28992252226edcc7b0f868a364df77959
+sealed/churn active heads up to finite queue bound: committed 0x5dd01ffdb0c075663eb713498dee836133cf6e3c5aec7a89a35f5fa93f35f871
+sealed/churn active heads up to finite queue bound: committed 0x4cb848a5ff188a2dc6de36acc780fa160c100aae23b13815bbb1cf8ccfc26a70
+sealed/churn active heads up to finite queue bound: committed 0xa78799ae21787ed7c6cdabe64974078dec162fafa021ccfa1033ae56640188fb
+sealed/churn active heads up to finite queue bound: committed 0xcd036e570149603a604c8981c8f4e2759c45b77050744e1978667bffbe0e6a1a
+sealed/churn active heads up to finite queue bound: committed 0x400d0cb7ea8cd52f521abe579ee03480ac1c0f1158b572784fc160148cdbfe2c
+sealed/churn active heads up to finite queue bound: committed 0x4e8ef2f878978c69937bc77890bdea6c7802a1f6c834bcfcaae5fb41f56e93c3
+sealed/churn active heads up to finite queue bound: committed 0x579abe78a3eb3288b677095810931a06dcaab165ee53846862fed4b0bac48166
+sealed/churn active heads up to finite queue bound: committed 0xfba230df15f8a0840f1d6020c5117dca32cc3db5e1aa8a66b65991c56bd88249
+sealed/churn active heads up to finite queue bound: committed 0x776272477a102b5cc9832814887e890a26fac99b5a9c589dc86d242d7a1f11de
+sealed/churn active heads up to finite queue bound: committed 0x6869b4092ffe8cf10f93c875b353de2ae80ec287cf0a3179002b2761aa6dd35c
+sealed/full lane refuses a ninth admission: rejected (3)
+sealed/full lane cannot churn with no-op: rejected (12)
+sealed/pre-signed batch survives all active-lane churn: committed 0x70c09f1ed2d4432d9511dac668d3ee2d835ccccb80f1995e128dc3b15eeb7c8e
+sealed/process frozen epoch without changing active lanes: committed 0xaf601e31f7f8f20884ebb32bbc752eba31128e75d63e9d95ae9e66b6c80925e0
+sealed/process frozen epoch without changing active lanes: committed 0x20e60382b0056c48a05925c0012e0e227837d38e45ce7f28275ca9750ba67605
+sealed/process frozen epoch without changing active lanes: committed 0xb58088b09de8cec8f54bf0df0c8bf843eb68be492aaf69a4de38450b0e53f499
+sealed/process frozen epoch without changing active lanes: committed 0xd37ec8e9764ab389c9c511444e12796f70b0d2b12f6a9b24e936f61872b14c33
+sealed/process frozen epoch without changing active lanes: committed 0x78e8f13f45eb764f4ddb706098ac2a74866f2072cc4b83026bc57e891905bd46
+sealed/process frozen epoch without changing active lanes: committed 0x54ffa34484dda83f43163fba1de90a0886f4c625d3c3ec4e93ccda136de92acd
+sealed/process frozen epoch without changing active lanes: committed 0xf27626343ca0f4976bbbb3f35037946060abb600a0aa0204d6fb64b76d7351df
+sealed/processed snapshot cannot be retained indefinitely: rejected (14)
+sealed/cold observer before rollback branch: independent recovery matched
+sealed/planned orphan second seal: committed 0x0b84e215d015e59dc7615090990ceee1a7a1e0860ceb83ee19f0f5e3c759d527
+sealed/planned orphan first priority batch: committed 0xbd3301491ea1c9665976045d618b83e53a579222e7e3903c3d93c4e53a604bae
+sealed/cold observer sees orphan seal and batch: independent recovery matched
+sealed/cold observer restores canonical queues after rollback: independent recovery matched
+sealed/other actor reseals restored active heads: committed 0xd34c15a534034766eb26252a5db159d540efbabaacaa96e38d363a4782fd0d4a
+sealed/old snapshot rejected after mandatory switch: rejected (9)
+sealed/mandatory processing of post-seal messages: committed 0x0a41a671b15a647b517ba4915b06e240354a4cc54ad7f7dd21af6d74d20e3c03
+sealed/mandatory processing of post-seal messages: committed 0xd8eccfae802ba63d9854b7715c06a9cf7654ae24cc22983cf27ba12de37a30bf
+sealed/mandatory processing of post-seal messages: committed 0xadfdfa561b961fc919334238f86a2d615ab38404a5e269464f0ca1970413898d
+sealed/mandatory processing of post-seal messages: committed 0x29445881f55c339e71c52d9a1b0b0f879dd5b0ac5d3ac9bf932dd7f60ba0c6bf
+sealed/mandatory processing of post-seal messages: committed 0x3d737c8d964779139ff3fcce13e649d628731a851a22000670fcf4d9e73f3813
+sealed/mandatory processing of post-seal messages: committed 0x2dea6a9baf57ac6b4665405a2eaa80d2981e33ac72aa30a4a0631eb6be4d3d95
+sealed/mandatory processing of post-seal messages: committed 0x4819b97362fd58fca8b4947ba21278d70645928de85780a8c077eba09056720c
+sealed/mandatory processing of post-seal messages: committed 0xd8e829d0508d9296299eedc9a0128ea90a45009065a351af6dac3706b7617130
+sealed/cold observer reconstructs final pending state: independent recovery matched
+sealed/4 lanes/genesis: committed 0x1146f361a871bb76c947c28dcb955e5c0105e1dd704f03b798450dd0d961b50e
+sealed/cold genesis observer: independent recovery matched
+sealed/anchor cannot omit schedule input: rejected (7)
+sealed/schedule cannot be burned: rejected (2)
+sealed/epoch cannot switch early: rejected (14)
+sealed/schedule lock cannot be replaced: rejected (5)
+sealed/schedule capacity cannot be drained: rejected (5)
+sealed/schedule cannot be split: rejected (12)
+sealed/batch advances while lane admission is pending: committed 0xb1847e85ecd51d0c4dccccc320b9d05bb41bb214c7c92ca4191aa3082fec0291
+sealed/pre-signed lane admission survives schedule change: committed 0xf885e74778152d3e7a9e8ebe1af8c60e94da82047daec02be783e92cac2e8b6a
+sealed/fill initial snapshot lanes: committed 0x9f49e0a999261b04a62bd929ccbaaac08b0d4aa2bc154b6119d06d769f6b5dec
+sealed/fill initial snapshot lanes: committed 0xe62ec9b1263b7d25db18cca42333bc20b1554869f0649f07bb0fad63ffb6b69d
+sealed/fill initial snapshot lanes: committed 0x6db3a7a2db5c508597ab298fcf84b411e6a72026fcf663bd7b15be91e8c63fd9
+sealed/fill initial snapshot lanes: committed 0xd711ebadb8605eb10c82d0a2d00578bac92d2646edeff41e18b043eef56bf3bf
+sealed/fill initial snapshot lanes: committed 0x21e427c6fb1e81be2076aac3d1d38a2093bc2b493801fd4ee7291b5124be239a
+sealed/fill initial snapshot lanes: committed 0x22e615ec23147ebaf52cb0a9544d7f795367363e30a1be7e64c4730aea309c99
+sealed/fill initial snapshot lanes: committed 0x819d4889efb848c9aa8e5cedb7d91b5523d55568863344768a9c476159338888
+sealed/fill initial snapshot lanes: committed 0x90f0f07bac44abec096911cbe197d1358ace8e8fc3f00d91e5494e40df4ff7ae
+sealed/fill initial snapshot lanes: committed 0xac50548dbc429eb81fbaf45097585be397c07e59a3079a49a9b6a68eda8c9285
+sealed/fill initial snapshot lanes: committed 0xd30d6103a422711e4ee83beef86c6e889e3a0a4c7d76090206101d8f28b9aa20
+sealed/fill initial snapshot lanes: committed 0x5ba0dd8be3b1056874fce41fc04b7e8441811b6af4daf8f61c19c5ca8f8ed455
+sealed/cannot recreate a lane without fresh gate genesis: rejected (7)
+sealed/partially filled lane cannot churn with no-op: rejected (16)
+sealed/lane queue cannot reset without seal authorization: rejected (7)
+sealed/genesis epoch batch: committed 0xb91594f5e16dce9d7b0a328abb36a79215e7ddffd9c2c79938247c89ecf1ecb2
+sealed/genesis epoch batch: committed 0x58c8f7b714a07c6c35719bb3e5671f11a799d84d584f0095c446e03c9cd30ee7
+sealed/genesis epoch batch: committed 0x0df28e21478f57e30aaedb989b94e796869ca9a6dff74efd2bcfbb8dc6fe1320
+sealed/genesis epoch batch: committed 0x9bcbd607ee1f989ff42a77f4e58b26076b88cdbed59b285c4ef4b3cab8d49833
+sealed/genesis epoch batch: committed 0x408564ef8a6e5287ae222d09a689256b4266679e5d0640d9598d4d8d60557e22
+sealed/genesis epoch batch: committed 0x0077c6107febcc97cc7114a644c94474897aa9c53be69d49662dfc5f90cefbc2
+sealed/genesis epoch batch: committed 0x9dec08ea4d775fd6945e110d168f288332b2054050709e6682c365bb8ca55041
+sealed/ninth batch must wait for seal: rejected (14)
+sealed/cannot omit configured lane at switch: rejected (8)
+sealed/snapshot bytes must equal authentic lane history: rejected (9)
+sealed/snapshot retention lock is mandatory: rejected (5)
+sealed/seal cannot disguise an unmetered anchor advance: rejected (10)
+sealed/authenticated complete first seal: committed 0x1cb824f01644aa6182f893735ef040b1c047a82edcaf3af25c7d696d3eddafc2
+sealed/published snapshot cannot be destroyed: rejected (1)
+sealed/publish unrelated snapshot bytes: committed 0xfb35d0e3641649e171d3b90b2ab8e0445da9fa42122d9fd9a44b3faed86b3758
+sealed/unrelated dependency is not the authenticated snapshot: rejected (9)
+sealed/builder cannot skip mandatory prefix: rejected (15)
+sealed/builder cannot reorder mandatory prefix: rejected (15)
+sealed/witness allocation has an executable byte bound: rejected (12)
+sealed/churn active heads up to finite queue bound: committed 0x082e46c4c43f4d475d527ec277f9eea4c74ddf9b6a6a0e7a4b5425372a559d1b
+sealed/churn active heads up to finite queue bound: committed 0xda451ead8bf2ae607d308af47a499659d374da453049bd9fa8614fd4073adfa3
+sealed/churn active heads up to finite queue bound: committed 0xc939817de7b1f895a8909e1e0352009acc71c5aff47ef5d96b21dba5d2ae9c15
+sealed/churn active heads up to finite queue bound: committed 0x5e9ecb86f0ee284a24f2f475f49187cc807fd1065e758aa473360763bdf052ca
+sealed/churn active heads up to finite queue bound: committed 0x848e66fb4807935ec2e7a4c3918104a6284ffec2a0605d28e798600775fe02c1
+sealed/churn active heads up to finite queue bound: committed 0xa03dbe56d41501123c4b428e7eeebe5a85c2e8af1aa33a3d7db1a5bd1d99e69a
+sealed/churn active heads up to finite queue bound: committed 0xfe6c5c53875393aca8f41d99c957619e7cfa4722f7575f35a7a9620aa902b318
+sealed/churn active heads up to finite queue bound: committed 0x513c828a92ec9e5f20d88d4f88a40785cc1d58c240d9051d8d1aafbd0264fe5e
+sealed/churn active heads up to finite queue bound: committed 0x78ddf51f5af7c54bc0a987aa50cd5363670d5dd27112d81c258641a22f193f86
+sealed/churn active heads up to finite queue bound: committed 0xf927cd865479ef5f253601dcc14490efc004e92450f567223b8a673c15cad8ce
+sealed/churn active heads up to finite queue bound: committed 0xabecb3ea4f0b83767d9a6fe839bcd7277a8c73ed5e6a326eeeb7007ccbfd646f
+sealed/churn active heads up to finite queue bound: committed 0xa1112ce01dd333d6321c58d84a1a52b95b43ec3e8bc9c96e9e250821ccff39d5
+sealed/churn active heads up to finite queue bound: committed 0x11d20a9b80a8219a7c66617d03639b2897ecf403308cbe7ece53c10ae05f3040
+sealed/churn active heads up to finite queue bound: committed 0x21bfc9f1387e1d649cfb4be53bc7da86b065589863ff078567da395111c2fe75
+sealed/churn active heads up to finite queue bound: committed 0x0d6c5b2311b8f5bfc233184a7ca31851c04fc24cbebd4bd0b41fadb744c86cba
+sealed/churn active heads up to finite queue bound: committed 0x700093d7ead414c28c271a2553d27585a874642dd27f778e498767c4ec844e08
+sealed/churn active heads up to finite queue bound: committed 0xbcde2707e16f2c51c844f258bb93cb855198426d853d563c952e653134d47450
+sealed/churn active heads up to finite queue bound: committed 0x15b251cb7ad57f9fbb1ab9893d4e99902bbdf3fd37e94a803dfa4d49ba4391de
+sealed/churn active heads up to finite queue bound: committed 0xb6a3538711691688df10be99973f079c9c66acf9cdf09410620812f22f7d7190
+sealed/churn active heads up to finite queue bound: committed 0xd01bb31353d633ac75aaf5e21f0300d679a4a1c5404324e522317a69fb9974fe
+sealed/churn active heads up to finite queue bound: committed 0x2d2f416e0f6a4c6503886d1ad7553821c127e5001414afd628a7d36da23a0e89
+sealed/churn active heads up to finite queue bound: committed 0x59ad44daae665724ad6539e5d8285924c0d769a9bf014938418ef7b47a149191
+sealed/churn active heads up to finite queue bound: committed 0xe919bdedfacba945a3684e512705fc0a157ac5178fc76e1f929ea80db9f16a2d
+sealed/churn active heads up to finite queue bound: committed 0xfc1f4bae8f4a07470b9dd33b65db7fb7822828880e2be36836cd44bb2e840ae9
+sealed/churn active heads up to finite queue bound: committed 0xd59d3f412ef20ef09b2677a5f8a97ffbc8fd96460809de22e67bed59f233636b
+sealed/churn active heads up to finite queue bound: committed 0x3e318667b7f76e96317b42a762013752292a7397bd03c5da91f3b58734e8f46f
+sealed/churn active heads up to finite queue bound: committed 0x798891fd9bc84b626bc648ea83b0952b22a9cd8ccf9cdb7f4da5beee4a9aa3bd
+sealed/churn active heads up to finite queue bound: committed 0x08b9ad8faf5ea8ed843a86fefa574b3e96f522673ae45a5a57f75d090772e629
+sealed/churn active heads up to finite queue bound: committed 0x655771ea5cd7b04d73b43f5a2f53bf245c27213e852e6d49965d3d5411a8de8c
+sealed/churn active heads up to finite queue bound: committed 0x85aba99a5114fa6cf50bc78720e783a4c283a2418c2de35de7655e535c16ef63
+sealed/churn active heads up to finite queue bound: committed 0xb09d2c0a2f0989429895bfab97ec21c9571e1315be1be4900e79be127fe9c963
+sealed/churn active heads up to finite queue bound: committed 0x9db91349492a148a7c89c25a866f4249ebd8c47e0819556e95c40a9ac404b03b
+sealed/full lane refuses a ninth admission: rejected (3)
+sealed/full lane cannot churn with no-op: rejected (12)
+sealed/pre-signed batch survives all active-lane churn: committed 0xd0a6f44d1932889f11b76a1ccd768a5e2c2576bd769b590d6f1bf7eb9ce75ad4
+sealed/process frozen epoch without changing active lanes: committed 0x9d0da71d80c714b1206d36a1d0a5b0d3a0cfc101701efdd3c36409e9da84a29f
+sealed/process frozen epoch without changing active lanes: committed 0x1550784c848b8f0c8a8ef67d2116739899b47c4692c98b4452bb0e8f65103ae5
+sealed/process frozen epoch without changing active lanes: committed 0x955e07c5d0ab3583762b444380a0c7ffa1466887f100356de36463c6e3d9c200
+sealed/process frozen epoch without changing active lanes: committed 0x1c8c3eca49dbed65014cb57c46e8129095db8b1a24a8f3feaf33194fda00b6e2
+sealed/process frozen epoch without changing active lanes: committed 0x6499fafe625a966c52dc62fd5a4d6dad26d970f7026960017fa0664cf619d1df
+sealed/process frozen epoch without changing active lanes: committed 0x21f59f0c1be76c41fca9f7bdbfd4f3d5953056c0f16fb3493ac66485a01d4d24
+sealed/process frozen epoch without changing active lanes: committed 0x3f791b4540f04eab5a2098a9f801114e4c613d92c2724ea6dc6a56c8364d06c9
+sealed/processed snapshot cannot be retained indefinitely: rejected (14)
+sealed/cold observer before rollback branch: independent recovery matched
+sealed/planned orphan second seal: committed 0xdaf3b0961d8d6f021deb7561246783d23b05d8f46dd84bffc27f66d02bdc1ce3
+sealed/planned orphan first priority batch: committed 0x351bb766dae7bb6eb6bfc5008a5a0e08bda395b383c944c4bf41272848c8643c
+sealed/cold observer sees orphan seal and batch: independent recovery matched
+sealed/cold observer restores canonical queues after rollback: independent recovery matched
+sealed/other actor reseals restored active heads: committed 0xa94621ebd8e132707ed7fcfe364954bdc53fdab50c5104f11389688569e527c2
+sealed/old snapshot rejected after mandatory switch: rejected (9)
+sealed/mandatory processing of post-seal messages: committed 0xd006295768ab418db3083ce119b30dd70f56f556d1671801fb7793ab1fd9d259
+sealed/mandatory processing of post-seal messages: committed 0xa3ea2ef253e7b38654f1a5d195271ff8c6fce32f0117b781f63576a6e93eb705
+sealed/mandatory processing of post-seal messages: committed 0xeb4c55d41cb4cde478f761593fdd4beb2bf1d312731443d0dcc8762255e6296e
+sealed/mandatory processing of post-seal messages: committed 0x1a96b293451081415e48c284033b89139dbbb9a2b25ab11e9f97ebeabe4fe621
+sealed/mandatory processing of post-seal messages: committed 0x2a0b951d86fdf85d8ef5995b7ef577e6281b823e0cecabb4d5321e6840414bc9
+sealed/mandatory processing of post-seal messages: committed 0x439dd4afba8d9dae371f48fa21e2bd54a3b66b99fb6195b8c09953169ff7a8e8
+sealed/mandatory processing of post-seal messages: committed 0x0cc55212571290ededf0e233cf6c3848b0fc3fc9b8504296fb903795ce052a97
+sealed/mandatory processing of post-seal messages: committed 0x29bc65560f28be9f293b4cf38d242a9e848e2c39d40798613c958c37e28651b5
+sealed/admit maximum-size active payload: committed 0xd1c462979a4d052db9ee48782dc977f1ccb022068873003141908d6a5703d5a6
+sealed/admit maximum-size active payload: committed 0x8da818fbaf6e8022a5896f481705b8cd2711a3884d17f20f333584dd4cb7d518
+sealed/admit maximum-size active payload: committed 0x674af15927437e5f35d2ee86ac99e07f856a6e697e01f7fcebcd5cc8019779b9
+sealed/admit maximum-size active payload: committed 0x806b623c66466f8d20bddfc5007dceb5aa7cc3222d414783da1427ef29eff71b
+sealed/admit maximum-size active payload: committed 0xee0508e2d089d74a49e9a26da7fed5d6eac14687359efca77e25e0a75326b08a
+sealed/admit maximum-size active payload: committed 0xe4c3bc621d1b82f49f97406b80672a9987de9da8d7b3b9466ae3bb955a847e77
+sealed/admit maximum-size active payload: committed 0x583752048e2b489ca8a9a67e7d219c25adca02696259625b1c61aa112510f84d
+sealed/admit maximum-size active payload: committed 0x74250cf1477fbbfb779528938957dd5d40311687647139f9caf869fb367cef32
+sealed/admit maximum-size active payload: committed 0xf3e3d9bd3cda9bb663b13110c63d476a443f53900056e786f8fb892dfc6970af
+sealed/admit maximum-size active payload: committed 0xc7c5343d3ecb40e7223ea429955247319acfec6d537e69333a592b3ecb290527
+sealed/admit maximum-size active payload: committed 0x8a12666144e17e461e0839ef0d6743ddfbaa3708170383d0a623223606842126
+sealed/admit maximum-size active payload: committed 0xf2845476254b528f46575780d42ccbeeb9ee63f9edbd3d2451eade8a62e877a1
+sealed/admit maximum-size active payload: committed 0x9c4127b83e385f0835f840de741d8b03acd2a2fa9c7cabeedd6d122c6d769ecd
+sealed/admit maximum-size active payload: committed 0x69e246147166aa759000399ec8bfa4a72eee82176a1ebdcf99630c76997910e6
+sealed/admit maximum-size active payload: committed 0x1bc2427526e24be1202bcf1affa30edad2cd3164250179d822eb30f64baadf39
+sealed/admit maximum-size active payload: committed 0xd25ae06d5ddbb0a0a13a3806ff2bfd49ddce65f0e35ee3506d657ddf3d8dadca
+sealed/admit maximum-size active payload: committed 0xd4c9145ee7fa77fb7a00c19b47735af84f2b07407ed152c9f8c57fbe7acfd9b5
+sealed/admit maximum-size active payload: committed 0x8d4ba728a1ebd36debed97bdc9e383508522cb1f3d8637c120a5084f78e61e60
+sealed/admit maximum-size active payload: committed 0x3b6714e8655ee9be12fb7758a2c99ec292b732b4b14a53197b8e8f5f13422cdc
+sealed/admit maximum-size active payload: committed 0x5e8b7792c5dad673eca9b0bc042f87b92eb0fad0f7ce248e44861eae7f483675
+sealed/admit maximum-size active payload: committed 0x452ba19f476702c53c0b3af41dcc701b41d1a1bda0dbab8a744a68a86a60d841
+sealed/admit maximum-size active payload: committed 0xafdb0d4fc02f4966a22bb804f8ee82aec9269b7cc43e07bfcf2868bc6b041729
+sealed/admit maximum-size active payload: committed 0x6d7bb81a03e61ff94129666a7e53668c46766e916a5c0aac80dc6784eedfbcf5
+sealed/admit maximum-size active payload: committed 0x1df0c6c95b148d68cd98f1fb1310fd08764ddef47fe6faa5d3bde9f366efa01d
+sealed/admit maximum-size active payload: committed 0xb990d4c0e5628d7cd372ee3ad0e8f38c1a90d2d18221bb122b6bc7c4f594058a
+sealed/admit maximum-size active payload: committed 0xc7dfcabd11cb64cbadba02487af76897d3c7a5126279603dfd6914cb94e8d1ce
+sealed/admit maximum-size active payload: committed 0x163ab0abcf41eedcf1252f29e5431659933781aca9e0413b5ef880f05b9a4127
+sealed/admit maximum-size active payload: committed 0xa5e56ea4b18698e4d57a2d0fe65cb5531ba36852c54842f5cfb91fb9f297b323
+sealed/admit maximum-size active payload: committed 0xa336228645325fdebbe86531f326d6712098680a69099bc775b6e8b4a727d51b
+sealed/admit maximum-size active payload: committed 0x0ee762b836de687e6f13143476ca46a7bd36a1d3a3ad5eaede3800733b5648d5
+sealed/admit maximum-size active payload: committed 0x5f88f7210e32239900b6c479fbfe3556fb662a5c138de60282997d22bda05f4b
+sealed/admit maximum-size active payload: committed 0xc7134a1505c113bd2f6972a415015a243e4bbf1c54ae1ae41897f621260612ed
+sealed/seal maximum 33385-byte authenticated snapshot: committed 0xea36dd7143d7ba6096ae3da2f8f78fa3480213b23142e4860b20ef37985c5690
+sealed/process maximum snapshot with bounded prefixes: committed 0xf325f213ca92fc4da7ae284bb465c3961f7cd8c0787ab7256db48cafbc57ced8
+sealed/process maximum snapshot with bounded prefixes: committed 0xfbac69864cbf7b4e3558a6077a98789962ab3db297c7f8387c8c02fa29ee7901
+sealed/process maximum snapshot with bounded prefixes: committed 0xc45a370dee5fa9dcd086aa2662b0f7cc35a20dc4ca62696ba53b36047fefb6fb
+sealed/process maximum snapshot with bounded prefixes: committed 0xc98838320fcbda67a2ef58ad4c00061af286d9f83b23a14edf7e57a8dc7163ee
+sealed/process maximum snapshot with bounded prefixes: committed 0xae0cbeade3115b34a361a47f0fb7a663742b14f7f7776d60d86410897c922c4d
+sealed/process maximum snapshot with bounded prefixes: committed 0xb0d0cfe5ad8bc8e44e8a899992e3293c46fe5969719b3b5b2039b66f486cf8f7
+sealed/process maximum snapshot with bounded prefixes: committed 0x1bcf5d108243d7ed1e809c35c264c3795b2c10747a07f18dded76d5c7d33f4b8
+sealed/process maximum snapshot with bounded prefixes: committed 0x860fd768539ff4eb376344f232ab96c8b74d3854c5b6ee84fb36b21ad450431f
+sealed/cold observer reconstructs final pending state: independent recovery matched

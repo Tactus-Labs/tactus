@@ -15,6 +15,7 @@ extern crate alloc;
 
 /// Canonical bounded batch inputs and inline-DA anchor state.
 pub mod batch;
+pub mod genesis;
 pub mod priority;
 
 /// 32-byte domain-separated digest.

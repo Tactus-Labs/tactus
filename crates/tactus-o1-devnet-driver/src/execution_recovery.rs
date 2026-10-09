@@ -21,9 +21,39 @@ pub fn recover_execution(
     root: &Path,
 ) -> Result<Value, String> {
     let snapshot = recovery::recover_published_batches(type_script)?;
+    persist_recovered(genesis, type_script, root, &snapshot)
+}
+
+/// Recover allocation bytes from the immutable creation transaction, then derive
+/// EVM genesis. The deployment type and node/chain binding remain trusted inputs.
+pub fn recover_execution_from_chain(
+    type_script: &[u8],
+    root: &Path,
+    expected_ckb_genesis: &str,
+) -> Result<Value, String> {
+    if rpc::decode_hex(expected_ckb_genesis)?.len() != 32
+        || rpc::call("get_block_hash", json!(["0x0"]))?.as_str() != Some(expected_ckb_genesis)
+    {
+        return Err("CKB genesis hash mismatch".into());
+    }
+    let snapshot = recovery::recover_published_batches(type_script)?;
+    let genesis = Genesis::from_allocation(
+        snapshot.genesis.rollup_id.into(),
+        snapshot.genesis.chain_id,
+        &snapshot.genesis_allocation,
+    )
+    .map_err(|e| e.to_string())?;
+    persist_recovered(&genesis, type_script, root, &snapshot)
+}
+fn persist_recovered(
+    genesis: &Genesis,
+    type_script: &[u8],
+    root: &Path,
+    snapshot: &RecoveredAnchor,
+) -> Result<Value, String> {
     let network = rpc::call("get_block_hash", json!(["0x0"]))?;
     let binding = json!({"ckb_genesis_hash":network.as_str().ok_or("CKB genesis hash missing")?,"anchor_type_script":rpc::bytes_to_hex(type_script)});
-    persist_snapshot(genesis, &snapshot, root, &binding, || {
+    persist_snapshot(genesis, snapshot, root, &binding, || {
         recovery::assert_canonical(snapshot.pinned_height, &snapshot.pinned_hash)
     })
 }
@@ -35,6 +65,11 @@ fn persist_snapshot(
     binding: &Value,
     mut check: impl FnMut() -> Result<(), String>,
 ) -> Result<Value, String> {
+    if genesis.allocation_bytes().map_err(|e| e.to_string())? != snapshot.genesis_allocation {
+        return Err(
+            "trusted execution genesis allocation does not match immutable CKB publication".into(),
+        );
+    }
     let expected = Executor::new(genesis).map_err(|e| e.to_string())?;
     if expected.anchor() != &snapshot.genesis {
         return Err("trusted execution genesis does not match CKB genesis anchor".into());
@@ -110,7 +145,7 @@ fn persist_snapshot(
         "journal":branch,"batch_count":snapshot.batches.len(),"input_bytes":snapshot.batches.iter().map(|b|b.input_bytes.len()).sum::<usize>(),
         "genesis_hash":expected.head().hash_slow(),"execution_rules_hash":rpc::bytes_to_hex(&snapshot.state.execution_rules_hash),
         "header":engine.head(),"hash":engine.head().hash_slow(),"state_root":engine.state_root(),"settled":false,
-        "source":"canonical CKB input publications plus caller-pinned genesis"});
+        "genesis_allocation_commitment":rpc::bytes_to_hex(&tactus_o1_protocol::genesis::commitment(&snapshot.genesis_allocation).map_err(|e|format!("{e:?}"))?),"source":"canonical immutable genesis allocation and batch publications; optional caller allocation cross-check"});
     publish_json(root, "current.json", &report, true)?;
     // A reorg can occur during disk publication. Do not return stale success;
     // saved checkpoints always need a fresh canonicality check before serving.
@@ -186,6 +221,7 @@ mod tests {
             pinned_height: 10,
             pinned_hash: "fixture-tip".into(),
             genesis: *engine.anchor(),
+            genesis_allocation: genesis.allocation_bytes().unwrap(),
             point: CellOutPoint {
                 tx_hash: [1; 32],
                 index: 0,

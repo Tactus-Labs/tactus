@@ -35,8 +35,16 @@ fn recover_child(root: &Path, genesis: &Path, script: &[u8]) -> Result<Value, St
     let binary = std::env::current_exe()
         .map_err(|e| e.to_string())?
         .with_file_name("recover-execution");
-    let result = Command::new(binary)
-        .arg(genesis)
+    let mut command = Command::new(binary);
+    command.arg(genesis);
+    if genesis == Path::new("--chain") {
+        command.arg(
+            rpc::call("get_block_hash", json!(["0x0"]))?
+                .as_str()
+                .ok_or("chain")?,
+        );
+    }
+    let result = command
         .arg(rpc::bytes_to_hex(script))
         .arg(root)
         .output()
@@ -68,8 +76,10 @@ fn run() -> Result<(), String> {
     let mut lab = Lab::connect_with_script("artifacts/tactus_o1_anchor_script.elf")?;
     let mut results = json!({"suite":"ckb-evm-recovery-v1","complete":false,"production_ready":false,"G5":"OPEN","G6":"OPEN"});
     let outcome = (|| {
-        let mut anchor = batch_lab::create(&mut lab, rules_hash(), 31337)?;
         let (mut genesis, fixture_blocks) = fixture(2)?;
+        let allocation = genesis.allocation_bytes().map_err(|e| e.to_string())?;
+        let mut anchor =
+            batch_lab::create_with_allocation(&mut lab, rules_hash(), 31337, &allocation)?;
         genesis.rollup_id = anchor.state.rollup_id.into();
         fs::write(
             &genesis_path,
@@ -162,6 +172,51 @@ fn run() -> Result<(), String> {
         let fresh_root = Path::new(&run_dir).join("fresh-observer");
         let fresh_report = recover_child(&fresh_root, &genesis_path, &anchor.script)?;
         assert_report(&fresh_report, &expected)?;
+        let chain_only = recover_child(
+            &Path::new(&run_dir).join("chain-only-observer"),
+            Path::new("--chain"),
+            &anchor.script,
+        )?;
+        assert_report(&chain_only, &expected)?;
+        let mut wrong_genesis = genesis.clone();
+        wrong_genesis
+            .accounts
+            .values_mut()
+            .next()
+            .ok_or("fixture allocation")?
+            .nonce += 1;
+        let wrong_path = Path::new(&run_dir).join("wrong-allocation.json");
+        fs::write(&wrong_path, serde_json::to_vec(&wrong_genesis).unwrap())
+            .map_err(|e| e.to_string())?;
+        let wrong_allocation = recover_child(
+            &Path::new(&run_dir).join("wrong-allocation-observer"),
+            &wrong_path,
+            &anchor.script,
+        )
+        .expect_err("wrong allocation must reject");
+        if !wrong_allocation.contains("genesis allocation does not match immutable CKB publication")
+        {
+            return Err(wrong_allocation);
+        }
+        lab.evidence.push(json!({"label":"evm/genesis recovered from chain without local allocation; wrong allocation rejected","result":"control_passed","chain_only":chain_only,"wrong_allocation_error":wrong_allocation}));
+        let bad_chain = Command::new(
+            std::env::current_exe()
+                .map_err(|e| e.to_string())?
+                .with_file_name("recover-execution"),
+        )
+        .arg("--chain")
+        .arg(rpc::bytes_to_hex(&[0; 32]))
+        .arg(rpc::bytes_to_hex(&anchor.script))
+        .arg(Path::new(&run_dir).join("wrong-chain-genesis-observer"))
+        .output()
+        .map_err(|e| e.to_string())?;
+        let bad_chain_error = String::from_utf8_lossy(&bad_chain.stderr).to_string();
+        if bad_chain.status.success() || !bad_chain_error.contains("CKB genesis hash mismatch") {
+            return Err(format!(
+                "wrong chain genesis check failed: {bad_chain_error}"
+            ));
+        }
+        lab.evidence.push(json!({"label":"evm/chain-only recovery rejects wrong trusted CKB genesis","result":"control_passed","error":bad_chain_error}));
         let restarted = recover_child(&root, &genesis_path, &anchor.script)?;
         assert_report(&restarted, &expected)?;
         // Network/anchor identity is pinned independently of execution genesis.
@@ -183,7 +238,8 @@ fn run() -> Result<(), String> {
         results["rejected_input_slots"] = json!(2);
         results["final_execution"] = replacement_report;
         results["operator_snapshot_used"] = json!(false);
-        results["independent_processes"] = json!(8);
+        results["independent_processes"] = json!(11);
+        results["genesis_allocation_from_chain"] = json!(true);
         results["scope"]=json!("CKB-published input to durable serial EVM execution, isolated planned reorg and independent fresh recovery; no proof or settlement");
         results["complete"] = json!(true);
         Ok::<_, String>(())

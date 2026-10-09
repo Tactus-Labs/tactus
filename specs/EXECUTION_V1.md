@@ -3,7 +3,8 @@
 Implemented in `tactus-o1-execution`; **not a production release or a G5 pass**.
 This is the first executable transition function for the bounded batch-input V1
 format. CKB publication alone does not verify this execution. Settlement must
-still authenticate genesis, the execution program, outputs and a real proof.
+still verify the state root derived from published genesis, the execution program,
+outputs and a real proof.
 
 ## Pinned domain
 
@@ -21,21 +22,25 @@ Shanghai **rollup execution profile**, not current Ethereum mainnet consensus.
 EIP-4844, EIP-7702 and later forks are unsupported. Legacy unprotected signatures
 are rejected. PREVRANDAO is zero and is **not randomness**. There is no issuance,
 beacon withdrawal or deposit operation. Timestamps may repeat (as in batch V1);
-an L1-bound timestamp rule and authenticated priority prefix remain outstanding.
+an L1-bound timestamp rule remains outstanding. The A3 adapter enforces a
+mandatory publication prefix; proof-bound execution remains separate.
 
-The initial allocation is an explicit `Genesis` input, with sorted addresses,
+The initial allocation has a [canonical immutable CKB publication](GENESIS_ALLOCATION_V1.md)
+bound to the anchor type. Standalone execution accepts an explicit `Genesis` input
+with sorted addresses,
 nonce, balance, bytecode and storage. Empty accounts are rejected; zero-valued
 storage is omitted. Total initial balance is bounded by `u64::MAX` wei (about
 18.45 ETH) for this experimental profile. With conservation and no issuance this
 makes overflowing u64 base fees unreachable: a nonempty block must be able to
 pay for at least 21,000 gas, and an empty parent reduces the fee. This bound is
 not suitable as a production asset supply policy and must be revisited together
-with genesis authentication and bridge minting before production.
+with proof-bound genesis derivation and bridge minting before production.
 
 Genesis header number/timestamp/gas-used are zero, gas limit is 1,000,000 and base
 fee is 1 gwei. Its state root authenticates the allocation; its extra data binds
 rollup identity, chain ID and execution rules. Genesis header hash must become an
-authenticated settlement input; currently the caller supplies the allocation.
+authenticated settlement input. Recovery now derives allocation from the immutable
+creation publication, or cross-checks a caller-supplied allocation against it.
 
 ## Complete, ordered slot semantics
 

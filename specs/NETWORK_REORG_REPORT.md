@@ -93,8 +93,9 @@ The original actor's ordinary fee-wallet bookkeeping is updated from the winning
 admission and verified live; the separate builder's funding remained independent
 of that admission. Cold recovery reconstructs protocol and EVM state, not a general
 purpose wallet backup service. CKB consensus is trusted through the configured
-full nodes. Caller-supplied execution genesis allocations remain experimental and
-are not yet authenticated by a settlement cell.
+full nodes. The original run used caller-supplied experimental genesis allocations. The
+[allocation-bound rerun](GENESIS_ALLOCATION_REPORT.md) derives them from immutable
+CKB publication; settlement verification of their state roots remains open.
 
 ## Reproduction and retained artifacts
 

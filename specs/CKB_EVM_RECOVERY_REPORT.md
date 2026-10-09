@@ -111,7 +111,10 @@ unpushed local changes.
 ## Remaining production work
 
 The CKB node is the consensus trust boundary; this is not a CKB light client.
-Genesis allocation is caller-pinned, not yet authenticated by a settlement cell.
+This original evidence used caller-pinned allocation. The current
+[allocation-bound profile](GENESIS_ALLOCATION_REPORT.md) publishes it immutably and
+permits chain-only genesis recovery; proof-bound genesis state-root verification
+by a settlement cell remains open.
 This original reorg uses a deliberate isolated-node truncate. The later
 [A3 network experiment](NETWORK_REORG_REPORT.md) also verifies controlled P2P fork
 choice and independent EVM reconstruction on both CKB versions. Neither is broad

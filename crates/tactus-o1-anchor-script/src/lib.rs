@@ -12,6 +12,7 @@ mod onchain {
         ckb_constants::Source, ckb_types::prelude::*, error::SysError, high_level::*, syscalls,
     };
     use tactus_o1_protocol::batch::{self, AnchorState, ANCHOR_LEN, MAX_BATCH_BYTES};
+    use tactus_o1_protocol::genesis;
     ckb_std::default_alloc!();
     ckb_std::entry!(main);
 
@@ -37,7 +38,11 @@ mod onchain {
     fn run() -> Result<(), i8> {
         let script = load_script().map_err(|_| 1)?;
         let args = script.args().raw_data();
-        let identity: [u8; 32] = args.as_ref().try_into().map_err(|_| 1)?;
+        if args.len() != 64 {
+            return Err(1);
+        }
+        let identity: [u8; 32] = args[..32].try_into().map_err(|_| 1)?;
+        let allocation_hash: [u8; 32] = args[32..].try_into().map_err(|_| 1)?;
         if load_cell_capacity(1, Source::GroupInput) != Err(SysError::IndexOutOfBound)
             || load_cell_capacity(1, Source::GroupOutput) != Err(SysError::IndexOutOfBound)
             || load_cell_capacity(0, Source::GroupOutput).is_err()
@@ -65,6 +70,32 @@ mod onchain {
             seed[44..].copy_from_slice(&(index as u64).to_le_bytes());
             if batch::hash(b"", &seed) != identity {
                 return Err(4);
+            }
+            let immutable = script
+                .clone()
+                .as_builder()
+                .args(Vec::<u8>::new().pack())
+                .build();
+            let mut found = false;
+            for i in 0..16 {
+                match load_cell_capacity(i, Source::Output) {
+                    Err(SysError::IndexOutOfBound) => break,
+                    Err(_) => return Err(16),
+                    Ok(_) => {}
+                }
+                if load_cell_type_hash(i, Source::Output)
+                    .map_err(|_| 16)?
+                    .is_none()
+                    && load_cell_lock(i, Source::Output).map_err(|_| 16)? == immutable
+                {
+                    let bytes = bounded_data(i, Source::Output, genesis::MAX_BYTES)?;
+                    if genesis::commitment(&bytes).map_err(|_| 16)? == allocation_hash {
+                        found = true;
+                    }
+                }
+            }
+            if !found {
+                return Err(16);
             }
             return Ok(());
         }

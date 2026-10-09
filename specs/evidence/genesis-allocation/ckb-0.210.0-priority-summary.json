@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "evidence_sha256": "842f83392ffb53da40e61396ea49c43a859a490a5750e608141ed956a2f7318a",
+  "metadata": {
+    "consensus": {
+      "block_version": "0x0",
+      "cellbase_maturity": "0x10000000000",
+      "dao_type_hash": "0x82d76d1b75fe2fd9a27dfbaa65a039221a380d76c926f378d3f81cf3e7e13f2e",
+      "epoch_duration_target": "0x50",
+      "genesis_hash": "0xddd6aea22911805968ca3f89bda08aa9d8024fc00b2c9ffb07b1bcd170673c6a",
+      "hardfork_features": [
+        {
+          "epoch_number": "0x0",
+          "rfc": "0028"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0029"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0030"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0031"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0032"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0036"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0038"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0048"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0049"
+        }
+      ],
+      "id": "ckb_dev",
+      "initial_primary_epoch_reward": "0xae6c73c3e070",
+      "max_block_bytes": "0x91c08",
+      "max_block_cycles": "0x2540be400",
+      "max_block_proposals_limit": "0x5dc",
+      "max_uncles_num": "0x2",
+      "median_time_block_count": "0x25",
+      "orphan_rate_target": {
+        "denom": "0x28",
+        "numer": "0x1"
+      },
+      "permanent_difficulty_in_dummy": true,
+      "primary_epoch_reward_halving_interval": "0x2238",
+      "proposer_reward_ratio": {
+        "denom": "0xa",
+        "numer": "0x4"
+      },
+      "secondary_epoch_reward": "0x37d0c8e28542",
+      "secp256k1_blake160_multisig_all_type_hash": "0x5c5069eb0857efc65e1bca0c07df34c31663b3622fd3876c876320fc9634e2a8",
+      "secp256k1_blake160_sighash_all_type_hash": "0x9bd7e06f3ecf4be0f2fcd2188b23f1b9fcc88e5d4b65a8637b17723bbda3cce8",
+      "softforks": {
+        "light_client": {
+          "rfc0043": {
+            "bit": 1,
+            "min_activation_epoch": "0x0",
+            "period": "0xa",
+            "start": "0x0",
+            "threshold": {
+              "denom": "0x4",
+              "numer": "0x3"
+            },
+            "timeout": "0x0"
+          },
+          "status": "rfc0043"
+        }
+      },
+      "tx_proposal_window": {
+        "closest": "0x2",
+        "farthest": "0xa"
+      },
+      "tx_version": "0x0",
+      "type_id_code_hash": "0x00000000000000000000000000000000000000000000000000545950455f4944"
+    },
+    "lock_code_hash": "0x1a79ae4b82f5588e07fc0b94a0e8fbcf61f1adc06d05d753d13e2e63eec76dee",
+    "node_version": "0.210.0 (2592ddf 2026-09-17)",
+    "ordering_code_hash": "0xd45c646714e5ecf90eb2f5373ae2de759db4988ad1e5b0e787259da1fb5be032",
+    "priority_code_hash": "0x6ebdc75a108ef6b45894079752041189070c18fe30c62bde407aba8351d8d5ed",
+    "production_ready": false,
+    "script_path": "artifacts/tactus_o1_anchor_script.elf",
+    "tier": "isolated CKB devnet, deterministic block generation"
+  },
+  "results": {
+    "G2": "OPEN",
+    "bounds": {
+      "challenge_delay_blocks": 12,
+      "first_evm_block_gas": 1000000,
+      "inputs": 4,
+      "payload_bytes": 4096,
+      "per_script_cycles": 12000000,
+      "priority_burden_bytes": 20480,
+      "priority_script_cycles": 96000000
+    },
+    "canonical_batches": 13,
+    "complete": true,
+    "error": null,
+    "favorable_subset_starvation": true,
+    "forced_inclusion": "FAILED",
+    "known_workload_backlog": {
+      "additional_starved_challenged_victim": 1,
+      "drain": [
+        5,
+        1,
+        0
+      ],
+      "saturation": [
+        3,
+        6,
+        9
+      ]
+    },
+    "ordinary_then_priority_payload_does_not_double_execute": true,
+    "pending_record_count": 21,
+    "planned_reorg_restores_obligation": true,
+    "post_challenge_empty_batches": 3,
+    "production_ready": false,
+    "proof_settlement": "NOT_IMPLEMENTED",
+    "scope": "Authentic independent obligations with immutable unproven records and bounded input-ordered inclusion; relative since authenticates individual delay. A challenge marker does not constrain ordinary anchor advancement, give FIFO, or authenticate the complete pending set. No proof/settlement gate or production liveness claim.",
+    "suite": "a2-authenticated-challenge-comparator-v1"
+  },
+  "transactions": {
+    "committed_evidence_records": 24,
+    "rejected_records": 20
+  },
+  "estimated_cycles": {
+    "samples": 24,
+    "minimum": 1623234,
+    "maximum": 13446272
+  },
+  "interpretation": "Boundary suite completed; full Experiment A and production gates remain OPEN."
+}

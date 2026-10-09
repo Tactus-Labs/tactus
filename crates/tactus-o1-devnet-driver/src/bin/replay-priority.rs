@@ -329,8 +329,10 @@ fn run() -> Result<(), String> {
         lab.metadata["priority_code_hash"] = json!(rpc::bytes_to_hex(&code));
         let dep = lab.publish_cells("priority/deploy immutable program", &[elf], 0, true)?[0];
         lab.deps.push(dep);
-        let mut anchor = batch_lab::create(&mut lab, rules_hash(), 31337)?;
         let (mut genesis, payload) = fixture()?;
+        let allocation = genesis.allocation_bytes().map_err(|e| e.to_string())?;
+        let mut anchor =
+            batch_lab::create_with_allocation(&mut lab, rules_hash(), 31337, &allocation)?;
         genesis.rollup_id = anchor.state.rollup_id.into();
         let mut engine = Executor::new(&genesis).map_err(|e| e.to_string())?;
         // Forged creation must fail before any authentic obligation exists.
