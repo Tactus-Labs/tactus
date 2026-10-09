@@ -7,7 +7,8 @@
 Current evidence includes the [mechanism controls](EXPERIMENT_A_DEVNET_REPORT.md),
 [authenticated A2 obligations](A2_OBLIGATION_REPORT.md),
 [mandatory A3 sealed gate](A3_SEALED_REPORT.md), and
-[matched admission contention](ADMISSION_CONTENTION_REPORT.md). These measurements
+[matched admission contention](ADMISSION_CONTENTION_REPORT.md), and
+[controlled P2P reorganization](NETWORK_REORG_REPORT.md). These measurements
 cover specific boundaries; the complete workload and acceptance requirements
 below remain the target, not a claim of completion.
 

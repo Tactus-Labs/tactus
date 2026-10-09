@@ -112,10 +112,14 @@ unpushed local changes.
 
 The CKB node is the consensus trust boundary; this is not a CKB light client.
 Genesis allocation is caller-pinned, not yet authenticated by a settlement cell.
-The reorg is a deliberate isolated-node truncate, not an unplanned network fork.
+This original reorg uses a deliberate isolated-node truncate. The later
+[A3 network experiment](NETWORK_REORG_REPORT.md) also verifies controlled P2P fork
+choice and independent EVM reconstruction on both CKB versions. Neither is broad
+unplanned public-network fault qualification.
 Recovery rescans chain history and replays from genesis for a new final-commitment
 journal; incremental checkpoints and efficient long-running synchronization are
 still required. There is no continuously running observer or archival-retention
 qualification yet. The complete G6 requirement also needs a separate prover to
 reconstruct proving inputs and settle a batch. Actual validity proofs, CKB
-verification, priority enforcement and safe exits remain unimplemented.
+verification and safe exits remain unimplemented. The later mandatory A3 gate
+enforces publication prefixes; proof-bound fulfillment remains open.

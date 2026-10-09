@@ -7,7 +7,7 @@ use crate::{
     tx::{self, CellOutPoint, OutSpec, TX_FEE},
 };
 use serde_json::{json, Value};
-use tactus_o1_execution::rules_hash;
+use tactus_o1_execution::{rules_hash, Executor};
 use tactus_o1_ordering_script::{ckb_blake2b, genesis_identity};
 use tactus_o1_protocol::{
     batch::{self, AnchorState},
@@ -261,4 +261,158 @@ pub fn append_tx(
         )?,
         next,
     ))
+}
+pub fn append(
+    lab: &mut Lab,
+    net: &mut Network,
+    index: usize,
+    actor: usize,
+    payload: Vec<u8>,
+    label: &str,
+) -> Result<(), String> {
+    let (transaction, next) = append_tx(lab, net, index, actor, payload)?;
+    let hash = commit(lab, actor, label, &transaction)?;
+    net.lanes[index].0.point = lab::point(&hash, 0)?;
+    net.lanes[index].1 = next;
+    Ok(())
+}
+pub fn bytes(net: &Network, transactions: Vec<Vec<u8>>) -> Result<Vec<u8>, String> {
+    batch_lab::encode(
+        net.anchor.state,
+        vec![batch_lab::block(
+            net.anchor.state.last_timestamp + 1,
+            transactions,
+        )],
+    )
+}
+pub fn required_bytes(net: &Network) -> Result<Vec<u8>, String> {
+    bytes(
+        net,
+        net.schedule
+            .required(net.snapshot.as_ref().map(|(_, s)| s))
+            .map_err(|e| format!("{e:?}"))?
+            .into_iter()
+            .map(|m| m.payload)
+            .collect(),
+    )
+}
+pub fn advance_outputs(net: &Network, bytes: &[u8]) -> Result<Vec<OutSpec>, String> {
+    let summary = batch::validate_batch(bytes, &net.anchor.state).map_err(|e| format!("{e:?}"))?;
+    let mut next = net.schedule.clone();
+    // Allows constructing a freshly signed ninth-batch attack with a validly
+    // encoded but unchanged schedule; the real gate must reject it.
+    if next.batches < s::BATCHES_PER_EPOCH {
+        next.batches += 1;
+        next.cursor =
+            (u16::from(next.batches) * s::PRIORITY_PER_BATCH as u16).min(next.snapshot_messages);
+    }
+    Ok(vec![
+        batch_lab::head_output(&net.anchor, summary.next),
+        batch_lab::da_output(&net.anchor, bytes),
+        net.gate.output(next.encode().unwrap()),
+    ])
+}
+pub fn advance_tx(
+    lab: &Lab,
+    net: &Network,
+    actor: usize,
+    outputs: Vec<OutSpec>,
+) -> Result<Value, String> {
+    let deps: Vec<_> = net.snapshot.iter().map(|(point, _)| *point).collect();
+    shape(
+        lab,
+        actor,
+        &[
+            (net.anchor.point, net.anchor.capacity),
+            (net.gate.point, net.gate.capacity),
+        ],
+        outputs,
+        &[(0, 1u32.to_le_bytes().to_vec()), (1, vec![1])],
+        &deps,
+    )
+}
+pub fn accept_advance(
+    lab: &mut Lab,
+    net: &mut Network,
+    actor: usize,
+    bytes: &[u8],
+    transaction: &Value,
+    label: &str,
+) -> Result<(), String> {
+    let (next, summary) = net
+        .schedule
+        .advance(
+            net.snapshot.as_ref().map(|(_, s)| s),
+            bytes,
+            &net.anchor.state,
+        )
+        .map_err(|e| format!("{e:?}"))?;
+    let hash = commit(lab, actor, label, transaction)?;
+    net.anchor.point = lab::point(&hash, 0)?;
+    net.anchor.state = summary.next;
+    net.gate.point = lab::point(&hash, 2)?;
+    net.schedule = next;
+    Ok(())
+}
+pub fn advance(
+    lab: &mut Lab,
+    net: &mut Network,
+    actor: usize,
+    engine: &mut Executor,
+    label: &str,
+) -> Result<(), String> {
+    let bytes = required_bytes(net)?;
+    let transaction = advance_tx(lab, net, actor, advance_outputs(net, &bytes)?)?;
+    accept_advance(lab, net, actor, &bytes, &transaction, label)?;
+    engine.apply_batch(&bytes).map_err(|e| e.to_string())?;
+    Ok(())
+}
+pub fn seal_outputs(
+    net: &Network,
+) -> Result<(Vec<OutSpec>, Schedule, Vec<Lane>, Snapshot), String> {
+    let lanes: Vec<_> = net.lanes.iter().map(|(_, s)| s.clone()).collect();
+    let mut ready = net.schedule.clone();
+    ready.batches = s::BATCHES_PER_EPOCH;
+    ready.cursor = ready.snapshot_messages;
+    let (next, active, sealed) = ready.seal(&lanes).map_err(|e| format!("{e:?}"))?;
+    let mut outputs = vec![net.gate.output(next.encode().unwrap())];
+    for ((c, _), state) in net.lanes.iter().zip(&active) {
+        outputs.push(c.output(state.encode().unwrap()));
+    }
+    let data = sealed.encode().unwrap();
+    let immutable = molecule::script(&net.code, 2, &[]);
+    outputs.push(OutSpec {
+        capacity: OutSpec::required_capacity(&immutable, None, data.len()),
+        lock: immutable,
+        type_script: None,
+        data,
+    });
+    Ok((outputs, next, active, sealed))
+}
+pub fn seal_tx(
+    lab: &Lab,
+    net: &Network,
+    actor: usize,
+    outputs: Vec<OutSpec>,
+    omit_last: bool,
+) -> Result<Value, String> {
+    let mut inputs = vec![(net.gate.point, net.gate.capacity)];
+    let n = net.lanes.len() - usize::from(omit_last);
+    inputs.extend(net.lanes[..n].iter().map(|(c, _)| (c.point, c.capacity)));
+    let mut witness = vec![0];
+    witness.extend_from_slice(&((outputs.len() - 1) as u32).to_le_bytes());
+    shape(lab, actor, &inputs, outputs, &[(0, witness)], &[])
+}
+pub fn seal(lab: &mut Lab, net: &mut Network, actor: usize, label: &str) -> Result<(), String> {
+    let (outputs, next, active, sealed) = seal_outputs(net)?;
+    let transaction = seal_tx(lab, net, actor, outputs, false)?;
+    let hash = commit(lab, actor, label, &transaction)?;
+    net.gate.point = lab::point(&hash, 0)?;
+    net.schedule = next;
+    for (i, ((c, old), new)) in net.lanes.iter_mut().zip(active).enumerate() {
+        c.point = lab::point(&hash, (i + 1) as u32)?;
+        *old = new;
+    }
+    net.snapshot = Some((lab::point(&hash, (net.lanes.len() + 1) as u32)?, sealed));
+    Ok(())
 }

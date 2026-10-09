@@ -12,6 +12,12 @@ pub const CKB_RPC_URL: &str = "127.0.0.1:8114";
 /// One JSON-RPC call. Returns the `result` field or the error text.
 pub fn call(method: &str, params: Value) -> Result<Value, String> {
     let address = std::env::var("TACTUS_CKB_RPC_ADDR").unwrap_or_else(|_| CKB_RPC_URL.into());
+    call_at(&address, method, params)
+}
+
+/// Explicit endpoint for isolated multi-node experiments; never mutates the
+/// process-wide default RPC address while observers or other threads run.
+pub fn call_at(address: &str, method: &str, params: Value) -> Result<Value, String> {
     let body = json!({"jsonrpc": "2.0", "id": 1, "method": method, "params": params});
     let body = serde_json::to_string(&body).map_err(|e| e.to_string())?;
     let request = format!(

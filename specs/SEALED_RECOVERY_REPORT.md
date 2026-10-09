@@ -125,6 +125,9 @@ a separate deterministic regression exposed a journal ownership issue involving
 duplicated descriptors; commit `4bc6104` fixes explicit lock release before the
 final workspace and real-node runs recorded here.
 
+A later [two-node network experiment](NETWORK_REORG_REPORT.md) also exercises
+controlled P2P branch replacement and independent EVM recovery without `truncate`.
+
 Still required are proof-bound history/settlement reconstruction by another prover,
 authenticated execution genesis, network-driven reorgs, checkpoint/archival
 qualification and admission liveness under sustained targeted contention. Old

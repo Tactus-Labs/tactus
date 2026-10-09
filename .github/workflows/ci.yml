@@ -92,6 +92,11 @@ jobs:
           TACTUS_CKB_VERSION: ${{ matrix.ckb }}
           TACTUS_DEVNET_SUITE: replay-admission
         run: CKB_BIN="$RUNNER_TEMP/ckb/ckb" scripts/run-devnet-experiments.sh
+      - name: Recover A3 and EVM state after a two-node network reorg
+        env:
+          TACTUS_CKB_VERSION: ${{ matrix.ckb }}
+          TACTUS_DEVNET_SUITE: replay-network
+        run: CKB_BIN="$RUNNER_TEMP/ckb/ckb" scripts/run-devnet-experiments.sh
       - name: Verify mandatory A3 sealed snapshots and hostile switching
         env:
           TACTUS_CKB_VERSION: ${{ matrix.ckb }}
@@ -112,6 +117,17 @@ jobs:
         with:
           name: ckb-experiment-evidence-${{ matrix.ckb }}
           path: |
+            artifacts/network-*/evidence.json
+            artifacts/network-*/summary.json
+            artifacts/network-*/manifest.json
+            artifacts/network-*/replay.log
+            artifacts/network-*/node.log
+            artifacts/network-*/peer.log
+            artifacts/network-*/node/ckb.toml
+            artifacts/network-*/node/specs/dev.toml
+            artifacts/network-*/peer/ckb.toml
+            artifacts/network-*/peer/specs/dev.toml
+            artifacts/network-*/execution-genesis.json
             artifacts/admission-*/evidence.json
             artifacts/admission-*/summary.json
             artifacts/admission-*/manifest.json

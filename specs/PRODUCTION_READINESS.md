@@ -65,6 +65,12 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
   processes. Recovered state drives replacement sealing after a planned rollback;
   wrong domains and orphan pins fail. This does not recover validity settlement.
 
+- A [two-node P2P partition/reorg experiment](NETWORK_REORG_REPORT.md) now replaces
+  eight original canonical blocks, recovers a peer-only A3 admission, rolls back
+  executed contract state and resumes mandatory processing on both CKB versions.
+  It uses real peer synchronization, not `truncate`; broader network qualification
+  and validity settlement remain outstanding.
+
 ## Work that still blocks the user's production objective
 
 | Priority | Boundary | Required completion evidence |

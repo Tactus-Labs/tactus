@@ -14,18 +14,19 @@ if [[ "$($CKB_BIN --version)" != "ckb $required_version "* ]]; then
   exit 1
 fi
 suite="${TACTUS_DEVNET_SUITE:-replay-a123}"
-case "$suite" in replay-a123|replay-batch|replay-evm|replay-priority|replay-sealed|replay-admission) ;; *) echo 'Unknown devnet suite' >&2; exit 1 ;; esac
+case "$suite" in replay-a123|replay-batch|replay-evm|replay-priority|replay-sealed|replay-admission|replay-network) ;; *) echo 'Unknown devnet suite' >&2; exit 1 ;; esac
 cargo build --locked --bin "$suite"
-if [[ "$suite" == replay-evm ]]; then
+if [[ "$suite" == replay-evm || "$suite" == replay-network ]]; then
   cargo build --locked --bin recover-execution
 fi
-if [[ "$suite" == replay-sealed ]]; then
+if [[ "$suite" == replay-sealed || "$suite" == replay-network ]]; then
   cargo build --locked --bin recover-sealed
 fi
 bash scripts/build-ordering-script.sh
 mkdir -p artifacts
 run_dir="$(mktemp -d "$PWD/artifacts/${suite#replay-}-XXXXXXXX")"
 export TACTUS_CKB_RPC_ADDR="127.0.0.1:${TACTUS_DEVNET_RPC_PORT:-18714}"
+export TACTUS_PEER_RPC_ADDR="127.0.0.1:${TACTUS_PEER_RPC_PORT:-18716}"
 export TACTUS_DEVNET_AUTOMINE=1
 export TACTUS_EVIDENCE_PATH="$run_dir/evidence.json"
 export TACTUS_RUN_DIR="$run_dir"
@@ -33,20 +34,21 @@ export TACTUS_CKB_BIN="$CKB_BIN"
 export TACTUS_DEVNET_SUITE="$suite"
 python3 - <<'PY'
 import os,socket
-host,port=os.environ['TACTUS_CKB_RPC_ADDR'].split(':')
-s=socket.socket()
-s.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
-try:
- s.bind((host,int(port)))
- s.listen(1)
-except OSError:raise SystemExit('Selected RPC port is occupied; refusing to connect to an existing node')
-s.close()
+ports=[int(os.environ['TACTUS_CKB_RPC_ADDR'].split(':')[1]),int(os.getenv('TACTUS_DEVNET_P2P_PORT','18715'))]
+if os.environ['TACTUS_DEVNET_SUITE']=='replay-network':ports.extend([int(os.environ['TACTUS_PEER_RPC_ADDR'].split(':')[1]),int(os.getenv('TACTUS_PEER_P2P_PORT','18717'))])
+assert len(set(ports))==len(ports), 'Node ports must be distinct'
+for port in ports:
+ s=socket.socket();s.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
+ try:s.bind(('127.0.0.1',port));s.listen(1)
+ except OSError:raise SystemExit(f'Port {port} is occupied; refusing to touch an existing node')
+ finally:s.close()
+
 PY
 "$CKB_BIN" init -C "$run_dir/node" --chain dev --rpc-port "${TACTUS_DEVNET_RPC_PORT:-18714}" \
   --p2p-port "${TACTUS_DEVNET_P2P_PORT:-18715}" \
   --ba-arg 0xc155c0113355a061173d1ff21075ec37754ec1ca --genesis-message tactus-o1-experiment-a-v1 > "$run_dir/init.log"
 python3 - <<'PY'
-import os,pathlib,hashlib,json,subprocess
+import os,pathlib,hashlib,json,subprocess,shutil
 root=pathlib.Path(os.environ['TACTUS_RUN_DIR']);p=root/'node/ckb.toml'
 s=p.read_text().replace('"Experiment", "Debug"','"Experiment", "Debug", "IntegrationTest"').replace('/ip4/0.0.0.0/','/ip4/127.0.0.1/')
 assert '"IntegrationTest"' in s
@@ -59,14 +61,22 @@ lock.args = "0xc155c0113355a061173d1ff21075ec37754ec1ca"
 lock.hash_type = "type"
 
 '''+s[i:];p.write_text(s)
+if os.environ['TACTUS_DEVNET_SUITE']=='replay-network':
+ shutil.copytree(root/'node',root/'peer')
+ peer=root/'peer/ckb.toml'
+ peer.write_text(peer.read_text().replace(os.environ['TACTUS_CKB_RPC_ADDR'],os.environ['TACTUS_PEER_RPC_ADDR']).replace('/tcp/'+os.getenv('TACTUS_DEVNET_P2P_PORT','18715')+'"','/tcp/'+os.getenv('TACTUS_PEER_P2P_PORT','18717')+'"'))
 manifest={'node_version':subprocess.check_output([os.environ['TACTUS_CKB_BIN'],'--version'],text=True).strip(),
  'rustc':subprocess.check_output(['rustc','-Vv'],text=True),'git_head':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
  'git_diff_sha256':hashlib.sha256(subprocess.check_output(['git','diff','HEAD'])).hexdigest(),
  'files':{}}
 for name in ['Cargo.lock','scripts/build-ordering-script.sh','scripts/ordering-script.ld','artifacts/tactus_o1_ordering_script.elf','artifacts/tactus_o1_head_lock.elf','artifacts/tactus_o1_anchor_script.elf','artifacts/tactus_o1_priority_script.elf','artifacts/tactus_o1_sealed_script.elf',str(root/'node/ckb.toml'),str(p),os.environ['TACTUS_CKB_BIN']]:
  manifest['files'][name]=hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest()
-for name in ['target/debug/'+os.environ['TACTUS_DEVNET_SUITE']] + (['target/debug/recover-execution'] if os.environ['TACTUS_DEVNET_SUITE']=='replay-evm' else ['target/debug/recover-sealed'] if os.environ['TACTUS_DEVNET_SUITE']=='replay-sealed' else []):
- manifest['files'][name]=hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest()
+binaries=['target/debug/'+os.environ['TACTUS_DEVNET_SUITE']]
+if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-evm','replay-network'):binaries.append('target/debug/recover-execution')
+if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-sealed','replay-network'):binaries.append('target/debug/recover-sealed')
+if os.environ['TACTUS_DEVNET_SUITE']=='replay-network':binaries.extend([str(root/'peer/ckb.toml'),str(root/'peer/specs/dev.toml')])
+for name in binaries:manifest['files'][name]=hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest()
+
 paths=subprocess.check_output(['git','ls-files','--cached','--others','--exclude-standard','-z'],text=True).split('\0')
 manifest['source_files']={name:hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest()
  for name in sorted(set(paths)) if name and pathlib.Path(name).is_file()
@@ -75,18 +85,31 @@ manifest['source_files']={name:hashlib.sha256(pathlib.Path(name).read_bytes()).h
 PY
 "$CKB_BIN" run -C "$run_dir/node" --indexer > "$run_dir/node.log" 2>&1 &
 node_pid=$!
-cleanup() { kill "$node_pid" 2>/dev/null || true; wait "$node_pid" 2>/dev/null || true; }
+peer_pid=""
+cleanup() {
+  kill "$node_pid" 2>/dev/null || true
+  if [[ -n "$peer_pid" ]]; then kill "$peer_pid" 2>/dev/null || true; wait "$peer_pid" 2>/dev/null || true; fi
+  wait "$node_pid" 2>/dev/null || true
+}
 trap cleanup EXIT
+if [[ "$suite" == replay-network ]]; then
+  "$CKB_BIN" run -C "$run_dir/peer" --indexer > "$run_dir/peer.log" 2>&1 &
+  peer_pid=$!
+fi
 python3 - <<'PY'
 import os,urllib.request,json,time
-url='http://'+os.environ['TACTUS_CKB_RPC_ADDR']
-for _ in range(150):
- try:
-  req=urllib.request.Request(url,json.dumps({'jsonrpc':'2.0','id':1,'method':'get_tip_block_number','params':[]}).encode(),{'Content-Type':'application/json'})
-  if json.load(urllib.request.urlopen(req,timeout=1))['result']=='0x0':break
- except (OSError,KeyError):pass
- time.sleep(.1)
-else:raise SystemExit('Isolated CKB node did not start at genesis')
+addresses=[os.environ['TACTUS_CKB_RPC_ADDR']]
+if os.environ['TACTUS_DEVNET_SUITE']=='replay-network':addresses.append(os.environ['TACTUS_PEER_RPC_ADDR'])
+for address in addresses:
+ url='http://'+address
+ for _ in range(150):
+  try:
+   req=urllib.request.Request(url,json.dumps({'jsonrpc':'2.0','id':1,'method':'get_tip_block_number','params':[]}).encode(),{'Content-Type':'application/json'})
+   if json.load(urllib.request.urlopen(req,timeout=1))['result']=='0x0':break
+  except (OSError,KeyError):pass
+  time.sleep(.1)
+ else:raise SystemExit('Isolated CKB node did not start at genesis: '+address)
+
 PY
 printf 'Evidence directory: %s\n' "$run_dir"
 "target/debug/$suite" 2>&1 | tee "$run_dir/replay.log"
