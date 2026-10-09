@@ -1,0 +1,21 @@
+{
+  "source_commit": "f7ca20d",
+  "files_sha256": {
+    "Cargo.lock": "d1e83ee7925c86276223c5b01a46cc25c9a1c81d811b713381dd9d3a4e835f92",
+    "proofs/sp1/Cargo.lock": "b65ffaad6ada88a49c6f75693e7a2073e9c34dfad860d4044c9fb59d5009e494",
+    "proofs/sp1/host/src/main.rs": "30b34d4d051742e056930371c5c98f4343626eb7e9691fb774356fa15f90c707",
+    "proofs/sp1/guest/src/main.rs": "89fe83e3825dbe93d112b24705c4a716b3f091f461a07b922dbeba2944b6ba8b",
+    "proofs/sp1/journal/src/lib.rs": "32359e8a618c2c26d8090e9689d777f67090c67cf7ca27b0e8702e60fe50ae72",
+    "proofs/sp1/wrong-guest/src/main.rs": "a2a8d3f95b0f01c1948dbba0e1d83065d08249f6d3638ae73b300fc21930cd0c",
+    "specs/test-vectors/execution-v1/geth-1.17.8.json": "dbdadec48daf8657b84b16c8d6ca0efd5653912e27939cf44450145cd7858232",
+    "artifacts/prover-host/target/release/tactus-o1-sp1-host": "ae35e57c91f22b2118113dcaef0e35eb8ff531d114b5307c4736e938e3ff2a85",
+    "proofs/sp1/target/elf-compilation/riscv64im-succinct-zkvm-elf/release/tactus-o1-sp1-guest": "63e7879070038b22cab411bd025b0b876511734cb7ef78a6c849c491aa909a3c"
+  },
+  "proof_sha256": "b28e1646910284cc8f91458da9d839226e1f1695c8db1eb20afdd6b3fd48be9e",
+  "proof_bytes": 38675417,
+  "compressed_archive_bytes": 24153323,
+  "execution_archive": "../proof-execution",
+  "initial_proof_command": "Retained in ../proof-execution/manifest.json; same binary and guest.",
+  "fresh_verification": "Separate process using the retained guest ELF, Geth fixture case 0 and same proof bundle; wrong-key process uses the separately built tracked control guest.",
+  "scope": "Local core STARK verified against exact expected journal. No proof compression, CKB verification, custody or production readiness claim."
+}

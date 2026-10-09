@@ -1,0 +1,25 @@
+Local CPU prover initialized after 52.618246032s
+Fresh process verified real proof and exact expected journal; key 0x00eb2677694b390a31db8883db49c1a828d73618173ce6f3e5790b7678958b14
+	Command being timed: "artifacts/prover-host/target/release/tactus-o1-sp1-host verify proofs/sp1/target/elf-compilation/riscv64im-succinct-zkvm-elf/release/tactus-o1-sp1-guest specs/test-vectors/execution-v1/geth-1.17.8.json 0 artifacts/proof-transfer-core"
+	User time (seconds): 209.69
+	System time (seconds): 4.86
+	Percent of CPU this job got: 343%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:02.45
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 7545460
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 2660825
+	Voluntary context switches: 2603
+	Involuntary context switches: 2903
+	Swaps: 0
+	File system inputs: 1344
+	File system outputs: 8
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

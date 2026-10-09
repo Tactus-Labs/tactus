@@ -75,6 +75,10 @@ generation was still running when it was captured. It retains the guest ELF,
 compiler/source hashes, exact launch-time lock and the earlier unsupported-RVC
 failure. These are workstation observations, not sustained proving-capacity claims.
 
+The subsequent [core-proof result](EXECUTION_CORE_PROOF_REPORT.md) retains the real
+proof and successful fresh-process verification. It supersedes the earlier
+archive's pending-proof status without reclassifying guest execution as settlement.
+
 The journal tests use all nine retained Geth fixtures, including a nonzero-prefix
 case reconstructed as two consecutive batches. They check exact native/Geth state
 roots, ordered history, allocation changes, domain changes and canonical encoding.

@@ -1,0 +1,17 @@
+Local CPU prover initialized after 51.090538861s
+Core(invalid public values: pc_start != vk.pc_start: program counter should start at vk.pc_start
+
+Stack backtrace:
+   0: <anyhow::Error as core::convert::From<sp1_hypercube::verifier::machine::MachineVerifierError<p3_field::extension::binomial_extension::BinomialExtensionField<p3_koala_bear::koala_bear::KoalaBear, 4>, slop_stacked::verifier::StackedVerifierError<slop_basefold::verifier::BaseFoldVerifierError<slop_merkle_tree::tcs::MerkleTreeTcsError>>>>>::from
+   1: <sp1_prover::worker::node::core::SP1NodeCore>::verify
+   2: sp1_sdk::prover::verify_proof
+   3: tactus_o1_sp1_host::run::{closure#0}
+   4: tactus_o1_sp1_host::main::{closure#0}
+   5: tactus_o1_sp1_host::main
+   6: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+   7: std::rt::lang_start::<()>::{closure#0}
+   8: std::rt::lang_start_internal
+   9: main
+  10: __libc_start_call_main
+  11: __libc_start_main@@GLIBC_2.34
+  12: _start)

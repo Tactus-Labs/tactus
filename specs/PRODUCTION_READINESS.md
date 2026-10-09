@@ -75,7 +75,7 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
   allocation in the anchor type and retains its exact bytes in an immutable output.
   Independent recovery derives genesis from CKB and rejects different caller
   allocations. The updated domain passes the Geth comparison and both CKB suites;
-  proof-bound state-root derivation and production supply policy remain open.
+  CKB-enforced proof-bound state-root derivation and production supply policy remain open.
 
 - [Sustained lane load](SUSTAINED_LOAD_REPORT.md) now measures repeated queue
   saturation, dual admission/batch progress and stopped-arrival drain under
@@ -90,6 +90,12 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
   This guest-execution evidence does not establish proof-accepted CKB settlement,
   production proving cost, trusted setup/key provenance or withdrawal authority.
 
+- [First real execution proof](EXECUTION_CORE_PROOF_REPORT.md) now proves that
+  batch with a local SP1 core STARK, passes 15 public-value/key rejection controls
+  and verifies in a fresh process. The proof and measured workstation cost are
+  retained. Compression, authenticated CKB verification and settlement succession
+  remain absent; this does not close G3 or qualify production proving economics.
+
 - [Repeated fresh seal contention](SEAL_CONTENTION_REPORT.md) now attains the
   finite `8 × lane_count` valid-append budget, rejects further full-queue churn,
   seals the complete set and processes every payload across two consecutive
@@ -103,7 +109,7 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
 | P0 | Full Experiment A / G2 | Add mandatory forced processing beyond the measured challenge-only failure; qualify independent-wallet load and hostile inclusion policy beyond the measured finite seal-churn budget, sustained queue/dependency workload and targeted-lane failure, proof-bound pending-record recovery, hostile miner policies and unplanned reorgs. Individual A2 authenticity, bounded overload/drain and planned-reorg carry-forward now have measurements. |
 | P0 | Batch admission / W-12 | The implemented input encoding/inline-DA bounds have optional authenticated A2 input prefixes and an A3 mandatory sealed-set gate, but still need the production enforcement selection, L1 timestamp bounds, on-chain/proved binding to the new Ethereum envelope and deterministic rejection semantics, plus proved execution resource limits. |
 | P0 | Execution / G5 | Bind published genesis and the implemented execution profile into a verified state transition; add state checkpoints, broader differential conformance and ordinary Ethereum tool deployment; replace experimental genesis/supply limits. |
-| P0 | Validity settlement / G3 | Real prover and CKB verifier with wrong-state, wrong-order, wrong-domain and wrong-key rejection, plus a full proven batch. |
+| P0 | Validity settlement / G3 | Compress the measured local core proof into the final proof form; implement and qualify the CKB verifier, authenticated history and SettlementTip succession with wrong-state, wrong-order, wrong-domain and wrong-key rejection. The first local full-batch proof does not establish CKB-accepted settlement. |
 | P0 | Recovery / G6 | Extend allocation-bound CKB-to-EVM reconstruction to proving inputs and settlement by another prover, with unplanned network reorgs. |
 | P0 | Bridge and exits / G7 | Deposit/withdrawal conservation, replay resistance and operator-independent exit evidence; no release on experimental cursors. |
 | P1 | Operations / G9 | Qualify the local journal under hardware/long-run faults; add network-driven reorg handling, monitored archival retrieval, independent operators and long-duration fault injection. |

@@ -22,3 +22,7 @@ jobs:
         run: cargo fmt --manifest-path proofs/sp1/Cargo.toml --all -- --check
       - name: Lint shared statement and adversarial tests
         run: cargo clippy --locked --manifest-path proofs/sp1/Cargo.toml -p tactus-o1-proof-journal --all-targets -- -D warnings
+      - name: Check retained proof artifact integrity (not cryptographic verification)
+        run: |
+          (cd specs/evidence/proof-execution && sha256sum --check SHA256SUMS)
+          (cd specs/evidence/execution-core-proof && sha256sum --check SHA256SUMS)
