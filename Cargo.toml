@@ -3,6 +3,8 @@ resolver = "2"
 members = [
     "crates/tactus-protocol",
     "crates/tactus-experiment-a",
+    "crates/tactus-ordering-script",
+    "crates/tactus-devnet-driver",
 ]
 
 [workspace.package]

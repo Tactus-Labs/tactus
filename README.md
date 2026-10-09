@@ -33,6 +33,18 @@ permissionless CKB-based canonical sequencing, validity-enforced settlement.
   - **A2** — admission is contention-free by construction; challenges that
     only exact a penalty leave messages unprocessed (`G2 not passed`),
     forced inclusion restores them at bounded delay.
+- **Day-0 posture (decision, 9 October 2026):** correctness-first — serial revm,
+  linear CKB ordering, validity proofs, priority inbox, CKB DA, basic bridge and
+  exits. No execution DAG, no microbatch DAG, no canonical DAG. The protocol
+  boundary to settle *and test* before Day 0: the multi-EVM-block-per-anchor
+  model, batch commitment format and proof binding rules — see the
+  [DAG note §8 decision record](specs/DAG_ACCELERATION_NOTE.md).
+- **Research notes:** [DAG acceleration and external DA](specs/DAG_ACCELERATION_NOTE.md)
+  — execution-engine parallelism carries no protocol consequence but real
+  engineering cost; batch-construction DAG depends on the **L2 block model**
+  (how many EVM blocks one CKB anchor authenticates — the note's prior
+  question, §1.4); canonical-ordering DAG is rejected; coexistence with the
+  O2 external-DA domain examined; falsifiable reopen conditions stated.
 
 ## Repository layout
 
