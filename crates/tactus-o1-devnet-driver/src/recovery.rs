@@ -1,5 +1,6 @@
 //! Ordering-state recovery using canonical CKB blocks only, with a pinned tip.
-//! This recovers experimental head cells, not EVM state or settled withdrawals.
+//! This recovers input publications; execution_recovery independently replays
+//! supported execution domains. Neither path proves settled withdrawals.
 use crate::{lab, molecule, rpc, tx::CellOutPoint};
 use serde_json::json;
 use tactus_o1_ordering_script::OrderingHead;
@@ -14,7 +15,7 @@ pub fn recover_head(type_script: &[u8]) -> Result<(CellOutPoint, OrderingHead), 
         16,
     )
     .map_err(|e| e.to_string())?;
-    let expected_type = molecule::script_to_json(type_script);
+    let expected_type = molecule::try_script_to_json(type_script)?;
     let mut current: Option<(CellOutPoint, OrderingHead)> = None;
     let mut previous_block = None;
     for height in 0..=number {
@@ -97,6 +98,9 @@ pub struct RecoveredBatch {
 
 #[derive(Debug)]
 pub struct RecoveredAnchor {
+    pub pinned_height: u64,
+    pub pinned_hash: String,
+    pub genesis: tactus_o1_protocol::batch::AnchorState,
     pub point: CellOutPoint,
     pub state: tactus_o1_protocol::batch::AnchorState,
     pub batches: Vec<RecoveredBatch>,
@@ -115,11 +119,12 @@ pub fn recover_published_batches(type_script: &[u8]) -> Result<RecoveredAnchor, 
         16,
     )
     .map_err(|e| e.to_string())?;
-    let expected_type = molecule::script_to_json(type_script);
+    let expected_type = molecule::try_script_to_json(type_script)?;
     let mut immutable = expected_type.clone();
     immutable["args"] = json!("0x");
     let mut current: Option<(CellOutPoint, AnchorState)> = None;
     let mut batches = Vec::new();
+    let mut genesis = None;
     let mut previous_hash = None;
     for number in 0..=height {
         let block = rpc::get_block_detailed(number)?;
@@ -194,6 +199,7 @@ pub fn recover_published_batches(type_script: &[u8]) -> Result<RecoveredAnchor, 
             } else {
                 next.validate_genesis()
                     .map_err(|e| format!("bad anchor genesis: {e:?}"))?;
+                genesis = Some(next);
             }
             current = Some((lab::point(transaction_hash, output_index as u32)?, next));
         }
@@ -202,17 +208,28 @@ pub fn recover_published_batches(type_script: &[u8]) -> Result<RecoveredAnchor, 
         return Err("chain changed before pinned tip".into());
     }
     let (point, state) = current.ok_or("anchor domain not found")?;
-    let live = rpc::call(
-        "get_live_cell",
-        json!([{"tx_hash":rpc::bytes_to_hex(&point.tx_hash),"index":format!("0x{:x}",point.index)},false]),
-    )?;
-    if live["status"] != "live" || rpc::call("get_tip_header", json!([]))?["hash"] != pinned["hash"]
-    {
-        return Err("canonical head changed; retry recovery".into());
-    }
+    let pinned_hash = pinned["hash"]
+        .as_str()
+        .ok_or("pinned hash missing")?
+        .to_owned();
+    // A growing tip is harmless. A reorg replacing the pinned block is not.
+    assert_canonical(height, &pinned_hash)?;
     Ok(RecoveredAnchor {
+        pinned_height: height,
+        pinned_hash,
+        genesis: genesis.ok_or("anchor genesis missing")?,
         point,
         state,
         batches,
     })
+}
+
+/// Confirms a snapshot is still a prefix of the node's current canonical chain.
+/// The RPC node is a trust boundary; this is not an independent consensus client.
+pub fn assert_canonical(height: u64, expected_hash: &str) -> Result<(), String> {
+    let current = rpc::call("get_block_hash", json!([format!("0x{height:x}")]))?;
+    if current.as_str() != Some(expected_hash) {
+        return Err("pinned CKB block was replaced; retry recovery".into());
+    }
+    Ok(())
 }

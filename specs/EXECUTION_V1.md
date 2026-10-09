@@ -112,8 +112,11 @@ An [append-only durable journal](EXECUTION_JOURNAL.md) now replays inputs on
 restart and validates saved roots; storage-fault and cross-process restart tests
 cover this local path.
 
-Still required: persistent state checkpoints and full canonical CKB-to-EVM
-recovery and network-driven reorg handling, broader differential conformance,
+[Canonical CKB input recovery](CKB_EVM_RECOVERY_REPORT.md) now feeds independent
+EVM replay across planned branch replacement on both supported CKB versions.
+
+Still required: persistent state checkpoints and efficient network-driven reorg
+handling, broader differential conformance,
 standard JSON-RPC/tool deployment, proved resource bounds, authenticated genesis
 and priority semantics, zkVM guest/prover and CKB validity settlement. No execution
 result currently authorizes withdrawals.

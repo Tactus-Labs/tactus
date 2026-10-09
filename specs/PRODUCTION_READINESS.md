@@ -38,6 +38,11 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
   corruption checks and EVM replay on restart. Separate-process CLI restart and
   interrupted-write layouts are tested; see [journal contract](EXECUTION_JOURNAL.md).
 
+- Real CKB input publications now reconstruct executed EVM state in independent
+  processes across a planned rollback/replacement on both CKB versions. Ordinary
+  tip growth is accepted; wrong chain/type/genesis and replay-time reorgs are
+  rejected. See [recovery evidence and limits](CKB_EVM_RECOVERY_REPORT.md).
+
 ## Work that still blocks the user's production objective
 
 | Priority | Boundary | Required completion evidence |
@@ -46,7 +51,7 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
 | P0 | Batch admission / W-12 | The implemented input encoding/inline-DA bounds still need authenticated priority prefixes, L1 timestamp bounds, on-chain/proved binding to the new Ethereum envelope and deterministic rejection semantics, plus proved execution resource limits. |
 | P0 | Execution / G5 | Authenticate the implemented pinned execution profile; add state checkpoints, broader differential conformance and ordinary Ethereum tool deployment; replace experimental genesis/supply limits. |
 | P0 | Validity settlement / G3 | Real prover and CKB verifier with wrong-state, wrong-order, wrong-domain and wrong-key rejection, plus a full proven batch. |
-| P0 | Recovery / G6 | Independent reconstruction of EVM state and proving inputs using genesis plus CKB data, followed by settlement by another prover. |
+| P0 | Recovery / G6 | Authenticate genesis allocation; extend measured CKB-to-EVM reconstruction to proving inputs and settlement by another prover, with unplanned network reorgs. |
 | P0 | Bridge and exits / G7 | Deposit/withdrawal conservation, replay resistance and operator-independent exit evidence; no release on experimental cursors. |
 | P1 | Operations / G9 | Qualify the local journal under hardware/long-run faults; add network-driven reorg handling, monitored archival retrieval, independent operators and long-duration fault injection. |
 | P1 | Governance / G8 | Enforced upgrade boundaries and exit-preserving rules. |

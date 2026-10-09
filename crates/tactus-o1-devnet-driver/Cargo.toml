@@ -13,3 +13,4 @@ serde_json = "1"
 tactus-o1-ordering-script = { path = "../tactus-o1-ordering-script" }
 
 tactus-o1-protocol = { path = "../tactus-o1-protocol" }
+tactus-o1-execution = { path = "../tactus-o1-execution" }

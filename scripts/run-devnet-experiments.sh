@@ -14,8 +14,11 @@ if [[ "$($CKB_BIN --version)" != "ckb $required_version "* ]]; then
   exit 1
 fi
 suite="${TACTUS_DEVNET_SUITE:-replay-a123}"
-case "$suite" in replay-a123|replay-batch) ;; *) echo 'Unknown devnet suite' >&2; exit 1 ;; esac
+case "$suite" in replay-a123|replay-batch|replay-evm) ;; *) echo 'Unknown devnet suite' >&2; exit 1 ;; esac
 cargo build --locked --bin "$suite"
+if [[ "$suite" == replay-evm ]]; then
+  cargo build --locked --bin recover-execution
+fi
 bash scripts/build-ordering-script.sh
 mkdir -p artifacts
 run_dir="$(mktemp -d "$PWD/artifacts/${suite#replay-}-XXXXXXXX")"
@@ -24,6 +27,7 @@ export TACTUS_DEVNET_AUTOMINE=1
 export TACTUS_EVIDENCE_PATH="$run_dir/evidence.json"
 export TACTUS_RUN_DIR="$run_dir"
 export TACTUS_CKB_BIN="$CKB_BIN"
+export TACTUS_DEVNET_SUITE="$suite"
 python3 - <<'PY'
 import os,socket
 host,port=os.environ['TACTUS_CKB_RPC_ADDR'].split(':')
@@ -58,10 +62,12 @@ manifest={'node_version':subprocess.check_output([os.environ['TACTUS_CKB_BIN'],'
  'files':{}}
 for name in ['Cargo.lock','scripts/build-ordering-script.sh','scripts/ordering-script.ld','artifacts/tactus_o1_ordering_script.elf','artifacts/tactus_o1_head_lock.elf','artifacts/tactus_o1_anchor_script.elf',str(root/'node/ckb.toml'),str(p),os.environ['TACTUS_CKB_BIN']]:
  manifest['files'][name]=hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest()
+for name in ['target/debug/'+os.environ['TACTUS_DEVNET_SUITE']] + (['target/debug/recover-execution'] if os.environ['TACTUS_DEVNET_SUITE']=='replay-evm' else []):
+ manifest['files'][name]=hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest()
 paths=subprocess.check_output(['git','ls-files','--cached','--others','--exclude-standard','-z'],text=True).split('\0')
 manifest['source_files']={name:hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest()
  for name in sorted(set(paths)) if name and pathlib.Path(name).is_file()
- and (name.startswith(('crates/','scripts/','.github/')) or name in ('Cargo.toml','Cargo.lock','rust-toolchain.toml'))}
+ and (name.startswith(('crates/','scripts/','.github/','.cargo/','specs/test-vectors/')) or name in ('Cargo.toml','Cargo.lock','rust-toolchain.toml'))}
 (root/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
 PY
 "$CKB_BIN" run -C "$run_dir/node" --indexer > "$run_dir/node.log" 2>&1 &

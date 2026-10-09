@@ -1,0 +1,12 @@
+{
+  "rollup_id": "0x3765d0d40e34aa8d574db444e49da09d06e7381fa10f92fdeeabf2484a0e35c4",
+  "chain_id": 31337,
+  "accounts": {
+    "0x2bd0c9fe079c8fca0e3352eb3d02839c371e5c41": {
+      "balance": "0xde0b6b3a7640000",
+      "nonce": 0,
+      "code": "0x",
+      "storage": {}
+    }
+  }
+}

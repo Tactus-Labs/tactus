@@ -122,17 +122,34 @@ pub fn witness_args(
 /// Decodes a script serialized by [`script`] back into its RPC JSON form.
 #[must_use]
 pub fn script_to_json(script: &[u8]) -> serde_json::Value {
-    let header = u32::from_le_bytes(script[4..8].try_into().expect("header")) as usize;
-    let code_hash = &script[header..header + 32];
-    let hash_type = script[header + 32];
-    let args_len =
-        u32::from_le_bytes(script[header + 33..header + 37].try_into().expect("len")) as usize;
-    let args = &script[header + 37..header + 37 + args_len];
-    serde_json::json!({
-        "code_hash": crate::rpc::bytes_to_hex(code_hash),
-        "hash_type": match hash_type { 0 => "data", 1 => "type", 2 => "data1", 4 => "data2", _ => panic!("unsupported hash type") },
-        "args": crate::rpc::bytes_to_hex(args),
-    })
+    try_script_to_json(script).expect("script was built by the canonical encoder")
+}
+
+/// Strict canonical decoding for external script bytes (CLI/RPC configuration).
+/// Validate all lengths and offsets before slicing attacker-controlled data.
+pub fn try_script_to_json(script: &[u8]) -> Result<serde_json::Value, String> {
+    if script.len() < 53 {
+        return Err("script shorter than canonical header".into());
+    }
+    let word = |offset| u32::from_le_bytes(script[offset..offset + 4].try_into().unwrap()) as usize;
+    if word(0) != script.len()
+        || word(4) != 16
+        || word(8) != 48
+        || word(12) != 49
+        || word(49) != script.len() - 53
+    {
+        return Err("noncanonical script lengths or offsets".into());
+    }
+    let hash_type = match script[48] {
+        0 => "data",
+        1 => "type",
+        2 => "data1",
+        4 => "data2",
+        _ => return Err("unsupported script hash type".into()),
+    };
+    Ok(
+        serde_json::json!({"code_hash":crate::rpc::bytes_to_hex(&script[16..48]),"hash_type":hash_type,"args":crate::rpc::bytes_to_hex(&script[53..])}),
+    )
 }
 
 fn fix_vec(item_size: usize, raw_items: &[u8]) -> Vec<u8> {
@@ -172,6 +189,23 @@ pub fn transaction(raw: &[u8], witnesses: &[Vec<u8>]) -> Vec<u8> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn external_scripts_reject_every_truncation_and_noncanonical_offset() {
+        let valid = script(&[7; 32], 2, &[9; 32]);
+        assert!(try_script_to_json(&valid).is_ok());
+        for end in 0..valid.len() {
+            assert!(try_script_to_json(&valid[..end]).is_err());
+        }
+        for offset in [0, 4, 8, 12, 48, 49] {
+            let mut bad = valid.clone();
+            bad[offset] = 255;
+            assert!(try_script_to_json(&bad).is_err());
+        }
+        let mut extra = valid;
+        extra.push(0);
+        assert!(try_script_to_json(&extra).is_err());
+    }
 
     #[test]
     fn script_encoding_matches_ckb_cli_ground_truth() {

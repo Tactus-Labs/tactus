@@ -11,3 +11,6 @@ pub mod tx;
 pub mod lab;
 
 pub mod recovery;
+
+pub mod batch_lab;
+pub mod execution_recovery;

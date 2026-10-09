@@ -2978,6 +2978,7 @@ dependencies = [
  "blake2b-ref",
  "secp256k1 0.29.1",
  "serde_json",
+ "tactus-o1-execution",
  "tactus-o1-ordering-script",
  "tactus-o1-protocol",
 ]

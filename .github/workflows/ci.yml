@@ -87,6 +87,11 @@ jobs:
           TACTUS_CKB_VERSION: ${{ matrix.ckb }}
           TACTUS_DEVNET_SUITE: replay-batch
         run: CKB_BIN="$RUNNER_TEMP/ckb/ckb" scripts/run-devnet-experiments.sh
+      - name: Reconstruct EVM state across canonical CKB branch replacement
+        env:
+          TACTUS_CKB_VERSION: ${{ matrix.ckb }}
+          TACTUS_DEVNET_SUITE: replay-evm
+        run: CKB_BIN="$RUNNER_TEMP/ckb/ckb" scripts/run-devnet-experiments.sh
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -106,3 +111,13 @@ jobs:
             artifacts/batch-*/node.log
             artifacts/batch-*/node/ckb.toml
             artifacts/batch-*/node/specs/dev.toml
+            artifacts/evm-*/evidence.json
+            artifacts/evm-*/summary.json
+            artifacts/evm-*/manifest.json
+            artifacts/evm-*/execution-genesis.json
+            artifacts/evm-*/observer/current.json
+            artifacts/evm-*/fresh-observer/current.json
+            artifacts/evm-*/replay.log
+            artifacts/evm-*/node.log
+            artifacts/evm-*/node/ckb.toml
+            artifacts/evm-*/node/specs/dev.toml

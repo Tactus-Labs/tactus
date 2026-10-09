@@ -1,156 +1,14 @@
 //! Real VM tests for multi-block input commitments and atomic immutable DA.
 use serde_json::{json, Value};
 use tactus_o1_devnet_driver::{
-    lab::{self, Lab},
-    molecule, rpc,
+    batch_lab::{self, *},
+    lab::Lab,
+    rpc,
     tx::{self, CellOutPoint, OutSpec, TX_FEE},
 };
-use tactus_o1_ordering_script::{ckb_blake2b, genesis_identity};
-use tactus_o1_protocol::batch::{self, AnchorState, BatchInput, BlockInput};
+use tactus_o1_ordering_script::ckb_blake2b;
+use tactus_o1_protocol::batch::{self, AnchorState};
 
-#[derive(Clone)]
-struct Anchor {
-    point: CellOutPoint,
-    capacity: u64,
-    state: AnchorState,
-    lock: Vec<u8>,
-    script: Vec<u8>,
-    immutable: Vec<u8>,
-}
-fn head_output(anchor: &Anchor, state: AnchorState) -> OutSpec {
-    OutSpec {
-        capacity: anchor.capacity,
-        lock: anchor.lock.clone(),
-        type_script: Some(anchor.script.clone()),
-        data: state.encode().to_vec(),
-    }
-}
-fn da_output(anchor: &Anchor, bytes: &[u8]) -> OutSpec {
-    OutSpec {
-        capacity: OutSpec::required_capacity(&anchor.immutable, None, bytes.len()),
-        lock: anchor.immutable.clone(),
-        type_script: None,
-        data: bytes.to_vec(),
-    }
-}
-fn shape(
-    lab: &Lab,
-    anchor: &Anchor,
-    actor: usize,
-    mut outputs: Vec<OutSpec>,
-    witness: Option<&[u8]>,
-) -> Result<Value, String> {
-    let wallet = &lab.wallets[actor];
-    let spent: u64 = outputs.iter().map(|o| o.capacity).sum();
-    let change = wallet
-        .capacity
-        .checked_add(anchor.capacity)
-        .and_then(|c| c.checked_sub(spent + TX_FEE))
-        .ok_or("insufficient capacity")?;
-    outputs.push(OutSpec {
-        capacity: change,
-        lock: wallet.key.lock_script(),
-        type_script: None,
-        data: vec![],
-    });
-    tx::build_with_permissionless_prefix(
-        &wallet.key,
-        &lab.secp,
-        &lab.deps,
-        &[
-            (anchor.point, anchor.capacity),
-            (wallet.point, wallet.capacity),
-        ],
-        &outputs,
-        witness,
-        1,
-    )
-    .map(|(_, v)| v)
-}
-fn create(lab: &mut Lab) -> Result<Anchor, String> {
-    let wallet = &lab.wallets[0];
-    let seed: [u8; 44] = molecule::cell_input(
-        0,
-        &molecule::out_point(&wallet.point.tx_hash, wallet.point.index),
-    )
-    .try_into()
-    .unwrap();
-    let id = genesis_identity(&seed, 0);
-    let script = tx::tactus_o1_type_script(&lab.ordering_elf, &id);
-    let lock = molecule::script(&ckb_blake2b(&lab.lock_elf), 2, &ckb_blake2b(&script));
-    let immutable = molecule::script(&ckb_blake2b(&lab.ordering_elf), 2, &[]);
-    let state = AnchorState::genesis(
-        id,
-        ckb_blake2b(b"unimplemented-evm-execution-devnet-only"),
-        31337,
-    )
-    .map_err(|e| format!("{e:?}"))?;
-    let capacity =
-        OutSpec::required_capacity(&lock, Some(&script), batch::ANCHOR_LEN) + 10 * TX_FEE;
-    let change = wallet.capacity - capacity - TX_FEE;
-    let anchor = Anchor {
-        point: wallet.point,
-        capacity,
-        state,
-        lock,
-        script,
-        immutable,
-    };
-    let outputs = vec![
-        head_output(&anchor, state),
-        OutSpec {
-            capacity: change,
-            lock: wallet.key.lock_script(),
-            type_script: None,
-            data: vec![],
-        },
-    ];
-    let (_, transaction) = tx::build_and_sign(
-        &wallet.key,
-        &lab.secp,
-        &lab.deps,
-        &[(wallet.point, wallet.capacity)],
-        &outputs,
-        None,
-    )?;
-    let hash = lab.commit("batch/genesis", &transaction)?;
-    lab.wallets[0].point = lab::point(&hash, 1)?;
-    lab.wallets[0].capacity = change;
-    Ok(Anchor {
-        point: lab::point(&hash, 0)?,
-        ..anchor
-    })
-}
-fn block(timestamp: u64, transactions: Vec<Vec<u8>>) -> BlockInput {
-    BlockInput {
-        timestamp,
-        fee_recipient: [3; 20],
-        transactions,
-    }
-}
-fn encode(parent: AnchorState, blocks: Vec<BlockInput>) -> Result<Vec<u8>, String> {
-    BatchInput { parent, blocks }
-        .encode()
-        .map_err(|e| format!("{e:?}"))
-}
-fn publish(
-    lab: &mut Lab,
-    anchor: &mut Anchor,
-    bytes: &[u8],
-    actor: usize,
-    label: &str,
-) -> Result<CellOutPoint, String> {
-    let summary = batch::validate_batch(bytes, &anchor.state).map_err(|e| format!("{e:?}"))?;
-    let outputs = vec![head_output(anchor, summary.next), da_output(anchor, bytes)];
-    let transaction = shape(lab, anchor, actor, outputs, Some(&1u32.to_le_bytes()))?;
-    let hash = lab.commit(label, &transaction)?;
-    lab.wallets[actor].point = lab::point(&hash, 2)?;
-    lab.wallets[actor].capacity -=
-        TX_FEE + OutSpec::required_capacity(&anchor.immutable, None, bytes.len());
-    anchor.point = lab::point(&hash, 0)?;
-    anchor.state = summary.next;
-    lab::point(&hash, 1)
-}
 fn negative_controls(lab: &mut Lab, anchor: &Anchor) -> Result<usize, String> {
     let good = encode(
         anchor.state,
@@ -388,7 +246,11 @@ fn run() -> Result<(), String> {
     let mut results =
         json!({"suite":"batch-input-v1","complete":false,"production_ready":false,"W12":"OPEN"});
     let outcome = (|| {
-        let mut anchor = create(&mut lab)?;
+        let mut anchor = batch_lab::create(
+            &mut lab,
+            ckb_blake2b(b"unimplemented-evm-execution-devnet-only"),
+            31337,
+        )?;
         results["rejected_invalid_transitions"] = json!(negative_controls(&mut lab, &anchor)?);
         let first = encode(
             anchor.state,

@@ -67,3 +67,8 @@ suffix deletion cannot be distinguished from an earlier valid local journal:
 the canonical CKB anchor must independently determine the required final input
 frontier. Neither this local journal nor its saved roots replace chain recovery,
 an authenticated genesis, a validity proof or settlement verification.
+
+The [CKB recovery layer](CKB_EVM_RECOVERY_REPORT.md) now supplies that independently
+recovered frontier and maintains separate journals for branch replacements. It
+rechecks canonicality on each invocation; continuous network synchronization and
+settlement remain outstanding.
