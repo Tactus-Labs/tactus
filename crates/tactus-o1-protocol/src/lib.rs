@@ -96,3 +96,5 @@ pub struct SettlementTip {
     pub proof_system_id: Hash32,
     pub verification_key_commitment: Hash32,
 }
+
+pub mod sealed;

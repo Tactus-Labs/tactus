@@ -48,6 +48,11 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
   The [real-node comparator](A2_OBLIGATION_REPORT.md) demonstrates that standalone
   challenge markers still fail forced inclusion; G2 remains OPEN.
 
+- The [bounded A3 sealed schedule](A3_SEALED_V1.md) now has canonical codecs and
+  tested pure transitions for complete sealing, FIFO interleave and finite batch
+  quotas. Its mandatory CKB gate and real-node enforcement are not implemented
+  yet; these host tests do not provide an authenticated snapshot or G2 result.
+
 ## Work that still blocks the user's production objective
 
 | Priority | Boundary | Required completion evidence |
