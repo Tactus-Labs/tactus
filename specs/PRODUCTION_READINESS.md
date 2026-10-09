@@ -25,13 +25,19 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
   publication and replacement of an orphaned branch. This is input recovery,
   not recovery of executed EVM state. See [batch results](BATCH_INPUT_REPORT.md).
 
+- Pinned Shanghai serial EVM execution with signed Ethereum envelopes, total input
+  rejection outcomes, real account/storage/transaction/receipt tries and block
+  hashes. Empty blocks, fee accounting and in-memory atomic replay are tested.
+  See [execution rules and limits](EXECUTION_V1.md). This is not persistent state
+  or proof-backed settlement.
+
 ## Work that still blocks the user's production objective
 
 | Priority | Boundary | Required completion evidence |
 |---|---|---|
 | P0 | Full Experiment A / G2 | Implement actual authenticated obligations and forced processing; exercise saturation, carry-forward, consumed-but-unproven, hostile snapshot switching, miner policy and unplanned reorg scenarios. |
-| P0 | Batch admission / W-12 | The implemented input encoding/inline-DA bounds still need authenticated priority prefixes, L1 timestamp bounds, Ethereum envelope validation, deterministic rejection semantics and proved execution resource limits. |
-| P0 | Execution / G5 | Pinned serial EVM execution, persistent state, differential conformance and ordinary Ethereum tool deployment. |
+| P0 | Batch admission / W-12 | The implemented input encoding/inline-DA bounds still need authenticated priority prefixes, L1 timestamp bounds, on-chain/proved binding to the new Ethereum envelope and deterministic rejection semantics, plus proved execution resource limits. |
+| P0 | Execution / G5 | Authenticate the implemented pinned execution profile; add persistent state, differential conformance and ordinary Ethereum tool deployment; replace experimental genesis/supply limits. |
 | P0 | Validity settlement / G3 | Real prover and CKB verifier with wrong-state, wrong-order, wrong-domain and wrong-key rejection, plus a full proven batch. |
 | P0 | Recovery / G6 | Independent reconstruction of EVM state and proving inputs using genesis plus CKB data, followed by settlement by another prover. |
 | P0 | Bridge and exits / G7 | Deposit/withdrawal conservation, replay resistance and operator-independent exit evidence; no release on experimental cursors. |

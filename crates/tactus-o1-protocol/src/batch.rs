@@ -168,6 +168,35 @@ pub struct BatchInput {
 }
 
 impl BatchInput {
+    /// Decode only after validating the entire envelope. Unlike the transaction
+    /// visitor, this preserves empty blocks, which still advance execution time,
+    /// block hashes and the base-fee schedule.
+    pub fn decode(bytes: &[u8], parent: &AnchorState) -> Result<Self, Error> {
+        let summary = validate_batch(bytes, parent)?;
+        let mut reader = Reader::new(&bytes[194..]);
+        let mut blocks = Vec::with_capacity(usize::from(summary.blocks));
+        for _ in 0..summary.blocks {
+            let timestamp = reader.u64()?;
+            let fee_recipient = reader.array()?;
+            let count = reader.u16()?;
+            let mut transactions = Vec::with_capacity(usize::from(count));
+            for _ in 0..count {
+                let length = reader.u32()? as usize;
+                transactions.push(reader.take(length)?.to_vec());
+            }
+            blocks.push(BlockInput {
+                timestamp,
+                fee_recipient,
+                transactions,
+            });
+        }
+        reader.finish()?;
+        Ok(Self {
+            parent: *parent,
+            blocks,
+        })
+    }
+
     pub fn encode(&self) -> Result<Vec<u8>, Error> {
         if self.blocks.is_empty() || self.blocks.len() > MAX_BLOCKS {
             return Err(Error::Limit);

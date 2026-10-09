@@ -1,0 +1,20 @@
+[package]
+name = "tactus-o1-execution"
+description = "Pinned serial Ethereum execution for Tactus O1 batch inputs"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version = "1.92"
+
+[dependencies]
+tactus-o1-protocol = { path = "../tactus-o1-protocol" }
+revm = { version = "=43.0.3", default-features = false, features = ["std", "secp256k1", "portable"] }
+alloy-consensus = { version = "=2.1.1", features = ["k256", "serde"] }
+alloy-eips = "=2.1.1"
+alloy-primitives = { version = "=1.6.0", features = ["serde", "k256"] }
+alloy-trie = { version = "=0.9.8", features = ["ethereum"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[dev-dependencies]
+k256 = { version = "0.13", features = ["ecdsa"] }
