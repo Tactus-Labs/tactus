@@ -14,7 +14,7 @@ if [[ "$($CKB_BIN --version)" != "ckb $required_version "* ]]; then
   exit 1
 fi
 suite="${TACTUS_DEVNET_SUITE:-replay-a123}"
-case "$suite" in replay-a123|replay-batch|replay-evm|replay-priority|replay-sealed|replay-admission|replay-network|replay-load|replay-seal-contention) ;; *) echo 'Unknown devnet suite' >&2; exit 1 ;; esac
+case "$suite" in replay-a123|replay-batch|replay-evm|replay-priority|replay-sealed|replay-admission|replay-network|replay-load) ;; *) echo 'Unknown devnet suite' >&2; exit 1 ;; esac
 cargo build --locked --bin "$suite"
 if [[ "$suite" == replay-evm || "$suite" == replay-network ]]; then
   cargo build --locked --bin recover-execution

@@ -77,6 +77,13 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
   allocations. The updated domain passes the Geth comparison and both CKB suites;
   proof-bound state-root derivation and production supply policy remain open.
 
+- [Sustained lane load](SUSTAINED_LOAD_REPORT.md) now measures repeated queue
+  saturation, dual admission/batch progress and stopped-arrival drain under
+  deterministic L1/L2/L3 schedules. This exposes backpressure and dependency
+  failure without claiming useful Ethereum TPS or seal-submission fairness.
+  The [Experiment A acceptance audit](EXPERIMENT_A_ACCEPTANCE_MATRIX.md) preserves
+  remaining miner-policy, admission-fairness and proof-fulfillment requirements.
+
 - [Repeated fresh seal contention](SEAL_CONTENTION_REPORT.md) now attains the
   finite `8 × lane_count` valid-append budget, rejects further full-queue churn,
   seals the complete set and processes every payload across two consecutive
@@ -87,7 +94,7 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
 
 | Priority | Boundary | Required completion evidence |
 |---|---|---|
-| P0 | Full Experiment A / G2 | Add mandatory forced processing beyond the measured challenge-only failure; qualify the implemented A3 sealing/switching under sustained admission contention beyond the measured targeted-lane failure, proof-bound pending-record recovery, hostile miner policies and unplanned reorgs. Individual A2 authenticity, bounded overload/drain and planned-reorg carry-forward now have measurements. |
+| P0 | Full Experiment A / G2 | Add mandatory forced processing beyond the measured challenge-only failure; qualify independent-wallet load and hostile inclusion policy beyond the measured finite seal-churn budget, sustained queue/dependency workload and targeted-lane failure, proof-bound pending-record recovery, hostile miner policies and unplanned reorgs. Individual A2 authenticity, bounded overload/drain and planned-reorg carry-forward now have measurements. |
 | P0 | Batch admission / W-12 | The implemented input encoding/inline-DA bounds have optional authenticated A2 input prefixes and an A3 mandatory sealed-set gate, but still need the production enforcement selection, L1 timestamp bounds, on-chain/proved binding to the new Ethereum envelope and deterministic rejection semantics, plus proved execution resource limits. |
 | P0 | Execution / G5 | Bind published genesis and the implemented execution profile into a verified state transition; add state checkpoints, broader differential conformance and ordinary Ethereum tool deployment; replace experimental genesis/supply limits. |
 | P0 | Validity settlement / G3 | Real prover and CKB verifier with wrong-state, wrong-order, wrong-domain and wrong-key rejection, plus a full proven batch. |

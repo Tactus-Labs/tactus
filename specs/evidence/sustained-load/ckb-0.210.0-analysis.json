@@ -1,0 +1,1461 @@
+{
+  "schema": 1,
+  "evidence_sha256": "e38f4271c15f230aae2dac6b427e554281e26d134b1e01e7ffe2945fc47a3d4b",
+  "analyzer_sha256": "96b54319212d18086b0c7c9ff365c0bf8781715dbb36ad9e93f25beae8bac9a0",
+  "production_ready": false,
+  "independently_reconciled_cases": 36,
+  "rows": [
+    {
+      "lanes": 1,
+      "regime": "L1-per-lane",
+      "window_quanta": 1,
+      "arm": "live-dependency-diagnostic",
+      "offered": 32,
+      "admitted": 16,
+      "processed": 8,
+      "offchain_backlog": 16,
+      "canonical_batches": 16,
+      "active_admission_success_rate": 0.5,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 32,
+          "p50": 72,
+          "p95": 140,
+          "p99": 140,
+          "maximum": 140
+        },
+        "processing_batches": {
+          "count": 32,
+          "p50": 9,
+          "p95": 10,
+          "p99": 10,
+          "maximum": 10
+        }
+      },
+      "invalidated_candidates": 16,
+      "elapsed_blocks": 196,
+      "admission_per_ckb_block": 0.08163265306122448,
+      "canonical_batches_per_ckb_block": 0.08163265306122448,
+      "lane_churn_per_ckb_block": [
+        0.08163265306122448
+      ],
+      "fees_shannons": 3300000000,
+      "retained_capacity_shannons": 552800000000,
+      "drain_rounds": 18,
+      "maximum_processing_batches": 10
+    },
+    {
+      "lanes": 1,
+      "regime": "L1-per-lane",
+      "window_quanta": 1,
+      "arm": "mandatory-sealed",
+      "offered": 32,
+      "admitted": 32,
+      "processed": 24,
+      "offchain_backlog": 0,
+      "canonical_batches": 32,
+      "active_admission_success_rate": 1.0,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 32,
+          "p50": 4,
+          "p95": 4,
+          "p99": 4,
+          "maximum": 4
+        },
+        "processing_batches": {
+          "count": 32,
+          "p50": 6,
+          "p95": 9,
+          "p99": 9,
+          "maximum": 9
+        }
+      },
+      "invalidated_candidates": 0,
+      "elapsed_blocks": 268,
+      "admission_per_ckb_block": 0.11940298507462686,
+      "canonical_batches_per_ckb_block": 0.11940298507462686,
+      "lane_churn_per_ckb_block": [
+        0.11940298507462686
+      ],
+      "fees_shannons": 6700000000,
+      "retained_capacity_shannons": 1234400000000,
+      "drain_rounds": 2,
+      "maximum_processing_batches": 9
+    },
+    {
+      "lanes": 1,
+      "regime": "L1-per-lane",
+      "window_quanta": 3,
+      "arm": "live-dependency-diagnostic",
+      "offered": 96,
+      "admitted": 24,
+      "processed": 16,
+      "offchain_backlog": 72,
+      "canonical_batches": 23,
+      "active_admission_success_rate": 0.25,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 96,
+          "p50": 460,
+          "p95": 608,
+          "p99": 620,
+          "maximum": 620
+        },
+        "processing_batches": {
+          "count": 96,
+          "p50": 7,
+          "p95": 10,
+          "p99": 10,
+          "maximum": 10
+        }
+      },
+      "invalidated_candidates": 9,
+      "elapsed_blocks": 484,
+      "admission_per_ckb_block": 0.049586776859504134,
+      "canonical_batches_per_ckb_block": 0.047520661157024795,
+      "lane_churn_per_ckb_block": [
+        0.049586776859504134
+      ],
+      "fees_shannons": 4900000000,
+      "retained_capacity_shannons": 867100000000,
+      "drain_rounds": 75,
+      "maximum_processing_batches": 10
+    },
+    {
+      "lanes": 1,
+      "regime": "L1-per-lane",
+      "window_quanta": 3,
+      "arm": "mandatory-sealed",
+      "offered": 96,
+      "admitted": 32,
+      "processed": 24,
+      "offchain_backlog": 64,
+      "canonical_batches": 32,
+      "active_admission_success_rate": 0.3333333333333333,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 96,
+          "p50": 404,
+          "p95": 536,
+          "p99": 548,
+          "maximum": 548
+        },
+        "processing_batches": {
+          "count": 96,
+          "p50": 7,
+          "p95": 9,
+          "p99": 9,
+          "maximum": 9
+        }
+      },
+      "invalidated_candidates": 0,
+      "elapsed_blocks": 524,
+      "admission_per_ckb_block": 0.061068702290076333,
+      "canonical_batches_per_ckb_block": 0.061068702290076333,
+      "lane_churn_per_ckb_block": [
+        0.061068702290076333
+      ],
+      "fees_shannons": 6700000000,
+      "retained_capacity_shannons": 1234400000000,
+      "drain_rounds": 66,
+      "maximum_processing_batches": 9
+    },
+    {
+      "lanes": 1,
+      "regime": "L2-fixed-aggregate",
+      "window_quanta": 1,
+      "arm": "live-dependency-diagnostic",
+      "offered": 32,
+      "admitted": 16,
+      "processed": 8,
+      "offchain_backlog": 16,
+      "canonical_batches": 16,
+      "active_admission_success_rate": 0.5,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 32,
+          "p50": 72,
+          "p95": 140,
+          "p99": 140,
+          "maximum": 140
+        },
+        "processing_batches": {
+          "count": 32,
+          "p50": 9,
+          "p95": 10,
+          "p99": 10,
+          "maximum": 10
+        }
+      },
+      "invalidated_candidates": 16,
+      "elapsed_blocks": 196,
+      "admission_per_ckb_block": 0.08163265306122448,
+      "canonical_batches_per_ckb_block": 0.08163265306122448,
+      "lane_churn_per_ckb_block": [
+        0.08163265306122448
+      ],
+      "fees_shannons": 3300000000,
+      "retained_capacity_shannons": 552800000000,
+      "drain_rounds": 18,
+      "maximum_processing_batches": 10
+    },
+    {
+      "lanes": 1,
+      "regime": "L2-fixed-aggregate",
+      "window_quanta": 1,
+      "arm": "mandatory-sealed",
+      "offered": 32,
+      "admitted": 32,
+      "processed": 24,
+      "offchain_backlog": 0,
+      "canonical_batches": 32,
+      "active_admission_success_rate": 1.0,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 32,
+          "p50": 4,
+          "p95": 4,
+          "p99": 4,
+          "maximum": 4
+        },
+        "processing_batches": {
+          "count": 32,
+          "p50": 6,
+          "p95": 9,
+          "p99": 9,
+          "maximum": 9
+        }
+      },
+      "invalidated_candidates": 0,
+      "elapsed_blocks": 268,
+      "admission_per_ckb_block": 0.11940298507462686,
+      "canonical_batches_per_ckb_block": 0.11940298507462686,
+      "lane_churn_per_ckb_block": [
+        0.11940298507462686
+      ],
+      "fees_shannons": 6700000000,
+      "retained_capacity_shannons": 1234400000000,
+      "drain_rounds": 2,
+      "maximum_processing_batches": 9
+    },
+    {
+      "lanes": 1,
+      "regime": "L2-fixed-aggregate",
+      "window_quanta": 3,
+      "arm": "live-dependency-diagnostic",
+      "offered": 96,
+      "admitted": 24,
+      "processed": 16,
+      "offchain_backlog": 72,
+      "canonical_batches": 23,
+      "active_admission_success_rate": 0.25,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 96,
+          "p50": 460,
+          "p95": 608,
+          "p99": 620,
+          "maximum": 620
+        },
+        "processing_batches": {
+          "count": 96,
+          "p50": 7,
+          "p95": 10,
+          "p99": 10,
+          "maximum": 10
+        }
+      },
+      "invalidated_candidates": 9,
+      "elapsed_blocks": 484,
+      "admission_per_ckb_block": 0.049586776859504134,
+      "canonical_batches_per_ckb_block": 0.047520661157024795,
+      "lane_churn_per_ckb_block": [
+        0.049586776859504134
+      ],
+      "fees_shannons": 4900000000,
+      "retained_capacity_shannons": 867100000000,
+      "drain_rounds": 75,
+      "maximum_processing_batches": 10
+    },
+    {
+      "lanes": 1,
+      "regime": "L2-fixed-aggregate",
+      "window_quanta": 3,
+      "arm": "mandatory-sealed",
+      "offered": 96,
+      "admitted": 32,
+      "processed": 24,
+      "offchain_backlog": 64,
+      "canonical_batches": 32,
+      "active_admission_success_rate": 0.3333333333333333,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 96,
+          "p50": 404,
+          "p95": 535,
+          "p99": 547,
+          "maximum": 547
+        },
+        "processing_batches": {
+          "count": 96,
+          "p50": 7,
+          "p95": 9,
+          "p99": 9,
+          "maximum": 9
+        }
+      },
+      "invalidated_candidates": 0,
+      "elapsed_blocks": 524,
+      "admission_per_ckb_block": 0.061068702290076333,
+      "canonical_batches_per_ckb_block": 0.061068702290076333,
+      "lane_churn_per_ckb_block": [
+        0.061068702290076333
+      ],
+      "fees_shannons": 6700000000,
+      "retained_capacity_shannons": 1234400000000,
+      "drain_rounds": 66,
+      "maximum_processing_batches": 9
+    },
+    {
+      "lanes": 1,
+      "regime": "L3-targeted",
+      "window_quanta": 1,
+      "arm": "live-dependency-diagnostic",
+      "offered": 32,
+      "admitted": 16,
+      "processed": 8,
+      "offchain_backlog": 16,
+      "canonical_batches": 16,
+      "active_admission_success_rate": 0.5,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 32,
+          "p50": 72,
+          "p95": 140,
+          "p99": 140,
+          "maximum": 140
+        },
+        "processing_batches": {
+          "count": 32,
+          "p50": 9,
+          "p95": 10,
+          "p99": 10,
+          "maximum": 10
+        }
+      },
+      "invalidated_candidates": 16,
+      "elapsed_blocks": 196,
+      "admission_per_ckb_block": 0.08163265306122448,
+      "canonical_batches_per_ckb_block": 0.08163265306122448,
+      "lane_churn_per_ckb_block": [
+        0.08163265306122448
+      ],
+      "fees_shannons": 3300000000,
+      "retained_capacity_shannons": 552800000000,
+      "drain_rounds": 18,
+      "maximum_processing_batches": 10
+    },
+    {
+      "lanes": 1,
+      "regime": "L3-targeted",
+      "window_quanta": 1,
+      "arm": "mandatory-sealed",
+      "offered": 32,
+      "admitted": 32,
+      "processed": 24,
+      "offchain_backlog": 0,
+      "canonical_batches": 32,
+      "active_admission_success_rate": 1.0,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 32,
+          "p50": 4,
+          "p95": 4,
+          "p99": 4,
+          "maximum": 4
+        },
+        "processing_batches": {
+          "count": 32,
+          "p50": 6,
+          "p95": 9,
+          "p99": 9,
+          "maximum": 9
+        }
+      },
+      "invalidated_candidates": 0,
+      "elapsed_blocks": 268,
+      "admission_per_ckb_block": 0.11940298507462686,
+      "canonical_batches_per_ckb_block": 0.11940298507462686,
+      "lane_churn_per_ckb_block": [
+        0.11940298507462686
+      ],
+      "fees_shannons": 6700000000,
+      "retained_capacity_shannons": 1234400000000,
+      "drain_rounds": 2,
+      "maximum_processing_batches": 9
+    },
+    {
+      "lanes": 1,
+      "regime": "L3-targeted",
+      "window_quanta": 3,
+      "arm": "live-dependency-diagnostic",
+      "offered": 96,
+      "admitted": 16,
+      "processed": 8,
+      "offchain_backlog": 80,
+      "canonical_batches": 16,
+      "active_admission_success_rate": 0.16666666666666666,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 96,
+          "p50": 496,
+          "p95": 668,
+          "p99": 684,
+          "maximum": 684
+        },
+        "processing_batches": {
+          "count": 96,
+          "p50": 6,
+          "p95": 10,
+          "p99": 10,
+          "maximum": 10
+        }
+      },
+      "invalidated_candidates": 16,
+      "elapsed_blocks": 452,
+      "admission_per_ckb_block": 0.035398230088495575,
+      "canonical_batches_per_ckb_block": 0.035398230088495575,
+      "lane_churn_per_ckb_block": [
+        0.035398230088495575
+      ],
+      "fees_shannons": 3300000000,
+      "retained_capacity_shannons": 552800000000,
+      "drain_rounds": 82,
+      "maximum_processing_batches": 10
+    },
+    {
+      "lanes": 1,
+      "regime": "L3-targeted",
+      "window_quanta": 3,
+      "arm": "mandatory-sealed",
+      "offered": 96,
+      "admitted": 32,
+      "processed": 24,
+      "offchain_backlog": 64,
+      "canonical_batches": 32,
+      "active_admission_success_rate": 0.3333333333333333,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 96,
+          "p50": 396,
+          "p95": 532,
+          "p99": 548,
+          "maximum": 548
+        },
+        "processing_batches": {
+          "count": 96,
+          "p50": 6,
+          "p95": 9,
+          "p99": 9,
+          "maximum": 9
+        }
+      },
+      "invalidated_candidates": 0,
+      "elapsed_blocks": 524,
+      "admission_per_ckb_block": 0.061068702290076333,
+      "canonical_batches_per_ckb_block": 0.061068702290076333,
+      "lane_churn_per_ckb_block": [
+        0.061068702290076333
+      ],
+      "fees_shannons": 6700000000,
+      "retained_capacity_shannons": 1234400000000,
+      "drain_rounds": 66,
+      "maximum_processing_batches": 9
+    },
+    {
+      "lanes": 2,
+      "regime": "L1-per-lane",
+      "window_quanta": 1,
+      "arm": "live-dependency-diagnostic",
+      "offered": 64,
+      "admitted": 32,
+      "processed": 16,
+      "offchain_backlog": 32,
+      "canonical_batches": 16,
+      "active_admission_success_rate": 0.5,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 64,
+          "p50": 72,
+          "p95": 140,
+          "p99": 140,
+          "maximum": 140
+        },
+        "processing_batches": {
+          "count": 64,
+          "p50": 9,
+          "p95": 12,
+          "p99": 12,
+          "maximum": 12
+        }
+      },
+      "invalidated_candidates": 16,
+      "elapsed_blocks": 196,
+      "admission_per_ckb_block": 0.16326530612244897,
+      "canonical_batches_per_ckb_block": 0.08163265306122448,
+      "lane_churn_per_ckb_block": [
+        0.08163265306122448,
+        0.08163265306122448
+      ],
+      "fees_shannons": 3300000000,
+      "retained_capacity_shannons": 672600000000,
+      "drain_rounds": 20,
+      "maximum_processing_batches": 12
+    },
+    {
+      "lanes": 2,
+      "regime": "L1-per-lane",
+      "window_quanta": 1,
+      "arm": "mandatory-sealed",
+      "offered": 64,
+      "admitted": 64,
+      "processed": 48,
+      "offchain_backlog": 0,
+      "canonical_batches": 32,
+      "active_admission_success_rate": 1.0,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 64,
+          "p50": 4,
+          "p95": 4,
+          "p99": 4,
+          "maximum": 4
+        },
+        "processing_batches": {
+          "count": 64,
+          "p50": 7,
+          "p95": 9,
+          "p99": 9,
+          "maximum": 9
+        }
+      },
+      "invalidated_candidates": 0,
+      "elapsed_blocks": 267,
+      "admission_per_ckb_block": 0.2397003745318352,
+      "canonical_batches_per_ckb_block": 0.1198501872659176,
+      "lane_churn_per_ckb_block": [
+        0.1198501872659176,
+        0.1198501872659176
+      ],
+      "fees_shannons": 6700000000,
+      "retained_capacity_shannons": 1593800000000,
+      "drain_rounds": 4,
+      "maximum_processing_batches": 9
+    },
+    {
+      "lanes": 2,
+      "regime": "L1-per-lane",
+      "window_quanta": 3,
+      "arm": "live-dependency-diagnostic",
+      "offered": 192,
+      "admitted": 48,
+      "processed": 32,
+      "offchain_backlog": 144,
+      "canonical_batches": 23,
+      "active_admission_success_rate": 0.25,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 192,
+          "p50": 460,
+          "p95": 607,
+          "p99": 619,
+          "maximum": 619
+        },
+        "processing_batches": {
+          "count": 192,
+          "p50": 8,
+          "p95": 12,
+          "p99": 12,
+          "maximum": 12
+        }
+      },
+      "invalidated_candidates": 9,
+      "elapsed_blocks": 484,
+      "admission_per_ckb_block": 0.09917355371900827,
+      "canonical_batches_per_ckb_block": 0.047520661157024795,
+      "lane_churn_per_ckb_block": [
+        0.049586776859504134,
+        0.049586776859504134
+      ],
+      "fees_shannons": 4900000000,
+      "retained_capacity_shannons": 1106700000000,
+      "drain_rounds": 77,
+      "maximum_processing_batches": 12
+    },
+    {
+      "lanes": 2,
+      "regime": "L1-per-lane",
+      "window_quanta": 3,
+      "arm": "mandatory-sealed",
+      "offered": 192,
+      "admitted": 64,
+      "processed": 48,
+      "offchain_backlog": 128,
+      "canonical_batches": 32,
+      "active_admission_success_rate": 0.3333333333333333,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 192,
+          "p50": 404,
+          "p95": 536,
+          "p99": 548,
+          "maximum": 548
+        },
+        "processing_batches": {
+          "count": 192,
+          "p50": 8,
+          "p95": 10,
+          "p99": 10,
+          "maximum": 10
+        }
+      },
+      "invalidated_candidates": 0,
+      "elapsed_blocks": 524,
+      "admission_per_ckb_block": 0.12213740458015267,
+      "canonical_batches_per_ckb_block": 0.061068702290076333,
+      "lane_churn_per_ckb_block": [
+        0.061068702290076333,
+        0.061068702290076333
+      ],
+      "fees_shannons": 6700000000,
+      "retained_capacity_shannons": 1593800000000,
+      "drain_rounds": 68,
+      "maximum_processing_batches": 10
+    },
+    {
+      "lanes": 2,
+      "regime": "L2-fixed-aggregate",
+      "window_quanta": 1,
+      "arm": "live-dependency-diagnostic",
+      "offered": 32,
+      "admitted": 32,
+      "processed": 0,
+      "offchain_backlog": 0,
+      "canonical_batches": 8,
+      "active_admission_success_rate": 1.0,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 32,
+          "p50": 4,
+          "p95": 64,
+          "p99": 72,
+          "maximum": 72
+        },
+        "processing_batches": {
+          "count": 32,
+          "p50": 10,
+          "p95": 12,
+          "p99": 12,
+          "maximum": 12
+        }
+      },
+      "invalidated_candidates": 24,
+      "elapsed_blocks": 164,
+      "admission_per_ckb_block": 0.1951219512195122,
+      "canonical_batches_per_ckb_block": 0.04878048780487805,
+      "lane_churn_per_ckb_block": [
+        0.0975609756097561,
+        0.0975609756097561
+      ],
+      "fees_shannons": 3300000000,
+      "retained_capacity_shannons": 351800000000,
+      "drain_rounds": 12,
+      "maximum_processing_batches": 12
+    },
+    {
+      "lanes": 2,
+      "regime": "L2-fixed-aggregate",
+      "window_quanta": 1,
+      "arm": "mandatory-sealed",
+      "offered": 32,
+      "admitted": 32,
+      "processed": 24,
+      "offchain_backlog": 0,
+      "canonical_batches": 32,
+      "active_admission_success_rate": 1.0,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 32,
+          "p50": 4,
+          "p95": 4,
+          "p99": 4,
+          "maximum": 4
+        },
+        "processing_batches": {
+          "count": 32,
+          "p50": 6,
+          "p95": 9,
+          "p99": 9,
+          "maximum": 9
+        }
+      },
+      "invalidated_candidates": 0,
+      "elapsed_blocks": 268,
+      "admission_per_ckb_block": 0.11940298507462686,
+      "canonical_batches_per_ckb_block": 0.11940298507462686,
+      "lane_churn_per_ckb_block": [
+        0.05970149253731343,
+        0.05970149253731343
+      ],
+      "fees_shannons": 6700000000,
+      "retained_capacity_shannons": 1272200000000,
+      "drain_rounds": 2,
+      "maximum_processing_batches": 9
+    },
+    {
+      "lanes": 2,
+      "regime": "L2-fixed-aggregate",
+      "window_quanta": 3,
+      "arm": "live-dependency-diagnostic",
+      "offered": 96,
+      "admitted": 48,
+      "processed": 32,
+      "offchain_backlog": 48,
+      "canonical_batches": 20,
+      "active_admission_success_rate": 0.5,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 96,
+          "p50": 224,
+          "p95": 264,
+          "p99": 268,
+          "maximum": 268
+        },
+        "processing_batches": {
+          "count": 96,
+          "p50": 9,
+          "p95": 12,
+          "p99": 12,
+          "maximum": 12
+        }
+      },
+      "invalidated_candidates": 12,
+      "elapsed_blocks": 472,
+      "admission_per_ckb_block": 0.1016949152542373,
+      "canonical_batches_per_ckb_block": 0.0423728813559322,
+      "lane_churn_per_ckb_block": [
+        0.05084745762711865,
+        0.05084745762711865
+      ],
+      "fees_shannons": 5400000000,
+      "retained_capacity_shannons": 1027200000000,
+      "drain_rounds": 32,
+      "maximum_processing_batches": 12
+    },
+    {
+      "lanes": 2,
+      "regime": "L2-fixed-aggregate",
+      "window_quanta": 3,
+      "arm": "mandatory-sealed",
+      "offered": 96,
+      "admitted": 64,
+      "processed": 48,
+      "offchain_backlog": 32,
+      "canonical_batches": 32,
+      "active_admission_success_rate": 0.6666666666666666,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 96,
+          "p50": 92,
+          "p95": 176,
+          "p99": 184,
+          "maximum": 184
+        },
+        "processing_batches": {
+          "count": 96,
+          "p50": 9,
+          "p95": 10,
+          "p99": 10,
+          "maximum": 10
+        }
+      },
+      "invalidated_candidates": 0,
+      "elapsed_blocks": 524,
+      "admission_per_ckb_block": 0.12213740458015267,
+      "canonical_batches_per_ckb_block": 0.061068702290076333,
+      "lane_churn_per_ckb_block": [
+        0.061068702290076333,
+        0.061068702290076333
+      ],
+      "fees_shannons": 7500000000,
+      "retained_capacity_shannons": 1593800000000,
+      "drain_rounds": 20,
+      "maximum_processing_batches": 10
+    },
+    {
+      "lanes": 2,
+      "regime": "L3-targeted",
+      "window_quanta": 1,
+      "arm": "live-dependency-diagnostic",
+      "offered": 32,
+      "admitted": 16,
+      "processed": 8,
+      "offchain_backlog": 16,
+      "canonical_batches": 16,
+      "active_admission_success_rate": 0.5,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 32,
+          "p50": 72,
+          "p95": 140,
+          "p99": 140,
+          "maximum": 140
+        },
+        "processing_batches": {
+          "count": 32,
+          "p50": 9,
+          "p95": 10,
+          "p99": 10,
+          "maximum": 10
+        }
+      },
+      "invalidated_candidates": 16,
+      "elapsed_blocks": 196,
+      "admission_per_ckb_block": 0.08163265306122448,
+      "canonical_batches_per_ckb_block": 0.08163265306122448,
+      "lane_churn_per_ckb_block": [
+        0.08163265306122448,
+        0.0
+      ],
+      "fees_shannons": 3300000000,
+      "retained_capacity_shannons": 565400000000,
+      "drain_rounds": 18,
+      "maximum_processing_batches": 10
+    },
+    {
+      "lanes": 2,
+      "regime": "L3-targeted",
+      "window_quanta": 1,
+      "arm": "mandatory-sealed",
+      "offered": 32,
+      "admitted": 32,
+      "processed": 24,
+      "offchain_backlog": 0,
+      "canonical_batches": 32,
+      "active_admission_success_rate": 1.0,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 32,
+          "p50": 4,
+          "p95": 4,
+          "p99": 4,
+          "maximum": 4
+        },
+        "processing_batches": {
+          "count": 32,
+          "p50": 6,
+          "p95": 9,
+          "p99": 9,
+          "maximum": 9
+        }
+      },
+      "invalidated_candidates": 0,
+      "elapsed_blocks": 268,
+      "admission_per_ckb_block": 0.11940298507462686,
+      "canonical_batches_per_ckb_block": 0.11940298507462686,
+      "lane_churn_per_ckb_block": [
+        0.11940298507462686,
+        0.0
+      ],
+      "fees_shannons": 6700000000,
+      "retained_capacity_shannons": 1272200000000,
+      "drain_rounds": 2,
+      "maximum_processing_batches": 9
+    },
+    {
+      "lanes": 2,
+      "regime": "L3-targeted",
+      "window_quanta": 3,
+      "arm": "live-dependency-diagnostic",
+      "offered": 96,
+      "admitted": 16,
+      "processed": 8,
+      "offchain_backlog": 80,
+      "canonical_batches": 16,
+      "active_admission_success_rate": 0.16666666666666666,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 96,
+          "p50": 496,
+          "p95": 667,
+          "p99": 683,
+          "maximum": 683
+        },
+        "processing_batches": {
+          "count": 96,
+          "p50": 6,
+          "p95": 10,
+          "p99": 10,
+          "maximum": 10
+        }
+      },
+      "invalidated_candidates": 16,
+      "elapsed_blocks": 452,
+      "admission_per_ckb_block": 0.035398230088495575,
+      "canonical_batches_per_ckb_block": 0.035398230088495575,
+      "lane_churn_per_ckb_block": [
+        0.035398230088495575,
+        0.0
+      ],
+      "fees_shannons": 3300000000,
+      "retained_capacity_shannons": 565400000000,
+      "drain_rounds": 82,
+      "maximum_processing_batches": 10
+    },
+    {
+      "lanes": 2,
+      "regime": "L3-targeted",
+      "window_quanta": 3,
+      "arm": "mandatory-sealed",
+      "offered": 96,
+      "admitted": 32,
+      "processed": 24,
+      "offchain_backlog": 64,
+      "canonical_batches": 32,
+      "active_admission_success_rate": 0.3333333333333333,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 96,
+          "p50": 396,
+          "p95": 532,
+          "p99": 548,
+          "maximum": 548
+        },
+        "processing_batches": {
+          "count": 96,
+          "p50": 6,
+          "p95": 9,
+          "p99": 9,
+          "maximum": 9
+        }
+      },
+      "invalidated_candidates": 0,
+      "elapsed_blocks": 524,
+      "admission_per_ckb_block": 0.061068702290076333,
+      "canonical_batches_per_ckb_block": 0.061068702290076333,
+      "lane_churn_per_ckb_block": [
+        0.061068702290076333,
+        0.0
+      ],
+      "fees_shannons": 6700000000,
+      "retained_capacity_shannons": 1272200000000,
+      "drain_rounds": 66,
+      "maximum_processing_batches": 9
+    },
+    {
+      "lanes": 4,
+      "regime": "L1-per-lane",
+      "window_quanta": 1,
+      "arm": "live-dependency-diagnostic",
+      "offered": 128,
+      "admitted": 64,
+      "processed": 32,
+      "offchain_backlog": 64,
+      "canonical_batches": 16,
+      "active_admission_success_rate": 0.5,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 128,
+          "p50": 72,
+          "p95": 140,
+          "p99": 140,
+          "maximum": 140
+        },
+        "processing_batches": {
+          "count": 128,
+          "p50": 9,
+          "p95": 16,
+          "p99": 16,
+          "maximum": 16
+        }
+      },
+      "invalidated_candidates": 16,
+      "elapsed_blocks": 196,
+      "admission_per_ckb_block": 0.32653061224489793,
+      "canonical_batches_per_ckb_block": 0.08163265306122448,
+      "lane_churn_per_ckb_block": [
+        0.08163265306122448,
+        0.08163265306122448,
+        0.08163265306122448,
+        0.08163265306122448
+      ],
+      "fees_shannons": 3300000000,
+      "retained_capacity_shannons": 912200000000,
+      "drain_rounds": 24,
+      "maximum_processing_batches": 16
+    },
+    {
+      "lanes": 4,
+      "regime": "L1-per-lane",
+      "window_quanta": 1,
+      "arm": "mandatory-sealed",
+      "offered": 128,
+      "admitted": 128,
+      "processed": 96,
+      "offchain_backlog": 0,
+      "canonical_batches": 32,
+      "active_admission_success_rate": 1.0,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 128,
+          "p50": 4,
+          "p95": 4,
+          "p99": 4,
+          "maximum": 4
+        },
+        "processing_batches": {
+          "count": 128,
+          "p50": 9,
+          "p95": 9,
+          "p99": 9,
+          "maximum": 9
+        }
+      },
+      "invalidated_candidates": 0,
+      "elapsed_blocks": 268,
+      "admission_per_ckb_block": 0.47761194029850745,
+      "canonical_batches_per_ckb_block": 0.11940298507462686,
+      "lane_churn_per_ckb_block": [
+        0.11940298507462686,
+        0.11940298507462686,
+        0.11940298507462686,
+        0.11940298507462686
+      ],
+      "fees_shannons": 6700000000,
+      "retained_capacity_shannons": 2312600000000,
+      "drain_rounds": 8,
+      "maximum_processing_batches": 9
+    },
+    {
+      "lanes": 4,
+      "regime": "L1-per-lane",
+      "window_quanta": 3,
+      "arm": "live-dependency-diagnostic",
+      "offered": 384,
+      "admitted": 96,
+      "processed": 60,
+      "offchain_backlog": 288,
+      "canonical_batches": 23,
+      "active_admission_success_rate": 0.25,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 384,
+          "p50": 459,
+          "p95": 608,
+          "p99": 620,
+          "maximum": 620
+        },
+        "processing_batches": {
+          "count": 384,
+          "p50": 9,
+          "p95": 15,
+          "p99": 16,
+          "maximum": 16
+        }
+      },
+      "invalidated_candidates": 9,
+      "elapsed_blocks": 483,
+      "admission_per_ckb_block": 0.19875776397515527,
+      "canonical_batches_per_ckb_block": 0.047619047619047616,
+      "lane_churn_per_ckb_block": [
+        0.049689440993788817,
+        0.049689440993788817,
+        0.049689440993788817,
+        0.049689440993788817
+      ],
+      "fees_shannons": 4900000000,
+      "retained_capacity_shannons": 1558700000000,
+      "drain_rounds": 81,
+      "maximum_processing_batches": 16
+    },
+    {
+      "lanes": 4,
+      "regime": "L1-per-lane",
+      "window_quanta": 3,
+      "arm": "mandatory-sealed",
+      "offered": 384,
+      "admitted": 128,
+      "processed": 96,
+      "offchain_backlog": 256,
+      "canonical_batches": 32,
+      "active_admission_success_rate": 0.3333333333333333,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 384,
+          "p50": 404,
+          "p95": 536,
+          "p99": 548,
+          "maximum": 548
+        },
+        "processing_batches": {
+          "count": 384,
+          "p50": 9,
+          "p95": 13,
+          "p99": 14,
+          "maximum": 14
+        }
+      },
+      "invalidated_candidates": 0,
+      "elapsed_blocks": 524,
+      "admission_per_ckb_block": 0.24427480916030533,
+      "canonical_batches_per_ckb_block": 0.061068702290076333,
+      "lane_churn_per_ckb_block": [
+        0.061068702290076333,
+        0.061068702290076333,
+        0.061068702290076333,
+        0.061068702290076333
+      ],
+      "fees_shannons": 6700000000,
+      "retained_capacity_shannons": 2312600000000,
+      "drain_rounds": 72,
+      "maximum_processing_batches": 14
+    },
+    {
+      "lanes": 4,
+      "regime": "L2-fixed-aggregate",
+      "window_quanta": 1,
+      "arm": "live-dependency-diagnostic",
+      "offered": 32,
+      "admitted": 32,
+      "processed": 0,
+      "offchain_backlog": 0,
+      "canonical_batches": 0,
+      "active_admission_success_rate": 1.0,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 32,
+          "p50": 4,
+          "p95": 4,
+          "p99": 4,
+          "maximum": 4
+        },
+        "processing_batches": {
+          "count": 32,
+          "p50": 12,
+          "p95": 16,
+          "p99": 16,
+          "maximum": 16
+        }
+      },
+      "invalidated_candidates": 32,
+      "elapsed_blocks": 128,
+      "admission_per_ckb_block": 0.25,
+      "canonical_batches_per_ckb_block": 0.0,
+      "lane_churn_per_ckb_block": [
+        0.0625,
+        0.0625,
+        0.0625,
+        0.0625
+      ],
+      "fees_shannons": 3200000000,
+      "retained_capacity_shannons": 0,
+      "drain_rounds": 16,
+      "maximum_processing_batches": 16
+    },
+    {
+      "lanes": 4,
+      "regime": "L2-fixed-aggregate",
+      "window_quanta": 1,
+      "arm": "mandatory-sealed",
+      "offered": 32,
+      "admitted": 32,
+      "processed": 24,
+      "offchain_backlog": 0,
+      "canonical_batches": 32,
+      "active_admission_success_rate": 1.0,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 32,
+          "p50": 4,
+          "p95": 4,
+          "p99": 4,
+          "maximum": 4
+        },
+        "processing_batches": {
+          "count": 32,
+          "p50": 6,
+          "p95": 9,
+          "p99": 9,
+          "maximum": 9
+        }
+      },
+      "invalidated_candidates": 0,
+      "elapsed_blocks": 267,
+      "admission_per_ckb_block": 0.1198501872659176,
+      "canonical_batches_per_ckb_block": 0.1198501872659176,
+      "lane_churn_per_ckb_block": [
+        0.0299625468164794,
+        0.0299625468164794,
+        0.0299625468164794,
+        0.0299625468164794
+      ],
+      "fees_shannons": 6700000000,
+      "retained_capacity_shannons": 1347800000000,
+      "drain_rounds": 2,
+      "maximum_processing_batches": 9
+    },
+    {
+      "lanes": 4,
+      "regime": "L2-fixed-aggregate",
+      "window_quanta": 3,
+      "arm": "live-dependency-diagnostic",
+      "offered": 96,
+      "admitted": 88,
+      "processed": 32,
+      "offchain_backlog": 8,
+      "canonical_batches": 16,
+      "active_admission_success_rate": 0.9166666666666666,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 96,
+          "p50": 40,
+          "p95": 136,
+          "p99": 144,
+          "maximum": 144
+        },
+        "processing_batches": {
+          "count": 96,
+          "p50": 12,
+          "p95": 16,
+          "p99": 16,
+          "maximum": 16
+        }
+      },
+      "invalidated_candidates": 16,
+      "elapsed_blocks": 456,
+      "admission_per_ckb_block": 0.19298245614035087,
+      "canonical_batches_per_ckb_block": 0.03508771929824561,
+      "lane_churn_per_ckb_block": [
+        0.04824561403508772,
+        0.04824561403508772,
+        0.04824561403508772,
+        0.04824561403508772
+      ],
+      "fees_shannons": 6400000000,
+      "retained_capacity_shannons": 1182800000000,
+      "drain_rounds": 16,
+      "maximum_processing_batches": 16
+    },
+    {
+      "lanes": 4,
+      "regime": "L2-fixed-aggregate",
+      "window_quanta": 3,
+      "arm": "mandatory-sealed",
+      "offered": 96,
+      "admitted": 96,
+      "processed": 72,
+      "offchain_backlog": 0,
+      "canonical_batches": 32,
+      "active_admission_success_rate": 1.0,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 96,
+          "p50": 4,
+          "p95": 4,
+          "p99": 4,
+          "maximum": 4
+        },
+        "processing_batches": {
+          "count": 96,
+          "p50": 8,
+          "p95": 9,
+          "p99": 9,
+          "maximum": 9
+        }
+      },
+      "invalidated_candidates": 0,
+      "elapsed_blocks": 524,
+      "admission_per_ckb_block": 0.183206106870229,
+      "canonical_batches_per_ckb_block": 0.061068702290076333,
+      "lane_churn_per_ckb_block": [
+        0.04580152671755725,
+        0.04580152671755725,
+        0.04580152671755725,
+        0.04580152671755725
+      ],
+      "fees_shannons": 13100000000,
+      "retained_capacity_shannons": 1991000000000,
+      "drain_rounds": 6,
+      "maximum_processing_batches": 9
+    },
+    {
+      "lanes": 4,
+      "regime": "L3-targeted",
+      "window_quanta": 1,
+      "arm": "live-dependency-diagnostic",
+      "offered": 32,
+      "admitted": 16,
+      "processed": 8,
+      "offchain_backlog": 16,
+      "canonical_batches": 16,
+      "active_admission_success_rate": 0.5,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 32,
+          "p50": 72,
+          "p95": 140,
+          "p99": 140,
+          "maximum": 140
+        },
+        "processing_batches": {
+          "count": 32,
+          "p50": 9,
+          "p95": 10,
+          "p99": 10,
+          "maximum": 10
+        }
+      },
+      "invalidated_candidates": 16,
+      "elapsed_blocks": 196,
+      "admission_per_ckb_block": 0.08163265306122448,
+      "canonical_batches_per_ckb_block": 0.08163265306122448,
+      "lane_churn_per_ckb_block": [
+        0.08163265306122448,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fees_shannons": 3300000000,
+      "retained_capacity_shannons": 590600000000,
+      "drain_rounds": 18,
+      "maximum_processing_batches": 10
+    },
+    {
+      "lanes": 4,
+      "regime": "L3-targeted",
+      "window_quanta": 1,
+      "arm": "mandatory-sealed",
+      "offered": 32,
+      "admitted": 32,
+      "processed": 24,
+      "offchain_backlog": 0,
+      "canonical_batches": 32,
+      "active_admission_success_rate": 1.0,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 32,
+          "p50": 4,
+          "p95": 4,
+          "p99": 4,
+          "maximum": 4
+        },
+        "processing_batches": {
+          "count": 32,
+          "p50": 6,
+          "p95": 9,
+          "p99": 9,
+          "maximum": 9
+        }
+      },
+      "invalidated_candidates": 0,
+      "elapsed_blocks": 268,
+      "admission_per_ckb_block": 0.11940298507462686,
+      "canonical_batches_per_ckb_block": 0.11940298507462686,
+      "lane_churn_per_ckb_block": [
+        0.11940298507462686,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fees_shannons": 6700000000,
+      "retained_capacity_shannons": 1347800000000,
+      "drain_rounds": 2,
+      "maximum_processing_batches": 9
+    },
+    {
+      "lanes": 4,
+      "regime": "L3-targeted",
+      "window_quanta": 3,
+      "arm": "live-dependency-diagnostic",
+      "offered": 96,
+      "admitted": 16,
+      "processed": 8,
+      "offchain_backlog": 80,
+      "canonical_batches": 16,
+      "active_admission_success_rate": 0.16666666666666666,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 96,
+          "p50": 496,
+          "p95": 668,
+          "p99": 684,
+          "maximum": 684
+        },
+        "processing_batches": {
+          "count": 96,
+          "p50": 6,
+          "p95": 10,
+          "p99": 10,
+          "maximum": 10
+        }
+      },
+      "invalidated_candidates": 16,
+      "elapsed_blocks": 452,
+      "admission_per_ckb_block": 0.035398230088495575,
+      "canonical_batches_per_ckb_block": 0.035398230088495575,
+      "lane_churn_per_ckb_block": [
+        0.035398230088495575,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fees_shannons": 3300000000,
+      "retained_capacity_shannons": 590600000000,
+      "drain_rounds": 82,
+      "maximum_processing_batches": 10
+    },
+    {
+      "lanes": 4,
+      "regime": "L3-targeted",
+      "window_quanta": 3,
+      "arm": "mandatory-sealed",
+      "offered": 96,
+      "admitted": 32,
+      "processed": 24,
+      "offchain_backlog": 64,
+      "canonical_batches": 32,
+      "active_admission_success_rate": 0.3333333333333333,
+      "latency_including_stopped_arrival_drain": {
+        "admission_blocks": {
+          "count": 96,
+          "p50": 396,
+          "p95": 532,
+          "p99": 548,
+          "maximum": 548
+        },
+        "processing_batches": {
+          "count": 96,
+          "p50": 6,
+          "p95": 9,
+          "p99": 9,
+          "maximum": 9
+        }
+      },
+      "invalidated_candidates": 0,
+      "elapsed_blocks": 524,
+      "admission_per_ckb_block": 0.061068702290076333,
+      "canonical_batches_per_ckb_block": 0.061068702290076333,
+      "lane_churn_per_ckb_block": [
+        0.061068702290076333,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fees_shannons": 6700000000,
+      "retained_capacity_shannons": 1347800000000,
+      "drain_rounds": 66,
+      "maximum_processing_batches": 9
+    }
+  ]
+}

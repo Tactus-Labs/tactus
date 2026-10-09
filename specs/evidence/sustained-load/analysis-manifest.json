@@ -1,0 +1,9 @@
+{
+  "source_sha256": {
+    "scripts/analyze-load.py": "96b54319212d18086b0c7c9ff365c0bf8781715dbb36ad9e93f25beae8bac9a0",
+    "scripts/test-load-analysis.py": "c3d823cb93635ec73f590d99740baba3b63f72d6db7e0776847080f7b7755011",
+    ".github/workflows/evidence-audit.yml": "81d064e353bc99235035585252ff0ddbef710d68ff8804e791836d2a297d05b5"
+  },
+  "launch_time_workflow": "launch-time-ci.yml retains the exact workflow bytes hashed at launch. The final workflow raises its job timeout from 45 to 90 minutes and registers the separately completed seal-contention suite. The preserved workflow and runner match launch-time hashes; these orchestration edits were not executed by the local load runs.",
+  "scope": "Post-run independent reconciliation and retained-evidence regression. These files were added while live matrices ran; launch manifests separately pin the executed driver, original launcher and programs."
+}

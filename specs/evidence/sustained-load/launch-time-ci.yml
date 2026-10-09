@@ -19,8 +19,6 @@ jobs:
       - run: cargo fmt --all -- --check
       - run: cargo clippy --locked --workspace --all-targets -- -D warnings
       - run: cargo test --locked --workspace --quiet
-      - name: Audit retained seal contention and corrupted evidence
-        run: python3 scripts/test-seal-analysis.py
       - name: Independent batch codec vectors
         run: |
           python3 scripts/generate-batch-vectors.py
@@ -55,7 +53,7 @@ jobs:
 
   ckb-mechanisms:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 45
     strategy:
       fail-fast: false
       matrix:
@@ -109,11 +107,6 @@ jobs:
           TACTUS_CKB_VERSION: ${{ matrix.ckb }}
           TACTUS_DEVNET_SUITE: replay-sealed
         run: CKB_BIN="$RUNNER_TEMP/ckb/ckb" scripts/run-devnet-experiments.sh
-      - name: Verify bounded churn against freshly rebuilt seals
-        env:
-          TACTUS_CKB_VERSION: ${{ matrix.ckb }}
-          TACTUS_DEVNET_SUITE: replay-seal-contention
-        run: CKB_BIN="$RUNNER_TEMP/ckb/ckb" scripts/run-devnet-experiments.sh
       - name: Verify A2 obligations and challenge-only forced-inclusion counterexample
         env:
           TACTUS_CKB_VERSION: ${{ matrix.ckb }}
@@ -136,13 +129,6 @@ jobs:
             artifacts/load-*/node.log
             artifacts/load-*/node/ckb.toml
             artifacts/load-*/node/specs/dev.toml
-            artifacts/seal-contention-*/evidence.json
-            artifacts/seal-contention-*/summary.json
-            artifacts/seal-contention-*/manifest.json
-            artifacts/seal-contention-*/replay.log
-            artifacts/seal-contention-*/node.log
-            artifacts/seal-contention-*/node/ckb.toml
-            artifacts/seal-contention-*/node/specs/dev.toml
             artifacts/network-*/evidence.json
             artifacts/network-*/summary.json
             artifacts/network-*/manifest.json

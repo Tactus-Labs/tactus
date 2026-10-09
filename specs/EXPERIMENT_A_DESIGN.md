@@ -8,7 +8,10 @@ Current evidence includes the [mechanism controls](EXPERIMENT_A_DEVNET_REPORT.md
 [authenticated A2 obligations](A2_OBLIGATION_REPORT.md),
 [mandatory A3 sealed gate](A3_SEALED_REPORT.md), and
 [matched admission contention](ADMISSION_CONTENTION_REPORT.md), and
-[controlled P2P reorganization](NETWORK_REORG_REPORT.md). These measurements
+[controlled P2P reorganization](NETWORK_REORG_REPORT.md), and
+[sustained L1/L2/L3 load](SUSTAINED_LOAD_REPORT.md). The
+[requirement-by-requirement audit](EXPERIMENT_A_ACCEPTANCE_MATRIX.md) records the
+remaining acceptance work. These measurements
 cover specific boundaries; the complete workload and acceptance requirements
 below remain the target, not a claim of completion.
 
@@ -113,3 +116,8 @@ CKB protocol extension. First sources:
 [Kaspa Based Apps](https://docs.kaspa.org/programmability/based-apps) and the
 [vProgs architecture proposal](https://research.kas.pa/t/concrete-proposal-for-a-synchronously-composable-verifiable-programs-architecture/387)
 — a research reference, not a dependency (DAG note §3.4).
+
+The [source-pinned comparison](SEQCOMMIT_COMPARISON.md) distinguishes native
+sequence authentication, the measured Cell-script construction, and unimplemented
+CKB history-proof or consensus-extension alternatives. It does not select a
+production mechanism or pass a validity/custody gate.

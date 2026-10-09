@@ -153,9 +153,11 @@ promoting this bounded scenario into a complete G2 pass. Production still requir
 the complete execution → proof → verified settlement → exit path described in
 [PRODUCTION_READINESS.md](PRODUCTION_READINESS.md).
 
-## Repeated seal contention
+## Sustained load and repeated seal contention
 
-The later [fresh seal-contention experiment](SEAL_CONTENTION_REPORT.md) measures
-repeated stale seals until the finite valid-append budget exhausts, then verifies
-complete sealing and processing in consecutive epochs. Its conditional canonical
-progress bound does not qualify miner inclusion or user admission fairness.
+The later [L1/L2/L3 workload](SUSTAINED_LOAD_REPORT.md) measures queue backpressure,
+dual admission/batch progress and stopped-arrival drain. The separate
+[fresh seal-contention experiment](SEAL_CONTENTION_REPORT.md) measures repeated
+stale seals until the finite valid-append budget exhausts, then verifies complete
+sealing and processing in consecutive epochs. These supplement this report's
+historical evidence; they do not qualify miner inclusion or user admission fairness.
