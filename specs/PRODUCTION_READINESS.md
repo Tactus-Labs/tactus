@@ -60,6 +60,11 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
   and absolute fees. A3 targeted same-lane conflicts retain A1's failure modes;
   independent A2 and disjoint A3 admissions succeed in this bounded schedule.
 
+- [Independent A3 cold recovery](SEALED_RECOVERY_REPORT.md) reconstructs the
+  Schedule, lane queues and current snapshot from canonical blocks in fresh
+  processes. Recovered state drives replacement sealing after a planned rollback;
+  wrong domains and orphan pins fail. This does not recover validity settlement.
+
 ## Work that still blocks the user's production objective
 
 | Priority | Boundary | Required completion evidence |

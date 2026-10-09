@@ -1,0 +1,224 @@
+{
+  "0.121.0": {
+    "observer_processes": 15,
+    "wrong_domain_rejections": 3,
+    "observations": [
+      {
+        "label": "sealed/cold genesis observer",
+        "admissions": 0,
+        "seals": 0,
+        "batches": 0,
+        "pinned_height": 12
+      },
+      {
+        "label": "sealed/cold observer before rollback branch",
+        "admissions": 11,
+        "seals": 1,
+        "batches": 16,
+        "pinned_height": 128
+      },
+      {
+        "label": "sealed/cold observer sees orphan seal and batch",
+        "admissions": 11,
+        "seals": 2,
+        "batches": 17,
+        "pinned_height": 136
+      },
+      {
+        "label": "sealed/cold observer restores canonical queues after rollback",
+        "admissions": 11,
+        "seals": 1,
+        "batches": 16,
+        "pinned_height": 128
+      },
+      {
+        "label": "sealed/cold observer reconstructs final pending state",
+        "admissions": 11,
+        "seals": 2,
+        "batches": 24,
+        "pinned_height": 164
+      },
+      {
+        "label": "sealed/cold genesis observer",
+        "admissions": 0,
+        "seals": 0,
+        "batches": 0,
+        "pinned_height": 169
+      },
+      {
+        "label": "sealed/cold observer before rollback branch",
+        "admissions": 22,
+        "seals": 1,
+        "batches": 16,
+        "pinned_height": 329
+      },
+      {
+        "label": "sealed/cold observer sees orphan seal and batch",
+        "admissions": 22,
+        "seals": 2,
+        "batches": 17,
+        "pinned_height": 337
+      },
+      {
+        "label": "sealed/cold observer restores canonical queues after rollback",
+        "admissions": 22,
+        "seals": 1,
+        "batches": 16,
+        "pinned_height": 329
+      },
+      {
+        "label": "sealed/cold observer reconstructs final pending state",
+        "admissions": 22,
+        "seals": 2,
+        "batches": 24,
+        "pinned_height": 365
+      },
+      {
+        "label": "sealed/cold genesis observer",
+        "admissions": 0,
+        "seals": 0,
+        "batches": 0,
+        "pinned_height": 370
+      },
+      {
+        "label": "sealed/cold observer before rollback branch",
+        "admissions": 44,
+        "seals": 1,
+        "batches": 16,
+        "pinned_height": 618
+      },
+      {
+        "label": "sealed/cold observer sees orphan seal and batch",
+        "admissions": 44,
+        "seals": 2,
+        "batches": 17,
+        "pinned_height": 626
+      },
+      {
+        "label": "sealed/cold observer restores canonical queues after rollback",
+        "admissions": 44,
+        "seals": 1,
+        "batches": 16,
+        "pinned_height": 618
+      },
+      {
+        "label": "sealed/cold observer reconstructs final pending state",
+        "admissions": 76,
+        "seals": 3,
+        "batches": 32,
+        "pinned_height": 818
+      }
+    ]
+  },
+  "0.210.0": {
+    "observer_processes": 15,
+    "wrong_domain_rejections": 3,
+    "observations": [
+      {
+        "label": "sealed/cold genesis observer",
+        "admissions": 0,
+        "seals": 0,
+        "batches": 0,
+        "pinned_height": 12
+      },
+      {
+        "label": "sealed/cold observer before rollback branch",
+        "admissions": 11,
+        "seals": 1,
+        "batches": 16,
+        "pinned_height": 128
+      },
+      {
+        "label": "sealed/cold observer sees orphan seal and batch",
+        "admissions": 11,
+        "seals": 2,
+        "batches": 17,
+        "pinned_height": 136
+      },
+      {
+        "label": "sealed/cold observer restores canonical queues after rollback",
+        "admissions": 11,
+        "seals": 1,
+        "batches": 16,
+        "pinned_height": 128
+      },
+      {
+        "label": "sealed/cold observer reconstructs final pending state",
+        "admissions": 11,
+        "seals": 2,
+        "batches": 24,
+        "pinned_height": 164
+      },
+      {
+        "label": "sealed/cold genesis observer",
+        "admissions": 0,
+        "seals": 0,
+        "batches": 0,
+        "pinned_height": 169
+      },
+      {
+        "label": "sealed/cold observer before rollback branch",
+        "admissions": 22,
+        "seals": 1,
+        "batches": 16,
+        "pinned_height": 329
+      },
+      {
+        "label": "sealed/cold observer sees orphan seal and batch",
+        "admissions": 22,
+        "seals": 2,
+        "batches": 17,
+        "pinned_height": 337
+      },
+      {
+        "label": "sealed/cold observer restores canonical queues after rollback",
+        "admissions": 22,
+        "seals": 1,
+        "batches": 16,
+        "pinned_height": 329
+      },
+      {
+        "label": "sealed/cold observer reconstructs final pending state",
+        "admissions": 22,
+        "seals": 2,
+        "batches": 24,
+        "pinned_height": 365
+      },
+      {
+        "label": "sealed/cold genesis observer",
+        "admissions": 0,
+        "seals": 0,
+        "batches": 0,
+        "pinned_height": 370
+      },
+      {
+        "label": "sealed/cold observer before rollback branch",
+        "admissions": 44,
+        "seals": 1,
+        "batches": 16,
+        "pinned_height": 618
+      },
+      {
+        "label": "sealed/cold observer sees orphan seal and batch",
+        "admissions": 44,
+        "seals": 2,
+        "batches": 17,
+        "pinned_height": 626
+      },
+      {
+        "label": "sealed/cold observer restores canonical queues after rollback",
+        "admissions": 44,
+        "seals": 1,
+        "batches": 16,
+        "pinned_height": 618
+      },
+      {
+        "label": "sealed/cold observer reconstructs final pending state",
+        "admissions": 76,
+        "seals": 3,
+        "batches": 32,
+        "pinned_height": 818
+      }
+    ]
+  }
+}

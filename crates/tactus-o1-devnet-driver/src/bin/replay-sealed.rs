@@ -166,8 +166,161 @@ fn seal(lab: &mut Lab, net: &mut Network, actor: usize, label: &str) -> Result<(
     net.snapshot = Some((lab::point(&hash, (net.lanes.len() + 1) as u32)?, sealed));
     Ok(())
 }
+// This decoder only consumes a just-executed observer's stdout. A saved JSON
+// view is never accepted as a replacement for canonical recovery.
+fn recovered_network(v: &Value) -> Result<Network, String> {
+    use tactus_o1_devnet_driver::{batch_lab::Anchor, tx::CellOutPoint};
+    use tactus_o1_protocol::batch::AnchorState;
+    fn bytes(v: &Value) -> Result<Vec<u8>, String> {
+        rpc::decode_hex(v.as_str().ok_or("observer bytes")?)
+    }
+    fn point(v: &Value) -> Result<CellOutPoint, String> {
+        lab::point(
+            v["tx_hash"].as_str().ok_or("observer point")?,
+            u32::from_str_radix(
+                v["index"]
+                    .as_str()
+                    .ok_or("observer index")?
+                    .trim_start_matches("0x"),
+                16,
+            )
+            .map_err(|e| e.to_string())?,
+        )
+    }
+    fn cell(v: &Value) -> Result<Cell, String> {
+        Ok(Cell {
+            point: point(&v["point"])?,
+            capacity: u64::from_str_radix(
+                v["capacity"]
+                    .as_str()
+                    .ok_or("observer capacity")?
+                    .trim_start_matches("0x"),
+                16,
+            )
+            .map_err(|e| e.to_string())?,
+            script: bytes(&v["type_script"])?,
+            lock: bytes(&v["lock"])?,
+        })
+    }
+    let ac = cell(&v["anchor"])?;
+    Ok(Network {
+        code: bytes(&v["code_hash"])?
+            .try_into()
+            .map_err(|_| "observer code hash length")?,
+        anchor: Anchor {
+            point: ac.point,
+            capacity: ac.capacity,
+            script: ac.script,
+            lock: ac.lock,
+            state: AnchorState::decode(&bytes(&v["anchor"]["data"])?)
+                .map_err(|e| format!("{e:?}"))?,
+            immutable: bytes(&v["anchor_immutable_lock"])?,
+        },
+        gate: cell(&v["gate"])?,
+        schedule: Schedule::decode(&bytes(&v["gate"]["data"])?).map_err(|e| format!("{e:?}"))?,
+        lanes: v["lanes"]
+            .as_array()
+            .ok_or("observer lanes")?
+            .iter()
+            .map(|v| {
+                Ok((
+                    cell(v)?,
+                    Lane::decode(&bytes(&v["data"])?).map_err(|e| format!("{e:?}"))?,
+                ))
+            })
+            .collect::<Result<_, String>>()?,
+        snapshot: if v["snapshot"].is_null() {
+            None
+        } else {
+            Some((
+                point(&v["snapshot"]["point"])?,
+                Snapshot::decode(&bytes(&v["snapshot"]["data"])?).map_err(|e| format!("{e:?}"))?,
+            ))
+        },
+    })
+}
+fn observer(lab: &mut Lab, net: &mut Network, label: &str) -> Result<Value, String> {
+    let chain = rpc::call("get_block_hash", json!(["0x0"]))?;
+    let binary = std::env::current_exe()
+        .map_err(|e| e.to_string())?
+        .with_file_name("recover-sealed");
+    let result = std::process::Command::new(binary)
+        .arg(chain.as_str().ok_or("chain hash")?)
+        .arg(rpc::bytes_to_hex(&net.gate.script))
+        .arg(rpc::bytes_to_hex(&net.anchor.script))
+        .output()
+        .map_err(|e| e.to_string())?;
+    if !result.status.success() {
+        return Err(format!(
+            "observer failed: {}",
+            String::from_utf8_lossy(&result.stderr)
+        ));
+    }
+    let report: Value = serde_json::from_slice(&result.stdout).map_err(|e| e.to_string())?;
+    if report["network"] != tactus_o1_devnet_driver::sealed_recovery::network_view(net) {
+        return Err("cold A3 recovery differs from publisher state".into());
+    }
+    *net = recovered_network(&report["network"])?;
+    lab.evidence
+        .push(json!({"label":label,"result":"control_passed","observer":report}));
+    println!("{label}: independent recovery matched");
+    Ok(report)
+}
+fn observer_wrong_domain(lab: &mut Lab, net: &Network) -> Result<(), String> {
+    let chain = rpc::call("get_block_hash", json!(["0x0"]))?
+        .as_str()
+        .ok_or("chain hash")?
+        .to_owned();
+    let binary = std::env::current_exe()
+        .map_err(|e| e.to_string())?
+        .with_file_name("recover-sealed");
+    let mut bad_gate = net.gate.script.clone();
+    *bad_gate.last_mut().unwrap() ^= 1;
+    let mut bad_anchor = net.anchor.script.clone();
+    *bad_anchor.last_mut().unwrap() ^= 1;
+    for (label, chain, gate, anchor, expected) in [
+        (
+            "wrong CKB chain",
+            rpc::bytes_to_hex(&[0; 32]),
+            net.gate.script.clone(),
+            net.anchor.script.clone(),
+            "CKB genesis hash mismatch",
+        ),
+        (
+            "wrong gate identity",
+            chain.clone(),
+            bad_gate,
+            net.anchor.script.clone(),
+            "anchor predates named gate genesis",
+        ),
+        (
+            "wrong anchor identity",
+            chain,
+            net.gate.script.clone(),
+            bad_anchor,
+            "gate genesis missing named anchor",
+        ),
+    ] {
+        let result = std::process::Command::new(&binary)
+            .arg(chain)
+            .arg(rpc::bytes_to_hex(&gate))
+            .arg(rpc::bytes_to_hex(&anchor))
+            .output()
+            .map_err(|e| e.to_string())?;
+        let error = String::from_utf8_lossy(&result.stderr).to_string();
+        if result.status.success() || !error.contains(expected) {
+            return Err(format!("observer {label}: unexpected result {error}"));
+        }
+        lab.evidence.push(json!({"label":format!("sealed/observer rejects {label}"),"result":"control_passed","expected_error":expected,"error":error}));
+    }
+    Ok(())
+}
 fn scenario(lab: &mut Lab, code: [u8; 32], n: u8) -> Result<Value, String> {
     let mut net = bootstrap(lab, code, n)?;
+    observer(lab, &mut net, "sealed/cold genesis observer")?;
+    if n == 1 {
+        observer_wrong_domain(lab, &net)?;
+    }
     let genesis = Genesis {
         rollup_id: net.anchor.state.rollup_id.into(),
         chain_id: 31337,
@@ -635,6 +788,7 @@ fn scenario(lab: &mut Lab, code: [u8; 32], n: u8) -> Result<Value, String> {
         "Inputs[1].Type",
         14,
     )?;
+    observer(lab, &mut net, "sealed/cold observer before rollback branch")?;
     let stable = net.clone();
     let stable_engine = engine.clone();
     let wallets: Vec<_> = lab.wallets.iter().map(|w| (w.point, w.capacity)).collect();
@@ -648,10 +802,32 @@ fn scenario(lab: &mut Lab, code: [u8; 32], n: u8) -> Result<Value, String> {
         &mut engine,
         "sealed/planned orphan first priority batch",
     )?;
+    let orphan_report = observer(
+        lab,
+        &mut net,
+        "sealed/cold observer sees orphan seal and batch",
+    )?;
     rpc::require_devnet()?;
     rpc::call("truncate", json!([parent["hash"]]))?;
     net = stable;
     engine = stable_engine;
+    if tactus_o1_devnet_driver::recovery::assert_canonical(
+        orphan_report["pinned_height"]
+            .as_u64()
+            .ok_or("observer height")?,
+        orphan_report["pinned_hash"]
+            .as_str()
+            .ok_or("observer hash")?,
+    )
+    .is_ok()
+    {
+        return Err("orphan observer prefix still considered canonical".into());
+    }
+    observer(
+        lab,
+        &mut net,
+        "sealed/cold observer restores canonical queues after rollback",
+    )?;
     for (wallet, (point, capacity)) in lab.wallets.iter_mut().zip(wallets) {
         wallet.point = point;
         wallet.capacity = capacity;
@@ -750,7 +926,21 @@ fn scenario(lab: &mut Lab, code: [u8; 32], n: u8) -> Result<Value, String> {
             )?;
         }
     }
-    let result = json!({"lanes":n,"maximum_payload_snapshot_bytes":maximum_payload_snapshot_bytes,"canonical_batches":net.anchor.state.next_batch_number,"post_seal_victim_batches_to_inclusion":elapsed,"second_snapshot_messages":observed.len(),"consumed_snapshot_messages":net.schedule.cursor,"active_churn_mutations":usize::from(n)*s::MAX_LANE_MESSAGES,"snapshot_retention":true,"planned_seal_and_batch_reorg_recovered":true,"independent_sealer":true,"pre_signed_batch_survived_churn":true,"pre_signed_admission_survived_schedule_change":true,"execution_head":engine.head(),"G2":"OPEN","scope":"Mandatory publication under canonical batch progress; no wall-clock, admission fairness or validity-proof claim"});
+    let final_report = observer(
+        lab,
+        &mut net,
+        "sealed/cold observer reconstructs final pending state",
+    )?;
+    rpc::mine_blocks(1)?;
+    tactus_o1_devnet_driver::recovery::assert_canonical(
+        final_report["pinned_height"]
+            .as_u64()
+            .ok_or("observer height")?,
+        final_report["pinned_hash"]
+            .as_str()
+            .ok_or("observer hash")?,
+    )?;
+    let result = json!({"cold_observer_reconstructions":5,"cold_recovery_drives_reseal":true,"orphan_observer_prefix_rejected":true,"ordinary_tip_growth_accepted":true,"lanes":n,"maximum_payload_snapshot_bytes":maximum_payload_snapshot_bytes,"canonical_batches":net.anchor.state.next_batch_number,"post_seal_victim_batches_to_inclusion":elapsed,"second_snapshot_messages":observed.len(),"consumed_snapshot_messages":net.schedule.cursor,"active_churn_mutations":usize::from(n)*s::MAX_LANE_MESSAGES,"snapshot_retention":true,"planned_seal_and_batch_reorg_recovered":true,"independent_sealer":true,"pre_signed_batch_survived_churn":true,"pre_signed_admission_survived_schedule_change":true,"execution_head":engine.head(),"G2":"OPEN","scope":"Mandatory publication under canonical batch progress; no wall-clock, admission fairness or validity-proof claim"});
     lab.evidence.push(json!({"label":format!("sealed/{n} lanes/verified outcome"),"result":"control_passed","outcome":result}));
     Ok(result)
 }

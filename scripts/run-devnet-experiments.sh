@@ -19,6 +19,9 @@ cargo build --locked --bin "$suite"
 if [[ "$suite" == replay-evm ]]; then
   cargo build --locked --bin recover-execution
 fi
+if [[ "$suite" == replay-sealed ]]; then
+  cargo build --locked --bin recover-sealed
+fi
 bash scripts/build-ordering-script.sh
 mkdir -p artifacts
 run_dir="$(mktemp -d "$PWD/artifacts/${suite#replay-}-XXXXXXXX")"
@@ -62,7 +65,7 @@ manifest={'node_version':subprocess.check_output([os.environ['TACTUS_CKB_BIN'],'
  'files':{}}
 for name in ['Cargo.lock','scripts/build-ordering-script.sh','scripts/ordering-script.ld','artifacts/tactus_o1_ordering_script.elf','artifacts/tactus_o1_head_lock.elf','artifacts/tactus_o1_anchor_script.elf','artifacts/tactus_o1_priority_script.elf','artifacts/tactus_o1_sealed_script.elf',str(root/'node/ckb.toml'),str(p),os.environ['TACTUS_CKB_BIN']]:
  manifest['files'][name]=hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest()
-for name in ['target/debug/'+os.environ['TACTUS_DEVNET_SUITE']] + (['target/debug/recover-execution'] if os.environ['TACTUS_DEVNET_SUITE']=='replay-evm' else []):
+for name in ['target/debug/'+os.environ['TACTUS_DEVNET_SUITE']] + (['target/debug/recover-execution'] if os.environ['TACTUS_DEVNET_SUITE']=='replay-evm' else ['target/debug/recover-sealed'] if os.environ['TACTUS_DEVNET_SUITE']=='replay-sealed' else []):
  manifest['files'][name]=hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest()
 paths=subprocess.check_output(['git','ls-files','--cached','--others','--exclude-standard','-z'],text=True).split('\0')
 manifest['source_files']={name:hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest()

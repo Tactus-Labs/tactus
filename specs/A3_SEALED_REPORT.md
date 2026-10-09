@@ -40,9 +40,10 @@ processing batch. The original active heads and prior Schedule are checked live
 again; the orphan snapshot is absent. A different fee payer reseals and processes
 the restored obligations. The older canonical snapshot remains live and cannot
 be used after the new switch. This demonstrates canonical rollback of obligations
-and independent signing authority. The harness restores its own bookkeeping from
-its saved state; it is not yet an independent observer's cold reconstruction of
-all Schedule/lane/proving state.
+and independent signing authority. This original run restored its own bookkeeping from saved state. The later
+[independent cold recovery experiment](SEALED_RECOVERY_REPORT.md) reconstructs
+Schedule, lanes and current snapshot in fresh processes and uses them to reseal
+after rollback. Proving-state recovery remains outstanding.
 
 The four-lane scenario additionally admits **32 maximum-size, 1024-byte payloads**,
 seals a **33,385-byte** authentic snapshot and processes it over eight bounded

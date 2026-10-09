@@ -1,7 +1,9 @@
 # A3 bounded sealed-epoch candidate, v1
 
 **Implementation phase: pure transitions plus a mandatory CKB gate and real-node
-experiments.** The [measured gate report](A3_SEALED_REPORT.md) records its scope.
+experiments and independent canonical recovery.** The
+[measured gate report](A3_SEALED_REPORT.md) and
+[cold recovery report](SEALED_RECOVERY_REPORT.md) record their scope.
 Production qualification, proof settlement, admission fairness and unplanned
 network reorgs remain outstanding. The original untyped immutable-copy experiment
 is separate historical evidence, not the authenticated construction specified here.
