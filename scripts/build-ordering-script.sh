@@ -9,13 +9,13 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 rustup target add riscv64imac-unknown-none-elf
-cargo build --release --target riscv64imac-unknown-none-elf -p tactus-ordering-script
+cargo build --release --target riscv64imac-unknown-none-elf -p tactus-o1-ordering-script
 
 LLD="$(find "$(rustc --print sysroot)/lib/rustlib" -name rust-lld | head -1)"
 mkdir -p artifacts
 "$LLD" -flavor gnu \
-  -o artifacts/tactus_ordering_script.elf \
-  target/riscv64imac-unknown-none-elf/release/libtactus_ordering_script.a \
+  -o artifacts/tactus_o1_ordering_script.elf \
+  target/riscv64imac-unknown-none-elf/release/libtactus_o1_ordering_script.a \
   --entry _start -nostdlib -n --gc-sections --strip-all
 
-ls -la artifacts/tactus_ordering_script.elf
+ls -la artifacts/tactus_o1_ordering_script.elf

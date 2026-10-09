@@ -5,11 +5,11 @@
 use std::fmt::Write as _;
 use std::fs;
 
-use tactus_experiment_a::decision::{decide_a1, decide_a2, decide_a3};
-use tactus_experiment_a::sim::{run_a1, A1Params, A1Stats};
-use tactus_experiment_a::sim_a2::{run_a2, A2Params, BuilderBehavior};
-use tactus_experiment_a::sim_a3::{run_a3, A3Params, A3Stats};
-use tactus_experiment_a::{survival_probability, Candidate, Decision, LoadModel};
+use tactus_o1_experiment_a::decision::{decide_a1, decide_a2, decide_a3};
+use tactus_o1_experiment_a::sim::{run_a1, A1Params, A1Stats};
+use tactus_o1_experiment_a::sim_a2::{run_a2, A2Params, BuilderBehavior};
+use tactus_o1_experiment_a::sim_a3::{run_a3, A3Params, A3Stats};
+use tactus_o1_experiment_a::{survival_probability, Candidate, Decision, LoadModel};
 
 fn main() {
     let mut report = String::new();
@@ -45,7 +45,7 @@ fn header(out: &mut String) {
     let _ = writeln!(out, "**Tier:** discrete-event simulation. Devnet-tier evidence (real CKB txpool/miner behaviour, scripts, proofs) is **not** included; G1–G9 remain OPEN per spec §13.");
     let _ = writeln!(
         out,
-        "**Reproduce:** `cargo run --bin tactus-experiment-a` (deterministic seeds)."
+        "**Reproduce:** `cargo run --bin tactus-o1-experiment-a` (deterministic seeds)."
     );
     let _ = writeln!(out);
 }

@@ -20,4 +20,4 @@ jobs:
       - run: cargo clippy --all-targets -- -D warnings
       - run: cargo test --quiet
       - name: Harness smoke (regression on the A1 fee-effect)
-        run: cargo run --quiet --bin tactus-experiment-a >/dev/null
+        run: cargo run --quiet --bin tactus-o1-experiment-a >/dev/null

@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- Rename the O1 project and repository to `tactus-o1` (display name: Tactus O1),
+  including crate names, source imports, build artifacts, CI commands and spec links.
+  Tactus Pulse and Tactus Beat retain their separate names. Existing devnet hash
+  inputs remain unchanged so recorded experiment identities stay reproducible.
+  This supersedes the earlier provisional mainnet naming decision below.
+
 ## 0.1.2 — 2026-10-09
 
 - Research note: DAG acceleration and external data availability
@@ -39,7 +47,7 @@
   low-frequency CKB anchors, asynchronous validity settlement; commitment ≠
   DA (hash-only publication prohibited as an O1 claim); atomic anchor–
   publication rule (same-tx data or verifiable shard completion); draft
-  TactusBatch format (multi-block range commitments); production latency ≠
+  TactusO1Batch format (multi-block range commitments); production latency ≠
   finality — no preconfirmation authority; adopted Day-0 parameter table.
 - Decision record `specs/OPERATIONAL_POSTURE.md`: operational centralisation ≠
   consensus authority; node-role table (no sequencer licence); Temporary
@@ -58,12 +66,12 @@
   verdict — mainnet never converted to validium for trading flow.
 - O2 domain naming: the reference O2 deployment is named **Tactus Pulse**;
   `O2` remains the technical designation (10815 option matrix); unqualified
-  "Tactus" always denotes the O1 mainnet; domain-labelling discipline
+  "Tactus O1" always denotes the O1 mainnet; domain-labelling discipline
   (distinct chain ID, disclosed DA policy and recovery assumptions) recorded
   in O2_ACTIVATION_POLICY §2.
 - Brand structure recorded (O2_ACTIVATION_POLICY §2): one mother brand, two
   networks, shared infrastructure (Arbitrum One/Nova model); Day 0 launches a
-  single network "Tactus" — Pulse stays a dormant sub-brand until the
+  single network "Tactus O1" — Pulse stays a dormant sub-brand until the
   activation gate opens, after which the mainnet may adopt "Tactus One";
   unify/separate table (brand, stack, SDK, proving software, devrel unified;
   chain ID, state roots, DA policies, settlement/custody, exit rules separate);
@@ -75,19 +83,19 @@
   EXPERIMENT_A_DESIGN §9 (SeqCommit as a comparison point for A1/A2/A3′
   outcomes; first-source links).
 - Fiber posture recorded (O2_ACTIVATION_POLICY §6): division of labour —
-  Fiber scales payments, Tactus scales EVM, CKB settles; transport is not a
+  Fiber scales payments, Tactus O1 scales EVM, CKB settles; transport is not a
   DA claim (data→Fiber + hash→CKB leaves reconstruction and withdrawal proofs
   unsolved; adding replication/availability/archival makes it O2 behind the
   gate); O1 throughput lever order — compression → verifiable state-diff DA
   → Fiber offloading, with the byte-rate/bytes-per-tx constraint; combined
-  stack (Tactus + Fiber + CKB) a direction, not a Day-0 dependency.
+  stack (Tactus O1 + Fiber + CKB) a direction, not a Day-0 dependency.
 - Stablecoin loop recorded (O2_ACTIVATION_POLICY §6): CKB xUDT as canonical
   asset identity with vault-bridged ERC-20 mapping (same name ≠ same asset);
   Route A base path (proven withdrawal → xUDT → channel → micropayments;
   funding_udt_type_script interfaces exist) vs Route B liquidity gateway
   (commercial; collateral/atomicity/refund rules required; not trust-free by
   shared hashlock); binding obstacle = channel liquidity, not TPS; traffic
-  division (micropayments → Fiber, DeFi → Tactus, sweeps → Fiber→CKB→Tactus);
+  division (micropayments → Fiber, DeFi → Tactus O1, sweeps → Fiber→CKB→Tactus O1);
   priority validation = one full loop with mapping, settlement, liquidity and
   exit safety each demonstrated.
 - DA provider policy recorded (O2_ACTIVATION_POLICY §7), including a
@@ -105,9 +113,9 @@
 - Godwoken precedent recorded (DAG note §9): PR #776's ProduceSubmitConfirm
   state machine (Local→Submitted→Confirmed, local/submitted limits as
   backpressure, P2P unanchored-block propagation, rollback-to-confirmed) is
-  the first reference implementation for the Tactus block pipeline — the
+  the first reference implementation for the Tactus O1 block pipeline — the
   production/CKB-submission decoupling is Godwoken 2022 work on the same L1,
-  not a Tactus novelty; Tactus's ladder extends it with Canonical (CKB-ordered)
+  not a Tactus O1 novelty; Tactus O1's ladder extends it with Canonical (CKB-ordered)
   and Proven (ZK-verified), and its deltas are permissionless builders,
   validity settlement, multi-block-per-anchor and priority inclusion. Godwoken
   finality lesson noted (faster blocks broke block-count challenge windows and
@@ -171,7 +179,7 @@
   providers); residual risk is de facto dominance, governed by §3 claims
   discipline.
 - OPERATIONAL_POSTURE §7: dispute-adjudication map (five dispute types);
-  the complete no-committee argument (a committee solves a problem Tactus does
+  the complete no-committee argument (a committee solves a problem Tactus O1 does
   not have and neither of the ones it does); preconfirmation services allowed
   economically, never statutorily — bonded promises compensate, never rewrite
   canonical history; confirmation-naming discipline ("100 ms finality" not

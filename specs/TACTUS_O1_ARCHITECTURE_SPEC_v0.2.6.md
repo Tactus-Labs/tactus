@@ -1,15 +1,15 @@
-# Tactus Architecture Specification
+# Tactus O1 Architecture Specification
 
 **Version:** 0.2.6  
 **Status:** Architecture baseline / research specification — **not** implementation evidence or production authorisation  
 **Date:** 9 October 2026  
-**Project:** Tactus  
+**Project:** Tactus O1\
 **Default deployment:** CKB-based EVM validity rollup with CKB data availability (O1)  
 **Scalability extension:** Separately secured external-DA validity domain (O2)  
 **Research alternative:** Bounded optimistic CKB-VM adjudication (O3)  
 **Parked:** Optimistic settlement plus external DA (O4)
 
-> **Project rename (9 October 2026):** the project formerly designated *Weft* is now **Tactus** — many independent voices, one shared beat, no conductor. All occurrences have been renamed; the technical content of this frozen baseline is unchanged, and the version remains v0.2.5.
+> **Project rename (9 October 2026):** the project formerly designated *Weft*, then *Tactus*, is now **Tactus O1** (`tactus-o1`) — many independent voices, one shared beat, no conductor. This naming update leaves the technical content of the frozen baseline unchanged; the version remains v0.2.5.
 
 > **Protocol thesis.** Execute Ethereum transactions off-chain for performance; allow professional but non-privileged builders to assemble candidate batches; use CKB PoW and Cell transitions for canonical batch succession; settle only validity-proven EVM state transitions; preserve the data and witnesses required for the security domain's stated recovery guarantees.
 
@@ -71,7 +71,7 @@ This document is the **integrated successor to v0.2.1**, incorporating the prior
 
 | Decision | Baseline |
 |---|---|
-| Project boundary | Tactus is a standalone protocol; no external consensus or runtime dependency is required. |
+| Project boundary | Tactus O1 is a standalone protocol; no external consensus or runtime dependency is required. |
 | Authoritative ordering | CKB canonical chain and permissionless, script-validated batch succession. |
 | Candidate ordering | Professional batch builders may specialise, but have no exclusive canonical authority. |
 | Execution | A pinned Ethereum execution specification using mature Reth/revm components. |
@@ -85,11 +85,11 @@ This document is the **integrated successor to v0.2.1**, incorporating the prior
 
 ### 1.1 Objectives
 
-Tactus aims to provide Ethereum-compatible contract execution; permissionless canonical batch proposals; CKB-enforced continuity of batch history; a usable L1 priority-submission path; explicit and measurable execution/DA/proving costs; proof-enforced settlement; reproducible state reconstruction under the declared DA policy; custody conservation; and independent withdrawal/recovery mechanisms.
+Tactus O1 aims to provide Ethereum-compatible contract execution; permissionless canonical batch proposals; CKB-enforced continuity of batch history; a usable L1 priority-submission path; explicit and measurable execution/DA/proving costs; proof-enforced settlement; reproducible state reconstruction under the declared DA policy; custody conservation; and independent withdrawal/recovery mechanisms.
 
 ### 1.2 Non-objectives
 
-Tactus does not seek a second L2 validator consensus, a committee with exclusive sequencing rights, automatic MEV elimination, identical Ethereum L1 block metadata, unrestricted cross-DA-domain atomic contract calls, guaranteed economic finality from a builder preconfirmation, or effortless migration of a live validity settlement system to an optimistic one.
+Tactus O1 does not seek a second L2 validator consensus, a committee with exclusive sequencing rights, automatic MEV elimination, identical Ethereum L1 block metadata, unrestricted cross-DA-domain atomic contract calls, guaranteed economic finality from a builder preconfirmation, or effortless migration of a live validity settlement system to an optimistic one.
 
 ### 1.3 Five powers and their boundaries
 
@@ -109,7 +109,7 @@ Tactus does not seek a second L2 validator consensus, a committee with exclusive
 
 ```mermaid
 flowchart TB
-    U["Wallets · Solidity · Ethereum RPC"] --> R["Tactus RPC and transaction pools"]
+    U["Wallets · Solidity · Ethereum RPC"] --> R["Tactus O1 RPC and transaction pools"]
     R --> B["Professional, permissionless builders"]
     R --> X["Speculative EVM execution"]
     P["CKB priority-submission candidates"] --> H
@@ -196,7 +196,7 @@ A reverted EVM transaction is a valid, chargeable execution outcome; an invalid 
 
 The **A1 reference** stores priority queue root and cursor within the single consumed OrderingHead. It is retained because it makes the current append frontier and current processing cursor part of one atomic canonical state.
 
-`ENQUEUE` and `APPEND_BATCH` both consume and recreate this head. Ordinary Ethereum transactions do **not** use `ENQUEUE`; they travel through off-chain Tactus gateways and builders. The priority channel is a censorship-recovery path.
+`ENQUEUE` and `APPEND_BATCH` both consume and recreate this head. Ordinary Ethereum transactions do **not** use `ENQUEUE`; they travel through off-chain Tactus O1 gateways and builders. The priority channel is a censorship-recovery path.
 
 ### 4.1 ENQUEUE transition
 
@@ -216,13 +216,13 @@ CKB single-consumption prevents two conflicting successors being accepted in the
 
 The critical A1 failure is **admission starvation**: a user reads head `H`, signs an `ENQUEUE`, but a professional builder has already advanced to `H'`. The user's transaction can arrive dead-on-arrival, regardless of its higher fee rate. Repeating this may starve ordinary wallet users while a dominant builder quickly regenerates valid descendants.
 
-Fee-rate competition matters **among simultaneously eligible spends of the same live head** but does not solve already-stale OutPoints. Tactus MUST NOT claim bounded user admission solely from CKB fee bidding.
+Fee-rate competition matters **among simultaneously eligible spends of the same live head** but does not solve already-stale OutPoints. Tactus O1 MUST NOT claim bounded user admission solely from CKB fee bidding.
 
 Accordingly A1 is **FROZEN AS SAFETY REFERENCE ONLY**, not selected as the final production priority-entry design.
 
 ## 5. Priority Inbox alternatives and inclusion properties
 
-Tactus distinguishes four independent operations:
+Tactus O1 distinguishes four independent operations:
 
 1. **Admission:** a priority-message identity becomes part of a CKB-verifiable submission set/queue.
 2. **Processing:** that message has a protocol-authenticated deterministic execution outcome within a canonical batch.
@@ -305,7 +305,7 @@ Deterministic ordering and per-message deadline remedies MAY be combined — as 
 
 Builders MUST NOT be able to present nominal processing activity by repeatedly selecting favourable subsets of pending messages while others pass their deadlines (§14.3, carry-forward starvation).
 
-**Consumption is not execution.** A consumed Message Cell is no longer live before its payload's EVM execution is proven. Tactus MUST distinguish three stages for priority messages: **`Admitted → Included → Proven`**. Consumption of a Message Cell within an accepted batch creates an authenticated **Pending Inclusion Record** binding the message identity to its batch interval; the obligation persists until that interval is settled. Recovery MUST distinguish two failure classes:
+**Consumption is not execution.** A consumed Message Cell is no longer live before its payload's EVM execution is proven. Tactus O1 MUST distinguish three stages for priority messages: **`Admitted → Included → Proven`**. Consumption of a Message Cell within an accepted batch creates an authenticated **Pending Inclusion Record** binding the message identity to its batch interval; the obligation persists until that interval is settled. Recovery MUST distinguish two failure classes:
 
 | Failure | Required handling |
 |---|---|
@@ -350,9 +350,9 @@ Checkpoint retention and garbage collection are protocol operations: consuming a
 
 ## 7. Ethereum execution and confirmation semantics
 
-Tactus SHOULD build on pinned Reth/revm components rather than implement a proprietary EVM interpreter. The protocol MUST define exact fork rules, transaction envelopes, signatures, nonce/account/storage semantics, logs and receipts, gas and refunds, precompiles, deterministic block context and authenticated Ethereum-compatible state commitments.
+Tactus O1 SHOULD build on pinned Reth/revm components rather than implement a proprietary EVM interpreter. The protocol MUST define exact fork rules, transaction envelopes, signatures, nonce/account/storage semantics, logs and receipts, gas and refunds, precompiles, deterministic block context and authenticated Ethereum-compatible state commitments.
 
-Tactus targets **EVM-equivalent execution** and standard Ethereum developer tooling. **Type-1 Ethereum equivalence is not implied by using revm**, because it also concerns surrounding execution-layer structures and environment rules.
+Tactus O1 targets **EVM-equivalent execution** and standard Ethereum developer tooling. **Type-1 Ethereum equivalence is not implied by using revm**, because it also concerns surrounding execution-layer structures and environment rules.
 
 A reference differential suite MUST cover transfers, ERC-20/ERC-721, storage and SSTORE, CREATE, CALL/DELEGATECALL, reverts, precompiles, state roots, logs/receipts, Uniswap V2/V3 workloads and pinned block-environment fields. Foundry, Hardhat, viem/ethers and ordinary wallet workflows are part of conformance acceptance, not marketing claims.
 
@@ -360,7 +360,7 @@ The RPC must distinguish local acceptance, speculative execution, canonical orde
 
 ## 8. Validity proving and CKB settlement
 
-The main Tactus path is O1, with zkVM proving of a pinned Ethereum state-transition programme. A Reth/revm-to-zkVM-to-compressed-proof stack (for example, an SP1/RSP-related integration) is a candidate, **not** a proven end-to-end Tactus pipeline.
+The main Tactus O1 path is O1, with zkVM proving of a pinned Ethereum state-transition programme. A Reth/revm-to-zkVM-to-compressed-proof stack (for example, an SP1/RSP-related integration) is a candidate, **not** a proven end-to-end Tactus O1 pipeline.
 
 The final CKB verifier MUST bind the proof to:
 
@@ -382,7 +382,7 @@ flowchart LR
 
 A valid proof for the wrong data, batch order, DA domain, state predecessor or verifier key is not a valid settlement proof. Public-input encoding must not silently reduce 256-bit digests modulo a proof field with ambiguous collisions.
 
-**Proving liveness:** the disappearance of the designated prover cannot authorise a false state. However, the system may stop advancing. Tactus must support reproducible witness generation and permissionless proving under its declared availability assumptions.
+**Proving liveness:** the disappearance of the designated prover cannot authorise a false state. However, the system may stop advancing. Tactus O1 must support reproducible witness generation and permissionless proving under its declared availability assumptions.
 
 **Unprovable accepted batches:** admitted input formats and bounded resources must be sufficiently constrained that all accepted batches have deterministic processing semantics and can be proven. A malformed priority submission cannot permanently strand the proven cursor.
 
@@ -444,13 +444,13 @@ The initial asset scope SHOULD be native CKB and one explicitly defined xUDT. De
 
 ### 11.2 Exit-preserving upgrade windows
 
-Upgrade proposals MUST identify old/new script commitments, verifier keys, activation rules, any trust assumptions introduced and affected asset domains. For custody-affecting upgrades, Tactus SHOULD require a CKB-enforceable notice/exit window during which correctly authorised exits under the old rules remain valid.
+Upgrade proposals MUST identify old/new script commitments, verifier keys, activation rules, any trust assumptions introduced and affected asset domains. For custody-affecting upgrades, Tactus O1 SHOULD require a CKB-enforceable notice/exit window during which correctly authorised exits under the old rules remain valid.
 
 A mere governance announcement or off-chain promised delay is insufficient. The relevant vault and settlement script behaviour must enforce the applicable old-rule claim validity and prevent premature rule replacement. Precisely how this is achieved remains OPEN and is subject to adversarial upgrade testing.
 
 ## 12. Economic model and absolute performance gates
 
-Tactus must distinguish EVM gas pricing, batch builder rewards, CKB transaction fees, DA publication/retention fees, prover compensation and exceptional recovery costs. None of these economic roles grants exclusive canonical sequencing authority.
+Tactus O1 must distinguish EVM gas pricing, batch builder rewards, CKB transaction fees, DA publication/retention fees, prover compensation and exceptional recovery costs. None of these economic roles grants exclusive canonical sequencing authority.
 
 **G4 is an absolute performance/affordability test**, not a requirement to outperform an archived Godwoken binary on identical hardware. Godwoken remains historical context; its traffic utilisation and historical environment make raw comparisons potentially misleading.
 
@@ -481,7 +481,7 @@ Passing a gate requires **observable evidence and a threat model**, not an archi
 | **G2** | Censorship resistance | Admission and eventual processing under dominant-builder adversarial workloads and explicit CKB inclusion assumptions. A penalty alone does not pass. | **OPEN / critical** |
 | **G3** | Validity settlement | Forged/wrong-sequence/wrong-state/wrong-key proofs are rejected on CKB. | **OPEN** |
 | **G4** | Sustained performance | Absolute TPS, latency, DA bytes and amortised fees, and prover cost meet published deployment-class thresholds. | **OPEN** |
-| **G5** | EVM/developer conformance | Differential EVM conformance; ordinary Foundry/Hardhat/viem deployment; target DeFi contracts operate without Tactus-specific rewrites. | **OPEN** |
+| **G5** | EVM/developer conformance | Differential EVM conformance; ordinary Foundry/Hardhat/viem deployment; target DeFi contracts operate without Tactus O1-specific rewrites. | **OPEN** |
 | **G6** | Independent operation | Fresh independent prover/executor can reconstruct, prove and settle without original operator secrets. | **OPEN** |
 | **G7** | Custody/exit security | Valid deposits/withdrawals and independently constructible supported exits; conservation/replay negative tests. | **OPEN** |
 | **G8** | Governance security | Enforceable upgrade restrictions and exit-preserving windows; no undisclosed instant custody bypass. | **OPEN** |
@@ -586,10 +586,10 @@ Publish a real O1 batch, reconstruct its EVM state independently, settle the val
 
 ## 16. Implementation organisation and project boundary
 
-Tactus remains a standalone protocol and codebase; its ordering, DA and settlement authorities are defined by this specification alone. (For the O2 external-DA slot, any provider — including a Myelin-derived adapter — competes on the O2 activation policy's evidence gate; see `specs/O2_ACTIVATION_POLICY.md`.)
+Tactus O1 remains a standalone protocol and codebase; its ordering, DA and settlement authorities are defined by this specification alone. (For the O2 external-DA slot, any provider — including a Myelin-derived adapter — competes on the O2 activation policy's evidence gate; see `specs/O2_ACTIVATION_POLICY.md`.)
 
 ```text
-tactus/
+tactus-o1/
   specs/              # canonical binary schemas, invariants, test vectors
   protocol/           # identity, ordering, priority admission, accumulators
   execution/          # EVM, authenticated state, builder, RPC

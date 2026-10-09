@@ -1,5 +1,5 @@
 [package]
-name = "tactus-experiment-a"
+name = "tactus-o1-experiment-a"
 description = "Experiment A harness: workload models, candidates, metrics and sensitivity analysis for the priority-admission comparison"
 version.workspace = true
 edition.workspace = true
@@ -7,8 +7,8 @@ license.workspace = true
 repository.workspace = true
 
 [dependencies]
-tactus-protocol = { path = "../tactus-protocol" }
+tactus-o1-protocol = { path = "../tactus-o1-protocol" }
 
 [[bin]]
-name = "tactus-experiment-a"
+name = "tactus-o1-experiment-a"
 path = "src/main.rs"

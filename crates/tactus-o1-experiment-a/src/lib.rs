@@ -12,7 +12,7 @@ pub mod sim_a2;
 pub mod sim_a3;
 
 /// Frozen architecture baseline this experiment runs against.
-pub const SPEC_BASELINE: &str = "TACTUS_ARCHITECTURE_SPEC_v0.2.6.md";
+pub const SPEC_BASELINE: &str = "TACTUS_O1_ARCHITECTURE_SPEC_v0.2.6.md";
 
 /// Experiment arms (design §2).
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]

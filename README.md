@@ -1,4 +1,6 @@
-# Tactus
+# Tactus O1
+
+Project and repository name: `tactus-o1`.
 
 An independent, CKB-based EVM validity rollup: off-chain-first execution,
 permissionless CKB-based canonical sequencing, validity-enforced settlement.
@@ -11,7 +13,7 @@ permissionless CKB-based canonical sequencing, validity-enforced settlement.
 
 ## Status
 
-- **Architecture baseline:** frozen at [v0.2.5](specs/TACTUS_ARCHITECTURE_SPEC_v0.2.6.md) (9 October 2026).
+- **Architecture baseline:** frozen at [v0.2.5](specs/TACTUS_O1_ARCHITECTURE_SPEC_v0.2.6.md) (9 October 2026).
 - **Evidence gates:** G1–G9 are all **OPEN**. Nothing here is an implemented
   protocol property, a measured performance result, or production authorisation.
 - **Current deliverable:** [Experiment A](specs/EXPERIMENT_A_DESIGN.md) — the
@@ -21,7 +23,7 @@ permissionless CKB-based canonical sequencing, validity-enforced settlement.
   conditions. G2 — censorship resistance — is the blocking gate.
 - **Simulation tier: complete.** All three arms plus the sealed control run
   with deterministic seeds and pre-committed decision rules; reproduce with
-  `cargo run --bin tactus-experiment-a` and read
+  `cargo run --bin tactus-o1-experiment-a` and read
   [`specs/EXPERIMENT_A_REPORT.md`](specs/EXPERIMENT_A_REPORT.md). Headline
   simulation-tier findings (not gate passes; devnet tier pending):
   - **A1** — fee priority rescues conflicts it can reach, never stale
@@ -45,7 +47,7 @@ permissionless CKB-based canonical sequencing, validity-enforced settlement.
   the four-condition [activation gate](specs/O2_ACTIVATION_POLICY.md).
   Layered product: O1 core rollup as mainnet and security baseline; the O2
   domain is named **Tactus Pulse** — O2 and preconfirmation solve orthogonal
-  problems and converge at the CKB ordering layer; an unqualified "Tactus"
+  problems and converge at the CKB ordering layer; "Tactus O1"
   always means the O1 mainnet.
 - **Block pipeline (decision, 9 October 2026):** high-frequency speculative
   blocks, low-frequency CKB anchors, asynchronous validity settlement.
@@ -67,7 +69,7 @@ permissionless CKB-based canonical sequencing, validity-enforced settlement.
 - **Fiber posture (decision, 9 October 2026):** payments rail, not a DA
   substitute — Fiber may offload payment traffic and carry bytes, but never
   O1's DA security claim (replication + availability + archival machinery
-  would make it O2, behind the gate). Combined-stack direction: Tactus (EVM
+  would make it O2, behind the gate). Combined-stack direction: Tactus O1 (EVM
   DeFi) + Fiber (payments) + CKB (settlement); Day 0 takes no dependency —
   interop interfaces designed, not assumed.
 - **Work plan (9 October 2026, post-review):** architecture stays; resources
@@ -100,8 +102,8 @@ permissionless CKB-based canonical sequencing, validity-enforced settlement.
 ```text
 specs/               # frozen architecture spec + experiment designs
 crates/
-  tactus-protocol/     # protocol primitives (illustrative companions to the spec)
-  tactus-experiment-a/ # Experiment A harness: workload models, metrics, scenarios
+  tactus-o1-protocol/     # protocol primitives (illustrative companions to the spec)
+  tactus-o1-experiment-a/ # Experiment A harness: workload models, metrics, scenarios
 ```
 
 Crates are added only when their protocol boundary is justified; the canonical

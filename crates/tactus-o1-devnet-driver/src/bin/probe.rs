@@ -6,10 +6,10 @@
 // Message-rule enumeration with spendable cells — the chain judges.
 fn main() {
     use secp256k1::{ecdsa, Message, Secp256k1};
-    use tactus_devnet_driver::molecule;
-    use tactus_devnet_driver::rpc;
-    use tactus_devnet_driver::tx::{self, DevKey, OutSpec};
-    use tactus_ordering_script::ckb_blake2b;
+    use tactus_o1_devnet_driver::molecule;
+    use tactus_o1_devnet_driver::rpc;
+    use tactus_o1_devnet_driver::tx::{self, DevKey, OutSpec};
+    use tactus_o1_ordering_script::ckb_blake2b;
 
     let key = DevKey::dev();
     let secp = Secp256k1::new();

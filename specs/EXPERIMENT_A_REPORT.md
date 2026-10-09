@@ -2,7 +2,7 @@
 
 **Arms:** A1 atomic OrderingHead (reference) · A2 independent Message Cells · A3′ sharded lane heads + epoch-sealed control
 **Tier:** discrete-event simulation. Devnet-tier evidence (real CKB txpool/miner behaviour, scripts, proofs) is **not** included; G1–G9 remain OPEN per spec §13.
-**Reproduce:** `cargo run --bin tactus-experiment-a` (deterministic seeds).
+**Reproduce:** `cargo run --bin tactus-o1-experiment-a` (deterministic seeds).
 
 ## A1 — fee-ratio × signing-delay (design §7.1)
 

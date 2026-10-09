@@ -2,7 +2,7 @@
 
 **Status:** standalone research extract · **optional acceleration service, not mainline** ·
 demoted from the priority research direction on 9 October 2026 after design review ·
-deployment gated behind G2 · never a component of the Tactus security model.
+deployment gated behind G2 · never a component of the Tactus O1 security model.
 
 > This document supersedes the "Route B is the priority research direction" wording in
 > `OPERATIONAL_POSTURE.md` §8. Route B survives as **one optional commercial service shape**,
@@ -99,5 +99,5 @@ string).
 Optional acceleration layers — Beat or Open-DAG — may touch only the dissemination and
 speculative-execution planes and MUST NOT: alter `APPEND_BATCH` validation, add signature or
 membership admission conditions to canonical sequencing, make any soft prefix mandatory, or
-weaken the independent exit path. A Tactus node running pure-based (D0) interoperates fully
+weaken the independent exit path. A Tactus O1 node running pure-based (D0) interoperates fully
 with every layer above. Removing the layer must cost UX, never safety.

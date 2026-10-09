@@ -1,16 +1,16 @@
-# Tactus — Operational Posture: Centralisation, Buffers and Fast-UX Claims
+# Tactus O1 — Operational Posture: Centralisation, Buffers and Fast-UX Claims
 
 **Status:** decision record — maintainer-accepted posture, 9 October 2026; not implementation evidence; no gate claims (G1–G9 remain OPEN)
-**Baseline:** [TACTUS_ARCHITECTURE_SPEC_v0.2.6.md](TACTUS_ARCHITECTURE_SPEC_v0.2.6.md) §1.3, §2; [DAG_ACCELERATION_NOTE.md](DAG_ACCELERATION_NOTE.md) §9; [O2_ACTIVATION_POLICY.md](O2_ACTIVATION_POLICY.md)
+**Baseline:** [TACTUS_O1_ARCHITECTURE_SPEC_v0.2.6.md](TACTUS_O1_ARCHITECTURE_SPEC_v0.2.6.md) §1.3, §2; [DAG_ACCELERATION_NOTE.md](DAG_ACCELERATION_NOTE.md) §9; [O2_ACTIVATION_POLICY.md](O2_ACTIVATION_POLICY.md)
 **Position in one line:** *Centralised performance where convenient, permissionless authority where essential, and CKB-backed recoverability where security matters.*
 
 ---
 
 ## 0. The distinction that governs everything
 
-Tactus requires off-chain services and must cache EVM blocks not yet anchored to CKB. None of that implies a centralised sequencer. The load-bearing distinction is between **operational centralisation** (who runs the services) and **consensus authority** (who can make canonical history). Off-chain services may be professional and even temporarily dominated by one operator; canonical ordering authority may not be monopolised by anyone — it rests with CKB PoW and permissionless, script-validated succession (spec §1.3).
+Tactus O1 requires off-chain services and must cache EVM blocks not yet anchored to CKB. None of that implies a centralised sequencer. The load-bearing distinction is between **operational centralisation** (who runs the services) and **consensus authority** (who can make canonical history). Off-chain services may be professional and even temporarily dominated by one operator; canonical ordering authority may not be monopolised by anyone — it rests with CKB PoW and permissionless, script-validated succession (spec §1.3).
 
-A corollary for the builder role: a builder holds no exclusive interpretation of Tactus state. It orders transactions *within its candidate batch*; nothing it produces becomes canonical history until CKB accepts it.
+A corollary for the builder role: a builder holds no exclusive interpretation of Tactus O1 state. It orders transactions *within its candidate batch*; nothing it produces becomes canonical history until CKB accepts it.
 
 ## 1. Node roles
 
@@ -51,7 +51,7 @@ Permissionless based sequencing does **not** provide a network-uniform 100 ms so
 |---|---|
 | One dominant high-speed builder | simple UX; soft confirmations highly centralised |
 | Competing independent builders | permissionless; soft blocks fork and roll back |
-| Shared fast ordering / preconfirmation protocol | more uniform UX; new coordination, credit or economic-bond machinery — badly designed, it recreates the privileged sequencer Tactus exists to remove |
+| Shared fast ordering / preconfirmation protocol | more uniform UX; new coordination, credit or economic-bond machinery — badly designed, it recreates the privileged sequencer Tactus O1 exists to remove |
 
 **Adopted choice:** fast *local* execution, explicitly labelled speculative, with short-lived soft forks accepted and CKB as the sole canonical decider. Day 0 does not chase 100 ms globally consistent preconfirmation. This is more honest to the architecture than pretending all nodes share one 100 ms chain.
 
@@ -64,7 +64,7 @@ Permissionless based sequencing does **not** provide a network-uniform 100 ms so
 
 This is a minimum *test* shape, not production redundancy and not a security audit. Four software principles govern the codebase:
 
-1. **Anyone can start a Tactus node** — the same binary runs builder, follower, RPC or prover by configuration; no official sequencer licence exists.
+1. **Anyone can start a Tactus O1 node** — the same binary runs builder, follower, RPC or prover by configuration; no official sequencer licence exists.
 2. **Formal state is fully reconstructable** — a fresh node recovers canonical EVM history from genesis plus CKB-published O1 data, never from an official database snapshot.
 3. **Temporary caches may distribute but never rule** — cache loss touches only unanchored soft blocks, never settled-state reconstruction.
 4. **Third-party builders must be able to participate in practice** — transaction propagation, data access, fees, the CKB proposal window and the priority inbox must not form a de facto official monopoly. Principle 4 is measured by Experiment A, above all G2: forced inclusion under a hostile primary builder.
@@ -91,7 +91,7 @@ Three powers, three mechanisms — and one gap that is ours to close:
 | A builder ignoring a user's transaction | Priority Inbox | **unresolved — Experiment A; G2 is blocking** |
 | Contradictory soft confirmations | no final coordinator | CKB eventually selects one history; early soft confirmations may roll back |
 
-Framing: *CKB provides final arbitration; Tactus provides deterministic execution rules; builders provide only candidate results.* No L2 committee votes on canonical history. The complete argument runs one step further than "unnecessary": a committee is a solution to a problem Tactus does not have — conflicting histories are already adjudicated by CKB single-consumption — whilst being a non-solution to the problems it does have. Forced inclusion requires enforceable protocol rules (Experiment A); settlement liveness on an unprovable batch requires admission totality (spec W-12). A voting body would reintroduce the trust anchor the architecture removed while fixing neither.
+Framing: *CKB provides final arbitration; Tactus O1 provides deterministic execution rules; builders provide only candidate results.* No L2 committee votes on canonical history. The complete argument runs one step further than "unnecessary": a committee is a solution to a problem Tactus O1 does not have — conflicting histories are already adjudicated by CKB single-consumption — whilst being a non-solution to the problems it does have. Forced inclusion requires enforceable protocol rules (Experiment A); settlement liveness on an unprovable batch requires admission totality (spec W-12). A voting body would reintroduce the trust anchor the architecture removed while fixing neither.
 
 **Preconfirmation services: allowed economically, never statutorily.** At the protocol layer, builders compete (Scheme A). Operationally, a professional preconfirmation service (Scheme B) may offer uniform fast soft confirmations, provided it holds no statutory ordering authority, users and other builders can bypass it, and — if its promises are to be punishable — it operates under explicit commitment signatures, bonds, breach conditions and on-chain verifiable liability. A failed bonded preconfirmation compensates the user; it never rewrites canonical history. **Money settles broken promises; consensus never does.** This mechanism is separate from, and strictly optional to, the censorship-resistance work; the two are built independently, and neither is a committee.
 
@@ -111,7 +111,7 @@ High-frequency DeFi does not require 100 ms L1 finality; it requires a stable, s
 
 **Routes:**
 
-| Route | Trading UX | Guarantee | Effect on Tactus |
+| Route | Trading UX | Guarantee | Effect on Tactus O1 |
 |---|---|---|---|
 | A. Pure based | fast execution; soft history replaceable | CKB final arbitration | current architecture |
 | B. Based + bonded preconfirmation | fast shared soft history; breach compensable | economic promise, not L1 finality | adds fast-confirmation services and bond rules |
@@ -147,16 +147,16 @@ Slashing rules that confuse the two are the primary design hazard of a bonded pr
 
 **The product question, restated as risk tiers.** Whether users may build on CKB-revocable state is not binary: swap-class flows accept labelled soft-state risk (§9: rollback stated); high-value operations — CLOB positions, leverage, real-time liquidation — require one of canonical-gated execution, bonded preconfirmation with compensation (never irreversibility, per the no-next-proposer caveat), or eventually the Pulse domain for order-flow-heavy applications. This refines RQ5 without closing it.
 
-**Product fork (OPEN — maintainer decision):** a general EVM DeFi L2, or a chain with Hyperliquid-grade ordering determinism as a hard requirement? The two lanes keep the first open while researching the second; Route C is a thesis change, not an upgrade. Recorded recommendation: begin as the general L2 with Route B research — the ecosystem's demonstrated demand is AMM/lending/stablecoin class; B is additive and reversible; and C, if ever needed, is more honestly a separate product than a Tactus upgrade.
+**Product fork (OPEN — maintainer decision):** a general EVM DeFi L2, or a chain with Hyperliquid-grade ordering determinism as a hard requirement? The two lanes keep the first open while researching the second; Route C is a thesis change, not an upgrade. Recorded recommendation: begin as the general L2 with Route B research — the ecosystem's demonstrated demand is AMM/lending/stablecoin class; B is additive and reversible; and C, if ever needed, is more honestly a separate product than a Tactus O1 upgrade.
 
 ## 9. User-experience posture — what Tactus O1 must feel like (decision, 9 October 2026)
 
-**Four pillars.** Faster EVM interaction (not merely shorter block time); proof-driven withdrawal replacing challenge-period waiting (days-class optimistic windows become proof-generation plus L1-confirmation latency — with the honest caveat that a congested prover queue can still delay); near-native Ethereum wallet and developer experience (Godwoken v1 did support direct Ethereum RPC after dropping its Web3-provider plugin — its friction was semantic, not absence; Tactus's target is deeper: standard addresses, receipts and tooling under pinned Reth/revm plus the differential suite); and independent recovery and exit after operator disappearance. The fourth is the generational difference: Godwoken's sunset left remaining withdrawals dependent on contacting its maintainers — *the superior UX is not needing to believe the team will keep running.*
+**Four pillars.** Faster EVM interaction (not merely shorter block time); proof-driven withdrawal replacing challenge-period waiting (days-class optimistic windows become proof-generation plus L1-confirmation latency — with the honest caveat that a congested prover queue can still delay); near-native Ethereum wallet and developer experience (Godwoken v1 did support direct Ethereum RPC after dropping its Web3-provider plugin — its friction was semantic, not absence; Tactus O1's target is deeper: standard addresses, receipts and tooling under pinned Reth/revm plus the differential suite); and independent recovery and exit after operator disappearance. The fourth is the generational difference: Godwoken's sunset left remaining withdrawals dependent on contacting its maintainers — *the superior UX is not needing to believe the team will keep running.*
 
 **Honest risks, recorded before they bite.**
 
 1. *Soft-confirmation consistency.* Godwoken's privileged producer supplied a relatively uniform fast soft history; permissionless builders compete, and CKB's eventual choice may re-execute, delay or discard a soft-confirmed transaction (Taiko's based-preconfirmation research records the same fork-and-rollback surface). Decentralised ordering may therefore be **less stable in fast confirmation than its predecessor** — the trade of §4 and §8. Mitigations: Fast-Head Continuity research, optional bonded preconfirmation; never disguise the risk.
-2. *Gas honesty.* Godwoken was already cheap (2022 estimates: ~1 cent per ERC-20 transfer). Tactus adds proving, DA publication, anchoring and verification cost; "cheaper than Godwoken" is not claimable before G4 — compression, proving amortisation and efficient L1 contracts must earn it.
+2. *Gas honesty.* Godwoken was already cheap (2022 estimates: ~1 cent per ERC-20 transfer). Tactus O1 adds proving, DA publication, anchoring and verification cost; "cheaper than Godwoken" is not claimable before G4 — compression, proving amortisation and efficient L1 contracts must earn it.
 
 **Receipt honesty (RPC design requirement).** `eth_getTransactionReceipt` must never present a speculative receipt as an irreversible one; wallets and frontends expose **Pending / Soft / Canonical / Proven** explicitly, matching spec §2's four levels. Shortening perceived latency by faking finality converts speed into betrayed trust.
 

@@ -10,7 +10,7 @@ use serde_json::{json, Value};
 
 use crate::molecule;
 use crate::rpc;
-use tactus_ordering_script::{ckb_blake2b, ckb_blakeb160, OrderingHead};
+use tactus_o1_ordering_script::{ckb_blake2b, ckb_blakeb160, OrderingHead};
 
 /// SECP256K1/blake160 sighash-all script hash (hash type `type`).
 pub const SECP_CODE_HASH: [u8; 32] = [
@@ -282,9 +282,9 @@ fn transaction_to_json(
     })
 }
 
-/// Tactus type script referencing the deployed ELF by data hash.
+/// Tactus O1 type script referencing the deployed ELF by data hash.
 #[must_use]
-pub fn tactus_type_script(elf: &[u8], rollup_id: &[u8; 32]) -> Vec<u8> {
+pub fn tactus_o1_type_script(elf: &[u8], rollup_id: &[u8; 32]) -> Vec<u8> {
     molecule::script(&ckb_blake2b(elf), 0, rollup_id)
 }
 

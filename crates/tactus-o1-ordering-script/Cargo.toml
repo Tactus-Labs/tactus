@@ -1,5 +1,5 @@
 [package]
-name = "tactus-ordering-script"
+name = "tactus-o1-ordering-script"
 description = "On-chain OrderingHead type script (CKB-VM, RISC-V) with host-testable validation core"
 build = "build.rs"
 version.workspace = true

@@ -1,7 +1,7 @@
 //! Experiment A devnet replay — A1 OrderingHead arm (design §8, spec §14).
 //!
 //! Prerequisites: a CKB devnet node mining on 127.0.0.1:8114 with the dev
-//! key as block assembler, and `artifacts/tactus_ordering_script.elf` built
+//! key as block assembler, and `artifacts/tactus_o1_ordering_script.elf` built
 //! via the Rust→CKB-VM chain. Produces `specs/EXPERIMENT_A_DEVNET_REPORT.md`
 //! with on-chain evidence for:
 //!
@@ -14,9 +14,9 @@
 
 use std::fs;
 
-use tactus_devnet_driver::rpc;
-use tactus_devnet_driver::tx::{self, CellOutPoint, DevKey, OutSpec, TX_FEE};
-use tactus_ordering_script::{ckb_blake2b, OrderingHead};
+use tactus_o1_devnet_driver::rpc;
+use tactus_o1_devnet_driver::tx::{self, CellOutPoint, DevKey, OutSpec, TX_FEE};
+use tactus_o1_ordering_script::{ckb_blake2b, OrderingHead};
 
 fn main() {
     let mut report = String::new();
@@ -64,8 +64,8 @@ fn main() {
     println!("consolidated in block {consolidate_block:?}: {consolidate_hash}");
 
     // ---- Deploy: script ELF cell + genesis OrderingHead cell --------------
-    let elf = fs::read("artifacts/tactus_ordering_script.elf").expect("script elf");
-    let tactus_type = tx::tactus_type_script(&elf, &rollup_id);
+    let elf = fs::read("artifacts/tactus_o1_ordering_script.elf").expect("script elf");
+    let tactus_o1_type = tx::tactus_o1_type_script(&elf, &rollup_id);
     let head0 = OrderingHead {
         rollup_id,
         protocol_version: 1,
@@ -80,7 +80,7 @@ fn main() {
 
     let code_cap =
         OutSpec::required_capacity(&key.lock_script(), None, elf.len()) + tx::SHANNONS_PER_CKB;
-    let head_cap = OutSpec::required_capacity(&key.lock_script(), Some(&tactus_type), 188)
+    let head_cap = OutSpec::required_capacity(&key.lock_script(), Some(&tactus_o1_type), 188)
         + tx::SHANNONS_PER_CKB;
     let change_cap = consolidated_cap - code_cap - head_cap - TX_FEE;
 
@@ -94,7 +94,7 @@ fn main() {
         OutSpec {
             capacity: head_cap,
             lock: key.lock_script(),
-            type_script: Some(tactus_type.clone()),
+            type_script: Some(tactus_o1_type.clone()),
             data: head0.to_bytes().to_vec(),
         },
         OutSpec {
@@ -132,7 +132,7 @@ fn main() {
     };
     let e1 = transition(
         &key,
-        &tactus_type,
+        &tactus_o1_type,
         &secp_dep,
         head_out,
         head_cap,
@@ -161,7 +161,7 @@ fn main() {
     };
     let e2 = transition(
         &key,
-        &tactus_type,
+        &tactus_o1_type,
         &secp_dep,
         head_out,
         head_cap,
@@ -196,7 +196,7 @@ fn main() {
     };
     let (_a_bytes, a_json) = transition_tx(
         &key,
-        &tactus_type,
+        &tactus_o1_type,
         &secp_dep,
         head_out,
         head_cap,
@@ -205,7 +205,7 @@ fn main() {
     );
     let (_b_bytes, b_json) = transition_tx(
         &key,
-        &tactus_type,
+        &tactus_o1_type,
         &secp_dep,
         head_out,
         head_cap,
@@ -242,7 +242,7 @@ fn main() {
     };
     let (_bad_bytes, bad_json) = transition_tx(
         &key,
-        &tactus_type,
+        &tactus_o1_type,
         &secp_dep,
         head_out,
         head_cap,
@@ -263,7 +263,7 @@ fn main() {
     report.push_str(&format!(
         "**Node:** ckb v0.210.0 devnet (local), tip {tip} at start · **Script:** Rust→CKB-VM, {}, {}\n\n",
         elf.len(),
-        "artifacts/tactus_ordering_script.elf"
+        "artifacts/tactus_o1_ordering_script.elf"
     ));
     report.push_str(&format!(
         "| Evidence | Result | Detail |\n|---|---|---|\n\

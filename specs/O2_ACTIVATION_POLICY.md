@@ -1,7 +1,7 @@
-# Tactus — O2 External Data Availability: Day-0 Boundary and Activation Policy
+# Tactus O1 — O2 External Data Availability: Day-0 Boundary and Activation Policy
 
 **Status:** decision record — maintainer-accepted posture, 9 October 2026; not implementation evidence; no gate claims (G1–G9 remain OPEN)
-**Baseline:** [TACTUS_ARCHITECTURE_SPEC_v0.2.6.md](TACTUS_ARCHITECTURE_SPEC_v0.2.6.md) §10; [DAG_ACCELERATION_NOTE.md](DAG_ACCELERATION_NOTE.md) §8
+**Baseline:** [TACTUS_O1_ARCHITECTURE_SPEC_v0.2.6.md](TACTUS_O1_ARCHITECTURE_SPEC_v0.2.6.md) §10; [DAG_ACCELERATION_NOTE.md](DAG_ACCELERATION_NOTE.md) §8
 **Position in one line:** *Day 0: O1 ZK rollup with CKB DA. O2-ready architecture, not O2-ready implementation.*
 
 ---
@@ -29,7 +29,7 @@ DAG parallelism is a performance optimisation that can be deferred without chang
 Each domain is a separate security and deployment boundary from day one:
 
 ```text
-Tactus (O1 mainnet)                Tactus Pulse (future O2 domain, separate genesis)
+Tactus O1 (mainnet)                  Tactus Pulse (future O2 domain, separate genesis)
   rollup_id                          separate rollup/domain identity
   da_policy_id = CKB_DA              da_policy_id = EXTERNAL_DA
   ethereum_state_root                separate ethereum_state_root
@@ -38,13 +38,13 @@ Tactus (O1 mainnet)                Tactus Pulse (future O2 domain, separate gene
   asset_vault                        separately accounted asset vault
 ```
 
-The reference O2 domain carries the product name **Tactus Pulse** (named 9 October 2026); `O2` remains the technical designation inherited from the 10815 option matrix. Domain-labelling discipline applies from the first deployment: distinct chain ID; DA policy and recovery assumptions disclosed in chain-list metadata; an unqualified `Tactus` always denotes the O1 mainnet, never the O2 domain.
+The reference O2 domain carries the product name **Tactus Pulse** (named 9 October 2026); `O2` remains the technical designation inherited from the 10815 option matrix. Domain-labelling discipline applies from the first deployment: distinct chain ID; DA policy and recovery assumptions disclosed in chain-list metadata; `Tactus O1` denotes the O1 mainnet, never the O2 domain.
 
-**Brand structure (decision, 9 October 2026): one mother brand, two networks, shared infrastructure** — the Arbitrum One/Nova model. Day 0 launches a single network, **Tactus**, as the mainnet: no sub-network branding that implies two live networks. **Tactus Pulse remains a dormant sub-brand** until the activation gate (§3) opens, at which point the mainnet may adopt the sub-network name *Tactus One*. The Pulse name is not trademark-cleared and O2 is not under development; both facts stand until separately decided.
+**Brand structure (decision, updated 9 October 2026): one mother brand, two networks, shared infrastructure** — the Arbitrum One/Nova model. Day 0 launches a single network, **Tactus O1** (`tactus-o1`), as the mainnet. **Tactus Pulse remains a dormant sub-brand** until the activation gate (§3) opens. The O1 name is explicit from Day 0 and remains in place if Pulse activates; this supersedes the provisional “Tactus” / “Tactus One” naming plan. The Pulse name is not trademark-cleared and O2 is not under development; both facts stand until separately decided.
 
 | Unified across the brand | Kept separate across domains |
 |---|---|
-| Tactus brand and developer portal | chain ID and RPC network identity |
+| Tactus umbrella brand and developer portal | chain ID and RPC network identity |
 | Reth/revm execution stack | Ethereum state root |
 | SDK, wallet integrations and base tooling | DA policy and security claims |
 | proving infrastructure software | SettlementTip and custody accounting |
@@ -94,7 +94,7 @@ One standing qualification: **data availability is not permanent data storage.**
 
 O2 lifts only the DA term of the throughput bound `min(T_execution, T_DA, T_proving, T_ordering)`; the other three move not at all.
 
-**Layered product, not competing chains.** Tactus (O1) is the core rollup — the brand mainnet and long-term security baseline — for general EVM DeFi, custody, and recovery-sensitive applications. **Tactus Pulse** — the O2 high-throughput domain — is a later domain for order-flow-heavy applications that knowingly accept declared external-DA risk. The domains share software and proving infrastructure; they keep separate state roots, DA policies and asset boundaries; assets cross only by explicit proven transfer with a user-visible change of security model. Real-time DA availability never substitutes for archival and long-term retrieval.
+**Layered product, not competing chains.** Tactus O1 is the core rollup — the brand mainnet and long-term security baseline — for general EVM DeFi, custody, and recovery-sensitive applications. **Tactus Pulse** — the O2 high-throughput domain — is a later domain for order-flow-heavy applications that knowingly accept declared external-DA risk. The domains share software and proving infrastructure; they keep separate state roots, DA policies and asset boundaries; assets cross only by explicit proven transfer with a user-visible change of security model. Real-time DA availability never substitutes for archival and long-term retrieval.
 
 **Staging refinement (default order; demand may reorder, §3's gate stands):**
 
@@ -106,28 +106,28 @@ O2 lifts only the DA term of the throughput bound `min(T_execution, T_DA, T_prov
 
 ## 6. Fiber — payments rail, not a DA substitute (decision, 9 October 2026)
 
-**Division of labour.** *Fiber scales payments; Tactus scales general-purpose EVM execution; CKB provides canonical ordering, data availability and settlement.* Fiber offloads high-frequency CKB/xUDT payments into channels, removing traffic that would otherwise land on O1's DA budget — and changes none of the ceilings: the 597,000-byte block limit stands, shared EVM state (an AMM swap's pools, ticks and fee growth) still publishes through O1, and PoW reorgs, priority-inbox contention and proving cost are untouched.
+**Division of labour.** *Fiber scales payments; Tactus O1 scales general-purpose EVM execution; CKB provides canonical ordering, data availability and settlement.* Fiber offloads high-frequency CKB/xUDT payments into channels, removing traffic that would otherwise land on O1's DA budget — and changes none of the ceilings: the 597,000-byte block limit stands, shared EVM state (an AMM swap's pools, ticks and fee growth) still publishes through O1, and PoW reorgs, priority-inbox contention and proving cost are untouched.
 
 **Transport is not a DA claim.** Using Fiber nodes to propagate batch data is researchable; equating that with rollup DA is not. Fiber's protocol guarantees payment-channel state between participants — nodes need not retain others' channel histories, and its security model is keep-your-latest-state plus watchtowers. A pipeline of *batch data → Fiber, hashes → CKB* leaves new nodes unable to reconstruct EVM state and users unable to build withdrawal proofs. Bolting on replication, availability certification, archival and recovery turns it into a new external-DA protocol — at which point the deployment **is O2**, subject to the §3 gate, no longer O1. Fiber may carry bytes; it may never carry O1's DA security claim.
 
 **O1 throughput levers, in order of benefit-to-intrusiveness:**
 
-1. **Batch data compression** — shrink reconstructable bytes per L2 transaction (Godwoken's 2022 proposal estimated 253 bytes per ERC-20 L2 transaction — a historical estimate, never a measurement; Tactus's compression targets are set against its own encodings under G4).
+1. **Batch data compression** — shrink reconstructable bytes per L2 transaction (Godwoken's 2022 proposal estimated 253 bytes per ERC-20 L2 transaction — a historical estimate, never a measurement; Tactus O1's compression targets are set against its own encodings under G4).
 2. **Verifiable state-diff publication** — reduce required data where applicable, with recovery demonstrated: a state root alone is not DA; which state, history and proof material remain recoverable must be specified.
-3. **Fiber payment offloading** — reduce the payments that enter Tactus EVM at all.
+3. **Fiber payment offloading** — reduce the payments that enter Tactus O1 EVM at all.
 
-The underlying constraint: `TPS_O1 ≲ (L1 DA byte-rate available to Tactus) / (average reconstructable bytes per L2 transaction)`, further bounded by proving and ordering.
+The underlying constraint: `TPS_O1 ≲ (L1 DA byte-rate available to Tactus O1) / (average reconstructable bytes per L2 transaction)`, further bounded by proving and ordering.
 
-**Combined stack — a direction, not a Day-0 dependency.** Tactus for EVM DeFi, AMM, lending and complex settlement; Fiber for instant payments, routing and micropayments; CKB for PoW security, custody and canonical settlement. Caveats recorded: Fiber balances and Tactus EVM balances do not merge naturally — cross-system custody, settlement and liquidity mechanisms are prerequisites; feeding a Fiber payment atomically into a Tactus contract requires a new cross-system protocol, not two SDKs joined. Day 0 takes no Fiber dependency; future asset-interop interfaces are designed, not assumed.
+**Combined stack — a direction, not a Day-0 dependency.** Tactus O1 for EVM DeFi, AMM, lending and complex settlement; Fiber for instant payments, routing and micropayments; CKB for PoW security, custody and canonical settlement. Caveats recorded: Fiber balances and Tactus O1 EVM balances do not merge naturally — cross-system custody, settlement and liquidity mechanisms are prerequisites; feeding a Fiber payment atomically into a Tactus O1 contract requires a new cross-system protocol, not two SDKs joined. Day 0 takes no Fiber dependency; future asset-interop interfaces are designed, not assumed.
 
-**The stablecoin loop — the combined stack's first concrete use case (mid-term roadmap item; not a Day-0 or consensus dependency).** The prerequisite is *asset identity*: the CKB xUDT is the canonical form, and Tactus holds a fully collateralised, vault-bridged ERC-20 mapping of it. A shared name and symbol do not make two assets the same — issuance rules, asset identity and the ERC-20 mapping must each be verified. Two routes then exist for spending Tactus-held stablecoins:
+**The stablecoin loop — the combined stack's first concrete use case (mid-term roadmap item; not a Day-0 or consensus dependency).** The prerequisite is *asset identity*: the CKB xUDT is the canonical form, and Tactus O1 holds a fully collateralised, vault-bridged ERC-20 mapping of it. A shared name and symbol do not make two assets the same — issuance rules, asset identity and the ERC-20 mapping must each be verified. Two routes then exist for spending Tactus O1-held stablecoins:
 
-- **Route A — the base path, independently executable:** proven withdrawal to the xUDT → channel funding → repeated micropayments, with no per-payment footprint on Tactus, the prover or CKB block production. Fiber's interfaces already accept the asset (`open_channel` takes `funding_udt_type_script`; invoices name `udt_type_script`). The first hop pays the cross-layer settlement latency.
-- **Route B — the UX path, commercial and to be designed:** a Tactus–Fiber liquidity gateway pays the merchant from pre-positioned channel liquidity and collects the user's Tactus funds per protocol. This requires collateral, atomicity, refund and risk-bearing rules; a shared hashlock does not make it trust-free. Long-term posture: B for experience, A always available as the independent base path.
+- **Route A — the base path, independently executable:** proven withdrawal to the xUDT → channel funding → repeated micropayments, with no per-payment footprint on Tactus O1, the prover or CKB block production. Fiber's interfaces already accept the asset (`open_channel` takes `funding_udt_type_script`; invoices name `udt_type_script`). The first hop pays the cross-layer settlement latency.
+- **Route B — the UX path, commercial and to be designed:** a Tactus O1–Fiber liquidity gateway pays the merchant from pre-positioned channel liquidity and collects the user's Tactus O1 funds per protocol. This requires collateral, atomicity, refund and risk-bearing rules; a shared hashlock does not make it trust-free. Long-term posture: B for experience, A always available as the independent base path.
 
-The binding obstacle is **liquidity, not TPS**: an asset being protocol-supported is not the network holding directional channel liquidity for it — public mainnet nodes have lacked stablecoin channel liquidity even where testnet tutorials worked. Requirements: L1 representation, a verified bridge, node UDT support, channel liquidity, wallet/gateway UX. Traffic divides accordingly — retail payments, AI-agent per-call billing and per-second content ride Fiber; AMM, lending and clearing ride Tactus; merchant sweeps travel Fiber → CKB → Tactus. Micropayments never become EVM state transitions, and ecosystem payment volume decouples from O1's DA ceiling.
+The binding obstacle is **liquidity, not TPS**: an asset being protocol-supported is not the network holding directional channel liquidity for it — public mainnet nodes have lacked stablecoin channel liquidity even where testnet tutorials worked. Requirements: L1 representation, a verified bridge, node UDT support, channel liquidity, wallet/gateway UX. Traffic divides accordingly — retail payments, AI-agent per-call billing and per-second content ride Fiber; AMM, lending and clearing ride Tactus O1; merchant sweeps travel Fiber → CKB → Tactus O1. Micropayments never become EVM state transitions, and ecosystem payment volume decouples from O1's DA ceiling.
 
-**Priority validation — one loop:** Tactus ERC-20 → CKB xUDT → Fiber micropayment → CKB xUDT → Tactus ERC-20, with asset mapping, cross-layer settlement, channel liquidity and exit safety each demonstrated. If the loop holds, this is the CKB-flavoured product combination: composable finance on Tactus, high-frequency payments on Fiber, one common asset-security base on CKB.
+**Priority validation — one loop:** Tactus O1 ERC-20 → CKB xUDT → Fiber micropayment → CKB xUDT → Tactus O1 ERC-20, with asset mapping, cross-layer settlement, channel liquidity and exit safety each demonstrated. If the loop holds, this is the CKB-flavoured product combination: composable finance on Tactus O1, high-frequency payments on Fiber, one common asset-security base on CKB.
 
 ## 7. DA provider policy — neutral interface, competing adapters (decision, 9 October 2026)
 

@@ -2,7 +2,7 @@
 //! (blake160 of the compressed public key). Devnet tier only — never mainnet.
 
 use secp256k1::{Secp256k1, SecretKey};
-use tactus_ordering_script::ckb_blakeb160;
+use tactus_o1_ordering_script::ckb_blakeb160;
 
 fn main() {
     let secp = Secp256k1::new();

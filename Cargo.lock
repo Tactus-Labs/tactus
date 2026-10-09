@@ -181,24 +181,24 @@ dependencies = [
 ]
 
 [[package]]
-name = "tactus-devnet-driver"
+name = "tactus-o1-devnet-driver"
 version = "0.1.0"
 dependencies = [
  "blake2b-ref",
  "secp256k1",
  "serde_json",
- "tactus-ordering-script",
+ "tactus-o1-ordering-script",
 ]
 
 [[package]]
-name = "tactus-experiment-a"
+name = "tactus-o1-experiment-a"
 version = "0.1.0"
 dependencies = [
- "tactus-protocol",
+ "tactus-o1-protocol",
 ]
 
 [[package]]
-name = "tactus-ordering-script"
+name = "tactus-o1-ordering-script"
 version = "0.1.0"
 dependencies = [
  "blake2b-ref",
@@ -206,7 +206,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "tactus-protocol"
+name = "tactus-o1-protocol"
 version = "0.1.0"
 
 [[package]]
