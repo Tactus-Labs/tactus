@@ -1,142 +1,192 @@
 # Tactus O1
 
-Project and repository name: `tactus-o1`.
+**Ethereum execution. CKB ordering. A path toward verifiable settlement.**
 
-An independent, CKB-based EVM validity rollup: off-chain-first execution,
-permissionless CKB-based canonical sequencing, validity-enforced settlement.
+Tactus O1 is an EVM validity rollup being built on CKB. It runs Ethereum
+transactions off-chain and publishes their ordered inputs on CKB, so another
+operator can reconstruct what happened. The goal is to make both transaction
+ordering and settlement independent of any one operator.
 
-> **Protocol thesis.** Execute Ethereum transactions off-chain for performance;
-> allow professional but non-privileged builders to assemble candidate batches;
-> use CKB PoW and Cell transitions for canonical batch succession; settle only
-> validity-proven EVM state transitions; preserve the data and witnesses required
-> for the security domain's stated recovery guarantees.
+This repository contains the Rust implementation, protocol specifications, and
+experiments testing that goal under competition, censorship, and chain reorgs.
 
-## Status
+> **Still under development.** Local execution, data publication, and recovery
+> have working implementations and test evidence. End-to-end validity settlement,
+> forced inclusion, and safe exits remain unfinished. Tactus O1 is **not ready
+> for production or user funds**. See the [readiness tracker](specs/PRODUCTION_READINESS.md).
 
-- **Architecture baseline:** frozen at [v0.2.5](specs/TACTUS_O1_ARCHITECTURE_SPEC_v0.2.6.md) (9 October 2026).
-- **Evidence gates:** G1–G9 are all **OPEN**. Local mechanism evidence does not
-  establish end-to-end protocol guarantees or authorise production.
-- **Production readiness:** **NOT READY**. The [readiness tracker](specs/PRODUCTION_READINESS.md)
-  lists the missing execution, proof, DA, inclusion and exit boundaries.
-- **Devnet mechanism tier:** A1 competition, A2 omission baseline, A3 dependency
-  churn and immutable controls now run on isolated CKB **0.121.0 and 0.210.0**.
-  Both runs include 11 script rejection cases and planned reorg/head recovery.
-  [Raw evidence and scope](specs/EXPERIMENT_A_DEVNET_REPORT.md) are checked in;
-  full Experiment A and G1–G9 remain OPEN. Reproduce with
-  `CKB_BIN=/path/to/ckb scripts/run-devnet-experiments.sh`.
-- **Batch input / data publication:** [BatchInput v1](specs/BATCH_INPUT_V1.md)
-  binds ordered block inputs and publishes their complete bytes atomically in
-  immutable CKB outputs. Both node versions pass limit, mutation and reorg-input
-  recovery tests ([evidence](specs/BATCH_INPUT_REPORT.md)). This is not yet
-  execution totality, EVM state recovery or validity settlement.
-- **Authenticated A2 comparator:** real message locks, consensus-mature challenges,
-  bounded publication prefixes and immutable pending records now have VM evidence.
-  The [challenge-only counterexample](specs/A2_OBLIGATION_REPORT.md) still fails
-  forced inclusion. G2 remains OPEN; run with `TACTUS_DEVNET_SUITE=replay-priority`.
-- **Current deliverable:** [Experiment A](specs/EXPERIMENT_A_DESIGN.md) — the
-  priority-admission comparison of A1 (atomic OrderingHead reference), A2
-  (independent Priority Message Cells) and A3′ (sharded lane heads, with an
-  epoch-sealed snapshot control arm) under identical adversarial CKB devnet
-  conditions. G2 — censorship resistance — is the blocking gate.
-- **Simulation tier: complete.** All three arms plus the sealed control run
-  with deterministic seeds and pre-committed decision rules; reproduce with
-  `cargo run --bin tactus-o1-experiment-a` and read
-  [`specs/EXPERIMENT_A_REPORT.md`](specs/EXPERIMENT_A_REPORT.md). Headline
-  simulation-tier findings (not gate passes; mechanism-tier devnet evidence now available):
-  - **A1** — fee priority rescues conflicts it can reach, never stale
-    OutPoints: at a 3-block signing delay, DOA reaches 34% even at 10× fees
-    → reference implementation only.
-  - **A3′ live-head references** — collapse under adversarial churn
-    (survival 0.01) and degrade as per-lane load grows, while the
-    epoch-sealed control arm is churn-immune at bounded processing delay.
-  - **A2** — admission is contention-free by construction; challenges that
-    only exact a penalty leave messages unprocessed (`G2 not passed`),
-    forced inclusion restores them at bounded delay.
-- **Day-0 posture (decision, 9 October 2026):** correctness-first — serial revm,
-  linear CKB ordering, validity proofs, priority inbox, CKB DA, basic bridge and
-  exits. No execution DAG, no microbatch DAG, no canonical DAG. The protocol
-  boundary to settle *and test* before Day 0: the multi-EVM-block-per-anchor
-  model, batch commitment format and proof binding rules — see the
-  [DAG note §8 decision record](specs/DAG_ACCELERATION_NOTE.md).
-- **O2 posture (decision, 9 October 2026):** O2-ready architecture, not
-  O2-ready implementation — Day 0 is O1 with CKB DA; external DA is a deferred
-  *data-security model*, never a performance switch, and opens only through
-  the four-condition [activation gate](specs/O2_ACTIVATION_POLICY.md).
-  Layered product: O1 core rollup as mainnet and security baseline; the O2
-  domain is named **Tactus Pulse** — O2 and preconfirmation solve orthogonal
-  problems and converge at the CKB ordering layer; "Tactus O1"
-  always means the O1 mainnet.
-- **Block pipeline (decision, 9 October 2026):** high-frequency speculative
-  blocks, low-frequency CKB anchors, asynchronous validity settlement.
-  Commitment ≠ data availability: anchors are valid only with atomically
-  published reconstruction data — hashes alone are prohibited as an O1 claim
-  ([DAG note §9](specs/DAG_ACCELERATION_NOTE.md)).
-- **Operational posture (decision, 9 October 2026):** operational centralisation
-  and consensus authority are separate claims — services may be dominated by one
-  operator, canonical ordering may not; Temporary Execution Buffer ≠ external
-  DA; no globally consistent 100 ms soft head under permissionless builders
-  (fast local speculative blocks adopted); minimum Day-0 deployment and the
-  stage-by-stage claims ladder in [OPERATIONAL_POSTURE.md](specs/OPERATIONAL_POSTURE.md).
-- **Fast DeFi posture (research direction, 9 October 2026):** two confirmation
-  lanes — a ~100 ms fast lane (execution, soft blocks, optional **bonded**
-  preconfirmation) over the CKB-cadence settlement lane; preconfirmation buys
-  compensation, never irreversibility ("economically protected soft
-  confirmation", not fast finality); the general-L2 vs Hyperliquid-grade fork
-  is recorded OPEN in [OPERATIONAL_POSTURE.md §8](specs/OPERATIONAL_POSTURE.md).
-- **Fiber posture (decision, 9 October 2026):** payments rail, not a DA
-  substitute — Fiber may offload payment traffic and carry bytes, but never
-  O1's DA security claim (replication + availability + archival machinery
-  would make it O2, behind the gate). Combined-stack direction: Tactus O1 (EVM
-  DeFi) + Fiber (payments) + CKB (settlement); Day 0 takes no dependency —
-  interop interfaces designed, not assumed.
-- **Work plan (9 October 2026, post-review):** architecture stays; resources
-  shift from designing features to proving the two hardest properties —
-  **G2** (forced inclusion under a hostile builder) and **W-12** (no accepted
-  canonical batch may permanently stall settlement; the batch-admission
-  envelope is protocol-enforced, never builder self-restraint). **P0** —
-  EVM Block Model v0.2.6 (multi-block semantics with test vectors; gap table
-  in the DAG note §1.4) · Experiment A devnet (implement, don't assume,
-  forced processing) · Experiment B (end-to-end proof) · Experiment C
-  (operator-independent recovery). **P1** — Fast-Head Continuity (soft-reorg
-  UX under two independent builders) · CellScript integration (first joint
-  prototype targets SettlementTip + Vault/Withdrawal, not the Priority
-  Inbox). **P2** — Pulse/O2, parallel execution, Fiber, on measured need.
-  If G2 proves unsatisfiable under existing CKB Script capabilities, the
-  security claims are re-examined honestly — up to and including a minimal
-  CKB consensus extension — never masked by soft TPS or larger penalties.
-- **Simulation-tier honesty note:** A2's forced-inclusion row and the sealed
-  A3′ arm are recorded as `ConditionalEnforcementPrimitiveUnimplemented` —
-  they pass only under simulator assumptions; no G2 credit is taken.
-- **Research notes:** [DAG acceleration and external DA](specs/DAG_ACCELERATION_NOTE.md)
-  — execution-engine parallelism carries no protocol consequence but real
-  engineering cost; batch-construction DAG depends on the **L2 block model**
-  (how many EVM blocks one CKB anchor authenticates — the note's prior
-  question, §1.4); canonical-ordering DAG is rejected; coexistence with the
-  O2 external-DA domain examined; falsifiable reopen conditions stated.
+[Architecture](specs/TACTUS_O1_ARCHITECTURE_SPEC_v0.2.6.md) ·
+[Experiments](specs/EXPERIMENT_A_DESIGN.md) ·
+[Execution](specs/EXECUTION_V1.md) ·
+[Readiness](specs/PRODUCTION_READINESS.md)
 
-## Repository layout
+## Follow a transaction
 
-```text
-specs/               # frozen architecture spec + experiment designs
-crates/
-  tactus-o1-protocol/     # protocol primitives (illustrative companions to the spec)
-  tactus-o1-experiment-a/ # Experiment A simulation: workload models, metrics, scenarios
-  tactus-o1-ordering-script/ # host-tested + CKB-VM experimental state transitions
-  tactus-o1-anchor-script/  # bounded multi-block inputs and atomic immutable CKB DA
-  tactus-o1-priority-script/ # authentic A2 messages; challenge-only failure comparator
-  tactus-o1-execution/      # pinned Shanghai, durable journal and Geth comparisons
-  tactus-o1-head-lock/      # permissionless lock bound to the head type
-  tactus-o1-devnet-driver/  # real transactions, isolated experiments, head recovery
-scripts/                # RISC-V build, disposable devnet launcher, evidence summary
+A builder executes transactions and packages one or more EVM blocks into a
+batch. CKB establishes the canonical batch order and stores the complete inputs
+needed for replay. A separate proof-and-settlement path is intended to establish
+that the resulting state is correct before funds can be withdrawn.
+
+```mermaid
+flowchart TB
+    tx(["Signed Ethereum transactions"])
+
+    subgraph execution["01 · EXECUTE OFF-CHAIN"]
+        builder["Builder<br/>Serial EVM execution"]
+        batch["Candidate batch<br/>Ordered EVM blocks + full inputs"]
+        builder --> batch
+    end
+
+    subgraph ckb["02 · ANCHOR ON CKB"]
+        anchor["Canonical batch order<br/>Immutable input publication"]
+    end
+
+    subgraph verification["03 · REPLAY & VERIFY"]
+        replay["Independent replay<br/>Reconstruct EVM state"]
+        proof["Validity proof"]
+        settlement["Verified settlement<br/>Bridge and withdrawals"]
+    end
+
+    tx --> builder
+    batch --> anchor
+    anchor --> replay
+    anchor -.-> proof
+    proof -.-> settlement
+
+    classDef evm fill:#eff6ff,stroke:#2563eb,color:#172554,stroke-width:1.5px
+    classDef chain fill:#ecfdf5,stroke:#059669,color:#064e3b,stroke-width:1.5px
+    classDef recovery fill:#f5f3ff,stroke:#7c3aed,color:#2e1065,stroke-width:1.5px
+    classDef future fill:#f8fafc,stroke:#64748b,color:#334155,stroke-dasharray:5 4
+    class tx,builder,batch evm
+    class anchor chain
+    class replay recovery
+    class proof,settlement future
+    style execution fill:transparent,stroke:#93c5fd
+    style ckb fill:transparent,stroke:#6ee7b7
+    style verification fill:transparent,stroke:#c4b5fd
 ```
 
-Crates are added only when their protocol boundary is justified; the canonical
-wire specification lives under `specs/` and is never defined implicitly by a
-Rust struct.
+**Solid paths** have local implementation evidence. **Dashed paths** are still
+being built; the diagram is not a claim of a complete production system.
+A CKB anchor records order and data. It does not, by itself, prove EVM execution
+or make a soft confirmation final.
 
+O1 keeps its reconstruction data on CKB. External data availability, parallel
+execution, and optional fast confirmations are separate research directions;
+they are not prerequisites for the initial design.
 
-## Claim discipline
+## What you can try today
 
-A design goal is not an implemented property. A local fixture passing is not a
-public-network security result. A soft confirmation is not settled finality. A
-cost estimate is not measured throughput.
+- **Execute and replay Ethereum transactions.** The serial `revm` executor uses a
+  pinned Shanghai profile, with state roots, receipts, and rejection outcomes
+  checked against independent Geth fixtures.
+  [Execution evidence →](specs/EXECUTION_DIFFERENTIAL_REPORT.md)
+- **Publish complete batch inputs on CKB.** Experimental scripts enforce bounded,
+  atomic data publication. Devnet tests exercise invalid inputs and recovery
+  after a planned chain reorg.
+  [Batch publication results →](specs/BATCH_INPUT_REPORT.md)
+- **Rebuild EVM state in another process.** Recovery reads canonical CKB inputs
+  and replays execution. A durable local journal also supports restart and
+  corruption checks.
+  [Recovery results →](specs/CKB_EVM_RECOVERY_REPORT.md)
+- **Test competing and uncooperative builders.** Deterministic simulations and
+  isolated CKB devnets expose stale references, message omission, and the limits
+  of challenge-only enforcement.
+  [Devnet results →](specs/EXPERIMENT_A_DEVNET_REPORT.md)
+
+## The hard question: can a builder ignore you?
+
+Accepting a message is only half the problem. If every builder refuses to
+process it, the protocol needs an enforceable route forward. **Experiment A**
+compares three ways to admit messages and make them part of the canonical order.
+
+```mermaid
+flowchart TB
+    question(["How does a user's message reach a batch?"])
+
+    question --> a1["A1 · Shared head<br/>Submit against the current ordering state"]
+    question --> a2["A2 · Independent messages<br/>Publish without competing for one head"]
+    question --> a3["A3 · Sharded lanes<br/>Spread admission across several queues"]
+
+    a1 --> stale["Observed limit<br/>A moving head can invalidate a signed transaction"]
+    a2 --> omit["Observed limit<br/>A challenge alone does not force processing"]
+    a3 --> churn["Observed limit<br/>Changing lane heads invalidate live references"]
+    churn -.-> sealed["Candidate under validation<br/>Seal a stable snapshot, then require its ordered prefix"]
+
+    classDef entry fill:#f8fafc,stroke:#475569,color:#0f172a,stroke-width:1.5px
+    classDef design fill:#eff6ff,stroke:#3b82f6,color:#1e3a8a,stroke-width:1.5px
+    classDef finding fill:#fff7ed,stroke:#ea580c,color:#7c2d12
+    classDef candidate fill:#ecfdf5,stroke:#059669,color:#064e3b,stroke-width:1.5px,stroke-dasharray:5 4
+    class question entry
+    class a1,a2,a3 design
+    class stale,omit,churn finding
+    class sealed candidate
+```
+
+The results explain where the work is going: higher fees cannot repair a stale
+reference, and penalties alone cannot make an omitted message execute. Sealed
+snapshots offer a way to keep batch inputs stable while new messages arrive,
+but snapshot switching and mandatory processing must survive hostile conditions.
+
+Read the [simulation report](specs/EXPERIMENT_A_REPORT.md), the
+[A2 challenge counterexample](specs/A2_OBLIGATION_REPORT.md), or the
+[A3 sealed-snapshot design](specs/A3_SEALED_V1.md). Simulation assumptions are
+recorded separately from real-node evidence; full Experiment A remains open.
+
+## Run it locally
+
+Start with the deterministic experiment. It needs no running CKB node.
+The repository pins **Rust 1.92.0** through `rust-toolchain.toml`; use a
+Rust installation managed by `rustup`.
+
+```bash
+cargo run --locked --bin tactus-o1-experiment-a
+```
+
+To run the workspace tests:
+
+```bash
+cargo test --locked --workspace
+```
+
+For real transaction-pool and CKB-VM experiments, install **CKB 0.121.0** and
+have Bash and Python 3 available. The launcher builds the RISC-V scripts and
+creates a fresh, funded local chain:
+
+```bash
+CKB_BIN=/absolute/path/to/ckb scripts/run-devnet-experiments.sh
+```
+
+The launcher uses loopback ports `18714` and `18715`, saves logs and evidence
+under `artifacts/`, and stops its own node when finished. Its fixed keys belong
+only to these disposable devnets. To use CKB **0.210.0**, set
+`TACTUS_CKB_VERSION=0.210.0` and point `CKB_BIN` at the matching binary.
+See [local validation](specs/PRODUCTION_READINESS.md#local-validation) for more details.
+
+## Find your way around
+
+| If you want to… | Start here |
+| --- | --- |
+| Understand the protocol and its trust assumptions | [Architecture specification](specs/TACTUS_O1_ARCHITECTURE_SPEC_v0.2.6.md) |
+| Follow the A1 / A2 / A3 comparison | [Experiment A design](specs/EXPERIMENT_A_DESIGN.md) |
+| Understand exactly what an EVM batch means | [Execution rules](specs/EXECUTION_V1.md) and [batch input format](specs/BATCH_INPUT_V1.md) |
+| Work on restart and recovery | [Execution journal](specs/EXECUTION_JOURNAL.md) and [CKB-to-EVM recovery](specs/CKB_EVM_RECOVERY_REPORT.md) |
+| See what still blocks deployment | [Production readiness](specs/PRODUCTION_READINESS.md) |
+
+The code follows the same boundaries: `crates/tactus-o1-execution/` handles EVM
+execution and replay, `crates/tactus-o1-protocol/` defines shared primitives, and
+the script crates enforce experimental CKB transitions. The experiment and
+devnet-driver crates exercise those pieces; `scripts/` builds and runs the lab.
+Wire formats and protocol rules live in `specs/`.
+
+<details>
+<summary>Further reading: fast confirmations, external DA, and future scaling</summary>
+
+- [Operational posture](specs/OPERATIONAL_POSTURE.md) — builders, soft blocks,
+  and what a fast confirmation can promise.
+- [DAG and execution research](specs/DAG_ACCELERATION_NOTE.md) — where
+  parallelism might help and why canonical ordering stays linear.
+- [O2 activation policy](specs/O2_ACTIVATION_POLICY.md) — the conditions for a
+  future external-DA domain, Tactus Pulse.
+
+</details>
