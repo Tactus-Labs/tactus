@@ -152,3 +152,10 @@ carry-forward behavior under the same adversarial workloads as A1/A2, rather tha
 promoting this bounded scenario into a complete G2 pass. Production still requires
 the complete execution → proof → verified settlement → exit path described in
 [PRODUCTION_READINESS.md](PRODUCTION_READINESS.md).
+
+## Repeated seal contention
+
+The later [fresh seal-contention experiment](SEAL_CONTENTION_REPORT.md) measures
+repeated stale seals until the finite valid-append budget exhausts, then verifies
+complete sealing and processing in consecutive epochs. Its conditional canonical
+progress bound does not qualify miner inclusion or user admission fairness.

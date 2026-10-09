@@ -1,0 +1,7 @@
+{
+  "source_sha256": {
+    "scripts/analyze-seal-contention.py": "8792e84a8361932213a098af1c6fd9fa7fece57ec922abff6681ec71bb2d5a21",
+    "scripts/test-seal-analysis.py": "989e937d25e29f33871814b5e4e2311185976a62bd20a2bea56b1e7bfbf543f3"
+  },
+  "scope": "Independent post-run evidence reconciliation and corruption controls. Each tested-source archive retains the exact files hashed by that run, including the launch-time CI workflow."
+}

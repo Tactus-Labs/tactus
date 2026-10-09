@@ -1,0 +1,580 @@
+deploy immutable code and independent actor funds: committed 0x54fb6f4041a4a8faa76fc0478e40c9ba7574de6021590b8aea102c2120ce1687
+seal-contention/deploy gate: committed 0x1269f7e673633cca8eb0b85858ecfc9a4e875ffa27d898c2f439c449d3f59268
+sealed/1 lanes/genesis: committed 0x9485b39a5d3f395b5e25d028273da0c6175b8daf6a101d26faf1ef39d5b1bb11
+seal-contention/1/one-lane-per-rebuild/warmup: committed 0x916bb5d18f03ea926ba3655b1e418f06e56171347a0c0081afa69bfd50e01977
+seal-contention/1/one-lane-per-rebuild/warmup: committed 0xcced9195cb4cc46487265f7ed43fc7eabfc1f1155393c6bf4a18e051bfb00b66
+seal-contention/1/one-lane-per-rebuild/warmup: committed 0xea0ee18d29bed266b6003d58f2cbf19fe43039a1d4c64a459cc2a6016e3fa81c
+seal-contention/1/one-lane-per-rebuild/warmup: committed 0x6512ea5b580380ac21f1a2b900cfa44ab3809af74ab2cd45cb5a8a67ff513c6c
+seal-contention/1/one-lane-per-rebuild/warmup: committed 0x458df9c7c116948eb185001c55a323bfcff27f72627802ee2e15bda20db1a00b
+seal-contention/1/one-lane-per-rebuild/warmup: committed 0x5006eadb943899a8046c8b116979f73d9c1347d0e7b247c1e37e697099a58c01
+seal-contention/1/one-lane-per-rebuild/warmup: committed 0x073ef0ff4a4e1d42c5c5e1195a671883cf4878e16c9119a15f913a6a51608954
+seal-contention/1/one-lane-per-rebuild/warmup: committed 0x031208203b52392aeca1fe087e2bb4253e6dd54c6362351f3982520a2a4b37df
+seal-contention/1/one-lane-per-rebuild/epoch-0/attempt-0/attacker admission: committed 0x8bb143d6749416dfbd653d75962b28b2e9092e44e56fa465e764e518100f3e1a
+seal-contention/1/one-lane-per-rebuild/epoch-0/attempt-0/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/1/one-lane-per-rebuild/epoch-0/attempt-1/attacker admission: committed 0x8c16b10ddc2878bc40d7b8638ab0e3d912f8c15c26c84911dd91aa70b5cd1dc7
+seal-contention/1/one-lane-per-rebuild/epoch-0/attempt-1/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/1/one-lane-per-rebuild/epoch-0/attempt-2/attacker admission: committed 0x0becea3de7ccd31f0c42b3412609cc517473372c03d4a62e434c4451b960f798
+seal-contention/1/one-lane-per-rebuild/epoch-0/attempt-2/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/1/one-lane-per-rebuild/epoch-0/attempt-3/attacker admission: committed 0x2d07c6548031dcffbf88df2c0e6ee66292c4cba20f872e281d5f8a7352e88234
+seal-contention/1/one-lane-per-rebuild/epoch-0/attempt-3/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/1/one-lane-per-rebuild/epoch-0/attempt-4/attacker admission: committed 0x794cc6de865143a9f30f4ae7253237061633d1e0c69a7e6008604eb03b1675af
+seal-contention/1/one-lane-per-rebuild/epoch-0/attempt-4/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/1/one-lane-per-rebuild/epoch-0/attempt-5/attacker admission: committed 0x4107815755c0b76c8c0d94a2e8d2f3f576fbcda10ac616ec94a981c919cb9543
+seal-contention/1/one-lane-per-rebuild/epoch-0/attempt-5/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/1/one-lane-per-rebuild/epoch-0/attempt-6/attacker admission: committed 0xd12d18d905153a933b2c8436ccee6ed22a128fddcaa0c3866d50fdb8ece2a950
+seal-contention/1/one-lane-per-rebuild/epoch-0/attempt-6/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/1/one-lane-per-rebuild/epoch-0/attempt-7/attacker admission: committed 0xc51be18a6b4ed4670e78204e7226a6b93eeab84da59db739c6bd4f3e99fb1c72
+seal-contention/1/one-lane-per-rebuild/epoch-0/attempt-7/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/1/one-lane-per-rebuild/epoch-0/exhausted/lane-0/ninth admission: rejected (3)
+seal-contention/1/one-lane-per-rebuild/epoch-0/exhausted/lane-0/no-op: rejected (12)
+seal-contention/1/one-lane-per-rebuild/epoch-0/exhausted/lane-0/unauthorized reset: rejected (7)
+seal-contention/1/one-lane-per-rebuild/epoch-0/rebuilt seal after exhausted churn: committed 0x0d5ba28547d6438466d6e79782cec38fc80a6b08935eb1c8b2ed6083145a90ce
+seal-contention/1/one-lane-per-rebuild/epoch-0/process-0: committed 0x1e5623218338d804fcb5751dc0d66de3de1dd16f1e8533438986e0888580d386
+seal-contention/1/one-lane-per-rebuild/epoch-0/process-1: committed 0x0d9bbcc0edffa40999b751eeb822bb965417a4b64772de91d316dddbd8b6cba1
+seal-contention/1/one-lane-per-rebuild/epoch-0/process-2: committed 0x4080c855fd02022dd82b8f867f3656e0fb3248cb3b0bdb0ef6e68a1359e1cc21
+seal-contention/1/one-lane-per-rebuild/epoch-0/process-3: committed 0x061814efebe6ac5948a71fc66e90e7251c628c46b35a94a41966f0199c068205
+seal-contention/1/one-lane-per-rebuild/epoch-0/process-4: committed 0x96f7a2dc14fda60668fd061690a887abf4a8ff794af794017e759876a69c5b4c
+seal-contention/1/one-lane-per-rebuild/epoch-0/process-5: committed 0x2fabeb6fbe87a83c11b5edcfbecffc808c195c850093b781f029eda01671e53e
+seal-contention/1/one-lane-per-rebuild/epoch-0/process-6: committed 0x61258b32aa2d7b3118aabd7184e05755e2bfc641599c1985d489a8c3ea93c3db
+seal-contention/1/one-lane-per-rebuild/epoch-0/process-7: committed 0x7f8706ac1f376f4408c4c66f7165e2b322568cebcc2b401d9887e03020a3bf5a
+seal-contention/1/one-lane-per-rebuild/epoch-0: 8 freshly signed seals invalidated; full set sealed and classified
+seal-contention/1/one-lane-per-rebuild/epoch-1/attempt-0/attacker admission: committed 0xa1a67fb09815ead61f8b688b4c1ecdf3805cde22134505c7c2a2bec94f57a690
+seal-contention/1/one-lane-per-rebuild/epoch-1/attempt-0/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/1/one-lane-per-rebuild/epoch-1/attempt-1/attacker admission: committed 0x1711dfb89374977d2feb9afee91666085df0c0fc70ce3abc3fb9dca9f1345430
+seal-contention/1/one-lane-per-rebuild/epoch-1/attempt-1/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/1/one-lane-per-rebuild/epoch-1/attempt-2/attacker admission: committed 0x07611b7355b67839519939bb2d9226cc3bc3b52ce3153b0ea55797e7c9c879da
+seal-contention/1/one-lane-per-rebuild/epoch-1/attempt-2/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/1/one-lane-per-rebuild/epoch-1/attempt-3/attacker admission: committed 0xc06d66739f026377c2afd1c2d7bf216eedbfadd1ccb88408149d08bccdce502c
+seal-contention/1/one-lane-per-rebuild/epoch-1/attempt-3/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/1/one-lane-per-rebuild/epoch-1/attempt-4/attacker admission: committed 0x2e1c18d08daf1d8008eb0b7f43a35a7df23346932470abba749642d82a6b4006
+seal-contention/1/one-lane-per-rebuild/epoch-1/attempt-4/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/1/one-lane-per-rebuild/epoch-1/attempt-5/attacker admission: committed 0xba3682a07261aeae59ce47fde8e8837bb8c76600c5d7f21d34d0f9aefd1fc516
+seal-contention/1/one-lane-per-rebuild/epoch-1/attempt-5/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/1/one-lane-per-rebuild/epoch-1/attempt-6/attacker admission: committed 0x61afb6c52d309e1272ae4d6c67330fb9a515777e6f348e692d360a8b5baace98
+seal-contention/1/one-lane-per-rebuild/epoch-1/attempt-6/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/1/one-lane-per-rebuild/epoch-1/attempt-7/attacker admission: committed 0xf7acc7d41ee4aaa742ee411e7887f3884b1cb252c32d19583c76dc6299ab8176
+seal-contention/1/one-lane-per-rebuild/epoch-1/attempt-7/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/1/one-lane-per-rebuild/epoch-1/exhausted/lane-0/ninth admission: rejected (3)
+seal-contention/1/one-lane-per-rebuild/epoch-1/exhausted/lane-0/no-op: rejected (12)
+seal-contention/1/one-lane-per-rebuild/epoch-1/exhausted/lane-0/unauthorized reset: rejected (7)
+seal-contention/1/one-lane-per-rebuild/epoch-1/rebuilt seal after exhausted churn: committed 0x8863054ebfd5e830087bc60e6904d2800d287806b06c23d47a3d575bf5a5b658
+seal-contention/1/one-lane-per-rebuild/epoch-1/process-0: committed 0xdcd425e1148f27dd0840cbdb988b030f18f17e3b4732ba67248d37e0d6b4bb4e
+seal-contention/1/one-lane-per-rebuild/epoch-1/process-1: committed 0x30ad474a0bb54c9d1de89eab75de0d7de4061148efefc228e8f671bc9690505e
+seal-contention/1/one-lane-per-rebuild/epoch-1/process-2: committed 0xa4740b313e6e5818ce8fb734a47b22b8ac5c35052fef8b0ae0ef5969c494bd4b
+seal-contention/1/one-lane-per-rebuild/epoch-1/process-3: committed 0x627ea378ed9ebc93b53a2bf35c3c7a85d6bb7187ee498915db350f6973dad3e9
+seal-contention/1/one-lane-per-rebuild/epoch-1/process-4: committed 0x9ee1c4f0e17df6e4035eb040bbb1165e4b2a5369dffdac26dddef684d0bfb10d
+seal-contention/1/one-lane-per-rebuild/epoch-1/process-5: committed 0x17d848e00f2b3a87ff478a694a97efeab3aeb8b2fdd4cd8dd33c08e7226097f5
+seal-contention/1/one-lane-per-rebuild/epoch-1/process-6: committed 0x79c0afe42cbdbce8972d59d36101d9eea1ff06665531b32405f803dcb7410b6e
+seal-contention/1/one-lane-per-rebuild/epoch-1/process-7: committed 0x82cceef3cfc54ca67421adcd8984d45dda91578d18374aa3ff00dc36ffc08346
+seal-contention/1/one-lane-per-rebuild/epoch-1: 8 freshly signed seals invalidated; full set sealed and classified
+sealed/1 lanes/genesis: committed 0xae8c039012e572a71bdee3f5a85eaa381a9ead43cee2162f3a29a8e51921c51b
+seal-contention/1/all-lanes/warmup: committed 0x9d8b254ebf6610d4fdce549db5f6f6d4d79a9105b0d63523c3ef3b33579acbbe
+seal-contention/1/all-lanes/warmup: committed 0x974c1cc82348ceb228c6ecc5b47fc5048c79f8def1214fb0b55277228070c0bd
+seal-contention/1/all-lanes/warmup: committed 0xeb8cfa7c183567703df773c6ed889d73d3bd09b01cf6f79355648c4e0ce3f203
+seal-contention/1/all-lanes/warmup: committed 0xf1fc488bc1ef4ec9646e107da6a22ac5717b0d7c92cff997968b5114e96ae7b1
+seal-contention/1/all-lanes/warmup: committed 0xb80ad7d096f9fa87d9d56e813dc3aa1eea8cfaa9e54883b7d2ad887dc34d1ef8
+seal-contention/1/all-lanes/warmup: committed 0xc80699ce90d98735dc994a356379b7b3f6df5e6131468d07f037ced762c4cfd4
+seal-contention/1/all-lanes/warmup: committed 0x96a4180797a493bd1deaa30a3744a2283d160d503a90c07f0cc00eba2a4fabe0
+seal-contention/1/all-lanes/warmup: committed 0x2286396e3b20eba47ec01aa1f04c2ea9f883b39a5fce12bdff9d3d2d4d251e09
+seal-contention/1/all-lanes/epoch-0/attempt-0/attacker admission: committed 0x0f9199cea83ddbff7d2b16650b7812d08581c56bb3b78c99b2e03d91956e9fe5
+seal-contention/1/all-lanes/epoch-0/attempt-0/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/1/all-lanes/epoch-0/attempt-1/attacker admission: committed 0xfb4c8ee3192ae213b45754006e48b1e2a4271ebe4531856b7641187789c38f4a
+seal-contention/1/all-lanes/epoch-0/attempt-1/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/1/all-lanes/epoch-0/attempt-2/attacker admission: committed 0x0a602501dff739bdd525cb7250f0304807f1c27e7f20f0e7541cf1366f4be0bb
+seal-contention/1/all-lanes/epoch-0/attempt-2/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/1/all-lanes/epoch-0/attempt-3/attacker admission: committed 0x363a23849f0da388ec7bea8a1c8c9072ebc4c1fd3e12431e30e7edd10a49e1a2
+seal-contention/1/all-lanes/epoch-0/attempt-3/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/1/all-lanes/epoch-0/attempt-4/attacker admission: committed 0xc0f85e5e2840fe1774e4a4099c232649be94a6aa9b133d995393c02a73bcf572
+seal-contention/1/all-lanes/epoch-0/attempt-4/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/1/all-lanes/epoch-0/attempt-5/attacker admission: committed 0x59a4e4e388d5e68644a4311132ea41b06de681d63d6d299f39a16ead176da0e1
+seal-contention/1/all-lanes/epoch-0/attempt-5/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/1/all-lanes/epoch-0/attempt-6/attacker admission: committed 0x79ace0a39806c53dddf296acd8468439c87816a986c6a6217d9defa72e467d2c
+seal-contention/1/all-lanes/epoch-0/attempt-6/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/1/all-lanes/epoch-0/attempt-7/attacker admission: committed 0x0cb8b24bdcbcfc61b38bd922eeaa402530d2aaf1a5a3a8a86ebbd5225354370c
+seal-contention/1/all-lanes/epoch-0/attempt-7/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/1/all-lanes/epoch-0/exhausted/lane-0/ninth admission: rejected (3)
+seal-contention/1/all-lanes/epoch-0/exhausted/lane-0/no-op: rejected (12)
+seal-contention/1/all-lanes/epoch-0/exhausted/lane-0/unauthorized reset: rejected (7)
+seal-contention/1/all-lanes/epoch-0/rebuilt seal after exhausted churn: committed 0xb032f7359a577d58364485149b5da3dfc77e8fd0ac350b695d34d5d4f5d8d893
+seal-contention/1/all-lanes/epoch-0/process-0: committed 0xe5873405006a181b91a70a190d812c36fe96332bb2d44b2e56d41f45783fba9a
+seal-contention/1/all-lanes/epoch-0/process-1: committed 0x06cb1b4d69e22699dea22e0e7de2ad852668a57c1f3369e699ca6ff371f5a918
+seal-contention/1/all-lanes/epoch-0/process-2: committed 0x154d17849a89567016a52c6894d288acfccb67a21de8b0a9d3c5a4bdda1f464a
+seal-contention/1/all-lanes/epoch-0/process-3: committed 0x929b16e4d475eadaaf71cd740896cf270cd5c5edabca3422587118bc504ebddd
+seal-contention/1/all-lanes/epoch-0/process-4: committed 0xf2eaba6334b0c9e021afcecb92fc12c95e886370b02a97d2bf9a7715b50105e0
+seal-contention/1/all-lanes/epoch-0/process-5: committed 0x32e24fbaee1fdf5bc4745ed3bf5dbd9377b0644b1d1b4c4aa426edadc7774694
+seal-contention/1/all-lanes/epoch-0/process-6: committed 0x6faa21d6af9139aa1721629fba9f86cc1a32575072e11db171a64bc31e3fa6a6
+seal-contention/1/all-lanes/epoch-0/process-7: committed 0xbe8f36641850cb4e63504866223790920f34aa34e3513496d8621df1b6bbb9fe
+seal-contention/1/all-lanes/epoch-0: 8 freshly signed seals invalidated; full set sealed and classified
+seal-contention/1/all-lanes/epoch-1/attempt-0/attacker admission: committed 0x8f90b0accc635844c81d2fc214a1837c5bf408e873ebd4858b0e9cc3afcae2a8
+seal-contention/1/all-lanes/epoch-1/attempt-0/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/1/all-lanes/epoch-1/attempt-1/attacker admission: committed 0xd37ffb3ea98ce1823b1fb1b819b1023be6b1b32f7f5019f0a03cca63dc6ad622
+seal-contention/1/all-lanes/epoch-1/attempt-1/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/1/all-lanes/epoch-1/attempt-2/attacker admission: committed 0xd602711f3c20d652c716685a7091b6f09eb545806cdfb7a8ca693c373722c548
+seal-contention/1/all-lanes/epoch-1/attempt-2/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/1/all-lanes/epoch-1/attempt-3/attacker admission: committed 0xae6f834e778987f662e6a58e80b2c469457b4c0c9e7761e904dc1ad07db2aafe
+seal-contention/1/all-lanes/epoch-1/attempt-3/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/1/all-lanes/epoch-1/attempt-4/attacker admission: committed 0x12ba2069247d6d4565a69ddac1e90f8b1f5e8c47e2febc5a592e45640d0ad339
+seal-contention/1/all-lanes/epoch-1/attempt-4/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/1/all-lanes/epoch-1/attempt-5/attacker admission: committed 0xe5903567a02a5a43bceb5ed16610508ad8164ac9834d27e9d390ccc9cbefc6bd
+seal-contention/1/all-lanes/epoch-1/attempt-5/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/1/all-lanes/epoch-1/attempt-6/attacker admission: committed 0x563acf120210c7ac78e4dd369783fb42adea0a22cb4f085c1a8acd4c8c000080
+seal-contention/1/all-lanes/epoch-1/attempt-6/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/1/all-lanes/epoch-1/attempt-7/attacker admission: committed 0xe4c5822d4c096d766d10b9644d723a0b34167d5003da98c0fbf5cac5ffc23438
+seal-contention/1/all-lanes/epoch-1/attempt-7/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/1/all-lanes/epoch-1/exhausted/lane-0/ninth admission: rejected (3)
+seal-contention/1/all-lanes/epoch-1/exhausted/lane-0/no-op: rejected (12)
+seal-contention/1/all-lanes/epoch-1/exhausted/lane-0/unauthorized reset: rejected (7)
+seal-contention/1/all-lanes/epoch-1/rebuilt seal after exhausted churn: committed 0xf7ee19e63ba5d3b15287a74ac3fa6185ccbbdb923c73403c368c0384d06da478
+seal-contention/1/all-lanes/epoch-1/process-0: committed 0x7e7bade84faab24ce46885a1bfa183db65e31dd6169c1fbf4302de6688aaf4de
+seal-contention/1/all-lanes/epoch-1/process-1: committed 0xd104ccca3ea9355a0e60bb19f553beb411e919b44e50020627909ea04712fb50
+seal-contention/1/all-lanes/epoch-1/process-2: committed 0xffd6a29485ea7f648cecd599fa079815beff5c8161b8efe26803714e81c5502d
+seal-contention/1/all-lanes/epoch-1/process-3: committed 0x5f5a1740200888412091e905227d298b303f805fcddd665b1bb1e5d801a00751
+seal-contention/1/all-lanes/epoch-1/process-4: committed 0xa6f939755bf3f2f650c851582f965224f06e16142272a68141bb14f8df9b38b4
+seal-contention/1/all-lanes/epoch-1/process-5: committed 0x03eec5e90639e69881ee70a5ac93000b3ff9239ebf805ede5594713dfba37e3b
+seal-contention/1/all-lanes/epoch-1/process-6: committed 0x2f7c3893d42071980cb4ddb05feea52ab9d03ab4f7655dc1ed0de355db1e63d1
+seal-contention/1/all-lanes/epoch-1/process-7: committed 0xc1a352bcd7458dd00d136454d1485c6df8e5c69a450bd2a050d7babb83d65ccc
+seal-contention/1/all-lanes/epoch-1: 8 freshly signed seals invalidated; full set sealed and classified
+sealed/2 lanes/genesis: committed 0x27982cdc77be152b14ae10e45ed25598ce53bb4a83170fbd7f548682e8226871
+seal-contention/2/one-lane-per-rebuild/warmup: committed 0x75b4a1722b0025c5d12b687b6643ca4e0bbf686b6f34be5c030bb4af592fa7fa
+seal-contention/2/one-lane-per-rebuild/warmup: committed 0xf92c8a47bad5fbd99fc4755cde3f0ed340eb95290cf28395105093a2a2ffd24a
+seal-contention/2/one-lane-per-rebuild/warmup: committed 0x23834d201739bd7ff8ff25ad20c11f2fda89b2f741573ee1214b281421d42ad1
+seal-contention/2/one-lane-per-rebuild/warmup: committed 0x8f7661290cabcfe0a58349c0d535ab7b295c4a45fb268e57e2cd3f367a85b384
+seal-contention/2/one-lane-per-rebuild/warmup: committed 0xea89a98791edafd472caa3da4814678c572a53cca613a3c6ff68a0a66dcdcc19
+seal-contention/2/one-lane-per-rebuild/warmup: committed 0x04fa4fe3cbe3db980fdef350be5e6706dbf8992e042ae0dcd14b094b8512407b
+seal-contention/2/one-lane-per-rebuild/warmup: committed 0x10adbf7fb6b3375d3a893d869bc1e5db680f9e77c91a2e936de274e4ae5ee930
+seal-contention/2/one-lane-per-rebuild/warmup: committed 0x9065bf73383edd42716d1520d411221d8c177e24ee62ca7edb5239640f30e602
+seal-contention/2/one-lane-per-rebuild/epoch-0/attempt-0/attacker admission: committed 0xf33b09d2842f3797454498db99537ebe9d6953d5b9ca7da8d1a2f8fc3e98475a
+seal-contention/2/one-lane-per-rebuild/epoch-0/attempt-0/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/one-lane-per-rebuild/epoch-0/attempt-1/attacker admission: committed 0x0d24bd49d5c13aae4cb26932dcecccc97231d53ff5476aeccc2d88b83265a941
+seal-contention/2/one-lane-per-rebuild/epoch-0/attempt-1/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/one-lane-per-rebuild/epoch-0/attempt-2/attacker admission: committed 0xa09d3bfad03d6d49e4479ce0f1dfcfa3e6f21597af11b0ef44546bcbc50ed30e
+seal-contention/2/one-lane-per-rebuild/epoch-0/attempt-2/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/one-lane-per-rebuild/epoch-0/attempt-3/attacker admission: committed 0x653bd7c975d120317fd1fbdecc5d225324ad65a9c986ae68a009190452399090
+seal-contention/2/one-lane-per-rebuild/epoch-0/attempt-3/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/one-lane-per-rebuild/epoch-0/attempt-4/attacker admission: committed 0xb6697d2865995f932fb2451b72a73d539e2ee6ede28fa5266111c78790669c44
+seal-contention/2/one-lane-per-rebuild/epoch-0/attempt-4/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/one-lane-per-rebuild/epoch-0/attempt-5/attacker admission: committed 0xbd414b230459792f9c447021395c54919805449270417d741da5a3296f0c9a00
+seal-contention/2/one-lane-per-rebuild/epoch-0/attempt-5/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/one-lane-per-rebuild/epoch-0/attempt-6/attacker admission: committed 0xaabbc12df7caa3d995a8de4a44b86f85dc1c15da2b91c690e09e2dbd0d9012ad
+seal-contention/2/one-lane-per-rebuild/epoch-0/attempt-6/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/one-lane-per-rebuild/epoch-0/attempt-7/attacker admission: committed 0xcd4ace424e39ba40694a6319c10c6febe3da89466243f33bd9b220eed6af3d6a
+seal-contention/2/one-lane-per-rebuild/epoch-0/attempt-7/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/one-lane-per-rebuild/epoch-0/attempt-8/attacker admission: committed 0x1aa3b1f0fedebb5277930007b35f7bd2e00350093af1a251c03d76b605c9f8ee
+seal-contention/2/one-lane-per-rebuild/epoch-0/attempt-8/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/one-lane-per-rebuild/epoch-0/attempt-9/attacker admission: committed 0x71b6848c18534ccccd876ef9cde2b95f382efdb26e070196a1c08604fe068e9d
+seal-contention/2/one-lane-per-rebuild/epoch-0/attempt-9/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/one-lane-per-rebuild/epoch-0/attempt-10/attacker admission: committed 0x53d760a31870ade58a35134aa2107f775537d2aa738ff53dc70dd3d2e4716cf5
+seal-contention/2/one-lane-per-rebuild/epoch-0/attempt-10/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/one-lane-per-rebuild/epoch-0/attempt-11/attacker admission: committed 0x74e53103aa28157ae7d58c7450f313a2938250b90b6345e01e29c6a8f3c2328b
+seal-contention/2/one-lane-per-rebuild/epoch-0/attempt-11/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/one-lane-per-rebuild/epoch-0/attempt-12/attacker admission: committed 0x015e55fec32f8d007773d388fad0ca59229cb7ab465cf993b88a8e9ed8de495b
+seal-contention/2/one-lane-per-rebuild/epoch-0/attempt-12/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/one-lane-per-rebuild/epoch-0/attempt-13/attacker admission: committed 0x1e317618d1d70cd37d2b9e030307b99f98fcc0b5195aa01a265c9dc52cf75167
+seal-contention/2/one-lane-per-rebuild/epoch-0/attempt-13/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/one-lane-per-rebuild/epoch-0/attempt-14/attacker admission: committed 0xad661dc7058a441a33ab50a3ae60b5ba86607daa9ae9717dc7dfedd7ddbd6cdd
+seal-contention/2/one-lane-per-rebuild/epoch-0/attempt-14/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/one-lane-per-rebuild/epoch-0/attempt-15/attacker admission: committed 0x3cf84b28118406523b30abad0660f3fa7906aeb3e52d6bd5d40637825bee44e6
+seal-contention/2/one-lane-per-rebuild/epoch-0/attempt-15/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/one-lane-per-rebuild/epoch-0/exhausted/lane-0/ninth admission: rejected (3)
+seal-contention/2/one-lane-per-rebuild/epoch-0/exhausted/lane-0/no-op: rejected (12)
+seal-contention/2/one-lane-per-rebuild/epoch-0/exhausted/lane-0/unauthorized reset: rejected (7)
+seal-contention/2/one-lane-per-rebuild/epoch-0/exhausted/lane-1/ninth admission: rejected (3)
+seal-contention/2/one-lane-per-rebuild/epoch-0/exhausted/lane-1/no-op: rejected (12)
+seal-contention/2/one-lane-per-rebuild/epoch-0/exhausted/lane-1/unauthorized reset: rejected (7)
+seal-contention/2/one-lane-per-rebuild/epoch-0/rebuilt seal after exhausted churn: committed 0x087dc5b1ec3a4fec87eec2d25bf90af7b4fdd613e1ccbd1f0935ff6504b3a7eb
+seal-contention/2/one-lane-per-rebuild/epoch-0/process-0: committed 0x69c631df719e4595cd3bbf33bd2eedec8fdd378249e1c5a1273f34d2fc632a84
+seal-contention/2/one-lane-per-rebuild/epoch-0/process-1: committed 0xa570f95c7045b682f6b89edbcae86c1f72fac1b214a88a695895273068eebc4d
+seal-contention/2/one-lane-per-rebuild/epoch-0/process-2: committed 0xb9e586c0a6aae62b45d75377fe7866bcc4ed6bd2f36d4d61560e4fc5a2277096
+seal-contention/2/one-lane-per-rebuild/epoch-0/process-3: committed 0x28c340171dacf0d8ca76a5e998a91efb4cdeb74ad7ed4f06b4b880be0addef18
+seal-contention/2/one-lane-per-rebuild/epoch-0/process-4: committed 0x4225242538df24bcc6c0ec230f02e1bfbc15b2418f34a0e1a70abda186fe1304
+seal-contention/2/one-lane-per-rebuild/epoch-0/process-5: committed 0xfc52cff3e06120b9e5501c34582a9707bbf1272ee20c8ab3bd0dd08f18f9f1cb
+seal-contention/2/one-lane-per-rebuild/epoch-0/process-6: committed 0xd3235c847ac68be2069607fc7501e20965229224c551fb05c61be272b9f77389
+seal-contention/2/one-lane-per-rebuild/epoch-0/process-7: committed 0xa16c2414c71e3942e8525517025259837922bea478810d0217dd2a277a0408df
+seal-contention/2/one-lane-per-rebuild/epoch-0: 16 freshly signed seals invalidated; full set sealed and classified
+seal-contention/2/one-lane-per-rebuild/epoch-1/attempt-0/attacker admission: committed 0x7ea2462bec60796588a77554dcd308bfe22ed7679158744c18fcb7bc33fb1f7d
+seal-contention/2/one-lane-per-rebuild/epoch-1/attempt-0/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/one-lane-per-rebuild/epoch-1/attempt-1/attacker admission: committed 0xc934605ca53eb448c9013555bb014f491670cfd072b1f98c8cfaecde7c804f6f
+seal-contention/2/one-lane-per-rebuild/epoch-1/attempt-1/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/one-lane-per-rebuild/epoch-1/attempt-2/attacker admission: committed 0xdee40438a9b072c812849990737e6291cac62dc4cc8d09f0ba863f560f494cea
+seal-contention/2/one-lane-per-rebuild/epoch-1/attempt-2/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/one-lane-per-rebuild/epoch-1/attempt-3/attacker admission: committed 0xffd1e5d2d72bf0dcbb45ad6b630f449276ca66e429ff2417bef31c747eeafc13
+seal-contention/2/one-lane-per-rebuild/epoch-1/attempt-3/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/one-lane-per-rebuild/epoch-1/attempt-4/attacker admission: committed 0xad2c327497fd9be5d08fb6eb4057b83de4249994947a00b716e63a7a6f392ad4
+seal-contention/2/one-lane-per-rebuild/epoch-1/attempt-4/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/one-lane-per-rebuild/epoch-1/attempt-5/attacker admission: committed 0x9414042a2a7d5dd781992580560e2053b33f16840afc1174db26bc1ffef83065
+seal-contention/2/one-lane-per-rebuild/epoch-1/attempt-5/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/one-lane-per-rebuild/epoch-1/attempt-6/attacker admission: committed 0x17bc647c7d6a7f3535fa96c2e533bc489cff83e7ac9628c6967ce0cbe3848604
+seal-contention/2/one-lane-per-rebuild/epoch-1/attempt-6/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/one-lane-per-rebuild/epoch-1/attempt-7/attacker admission: committed 0x6479e58ec790fecdc6e8ba778735fc97c752ca36b51697389b05c03a5f4c98ef
+seal-contention/2/one-lane-per-rebuild/epoch-1/attempt-7/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/one-lane-per-rebuild/epoch-1/attempt-8/attacker admission: committed 0xbea468d7ba4e0700bb0547fc5096df186f38d2be8e8ae8da6b46e49de60e8434
+seal-contention/2/one-lane-per-rebuild/epoch-1/attempt-8/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/one-lane-per-rebuild/epoch-1/attempt-9/attacker admission: committed 0x5096de50c40e0aba45a7009c55a1d3249b8b3b2ba921339ebf2ba7f4a873a158
+seal-contention/2/one-lane-per-rebuild/epoch-1/attempt-9/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/one-lane-per-rebuild/epoch-1/attempt-10/attacker admission: committed 0xd842322d7d7931482abe7bf3832aa15a100acf525dd360e99d34e814ac11be34
+seal-contention/2/one-lane-per-rebuild/epoch-1/attempt-10/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/one-lane-per-rebuild/epoch-1/attempt-11/attacker admission: committed 0x372e08a6ac0a667fd49f529f5b08359282d2082088585fee4cc3e64929346d6c
+seal-contention/2/one-lane-per-rebuild/epoch-1/attempt-11/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/one-lane-per-rebuild/epoch-1/attempt-12/attacker admission: committed 0x7a2495d29d30f6e100090423b6723a9b8b05b7ae5b7e2cc9d718b725ef718608
+seal-contention/2/one-lane-per-rebuild/epoch-1/attempt-12/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/one-lane-per-rebuild/epoch-1/attempt-13/attacker admission: committed 0x3c1d12f94b20d234fc0316e267798c69e67773a4013571af2f983b57861570d1
+seal-contention/2/one-lane-per-rebuild/epoch-1/attempt-13/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/one-lane-per-rebuild/epoch-1/attempt-14/attacker admission: committed 0xd7090112177773be24e2b49145d845cbb8a205f5de0cacf5cbcf1b5f244bca54
+seal-contention/2/one-lane-per-rebuild/epoch-1/attempt-14/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/one-lane-per-rebuild/epoch-1/attempt-15/attacker admission: committed 0x3ff743200e3b971b686ada0cd20d2dcf1beb01f53c02bd585bd71f623526252d
+seal-contention/2/one-lane-per-rebuild/epoch-1/attempt-15/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/one-lane-per-rebuild/epoch-1/exhausted/lane-0/ninth admission: rejected (3)
+seal-contention/2/one-lane-per-rebuild/epoch-1/exhausted/lane-0/no-op: rejected (12)
+seal-contention/2/one-lane-per-rebuild/epoch-1/exhausted/lane-0/unauthorized reset: rejected (7)
+seal-contention/2/one-lane-per-rebuild/epoch-1/exhausted/lane-1/ninth admission: rejected (3)
+seal-contention/2/one-lane-per-rebuild/epoch-1/exhausted/lane-1/no-op: rejected (12)
+seal-contention/2/one-lane-per-rebuild/epoch-1/exhausted/lane-1/unauthorized reset: rejected (7)
+seal-contention/2/one-lane-per-rebuild/epoch-1/rebuilt seal after exhausted churn: committed 0x8c8fa7485d91bd837e1ef2d496175e7b32b7d07220d3e8b79086bccd2690d671
+seal-contention/2/one-lane-per-rebuild/epoch-1/process-0: committed 0x5c0de00141dab68827e6f3e54f5f092bd39eeeafc79de18979059cd2f14b7067
+seal-contention/2/one-lane-per-rebuild/epoch-1/process-1: committed 0x0c80d457214bedce31fc6443d769745b049c7f0f59f10bfce6fdd3d925edfe67
+seal-contention/2/one-lane-per-rebuild/epoch-1/process-2: committed 0xe0537e44bd8ccecb539a73c0459e65600a99c4000ec013cb02f5c1e6926b577f
+seal-contention/2/one-lane-per-rebuild/epoch-1/process-3: committed 0x89ba59aad9705919fa585349bb76325a244f5c374be958285bf514097efba1ed
+seal-contention/2/one-lane-per-rebuild/epoch-1/process-4: committed 0xa4eaddaacaea17f912d31d91681803a431c0aae36d32acf7020dbdc009ced503
+seal-contention/2/one-lane-per-rebuild/epoch-1/process-5: committed 0x91680d470948cba33d8df69a81ab47af99fef006d9c584987984465c35bf6f0e
+seal-contention/2/one-lane-per-rebuild/epoch-1/process-6: committed 0x9f27639f261917046050a540440422739896af21096d4e887de476225d064a40
+seal-contention/2/one-lane-per-rebuild/epoch-1/process-7: committed 0xde0ae775f69703ab5372b0d7184fc3135dafb0a1152fc1fb14ee6195f51f3701
+seal-contention/2/one-lane-per-rebuild/epoch-1: 16 freshly signed seals invalidated; full set sealed and classified
+sealed/2 lanes/genesis: committed 0xc9a6ba6ee281b6fc7bbed4315bbae7517479e0e753515f38c57a504d9610964c
+seal-contention/2/all-lanes/warmup: committed 0x5e799f881fa3a393617e6b1b27dce7f920d147e140ad30daf72b688d83181937
+seal-contention/2/all-lanes/warmup: committed 0x26ddcdecc871e4f8e13d13e31254c77ae88fd6da2a58d9c06a4fdfa47238f2d1
+seal-contention/2/all-lanes/warmup: committed 0xe5b2f51e1bc9fe3c9056d43a1c9a0ea44a7bb41f344d242958c492eff22791cd
+seal-contention/2/all-lanes/warmup: committed 0xaa523fde1c1cb0ee1f3ceea06c80ede2d290f62a12c25935e39b29c6f9e982ae
+seal-contention/2/all-lanes/warmup: committed 0x75856f1e80d4de275bd364d93e070dd9fe1a76a3d6103eef2cc52ce33698d189
+seal-contention/2/all-lanes/warmup: committed 0xaacc0b230a7e5983f35dca5fcaadb8157d352baf2dea2904ce46b770cc44ae3b
+seal-contention/2/all-lanes/warmup: committed 0x8fcf42adbcd977ff9f2df62047cef6db6d2a3e9ded4cf11eac3b59e9f0d7961c
+seal-contention/2/all-lanes/warmup: committed 0x6031809285c5250e053f33dd4d4d8c2158b1589eacd4a62632caebd629ff170b
+seal-contention/2/all-lanes/epoch-0/attempt-0/attacker admission: committed 0x0cd7774acb6b383031f00a74cb0ccef14c38c379bcb5d85445ff449ed777e098
+seal-contention/2/all-lanes/epoch-0/attempt-0/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/all-lanes/epoch-0/attempt-1/attacker admission: committed 0xd11ffbf2f5df63336b4ddbbe52e3d607681c29869c5954ecceb2c181e838de9c
+seal-contention/2/all-lanes/epoch-0/attempt-1/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/all-lanes/epoch-0/attempt-2/attacker admission: committed 0x635be1b30af316da55a96f7f262013cb45a9dc662baab3402cc6f193b2b7b679
+seal-contention/2/all-lanes/epoch-0/attempt-2/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/all-lanes/epoch-0/attempt-3/attacker admission: committed 0x66a2f6214125c3cecf77b51620af65a46ffd135b338b6c545710834087f51a59
+seal-contention/2/all-lanes/epoch-0/attempt-3/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/all-lanes/epoch-0/attempt-4/attacker admission: committed 0x5bcf00336815c05d647121d7babbd1c26f5dc54894fbfc1a45860308900071d0
+seal-contention/2/all-lanes/epoch-0/attempt-4/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/all-lanes/epoch-0/attempt-5/attacker admission: committed 0x97565f9c486b010149c920d1fd7d35ebdae9ffecd815a22178290a2919c52618
+seal-contention/2/all-lanes/epoch-0/attempt-5/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/all-lanes/epoch-0/attempt-6/attacker admission: committed 0x82ff615b3a2cea0780d19c93d22eee74e89848414c2969a13ace7a456058c106
+seal-contention/2/all-lanes/epoch-0/attempt-6/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/all-lanes/epoch-0/attempt-7/attacker admission: committed 0x5c397442e9f497dc3c844db2a8d9e6bbef2ce5bb07cb67e50e411707964348a4
+seal-contention/2/all-lanes/epoch-0/attempt-7/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/all-lanes/epoch-0/exhausted/lane-0/ninth admission: rejected (3)
+seal-contention/2/all-lanes/epoch-0/exhausted/lane-0/no-op: rejected (12)
+seal-contention/2/all-lanes/epoch-0/exhausted/lane-0/unauthorized reset: rejected (7)
+seal-contention/2/all-lanes/epoch-0/exhausted/lane-1/ninth admission: rejected (3)
+seal-contention/2/all-lanes/epoch-0/exhausted/lane-1/no-op: rejected (12)
+seal-contention/2/all-lanes/epoch-0/exhausted/lane-1/unauthorized reset: rejected (7)
+seal-contention/2/all-lanes/epoch-0/rebuilt seal after exhausted churn: committed 0xc6bd73a3b56d05d1a634d891f9782b7d1eea6d1c94d19803783c67a0cf29cc73
+seal-contention/2/all-lanes/epoch-0/process-0: committed 0xb628e9f70a4bcf2634c5da4df7e9ff0aeb6a8b6d24f4303c52a7d7d703d9eeed
+seal-contention/2/all-lanes/epoch-0/process-1: committed 0x4720b492f00897a1f98c811a22c27c8429a84b2ccd2fafb4d42d8107133d5bd4
+seal-contention/2/all-lanes/epoch-0/process-2: committed 0x91af680cf4ae1cc1c14fb08c7204680dc424db0cdb7c2c53be6477f3c0be5e94
+seal-contention/2/all-lanes/epoch-0/process-3: committed 0x9cc4b870c652e31d25606ead9b39a7624f4fe3bea474887f0965c3098ad7a338
+seal-contention/2/all-lanes/epoch-0/process-4: committed 0xa0e86e3d43a6e9563d84cee06ebb485301eb2a4e02f7da06c134f3cce0c18f20
+seal-contention/2/all-lanes/epoch-0/process-5: committed 0x485d1668593db4ed09cc63a379e597b4b627fcf4bc8170f8a0524153f00bfea6
+seal-contention/2/all-lanes/epoch-0/process-6: committed 0xf6707e60ebcbde70697ee12761519f47a72149d5e5de9b498f511d520cbaf2b8
+seal-contention/2/all-lanes/epoch-0/process-7: committed 0xc6ad4ecde4fba21b53eddc328e16555e2d51edb1d12f71515e003622ebd79d1c
+seal-contention/2/all-lanes/epoch-0: 8 freshly signed seals invalidated; full set sealed and classified
+seal-contention/2/all-lanes/epoch-1/attempt-0/attacker admission: committed 0x33de6bb5ea736d1abc6a368bd507e2eb2288f0132f50f0950c04de3445898bc6
+seal-contention/2/all-lanes/epoch-1/attempt-0/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/all-lanes/epoch-1/attempt-1/attacker admission: committed 0x069826bec080d77e26fd9992bdb64eb8c4e7389431eadda7227a411fd3de4a0f
+seal-contention/2/all-lanes/epoch-1/attempt-1/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/all-lanes/epoch-1/attempt-2/attacker admission: committed 0x2d68150051d7a6825920cf4f3ff150ec894ad74e339dbfe4160ad75ca7792bfb
+seal-contention/2/all-lanes/epoch-1/attempt-2/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/all-lanes/epoch-1/attempt-3/attacker admission: committed 0x49063d432ac5d5e7d0ef58e76f4f0b5f40bd4d5afa21814a54f84cd845b0999a
+seal-contention/2/all-lanes/epoch-1/attempt-3/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/all-lanes/epoch-1/attempt-4/attacker admission: committed 0xa2d2382e0cfeb1aaddf57b021894f2a210e0f66dd2a78df5bc6085127fb30ead
+seal-contention/2/all-lanes/epoch-1/attempt-4/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/all-lanes/epoch-1/attempt-5/attacker admission: committed 0x6c711032a1628bca87ab6adf1c17965f024616890aba4f30770e4ba6a6adda99
+seal-contention/2/all-lanes/epoch-1/attempt-5/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/all-lanes/epoch-1/attempt-6/attacker admission: committed 0x72a4c493b36b344b8797cd36c3b49f85c84ba50cc84b979cf69210c07a08eb8f
+seal-contention/2/all-lanes/epoch-1/attempt-6/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/all-lanes/epoch-1/attempt-7/attacker admission: committed 0x57f57b53d01984fe4949df0620674945cdc1e2e787463f936f8cc93491353dc6
+seal-contention/2/all-lanes/epoch-1/attempt-7/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/2/all-lanes/epoch-1/exhausted/lane-0/ninth admission: rejected (3)
+seal-contention/2/all-lanes/epoch-1/exhausted/lane-0/no-op: rejected (12)
+seal-contention/2/all-lanes/epoch-1/exhausted/lane-0/unauthorized reset: rejected (7)
+seal-contention/2/all-lanes/epoch-1/exhausted/lane-1/ninth admission: rejected (3)
+seal-contention/2/all-lanes/epoch-1/exhausted/lane-1/no-op: rejected (12)
+seal-contention/2/all-lanes/epoch-1/exhausted/lane-1/unauthorized reset: rejected (7)
+seal-contention/2/all-lanes/epoch-1/rebuilt seal after exhausted churn: committed 0xf8bbe30f278cb3c8d38e138e4dc9d6d4a5d909e0ca48f45d6656e36a00be51e4
+seal-contention/2/all-lanes/epoch-1/process-0: committed 0x13845e188cb38eb868442a7feb25995afda703d19ab43c3bba67cb6bf825ad40
+seal-contention/2/all-lanes/epoch-1/process-1: committed 0x81ffdab145bfb27c45db97f5ffc487527cebadb728a3c29345682b24a5e2c27c
+seal-contention/2/all-lanes/epoch-1/process-2: committed 0xad9f8e181f452020693ce75e66cf5e653f560b9120e589a52b9b72a94b2d1c9c
+seal-contention/2/all-lanes/epoch-1/process-3: committed 0x9417218705e6b2b922fdb336c515a219ba8089ff8188104f4a4fd20918e097f4
+seal-contention/2/all-lanes/epoch-1/process-4: committed 0x3bf1bc500b58d8a7e40bb10fced9ae6a2b052200ce5a33eea89f8053a2f890ea
+seal-contention/2/all-lanes/epoch-1/process-5: committed 0xfd131188a8955cb8b4a16ee7dc3581c0fef3e4ec696debf14e2f69cce9b13a3a
+seal-contention/2/all-lanes/epoch-1/process-6: committed 0xd0c7ad9c7ddd3ec886845231f79f6aa9f9f71fb113512a34d0cd7e742c42d3fb
+seal-contention/2/all-lanes/epoch-1/process-7: committed 0x8cfe88e3fb0403d7e04f57982febca62443110dd9789c018a03385d5b2a85443
+seal-contention/2/all-lanes/epoch-1: 8 freshly signed seals invalidated; full set sealed and classified
+sealed/4 lanes/genesis: committed 0xae57450498f0d78dd7fea8caaa60fba99495744c7c5ad55441149edb134cfc22
+seal-contention/4/one-lane-per-rebuild/warmup: committed 0xa05cc3fedcd6f4e8cdb7169512a36a2df57badd870cb51c5a0a0f430694bd600
+seal-contention/4/one-lane-per-rebuild/warmup: committed 0x6961200fec0d10fe14233e5a09c9740e54f36df54812a7991a96253279ddab2b
+seal-contention/4/one-lane-per-rebuild/warmup: committed 0x9e1653886454a3759efa0c48451a67cc6a2edaf78899209e0508dccecc7f5da2
+seal-contention/4/one-lane-per-rebuild/warmup: committed 0x300ec838b132410acf78bb8495cb206fb356ff0fd978a72bd2ee5e2fb57ba792
+seal-contention/4/one-lane-per-rebuild/warmup: committed 0x132f25df1b73f3c210e358a336bf26892146733b8e7773b52b4108da99b2b915
+seal-contention/4/one-lane-per-rebuild/warmup: committed 0x30cf2f11676d4d3ddad00aad1f22e52b26922aa5dc6780cf55a4eb768af4ae5e
+seal-contention/4/one-lane-per-rebuild/warmup: committed 0x83c979c8973d6f378f3903a76ee828d0266b4d7b6e647edc6680572765b93cdc
+seal-contention/4/one-lane-per-rebuild/warmup: committed 0x27fdb51a03bed674cc204e1e88a4f3dc475f14086ced30021a40157ae31435e1
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-0/attacker admission: committed 0xe5e1912e6a67b97b34fb9dc2adbd31683919aff447ff3ee7e2db32d0f9a43790
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-0/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-1/attacker admission: committed 0x582a08787688d5a7fbee6d7c809d1adc7808b8eed718a5b5453f52e1a942146e
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-1/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-2/attacker admission: committed 0x17dce3af89adabfeeedc6e5bdb881c4dbd5e0ccdd3590e89145ffcfdef2c30e3
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-2/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-3/attacker admission: committed 0x130a786b439c2dd34eea5127bd0c17974d1b2db741d6055f7db25c19abf2f453
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-3/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-4/attacker admission: committed 0x572ce897ebceb0e52bcf6a58a08570d1726c2114220f149729070da09d096cc8
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-4/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-5/attacker admission: committed 0x5a22d7746aa2dccef486d78cda64a8bb813b0e2a176b6416b0c5ae9fa2465f53
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-5/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-6/attacker admission: committed 0xf61a1099fb23d251a7f6d55755d05a2acfef56ad36a4f6e86bd29d7c87dd5c58
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-6/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-7/attacker admission: committed 0x8c376efe79c39cffd289aa7b0a9b53980bc94ff08561e4cdb8c2119182c94468
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-7/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-8/attacker admission: committed 0x3969cd39a38c749187df8188dd4ffb8aa2bf857a283fc5c445513cb464744c35
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-8/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-9/attacker admission: committed 0xca57573bfdfe2098411f12cf9ee78ddb2daed6e1579e0efa0aca4e5667e0e15e
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-9/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-10/attacker admission: committed 0x87ade952a4521a6724f090d09fcbe289dee9c5b43e440642382c1d5bbf5644fc
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-10/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-11/attacker admission: committed 0x2894ec58a225be06599fd4acbca7b60d9b009c28f90019b67c44b50f5c0d3b80
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-11/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-12/attacker admission: committed 0xe2d527eb185a7481876b27e98a549e362891d66736249329ab087fcabb05fd64
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-12/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-13/attacker admission: committed 0x38c5f641265acd7e35fd5770831f0ed8d4dc1082a8407f19c5d0e26038362dbb
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-13/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-14/attacker admission: committed 0x3633f65c443953d1241b55d2d8fac7cf6d371f3fbd9c015c7001e67dcd2e2f51
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-14/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-15/attacker admission: committed 0x926f707f73328fcf53bc8cbe5e2a89619e63875d9961fc3a0087ae531b7205cc
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-15/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-16/attacker admission: committed 0x82be65ab6f37298f552e5a62176856ae34f32cbec1658f63ae7a6ff47418559a
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-16/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-17/attacker admission: committed 0x88e6114d19ec7abae508384ee36153e06bb46d46260a4f206ed5a0dcb283b0f8
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-17/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-18/attacker admission: committed 0xfc06b8410b6c081ae7bea7bc1fb9b2cfa0b7fff7ba0ddd0e0066e5baec982d1b
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-18/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-19/attacker admission: committed 0x6d994f31e14ade9e0da49c41b00c0ec2c791bf0e3a53ec0904fdfedb4c6be204
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-19/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-20/attacker admission: committed 0xc5fa53c8878f1ef4f7d60103aab460eef6955a58b0dd8028e72ad0e0dfd0c6c4
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-20/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-21/attacker admission: committed 0x1917ba58a4fdb4c32f83c9b1c4e13822094411bb3f26d29aab8fe347ff76a0c6
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-21/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-22/attacker admission: committed 0xeab5f268e46575b01629f21eb53b99d8da455abb9fa6782d85ca97e2eaa9ff40
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-22/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-23/attacker admission: committed 0xd8048025d2f9c28acc3db04ffa3c1eb07bbcf107ebe4500401e9f590042c592b
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-23/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-24/attacker admission: committed 0x6758fcb8303edaccc06828c2efe3f60511f51435c7b872bb5cceefb5fe085dfd
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-24/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-25/attacker admission: committed 0x470d295e1ddbcc18ca7d56efd83fb9c6abcbe8c1d3d245b8469477b293afbfe8
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-25/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-26/attacker admission: committed 0xce21cbda73f84f5f3ec39132a978f321eecefe5a1c660cf834413796f8df540a
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-26/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-27/attacker admission: committed 0xf1bcc8cf106455a4f98a0492b02d7410411778566119f0241bb6ff3db7d1d852
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-27/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-28/attacker admission: committed 0xd57ff2b2ccc0920e149f88e41594cc36409b874016c1309c95752e3dfa7185c1
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-28/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-29/attacker admission: committed 0x923389d1b56d27e32b2a66324f3d79f0e06ea7b92da8ac2ad1696728dabfbc95
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-29/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-30/attacker admission: committed 0xc3260ce255f4a3836075a1cd720a609047a319a31039fe3a2f84a8d742b37e0c
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-30/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-31/attacker admission: committed 0xa43d3ea3257970211f285b3c715b68d3eaa95b16bbd24071bc349c0ef429ff1b
+seal-contention/4/one-lane-per-rebuild/epoch-0/attempt-31/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-0/exhausted/lane-0/ninth admission: rejected (3)
+seal-contention/4/one-lane-per-rebuild/epoch-0/exhausted/lane-0/no-op: rejected (12)
+seal-contention/4/one-lane-per-rebuild/epoch-0/exhausted/lane-0/unauthorized reset: rejected (7)
+seal-contention/4/one-lane-per-rebuild/epoch-0/exhausted/lane-1/ninth admission: rejected (3)
+seal-contention/4/one-lane-per-rebuild/epoch-0/exhausted/lane-1/no-op: rejected (12)
+seal-contention/4/one-lane-per-rebuild/epoch-0/exhausted/lane-1/unauthorized reset: rejected (7)
+seal-contention/4/one-lane-per-rebuild/epoch-0/exhausted/lane-2/ninth admission: rejected (3)
+seal-contention/4/one-lane-per-rebuild/epoch-0/exhausted/lane-2/no-op: rejected (12)
+seal-contention/4/one-lane-per-rebuild/epoch-0/exhausted/lane-2/unauthorized reset: rejected (7)
+seal-contention/4/one-lane-per-rebuild/epoch-0/exhausted/lane-3/ninth admission: rejected (3)
+seal-contention/4/one-lane-per-rebuild/epoch-0/exhausted/lane-3/no-op: rejected (12)
+seal-contention/4/one-lane-per-rebuild/epoch-0/exhausted/lane-3/unauthorized reset: rejected (7)
+seal-contention/4/one-lane-per-rebuild/epoch-0/rebuilt seal after exhausted churn: committed 0x5e34892f3e1fcd8b58af48ac42ba73748d6904884632f25ee0fcd496076d8007
+seal-contention/4/one-lane-per-rebuild/epoch-0/process-0: committed 0x54d05287432a5f2b3fb042748eddd312c88c941fe9a1ded655bfc6deda326038
+seal-contention/4/one-lane-per-rebuild/epoch-0/process-1: committed 0x3d2e265afc1883aa8222b8df09f7927940f57342a785f8169f419781a48cc936
+seal-contention/4/one-lane-per-rebuild/epoch-0/process-2: committed 0xdda5330e9f26b14c0df035e46a946171fd4a1acc8bd26a24426d2a661188d5ba
+seal-contention/4/one-lane-per-rebuild/epoch-0/process-3: committed 0xbf06c181b107943ea1f52dde7331977879c2083f6bd2b238fdbca187874eadbc
+seal-contention/4/one-lane-per-rebuild/epoch-0/process-4: committed 0x27c7ab6119c4ffb9bf8179c7047c00eec2a73052503402e000cf46f1c9a86710
+seal-contention/4/one-lane-per-rebuild/epoch-0/process-5: committed 0xbf7f3f67bc9112150a4f8c56db37cb2ab92225b6b908e76d4c5ad384a8e34d68
+seal-contention/4/one-lane-per-rebuild/epoch-0/process-6: committed 0xdf4bfb3d524bf8a428a2381387f22f59147afcfc9cc8d80cbbbb5221d18d0d55
+seal-contention/4/one-lane-per-rebuild/epoch-0/process-7: committed 0x803a563c708a6ffe07c376ddc7b7769daaa69f6a4f18f8b5e8fd8a8bc628c150
+seal-contention/4/one-lane-per-rebuild/epoch-0: 32 freshly signed seals invalidated; full set sealed and classified
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-0/attacker admission: committed 0x09dc7fbb64afd3deb574871e088b5dfc149982ed3f25ba7cb8ca4cdb7de9a956
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-0/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-1/attacker admission: committed 0xf6bfe8829457616e65bbcb517ab389d2f3d88007040b94bb60beed365b43b986
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-1/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-2/attacker admission: committed 0x9b887165415276a0dcfa874b493de96807503bdb08157c5e6612f1e1659417ce
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-2/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-3/attacker admission: committed 0x70a1721247b1f6ccbba1923ed75f48d521b94cf1aadab18e556d46bf5bf53e49
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-3/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-4/attacker admission: committed 0x9ed3839feabdd30292aab6ad8075026e60b358cb34b14a0ac2dc8214df105748
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-4/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-5/attacker admission: committed 0x8811be1c2f2292f4bc0d8b1f93c881704ecdd0db080003049ac070cd51319332
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-5/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-6/attacker admission: committed 0x8950e02e1cfd22271960e3adf6c8efdddfc7fbdc62a2cf6463ce01cc58dcf50f
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-6/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-7/attacker admission: committed 0x1cce2b0ff0eebca9fb7cfe85b953a806e12ccad54829a577622786500f2a8648
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-7/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-8/attacker admission: committed 0xd0dfb37f29b56bf78e231272de7f5e2821c9d628be535911c63e6abeb3f2939a
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-8/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-9/attacker admission: committed 0xd4f1f1b21b1694493fad2c9933c0567fafced2f0471a5df7531159566d90b268
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-9/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-10/attacker admission: committed 0x7538572f05d00013c5b71a9b4d56a7b996acb8936a7263d2b784bb9fadb86bfd
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-10/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-11/attacker admission: committed 0x9defd0edbe3a895d1f6b5dca06a940b37ea45e556fea68bd6ba5af6a96b37b7e
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-11/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-12/attacker admission: committed 0x6f4a085314cba94a01caabc7eac0734eccb0e826943982a37597634b6aa8ab06
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-12/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-13/attacker admission: committed 0x7cc74a946e7aec14aa12aa47e005db99d92636e0c814960394b6107c162c258d
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-13/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-14/attacker admission: committed 0x42a710f1a7233c706870767877bca2bf124195bbececbe963dcd17b092262974
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-14/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-15/attacker admission: committed 0xa17b685c7935372ba6a4651a1e742a408761b1c64af326602d351c06728cc865
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-15/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-16/attacker admission: committed 0x83c06d5d2f66e4519ac1c3100f740f228f21110cb026e77e77a77563e47f3257
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-16/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-17/attacker admission: committed 0xf5c066b207abe345930b599ad9f378fee839785c38bfae3e536ba0dd6471769d
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-17/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-18/attacker admission: committed 0x286ed22e9afdb5be355b274df6a2f73c4d9f7f2f768b10fb77d905efc6d91acf
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-18/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-19/attacker admission: committed 0xe18bd44e150617f72c1c8b6f746a5681f3eea693cbc77cc24f7a3419adbebbb6
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-19/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-20/attacker admission: committed 0x4614d214aaeece85f3985d838746dd57dfab30bc993c83ebd8d1d01383b3da16
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-20/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-21/attacker admission: committed 0x83615769d8ac758a4cbaee594890a0da14b93dda12b454a119eca556c1a0aab1
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-21/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-22/attacker admission: committed 0x3e88f54b725e277e56c341dda056d947fcd4ac64437ce09ec55700bd5d2516a1
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-22/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-23/attacker admission: committed 0x9ec062361f36d745132a891938a51e5a0af625e6ef32c4b913e615c10a908778
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-23/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-24/attacker admission: committed 0xad3c429b97d7346a17e481303317b441301cb0a173df78a59a56d4da0e3036fe
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-24/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-25/attacker admission: committed 0xc91363c7a5836638b776c18632af3662056d250906d8b245c27ee1895f79e637
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-25/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-26/attacker admission: committed 0x2aa3512bd2ca53acc9d1e5d8543fb6470c3292147036dd8c5c7be910c5f1aad9
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-26/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-27/attacker admission: committed 0xb22dd98b1a8b3c536744c2a599ac501fe8bb02332a8a931b0362b6925ba29963
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-27/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-28/attacker admission: committed 0xc1ec74844003a173c4cdc177d55ada61c8c554684f902d7be49c3ad915f51ed1
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-28/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-29/attacker admission: committed 0x50df0d62553d39e35638e75d611137d2e40a4fb682011126c39384a310d658f1
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-29/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-30/attacker admission: committed 0x4d66d0b34ddee5112e5168006b483261d3f73928185c949cb6822e3698fad28c
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-30/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-31/attacker admission: committed 0x6d8e33ec7960b6e17c42f2d2af57c58d015493cd5b5bfff1142d06947e8b0075
+seal-contention/4/one-lane-per-rebuild/epoch-1/attempt-31/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/one-lane-per-rebuild/epoch-1/exhausted/lane-0/ninth admission: rejected (3)
+seal-contention/4/one-lane-per-rebuild/epoch-1/exhausted/lane-0/no-op: rejected (12)
+seal-contention/4/one-lane-per-rebuild/epoch-1/exhausted/lane-0/unauthorized reset: rejected (7)
+seal-contention/4/one-lane-per-rebuild/epoch-1/exhausted/lane-1/ninth admission: rejected (3)
+seal-contention/4/one-lane-per-rebuild/epoch-1/exhausted/lane-1/no-op: rejected (12)
+seal-contention/4/one-lane-per-rebuild/epoch-1/exhausted/lane-1/unauthorized reset: rejected (7)
+seal-contention/4/one-lane-per-rebuild/epoch-1/exhausted/lane-2/ninth admission: rejected (3)
+seal-contention/4/one-lane-per-rebuild/epoch-1/exhausted/lane-2/no-op: rejected (12)
+seal-contention/4/one-lane-per-rebuild/epoch-1/exhausted/lane-2/unauthorized reset: rejected (7)
+seal-contention/4/one-lane-per-rebuild/epoch-1/exhausted/lane-3/ninth admission: rejected (3)
+seal-contention/4/one-lane-per-rebuild/epoch-1/exhausted/lane-3/no-op: rejected (12)
+seal-contention/4/one-lane-per-rebuild/epoch-1/exhausted/lane-3/unauthorized reset: rejected (7)
+seal-contention/4/one-lane-per-rebuild/epoch-1/rebuilt seal after exhausted churn: committed 0x1eefc1e4d1e91c7f04fdecafe0659471384e1e3cf110dc0a91a49773651af48d
+seal-contention/4/one-lane-per-rebuild/epoch-1/process-0: committed 0xf0b8e5e346ca73e2b69701a6b0d53099c203a2e6d54e6183c78b54dd1be71832
+seal-contention/4/one-lane-per-rebuild/epoch-1/process-1: committed 0x5eb914285e4547ab4124e4a145fd02346d3974a7f3062b9946f5b02887928fbb
+seal-contention/4/one-lane-per-rebuild/epoch-1/process-2: committed 0x33a9bbe5d0953680d9512c1d38018b840dd71ec0e152e59adc972a71058ecd55
+seal-contention/4/one-lane-per-rebuild/epoch-1/process-3: committed 0x3cd777c145cc4040b2a3d71052021509b268e4f504858fbdf0f12d766e643752
+seal-contention/4/one-lane-per-rebuild/epoch-1/process-4: committed 0x7b70a418a735e4a3049b3360eee0f0ddde5deda7e75c1b3215ccc0843a3a3155
+seal-contention/4/one-lane-per-rebuild/epoch-1/process-5: committed 0xcc4140e8104423781f3f6301740ae067624e633efbd49cb4cec9a719a608a11d
+seal-contention/4/one-lane-per-rebuild/epoch-1/process-6: committed 0xdc98cb59a45aab70e6e968efa60fd6de39aa600690ca8aa0068bb2fdd2bb27cc
+seal-contention/4/one-lane-per-rebuild/epoch-1/process-7: committed 0x5bb36a2c3f00142ae55190b5602f85e9e9271dc8fa94d3f5c804a13f1428ddf2
+seal-contention/4/one-lane-per-rebuild/epoch-1: 32 freshly signed seals invalidated; full set sealed and classified
+sealed/4 lanes/genesis: committed 0x0b9b676d96fa0ff464f04228c667fe3833ab03600ddd2a00aa1fc7064e11049e
+seal-contention/4/all-lanes/warmup: committed 0x05a1bee782b571415f5e5caa715f03a46d51c700b19b29bf6934bcbb7460097f
+seal-contention/4/all-lanes/warmup: committed 0xc010a0fcf55a75428da7e47e43d82e781974a2f2476a7d47f807eaf9f12041b2
+seal-contention/4/all-lanes/warmup: committed 0x8f126fa7f019188aaeaa106d9bb7cbfdc61c43cbae14834f1a9826e386f71daf
+seal-contention/4/all-lanes/warmup: committed 0x18faa07921a44f690fd281ac44bc3ca1351296d038882a42eeb0ef4b5651dc59
+seal-contention/4/all-lanes/warmup: committed 0x7b49bb1b0b1446b7d5e9a20fc5c40b88141eae9f94441ad8f9f29af597d70cff
+seal-contention/4/all-lanes/warmup: committed 0x31e71ea576ab1cec9a5912678aeccc2c05384cded7ff19b49c51bd279a715328
+seal-contention/4/all-lanes/warmup: committed 0xf14a037654cc894135b3811e59cba12f9f365a0a234715770096146ea900b8f1
+seal-contention/4/all-lanes/warmup: committed 0x383aceccb4ad4679fe7b8e2a41b108a00369f0aebe3817f3bd64c4a398cd1510
+seal-contention/4/all-lanes/epoch-0/attempt-0/attacker admission: committed 0xead1d249afaca8a05b49e50866037969dd88d721ba1beae894fa56bf7fcdd406
+seal-contention/4/all-lanes/epoch-0/attempt-0/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/all-lanes/epoch-0/attempt-1/attacker admission: committed 0x5281bb7f981f3e2958d9190f75d5e6e3d564ee0c4659a86538264f5e07bb96c0
+seal-contention/4/all-lanes/epoch-0/attempt-1/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/all-lanes/epoch-0/attempt-2/attacker admission: committed 0xc5c2bb5861066c50f8842df87762e4093140120f166effc887cfff017fa6716a
+seal-contention/4/all-lanes/epoch-0/attempt-2/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/all-lanes/epoch-0/attempt-3/attacker admission: committed 0x2ed946da146d10b23438a9923e1b4d4e7c3ace2628e5cd1cf6e280e8b264609b
+seal-contention/4/all-lanes/epoch-0/attempt-3/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/all-lanes/epoch-0/attempt-4/attacker admission: committed 0xb3be32c249382b0be17180a873e807ddf667402e01c43b197bf0770e2b2e5b47
+seal-contention/4/all-lanes/epoch-0/attempt-4/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/all-lanes/epoch-0/attempt-5/attacker admission: committed 0xefcd423932084c6994b6f127745cf3e20d40f9150f2132c705f9d938df2c71d0
+seal-contention/4/all-lanes/epoch-0/attempt-5/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/all-lanes/epoch-0/attempt-6/attacker admission: committed 0x606c4d27ba2d4ad1c22e1f7a3f8ecdce27908ee8587cfb4cfbedc019849ab8f3
+seal-contention/4/all-lanes/epoch-0/attempt-6/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/all-lanes/epoch-0/attempt-7/attacker admission: committed 0xe29e29ddf9ee5062e62f1643777e888cdbd3575a0648c34a9e44d1c1cc7492c3
+seal-contention/4/all-lanes/epoch-0/attempt-7/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/all-lanes/epoch-0/exhausted/lane-0/ninth admission: rejected (3)
+seal-contention/4/all-lanes/epoch-0/exhausted/lane-0/no-op: rejected (12)
+seal-contention/4/all-lanes/epoch-0/exhausted/lane-0/unauthorized reset: rejected (7)
+seal-contention/4/all-lanes/epoch-0/exhausted/lane-1/ninth admission: rejected (3)
+seal-contention/4/all-lanes/epoch-0/exhausted/lane-1/no-op: rejected (12)
+seal-contention/4/all-lanes/epoch-0/exhausted/lane-1/unauthorized reset: rejected (7)
+seal-contention/4/all-lanes/epoch-0/exhausted/lane-2/ninth admission: rejected (3)
+seal-contention/4/all-lanes/epoch-0/exhausted/lane-2/no-op: rejected (12)
+seal-contention/4/all-lanes/epoch-0/exhausted/lane-2/unauthorized reset: rejected (7)
+seal-contention/4/all-lanes/epoch-0/exhausted/lane-3/ninth admission: rejected (3)
+seal-contention/4/all-lanes/epoch-0/exhausted/lane-3/no-op: rejected (12)
+seal-contention/4/all-lanes/epoch-0/exhausted/lane-3/unauthorized reset: rejected (7)
+seal-contention/4/all-lanes/epoch-0/rebuilt seal after exhausted churn: committed 0x77de0329cff375911ee083b41f6227188045aa5ddd0e6844108a6035be7a0758
+seal-contention/4/all-lanes/epoch-0/process-0: committed 0x0ec78b87725a29a2cee09b50b110734cbe9c71618cfdd1b98f8aee41ae8f35ba
+seal-contention/4/all-lanes/epoch-0/process-1: committed 0xebaaa0b9ce67899f99b6b52b3a6b01d8ca277cdc348e49d1f5447586750cd07b
+seal-contention/4/all-lanes/epoch-0/process-2: committed 0x9a8b42133cc4c05edb3b0bf9e39b2057c66777c4f67394b6a5a34bace71469fd
+seal-contention/4/all-lanes/epoch-0/process-3: committed 0x767cdae72db2dce5b68a92702f757e72bde69aa84d1a5f93a8ea446652ef9228
+seal-contention/4/all-lanes/epoch-0/process-4: committed 0xf421df82763e849091063eca48fa3d6897b72630f53b2ac85625760d58830682
+seal-contention/4/all-lanes/epoch-0/process-5: committed 0xaaf2e613a811eebf482268505a3ffc90045bf4bc824e5e878883de83749e5366
+seal-contention/4/all-lanes/epoch-0/process-6: committed 0x753da72dce9bcf6517cc6cceec2208c50983d9e6814aa115d3cfcf85b80bdd5f
+seal-contention/4/all-lanes/epoch-0/process-7: committed 0x1d4863ef33e69cc0023268682dd435e76d87398239ec27e00060f668472b27c8
+seal-contention/4/all-lanes/epoch-0: 8 freshly signed seals invalidated; full set sealed and classified
+seal-contention/4/all-lanes/epoch-1/attempt-0/attacker admission: committed 0x8b5b706647bf1e6093bf4d4044eaf19d28b59590e94d8313ed7b0caff77a60b7
+seal-contention/4/all-lanes/epoch-1/attempt-0/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/all-lanes/epoch-1/attempt-1/attacker admission: committed 0x77d66a4fc03c8758668413fb61a3547b64fa05d1b26f2833ba13370f90a72644
+seal-contention/4/all-lanes/epoch-1/attempt-1/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/all-lanes/epoch-1/attempt-2/attacker admission: committed 0x7d75271368f7ca24d618832d17bde166eb5cc8074e0bb166c8d2d5ef7155a37c
+seal-contention/4/all-lanes/epoch-1/attempt-2/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/all-lanes/epoch-1/attempt-3/attacker admission: committed 0x145f6bcadf5b2f8ec01d41731cd51f7512219986f1cd3787f014c670e2c6f084
+seal-contention/4/all-lanes/epoch-1/attempt-3/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/all-lanes/epoch-1/attempt-4/attacker admission: committed 0xc183cd2180ea357c89231ac0239cce2d4033315143db5e56a42c5088b98373de
+seal-contention/4/all-lanes/epoch-1/attempt-4/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/all-lanes/epoch-1/attempt-5/attacker admission: committed 0xa462de514e60e8a663399fb3bb1e54939e5cdc5df0168061bcc9c22278d38722
+seal-contention/4/all-lanes/epoch-1/attempt-5/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/all-lanes/epoch-1/attempt-6/attacker admission: committed 0x7300b1412c35b2fbb0b99b8530aef5db532fdb1249b8e2d0228bd918655eb12e
+seal-contention/4/all-lanes/epoch-1/attempt-6/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/all-lanes/epoch-1/attempt-7/attacker admission: committed 0x0f1b527dc1ffdea6d2f3dc25a22fdcc76920ac6bcd8cf89aff93a458d2cd557d
+seal-contention/4/all-lanes/epoch-1/attempt-7/stale signed seal: rejected (TransactionFailedToResolve)
+seal-contention/4/all-lanes/epoch-1/exhausted/lane-0/ninth admission: rejected (3)
+seal-contention/4/all-lanes/epoch-1/exhausted/lane-0/no-op: rejected (12)
+seal-contention/4/all-lanes/epoch-1/exhausted/lane-0/unauthorized reset: rejected (7)
+seal-contention/4/all-lanes/epoch-1/exhausted/lane-1/ninth admission: rejected (3)
+seal-contention/4/all-lanes/epoch-1/exhausted/lane-1/no-op: rejected (12)
+seal-contention/4/all-lanes/epoch-1/exhausted/lane-1/unauthorized reset: rejected (7)
+seal-contention/4/all-lanes/epoch-1/exhausted/lane-2/ninth admission: rejected (3)
+seal-contention/4/all-lanes/epoch-1/exhausted/lane-2/no-op: rejected (12)
+seal-contention/4/all-lanes/epoch-1/exhausted/lane-2/unauthorized reset: rejected (7)
+seal-contention/4/all-lanes/epoch-1/exhausted/lane-3/ninth admission: rejected (3)
+seal-contention/4/all-lanes/epoch-1/exhausted/lane-3/no-op: rejected (12)
+seal-contention/4/all-lanes/epoch-1/exhausted/lane-3/unauthorized reset: rejected (7)
+seal-contention/4/all-lanes/epoch-1/rebuilt seal after exhausted churn: committed 0xf6d3ec9f1c32b0f28ce8c38f5e35a1901e650d3796858e797506809fe8e8cedd
+seal-contention/4/all-lanes/epoch-1/process-0: committed 0x36a3a7a8a05939b010fff07df741b899efed8f69095c890263b8377faedcefe3
+seal-contention/4/all-lanes/epoch-1/process-1: committed 0x91edadf87d5786ec3e30f9c95cd471143a29c1c6de32c98628a76cc70e104998
+seal-contention/4/all-lanes/epoch-1/process-2: committed 0x4fe1a26da0fb5efcdf5a09bef40e159cabb21da8734f0421f0595c912d66b249
+seal-contention/4/all-lanes/epoch-1/process-3: committed 0x3d1426533eb86526551afc093143fabbb05dedd74484a122269bfbbfd2fa8cd3
+seal-contention/4/all-lanes/epoch-1/process-4: committed 0xc3432e2e64f946c80c5cfc792404ff09128b6a5458ebf35259b66bd4fc0df409
+seal-contention/4/all-lanes/epoch-1/process-5: committed 0x77f9d6aadecbebcbaee76d0dc2343c3c11a9a8247bb13277e89dd45197d641fc
+seal-contention/4/all-lanes/epoch-1/process-6: committed 0x7983e1a01d8496578b5722368ac5af89dbe73272b31515278eeca86091696f05
+seal-contention/4/all-lanes/epoch-1/process-7: committed 0xa5af992210c975f9fd6d65eb0d5adc98319b830e2b4acce68c9e50870dc6db9a
+seal-contention/4/all-lanes/epoch-1: 8 freshly signed seals invalidated; full set sealed and classified

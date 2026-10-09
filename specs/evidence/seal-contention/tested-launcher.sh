@@ -14,7 +14,7 @@ if [[ "$($CKB_BIN --version)" != "ckb $required_version "* ]]; then
   exit 1
 fi
 suite="${TACTUS_DEVNET_SUITE:-replay-a123}"
-case "$suite" in replay-a123|replay-batch|replay-evm|replay-priority|replay-sealed|replay-admission|replay-network|replay-seal-contention) ;; *) echo 'Unknown devnet suite' >&2; exit 1 ;; esac
+case "$suite" in replay-a123|replay-batch|replay-evm|replay-priority|replay-sealed|replay-admission|replay-network|replay-load|replay-seal-contention) ;; *) echo 'Unknown devnet suite' >&2; exit 1 ;; esac
 cargo build --locked --bin "$suite"
 if [[ "$suite" == replay-evm || "$suite" == replay-network ]]; then
   cargo build --locked --bin recover-execution
@@ -69,7 +69,7 @@ manifest={'node_version':subprocess.check_output([os.environ['TACTUS_CKB_BIN'],'
  'rustc':subprocess.check_output(['rustc','-Vv'],text=True),'git_head':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
  'git_diff_sha256':hashlib.sha256(subprocess.check_output(['git','diff','HEAD'])).hexdigest(),
  'files':{}}
-for name in ['Cargo.lock','scripts/build-ordering-script.sh','scripts/ordering-script.ld','artifacts/tactus_o1_ordering_script.elf','artifacts/tactus_o1_head_lock.elf','artifacts/tactus_o1_anchor_script.elf','artifacts/tactus_o1_priority_script.elf','artifacts/tactus_o1_sealed_script.elf',str(root/'node/ckb.toml'),str(p),os.environ['TACTUS_CKB_BIN']]:
+for name in ['artifacts/run-seal-contention-smoke.sh','Cargo.lock','scripts/build-ordering-script.sh','scripts/ordering-script.ld','artifacts/tactus_o1_ordering_script.elf','artifacts/tactus_o1_head_lock.elf','artifacts/tactus_o1_anchor_script.elf','artifacts/tactus_o1_priority_script.elf','artifacts/tactus_o1_sealed_script.elf',str(root/'node/ckb.toml'),str(p),os.environ['TACTUS_CKB_BIN']]:
  manifest['files'][name]=hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest()
 binaries=['target/debug/'+os.environ['TACTUS_DEVNET_SUITE']]
 if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-evm','replay-network'):binaries.append('target/debug/recover-execution')

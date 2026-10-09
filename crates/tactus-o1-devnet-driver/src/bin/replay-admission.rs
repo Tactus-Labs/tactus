@@ -3,7 +3,7 @@ use serde_json::{json, Value};
 use tactus_o1_devnet_driver::{
     lab::{self, Lab},
     molecule, rpc, sealed_lab as sealed,
-    tx::{CellOutPoint, OutSpec, TX_FEE},
+    tx::{wire_bytes, CellOutPoint, OutSpec, TX_FEE},
 };
 use tactus_o1_ordering_script::{ckb_blake2b, genesis_identity};
 use tactus_o1_protocol::priority::Message;
@@ -54,39 +54,6 @@ fn admitted(
         &[],
         fee,
     )
-}
-fn hex_len(v: &Value) -> Result<usize, String> {
-    rpc::decode_hex(v.as_str().ok_or("hex string")?).map(|b| b.len())
-}
-// Molecule table/fixvec/dynvec framing, including witnesses. This is wire
-// size, not JSON length and not CKB's cycle-weighted virtual transaction size.
-fn wire_bytes(t: &Value) -> Result<usize, String> {
-    let arr = |key: &str| t[key].as_array().ok_or_else(|| format!("missing {key}"));
-    let mut size = 12
-        + 28
-        + 4
-        + 4
-        + 37 * arr("cell_deps")?.len()
-        + 4
-        + 32 * arr("header_deps")?.len()
-        + 4
-        + 44 * arr("inputs")?.len();
-    let outputs = arr("outputs")?;
-    size += 4 + 4 * outputs.len();
-    for o in outputs {
-        size += 16 + 8 + 53 + hex_len(&o["lock"]["args"])?;
-        if !o["type"].is_null() {
-            size += 53 + hex_len(&o["type"]["args"])?;
-        }
-    }
-    for key in ["outputs_data", "witnesses"] {
-        let items = arr(key)?;
-        size += 4 + 4 * items.len();
-        for item in items {
-            size += 4 + hex_len(item)?;
-        }
-    }
-    Ok(size)
 }
 fn metrics(t: &Value, fee: u64) -> Result<Value, String> {
     let cycles = rpc::call("estimate_cycles", json!([t]))?;
@@ -142,7 +109,8 @@ fn race(
             let hash = hashes[i].unwrap();
             lab.record_committed(&format!("{label}/actor-{i}-canonical"), hash)?;
             let packed = rpc::call("get_transaction", json!([hash, "0x0"]))?;
-            let actual_bytes = hex_len(&packed["transaction"])?;
+            let actual_bytes =
+                rpc::decode_hex(packed["transaction"].as_str().ok_or("packed transaction")?)?.len();
             if actual_bytes != wire_bytes(&txs[i])? {
                 return Err(format!("{label}: node wire size differs from candidate"));
             }

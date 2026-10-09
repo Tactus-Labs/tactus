@@ -539,6 +539,40 @@ pub fn send_and_wait(tx: &Value, timeout_secs: u64) -> Result<(String, Option<u6
     }
 }
 
+fn hex_len(v: &Value) -> Result<usize, String> {
+    rpc::decode_hex(v.as_str().ok_or("hex string")?).map(|b| b.len())
+}
+// Molecule table/fixvec/dynvec framing, including witnesses. This is wire
+// size, not JSON length and not CKB's cycle-weighted virtual transaction size.
+pub fn wire_bytes(t: &Value) -> Result<usize, String> {
+    let arr = |key: &str| t[key].as_array().ok_or_else(|| format!("missing {key}"));
+    let mut size = 12
+        + 28
+        + 4
+        + 4
+        + 37 * arr("cell_deps")?.len()
+        + 4
+        + 32 * arr("header_deps")?.len()
+        + 4
+        + 44 * arr("inputs")?.len();
+    let outputs = arr("outputs")?;
+    size += 4 + 4 * outputs.len();
+    for o in outputs {
+        size += 16 + 8 + 53 + hex_len(&o["lock"]["args"])?;
+        if !o["type"].is_null() {
+            size += 53 + hex_len(&o["type"]["args"])?;
+        }
+    }
+    for key in ["outputs_data", "witnesses"] {
+        let items = arr(key)?;
+        size += 4 + 4 * items.len();
+        for item in items {
+            size += 4 + hex_len(item)?;
+        }
+    }
+    Ok(size)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

@@ -77,6 +77,12 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
   allocations. The updated domain passes the Geth comparison and both CKB suites;
   proof-bound state-root derivation and production supply policy remain open.
 
+- [Repeated fresh seal contention](SEAL_CONTENTION_REPORT.md) now attains the
+  finite `8 × lane_count` valid-append budget, rejects further full-queue churn,
+  seals the complete set and processes every payload across two consecutive
+  epochs on both versions. This is conditional canonical progress, not a miner
+  inclusion promise or protection against a user losing every admission race.
+
 ## Work that still blocks the user's production objective
 
 | Priority | Boundary | Required completion evidence |
