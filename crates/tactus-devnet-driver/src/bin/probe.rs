@@ -1,3 +1,8 @@
+//! Devnet diagnostics: local re-verification of a signed spend and an
+//! on-chain message-rule probe. Current status (2026-10-09, ckb v0.210.0
+//! devnet): even ckb-cli-signed transactions are rejected with secp error
+//! -31 (pubkey/args mismatch) on this chain, so the blocker is environmental,
+//! not in this driver. See specs/EXPERIMENT_A_DEVNET_REPORT.md.
 // Message-rule enumeration with spendable cells — the chain judges.
 fn main() {
     use secp256k1::{ecdsa, Message, Secp256k1};
