@@ -8,7 +8,11 @@ as an offline command. It does not query CKB, assert canonicality or settle asse
 
 The parent directory must exist. A newly created journal directory and its parent
 are synced. An exclusive OS file lock is held throughout startup replay and the
-store's lifetime, so cooperating writers cannot append concurrently. The manifest
+store's lifetime, so cooperating writers cannot append concurrently. Ownership is
+explicitly unlocked on close and on failed startup; a duplicated file descriptor
+(such as one inherited during a concurrent fork/exec) cannot retain a closed
+writer's lock. A deterministic descriptor-duplication regression covers this
+boundary. The manifest
 pins genesis allocation, execution rules and genesis header hash even before the
 first batch. It must agree with the caller's trusted genesis.
 

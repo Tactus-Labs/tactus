@@ -52,10 +52,20 @@ impl std::fmt::Display for Error {
 }
 impl std::error::Error for Error {}
 
+// A duplicated file description (including the short fork/exec interval) can
+// retain an OS lock after the original File is closed. End ownership explicitly,
+// including early errors during recovery, instead of relying only on close.
+struct WriterLock(File);
+impl Drop for WriterLock {
+    fn drop(&mut self) {
+        let _ = self.0.unlock();
+    }
+}
+
 pub struct Store {
     directory: PathBuf,
     // An exclusive OS lock is held for the entire lifetime, including replay.
-    _lock: File,
+    _lock: WriterLock,
     engine: Executor,
     poisoned: bool,
 }
@@ -88,6 +98,7 @@ impl Store {
             Err(std::fs::TryLockError::WouldBlock) => return Err(Error::Locked),
             Err(std::fs::TryLockError::Error(error)) => return Err(Error::Io(error)),
         }
+        let lock = WriterLock(lock);
         let mut engine = Executor::new(genesis)?;
         let mut records = Vec::new();
         for entry in fs::read_dir(&directory)? {
@@ -236,4 +247,33 @@ fn publish(directory: &Path, name: &str, bytes: &[u8]) -> Result<(), Error> {
     fs::remove_file(pending)?;
     File::open(directory)?.sync_all()?;
     Ok(())
+}
+
+#[cfg(test)]
+mod lock_release_tests {
+    use super::*;
+    #[test]
+    fn closing_writer_releases_lock_even_with_duplicated_descriptor() {
+        let path =
+            std::env::temp_dir().join(format!("tactus-o1-lock-release-{}", std::process::id()));
+        let genesis = Genesis {
+            rollup_id: [0x41; 32].into(),
+            chain_id: 31337,
+            accounts: Default::default(),
+        };
+        let store = Store::open(&path, &genesis).unwrap();
+        // Models the open-file description inherited by a concurrently spawned
+        // child before exec closes CLOEXEC descriptors.
+        let duplicate = store._lock.0.try_clone().unwrap();
+        drop(store);
+        let reopened = Store::open(&path, &genesis);
+        let success = reopened.is_ok();
+        drop(reopened);
+        drop(duplicate);
+        fs::remove_dir_all(path).unwrap();
+        assert!(
+            success,
+            "a closed writer must not remain locked by a duplicated descriptor"
+        );
+    }
 }
