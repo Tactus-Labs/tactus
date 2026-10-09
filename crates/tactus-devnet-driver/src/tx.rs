@@ -6,7 +6,7 @@
 //! commitment (type group, `WitnessArgs::input_type`).
 
 use secp256k1::{ecdsa::RecoverableSignature, Message, PublicKey, Secp256k1, SecretKey};
-use serde_json::Value;
+use serde_json::{json, Value};
 
 use crate::molecule;
 use crate::rpc;
@@ -56,10 +56,9 @@ pub struct CellOutPoint {
     pub index: u32,
 }
 
-/// Locates the SECP code cell in the genesis block by reconstructing the
-/// canonical script hash chain: for each genesis output, hash its data, wrap
-/// it in a `hash_type = data` script and compare the script's blake160 with
-/// the prefix of [`SECP_CODE_HASH`].
+/// Locates the SECP code cell in the genesis block: the cell whose **type
+/// script hash** (ckbhash of the serialized type script, RFC 0022) equals
+/// [`SECP_CODE_HASH`]. Verified against this devnet's genesis.
 pub fn find_secp_dep(genesis: &Value) -> Result<CellOutPoint, String> {
     let tx0 = genesis
         .get("transactions")
@@ -70,15 +69,31 @@ pub fn find_secp_dep(genesis: &Value) -> Result<CellOutPoint, String> {
         .and_then(Value::as_str)
         .ok_or("no tx hash")?;
     let tx_hash = rpc::hex_to_bytes(tx_hash_hex);
-    let data = tx0
-        .get("outputs_data")
+    let outputs = genesis
+        .get("transactions")
+        .and_then(|t| t.get(0))
+        .and_then(|t| t.get("outputs"))
         .and_then(Value::as_array)
-        .ok_or("no outputs_data")?;
-    for (index, d) in data.iter().enumerate() {
-        let bytes = rpc::hex_to_bytes(d.as_str().unwrap_or_default());
-        let data_hash = ckb_blake2b(&bytes);
-        let script = molecule::script(&data_hash, 0, &[]);
-        if ckb_blakeb160(&script) == SECP_CODE_HASH[..20] {
+        .ok_or("no outputs")?;
+    for (index, out) in outputs.iter().enumerate() {
+        let Some(t) = out.get("type") else { continue };
+        let code_hash_hex = t
+            .get("code_hash")
+            .and_then(Value::as_str)
+            .unwrap_or_default();
+        let ch = rpc::hex_to_bytes(code_hash_hex);
+        if ch.len() != 32 {
+            continue;
+        }
+        let mut code_hash = [0u8; 32];
+        code_hash.copy_from_slice(&ch);
+        let hash_type = match t.get("hash_type").and_then(Value::as_str) {
+            Some("type") => 1u8,
+            _ => 0u8,
+        };
+        let args = rpc::hex_to_bytes(t.get("args").and_then(Value::as_str).unwrap_or("0x"));
+        let script = molecule::script(&code_hash, hash_type, &args);
+        if ckb_blake2b(&script) == SECP_CODE_HASH {
             let mut h = [0u8; 32];
             h.copy_from_slice(&tx_hash);
             return Ok(CellOutPoint {
@@ -170,7 +185,7 @@ pub fn build_and_sign(
     inputs: &[(CellOutPoint, u64)],
     outputs: &[OutSpec],
     input_type: Option<&[u8]>,
-) -> Result<Vec<u8>, String> {
+) -> Result<(Vec<u8>, Value), String> {
     let dep = molecule::cell_dep(&molecule::out_point(&secp_dep.tx_hash, secp_dep.index), 0);
     let input_cells: Vec<Vec<u8>> = inputs
         .iter()
@@ -185,10 +200,23 @@ pub fn build_and_sign(
     let raw = molecule::raw_transaction(&[dep], &input_cells, &out_cells, &out_data);
     let tx_hash = ckb_blake2b(&raw);
 
-    // SECP256K1/blake160 sighash-all: recoverable signature over the raw
-    // transaction hash, message empty by convention.
+    // SECP256K1/blake160 sighash-all message (per the system script source):
+    // ckbhash( tx_hash ‖ u64le(len)‖blank_witness0 ‖ Σ u64le(len)‖w_i ),
+    // where blank_witness0 keeps input_type/output_type but zeroes the
+    // 65-byte lock; remaining same-group witnesses hash as submitted.
+    let blank0 = molecule::witness_args(Some(&[0u8; 65]), input_type, None);
+    let mut message_buf = tx_hash.to_vec();
+    message_buf.extend_from_slice(&(blank0.len() as u64).to_le_bytes());
+    message_buf.extend_from_slice(&blank0);
+    for _ in 1..inputs.len() {
+        let empty = molecule::witness_args(None, None, None);
+        message_buf.extend_from_slice(&(empty.len() as u64).to_le_bytes());
+        message_buf.extend_from_slice(&empty);
+    }
+    let message_hash = ckb_blake2b(&message_buf);
+
     let secp = Secp256k1::new();
-    let message = Message::from_digest_slice(&tx_hash).map_err(|e| e.to_string())?;
+    let message = Message::from_digest_slice(&message_hash).map_err(|e| e.to_string())?;
     let sig: RecoverableSignature = secp.sign_ecdsa_recoverable(&message, &key.secret);
     let (rec_id, data) = sig.serialize_compact();
     let mut signature = Vec::with_capacity(65);
@@ -201,7 +229,57 @@ pub fn build_and_sign(
         witnesses.push(molecule::witness_args(None, None, None));
     }
 
-    Ok(molecule::transaction(&raw, &witnesses))
+    let bytes = molecule::transaction(&raw, &witnesses);
+    let json = transaction_to_json(outputs, inputs, secp_dep, &witnesses);
+    Ok((bytes, json))
+}
+
+/// JSON form for RPC submission (ckb 0.210 requires the object form). The
+/// binary form remains authoritative for the tx hash and signature.
+fn transaction_to_json(
+    outputs: &[OutSpec],
+    inputs: &[(CellOutPoint, u64)],
+    secp_dep: &CellOutPoint,
+    witnesses: &[Vec<u8>],
+) -> Value {
+    let out_json: Vec<Value> = outputs
+        .iter()
+        .map(|o| {
+            let mut v = json!({
+                "capacity": format!("0x{:x}", o.capacity),
+                "lock": molecule::script_to_json(&o.lock),
+            });
+            if let Some(t) = &o.type_script {
+                v["type"] = molecule::script_to_json(t);
+            }
+            v
+        })
+        .collect();
+    json!({
+        "version": "0x0",
+        "cell_deps": [{
+            "out_point": {
+                "tx_hash": rpc::bytes_to_hex(&secp_dep.tx_hash),
+                "index": format!("0x{:x}", secp_dep.index),
+            },
+            "dep_type": "code",
+        }],
+        "header_deps": [],
+        "inputs": inputs.iter().map(|(o, _)| json!({
+            "previous_output": {
+                "tx_hash": rpc::bytes_to_hex(&o.tx_hash),
+                "index": format!("0x{:x}", o.index),
+            },
+            "since": "0x0",
+        })).collect::<Vec<_>>(),
+        "outputs": out_json,
+        "outputs_data": outputs.iter()
+            .map(|o| rpc::bytes_to_hex(&o.data))
+            .collect::<Vec<_>>(),
+        "witnesses": witnesses.iter()
+            .map(|w| rpc::bytes_to_hex(w))
+            .collect::<Vec<_>>(),
+    })
 }
 
 /// Tactus type script referencing the deployed ELF by data hash.
@@ -226,10 +304,9 @@ pub fn head_output(
     }
 }
 
-/// Sends a transaction and waits until it is committed (devnet mines fast).
-pub fn send_and_wait(tx: &[u8], timeout_secs: u64) -> Result<(String, Option<u64>), String> {
-    let hex = rpc::bytes_to_hex(tx);
-    let tx_hash = rpc::send_transaction(&hex)?;
+/// Sends a transaction (JSON form) and waits until it is committed.
+pub fn send_and_wait(tx: &Value, timeout_secs: u64) -> Result<(String, Option<u64>), String> {
+    let tx_hash = rpc::send_transaction_json(tx)?;
     let deadline = std::time::Instant::now() + std::time::Duration::from_secs(timeout_secs);
     loop {
         let (status, block_number) = rpc::get_transaction_status(&tx_hash)?;

@@ -52,11 +52,11 @@ fn main() {
         type_script: None,
         data: vec![],
     }];
-    let consolidate_tx =
+    let (_consolidate_bytes, consolidate_json) =
         tx::build_and_sign(&key, &secp_dep, &coinbases, &consolidate_outputs, None)
             .expect("consolidation tx");
     let (consolidate_hash, consolidate_block) =
-        tx::send_and_wait(&consolidate_tx, 120).expect("consolidation committed");
+        tx::send_and_wait(&consolidate_json, 120).expect("consolidation committed");
     let fund_outpoint = CellOutPoint {
         tx_hash: hex32(&consolidate_hash),
         index: 0,
@@ -104,7 +104,7 @@ fn main() {
             data: vec![],
         },
     ];
-    let deploy_tx = tx::build_and_sign(
+    let (_deploy_bytes, deploy_json) = tx::build_and_sign(
         &key,
         &secp_dep,
         &[(fund_outpoint, consolidated_cap)],
@@ -112,7 +112,8 @@ fn main() {
         None,
     )
     .expect("deploy tx");
-    let (deploy_hash, deploy_block) = tx::send_and_wait(&deploy_tx, 180).expect("deploy committed");
+    let (deploy_hash, deploy_block) =
+        tx::send_and_wait(&deploy_json, 180).expect("deploy committed");
     let mut head_out = CellOutPoint {
         tx_hash: hex32(&deploy_hash),
         index: 1,
@@ -193,7 +194,7 @@ fn main() {
         n.inbox_tail = 2;
         n
     };
-    let tx_a = transition_tx(
+    let (_a_bytes, a_json) = transition_tx(
         &key,
         &tactus_type,
         &secp_dep,
@@ -202,7 +203,7 @@ fn main() {
         head_a,
         Some(&msg_a),
     );
-    let tx_b = transition_tx(
+    let (_b_bytes, b_json) = transition_tx(
         &key,
         &tactus_type,
         &secp_dep,
@@ -211,8 +212,8 @@ fn main() {
         head_b,
         Some(&msg_b),
     );
-    let (a_hash, a_block) = tx::send_and_wait(&tx_a, 120).expect("E3 first spend commits");
-    let b_result = rpc::send_transaction(&rpc::bytes_to_hex(&tx_b));
+    let (a_hash, a_block) = tx::send_and_wait(&a_json, 120).expect("E3 first spend commits");
+    let b_result = rpc::send_transaction_json(&b_json);
     let e3_rejected = match b_result {
         Ok(hash) => {
             // A same-cell spend should not commit; check status briefly.
@@ -239,7 +240,7 @@ fn main() {
         n.da_policy_id = [12u8; 32]; // preserved field mutated
         n
     };
-    let tx_bad = transition_tx(
+    let (_bad_bytes, bad_json) = transition_tx(
         &key,
         &tactus_type,
         &secp_dep,
@@ -248,7 +249,7 @@ fn main() {
         head_bad,
         Some(&batch_bad),
     );
-    let e4_result = rpc::send_transaction(&rpc::bytes_to_hex(&tx_bad));
+    let e4_result = rpc::send_transaction_json(&bad_json);
     let e4 = match e4_result {
         Ok(h) => format!("UNEXPECTED: accepted ({h})"),
         Err(e) => format!("rejected: {}", shorten(&e)),
@@ -331,7 +332,7 @@ fn transition_tx(
     capacity: u64,
     next: OrderingHead,
     input_type: Option<&[u8; 32]>,
-) -> Vec<u8> {
+) -> (Vec<u8>, serde_json::Value) {
     let outputs = vec![tx::head_output(key, type_script, &next, capacity)];
     tx::build_and_sign(
         key,
@@ -355,7 +356,7 @@ fn transition(
     input_type: Option<&[u8; 32]>,
     label: &str,
 ) -> Result<(String, Option<u64>), String> {
-    let t = transition_tx(
+    let (_t, json) = transition_tx(
         key,
         type_script,
         secp_dep,
@@ -364,7 +365,7 @@ fn transition(
         next,
         input_type,
     );
-    match tx::send_and_wait(&t, 180) {
+    match tx::send_and_wait(&json, 180) {
         Ok(x) => Ok(x),
         Err(e) => {
             eprintln!("{label} failed: {e}");

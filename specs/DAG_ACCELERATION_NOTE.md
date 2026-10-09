@@ -53,7 +53,7 @@ Review of this note surfaced a gap that precedes every DAG decision: the frozen 
 - **One anchor, one block:** canonical L2 block cadence is coupled to the anchor cadence; fast blocks remain soft confirmations only.
 - **One anchor, several strictly ordered blocks:** L2 block production separates from CKB anchor cadence — the foundation for a fast RPC experience under based settlement, and a determinant of proving cost and maximum batch size.
 
-Four questions require their own specification before the serial EVM baseline is implemented (recommended direction: multiple strictly ordered EVM blocks per anchor, with no DAG consensus between them):
+Four questions require their own specification before the serial EVM baseline is implemented (direction adopted and recorded in §9: multiple strictly ordered EVM blocks per anchor, no DAG consensus between them):
 
 1. How many EVM blocks may one anchor commit to?
 2. How is each block's number, timestamp, gas limit, base fee and hash derived?
@@ -87,6 +87,14 @@ MegaETH demonstrates the value of a hyper-optimised sequencer: in-memory executi
 ### 3.3 Sonic — protocol-irrelevant
 
 Sonic's DAG lives at the consensus layer (an event DAG stabilising into aBFT finality): it replaces one consensus authority with another. Tactus's thesis is the removal of the independent L2 consensus authority altogether; there is nothing here to borrow beyond general engine hygiene.
+
+### 3.4 Kaspa Based Apps / vProgs — study the lanes, not the DAG
+
+Kaspa's verifiable-programs direction proposes sovereign per-program state, shared L1 sequencing, and an account-scoped computation DAG with proof stitching. Maturity as of 9 October 2026: the Toccata programmable-UTXO layer is live; Based Apps are in development; full cross-program synchronous composition remains a future direction — a research proposal, not a production-verified scheme.
+
+- **Worth borrowing:** L1-native **application lanes and authenticated SeqCommit (KIP-21)** — a consensus-level authenticated entry point for an application's own transaction sequence, directly relevant to the priority-inclusion problem of Experiment A (see its §9); and account-scoped dependency scheduling with local proving, consistent with the engine tier of §1.1.
+- **Not changed by it:** DA bandwidth — data compression and computation sharding are not availability capacity, and Kaspa's based apps likewise publish user operations as L1 lane transactions; external-DA withholding and exit risk — state isolation does not restore withheld data, and Kaspa's own research records the pruning/withholding dispute as open; soft-confirmation irreversibility — 10 blocks/s is still PoW, with its own reorg and confirmation policy; and Tactus's product identity — reorganising Tactus into many sovereign vProgs would forfeit the standard-rollup property that ordinary contracts deploy into one synchronously composable EVM environment.
+- **Verdict:** an R&D reference, not a dependency. The architecture stands; the lanes are the research thread.
 
 ## 4. Coexistence with the O2 external-DA domain
 
@@ -190,6 +198,48 @@ Following external review and maintainer decision, the accepted posture is **cor
 
 - **Day 0 — correctness-first rollup:** serial revm, linear CKB ordering, validity proofs, priority inbox, CKB DA, basic asset bridge and exits; independent differential execution tests; an explicit EVM block model.
 - **Phase 1 — execution and batching optimisation:** execution caches, state access, witness generation, batch compression; Block-STM/Monad-style scheduling only if execution is the measured bottleneck, results identical to the serial reference.
-- **Phase 2 — high-throughput extensions:** by measured throughput and cost bottlenecks — O2 external DA, further parallel proving, microbatch DAG.
+- **Phase 2 — high-throughput extensions:** by measured throughput and cost bottlenecks — O2 external DA (subject to the activation gate of `O2_ACTIVATION_POLICY.md`), further parallel proving, microbatch DAG.
 
 **Fork exposure (confirmed):** off-chain DAG optimisations are ordinary software upgrades whenever their outputs satisfy the existing protocol; changes to block-organisation semantics, consensus encodings or proof statements are protocol upgrades. The artefacts worth freezing early are therefore the **canonical EVM block semantics, the batch commitment format and the proof binding rules** — never a DAG scheduler.
+
+## 9. Block pipeline — adopted architecture (decision, 9 October 2026)
+
+**Model.** *High-frequency speculative blocks, low-frequency CKB anchors, asynchronous validity settlement.* EVM blocks are produced off-chain at a configurable cadence (initially testing the 100 ms–1 s range); runs of consecutive blocks aggregate into one canonical anchor; validity proofs attest whole contiguous intervals. Block-production cadence and anchor cadence are independent parameters — illustratively, a ~10 s work cycle of ~100 blocks, one anchor, one later settlement (illustrative only; CKB imposes no fixed confirmation rhythm). OP Stack's batcher is the operating precedent for batched, compressed L1 publication rather than per-block posting.
+
+**CKB-native precedent — Godwoken v1.7 and PR #776 (added on review).** The decoupling above is *not* a Tactus novelty: Godwoken solved it on this same L1 in 2022. Its early architecture coupled production to CKB submission (~30–40 s L2 blocks); the July 2022 proposal split producing, syncing and submitting into independent pipelines, and [PR #776](https://github.com/godwokenrises/godwoken/pull/776) implemented a `ProduceSubmitConfirm` state machine — `Local → Submitted → Confirmed`, with `local_limit`/`submitted_limit` backpressure, P2P propagation of unanchored blocks to read nodes, and rollback to the confirmed state on submission failure or CKB inconsistency — reaching ~8 s average testnet block times by v1.7-rc (a testnet observation; neither finality nor a sustained-TPS measurement). Three dispositions follow. **Borrow:** the state machine, P2P local blocks, rollback and backpressure are the reference implementation for the Tactus block pipeline — read and test rather than reinvent; Tactus extends the ladder with `Canonical` (CKB-ordered) and `Proven` (ZK-verified). **Scope the novelty:** Tactus's contributions are the permissionless builder set, validity settlement, multi-block-per-anchor and priority inclusion — not asynchronous production itself. **Heed the finality lesson:** when Godwoken's block time shrank, block-count-based challenge windows ceased to match wall time, and `block.number`/`timestamp`-dependent contract semantics (TWAP, interest accrual) shifted — a live demonstration of why §1.4's block model must be fixed at Day 0, *before* any acceleration. And cadence is not throughput: 100 ms soft blocks over Godwoken's 8 s claims no multiple; sustained settled TPS remains unmeasured until G4.
+
+**Commitment is not data availability.** An anchor may carry fixed-size commitments — batch root, block range, data commitment, execution rules — yet hashes alone tell no third party what executed. O1 therefore also publishes sufficient reconstruction data on CKB (compressed transaction sequences, or state differences under demonstrated reconstruction guarantees), possibly merged, compressed or sharded — and never one CKB transaction per EVM block:
+
+| Publication | Fast blocks | Independent recovery | Model |
+|---|---|---|---|
+| Anchor + full reconstruction data on CKB | supported | from CKB history | **O1 rollup** |
+| Anchor + external-DA data | supported | external-DA dependent | O2 validium (deferred; activation gate) |
+| Anchor hashes only; data in a builder's private store | supported | none | **not O1 — prohibited** |
+
+High-frequency block production does not by itself motivate external DA; what motivates O2 is the volume of reconstructable data per unit time against CKB's budget (597,000 bytes per block, RFC 0020).
+
+**Atomic anchor–publication rule.** A canonical anchor and its DA publication MUST verify atomically: either the reconstruction data is published within the same CKB transaction whose script the anchor validates, or publication proceeds under an explicit, verifiable shard-completion condition — the anchor is not valid until the full data set is provably on CKB. And as ever (spec §10.1), CKB's raw transaction hash excludes witnesses: the script must verify an explicit batch data commitment, never a raw hash.
+
+**Speculative until published.** Off-chain propagation — P2P gossip, block buffers, object stores, prover witness caches — is operational infrastructure, not protocol-level DA (operational posture: `OPERATIONAL_POSTURE.md`). Until CKB confirms sufficient reconstruction data, produced blocks are speculative. Losing an off-chain cache may force rebuilding unpublished blocks; it can never invalidate the independent recoverability of any state for which O1 guarantees have been claimed.
+
+**Production is not finality.** Two builders may produce competing 101st blocks and soft-confirm them within milliseconds; only CKB ordering makes one canonical, and only an accepted proof settles it. Demanding irreversible canonical ordering at production latency would require preconfirmation trust or economic fast-finality — reintroducing precisely the privileged ordering authority Tactus exists to remove. The four confirmation levels of spec §2 stand.
+
+**Day-0 batch format (draft, not implementation):**
+
+```text
+TactusBatch {
+    parent_batch_commitment: Hash32,
+    first_evm_block: u64,
+    last_evm_block: u64,
+    ordered_block_headers_root: Hash32,
+    reconstruction_data_root: Hash32,
+    execution_rules_hash: Hash32,
+    da_policy_id: Hash32,
+}
+```
+
+The obligations of §1.4 remain open: per-block `NUMBER`, `TIMESTAMP`, `BASEFEE`, `BLOCKHASH`, state-root and receipts derivation rules — none of which may be assumed to inherit full Ethereum consensus semantics merely by slicing transactions across many blocks. A batch whose reconstruction data exceeds a single CKB block's budget MUST shard under a verifiable completion condition; no anchor may presume its batch fits one CKB transaction.
+
+**Adopted Day-0 parameters:** EVM block time configurable (100 ms–1 s speculative range); anchors aggregate multiple consecutive EVM blocks; transaction ingress via off-chain RPC/P2P; temporary L2 storage operational only; canonical ordering via the CKB OrderingHead; DA via CKB authenticated publication; settlement asynchronous ZK; external DA deferred per the O2 activation gate; priority inclusion per Experiment A.
+
+**Positioning sentence, completed:** *Produce EVM blocks rapidly off-chain, aggregate their commitments into canonical CKB anchors, and publish sufficient reconstruction data to CKB under the same authenticated batch history.* The binding constraints on high-frequency blocks are EVM block semantics, DA publication bandwidth and prover cadence — never how often CKB accepts a hash.

@@ -39,16 +39,20 @@ pub fn call(method: &str, params: Value) -> Result<Value, String> {
 
 pub fn get_tip_block_number() -> Result<u64, String> {
     let v = call("get_tip_block_number", json!([]))?;
-    v.as_u64().ok_or_else(|| "tip not a number".into())
+    let h = v.as_str().ok_or("tip not a string")?;
+    u64::from_str_radix(h.trim_start_matches("0x"), 16).map_err(|e| e.to_string())
 }
 
 /// Detailed block (verbosity 2) — transactions carry outputs and data.
 pub fn get_block_detailed(number: u64) -> Result<Value, String> {
-    call("get_block_by_number", json!([format!("0x{number:x}"), 2]))
+    call(
+        "get_block_by_number",
+        json!([format!("0x{number:x}"), "0x2"]),
+    )
 }
 
-pub fn send_transaction(tx_hex: &str) -> Result<String, String> {
-    call("send_transaction", json!([tx_hex, "passthrough"]))
+pub fn send_transaction_json(tx: &Value) -> Result<String, String> {
+    call("send_transaction", json!([tx, "passthrough"]))
         .map(|v| v.as_str().unwrap_or_default().to_string())
 }
 
@@ -64,7 +68,8 @@ pub fn get_transaction_status(tx_hash: &str) -> Result<(String, Option<u64>), St
     let bn = v
         .get("tx_status")
         .and_then(|s| s.get("block_number"))
-        .and_then(|b| b.as_u64());
+        .and_then(Value::as_str)
+        .and_then(|h| u64::from_str_radix(h.trim_start_matches("0x"), 16).ok());
     Ok((status, bn))
 }
 

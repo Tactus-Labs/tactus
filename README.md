@@ -39,6 +39,37 @@ permissionless CKB-based canonical sequencing, validity-enforced settlement.
   boundary to settle *and test* before Day 0: the multi-EVM-block-per-anchor
   model, batch commitment format and proof binding rules — see the
   [DAG note §8 decision record](specs/DAG_ACCELERATION_NOTE.md).
+- **O2 posture (decision, 9 October 2026):** O2-ready architecture, not
+  O2-ready implementation — Day 0 is O1 with CKB DA; external DA is a deferred
+  *data-security model*, never a performance switch, and opens only through
+  the four-condition [activation gate](specs/O2_ACTIVATION_POLICY.md).
+  Layered product: O1 core rollup as mainnet and security baseline; the O2
+  domain is named **Tactus Pulse** — O2 and preconfirmation solve orthogonal
+  problems and converge at the CKB ordering layer; an unqualified "Tactus"
+  always means the O1 mainnet.
+- **Block pipeline (decision, 9 October 2026):** high-frequency speculative
+  blocks, low-frequency CKB anchors, asynchronous validity settlement.
+  Commitment ≠ data availability: anchors are valid only with atomically
+  published reconstruction data — hashes alone are prohibited as an O1 claim
+  ([DAG note §9](specs/DAG_ACCELERATION_NOTE.md)).
+- **Operational posture (decision, 9 October 2026):** operational centralisation
+  and consensus authority are separate claims — services may be dominated by one
+  operator, canonical ordering may not; Temporary Execution Buffer ≠ external
+  DA; no globally consistent 100 ms soft head under permissionless builders
+  (fast local speculative blocks adopted); minimum Day-0 deployment and the
+  stage-by-stage claims ladder in [OPERATIONAL_POSTURE.md](specs/OPERATIONAL_POSTURE.md).
+- **Fast DeFi posture (research direction, 9 October 2026):** two confirmation
+  lanes — a ~100 ms fast lane (execution, soft blocks, optional **bonded**
+  preconfirmation) over the CKB-cadence settlement lane; preconfirmation buys
+  compensation, never irreversibility ("economically protected soft
+  confirmation", not fast finality); the general-L2 vs Hyperliquid-grade fork
+  is recorded OPEN in [OPERATIONAL_POSTURE.md §8](specs/OPERATIONAL_POSTURE.md).
+- **Fiber posture (decision, 9 October 2026):** payments rail, not a DA
+  substitute — Fiber may offload payment traffic and carry bytes, but never
+  O1's DA security claim (replication + availability + archival machinery
+  would make it O2, behind the gate). Combined-stack direction: Tactus (EVM
+  DeFi) + Fiber (payments) + CKB (settlement); Day 0 takes no dependency —
+  interop interfaces designed, not assumed.
 - **Research notes:** [DAG acceleration and external DA](specs/DAG_ACCELERATION_NOTE.md)
   — execution-engine parallelism carries no protocol consequence but real
   engineering cost; batch-construction DAG depends on the **L2 block model**

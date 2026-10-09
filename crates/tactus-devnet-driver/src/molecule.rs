@@ -1,11 +1,14 @@
-//! Hand-rolled CKB molecule serialization (RFC 0008) for the transaction
-//! shapes the driver needs. Layout rules implemented here:
+//! Hand-rolled CKB molecule serialization for the transaction shapes the
+//! driver needs. Layout rules (verified byte-for-byte against `ckb-cli
+//! molecule encode` as ground truth):
 //!
 //! - fixed structs: raw little-endian concatenation, no header;
 //! - fixed vectors (`FixVec`): `u32` count + raw items;
 //! - dynamic vectors and tables (`DynVec`/`Table`): `u32` total size,
-//!   `u32` field/item count, `u32` offsets, then fields — an absent field
-//!   occupies zero bytes (identical adjacent offsets).
+//!   `u32` header size (= 8 + 4·(n−1)), then `n − 1` offsets for items
+//!   2..n — the first item starts at the header size with an implicit
+//!   offset. An empty `DynVec` serializes as a single zero `u32`.
+//!   `None` table fields occupy zero bytes (adjacent offsets equal).
 
 fn u32_le(v: u32) -> [u8; 4] {
     v.to_le_bytes()
@@ -16,15 +19,21 @@ fn u64_le(v: u64) -> [u8; 8] {
 }
 
 fn dyn_collection(items: &[Vec<u8>]) -> Vec<u8> {
-    let header_len = 8 + 4 * items.len();
+    if items.is_empty() {
+        return u32_le(0).to_vec();
+    }
+    let header_len = 8 + 4 * (items.len() - 1);
     let payload: usize = items.iter().map(|i| i.len()).sum();
     let total = header_len + payload;
     let mut out = Vec::with_capacity(total);
     out.extend_from_slice(&u32_le(total as u32));
-    out.extend_from_slice(&u32_le(items.len() as u32));
+    out.extend_from_slice(&u32_le(header_len as u32));
+    // Offsets for items 2..n; the first item implicitly starts at the header.
     let mut offset = header_len as u32;
-    for item in items {
-        out.extend_from_slice(&u32_le(offset));
+    for (index, item) in items.iter().enumerate() {
+        if index > 0 {
+            out.extend_from_slice(&u32_le(offset));
+        }
         offset += item.len() as u32;
     }
     for item in items {
@@ -110,6 +119,22 @@ pub fn witness_args(
     ])
 }
 
+/// Decodes a script serialized by [`script`] back into its RPC JSON form.
+#[must_use]
+pub fn script_to_json(script: &[u8]) -> serde_json::Value {
+    let header = u32::from_le_bytes(script[4..8].try_into().expect("header")) as usize;
+    let code_hash = &script[header..header + 32];
+    let hash_type = script[header + 32];
+    let args_len =
+        u32::from_le_bytes(script[header + 33..header + 37].try_into().expect("len")) as usize;
+    let args = &script[header + 37..header + 37 + args_len];
+    serde_json::json!({
+        "code_hash": crate::rpc::bytes_to_hex(code_hash),
+        "hash_type": if hash_type == 1 { "type" } else { "data" },
+        "args": crate::rpc::bytes_to_hex(args),
+    })
+}
+
 fn fix_vec(item_size: usize, raw_items: &[u8]) -> Vec<u8> {
     debug_assert_eq!(raw_items.len() % item_size, 0);
     let mut out = Vec::with_capacity(4 + raw_items.len());
@@ -149,16 +174,28 @@ mod tests {
     use super::*;
 
     #[test]
-    fn empty_script_roundtrips_shape() {
-        // Table header: total = 8 + 3 offsets + fields.
-        let s = script(&[1u8; 32], 1, &[]);
-        let total = u32::from_le_bytes(s[0..4].try_into().unwrap()) as usize;
-        assert_eq!(total, s.len());
-        let count = u32::from_le_bytes(s[4..8].try_into().unwrap());
-        assert_eq!(count, 3);
-        // args is an empty Bytes: u32(0)
-        let args_off = u32::from_le_bytes(s[16..20].try_into().unwrap()) as usize;
-        assert_eq!(&s[args_off..args_off + 4], &0u32.to_le_bytes());
+    fn script_encoding_matches_ckb_cli_ground_truth() {
+        // Produced by: ckb-cli molecule encode --type Script
+        //   {"code_hash":"0x0000..00545950455f4944","hash_type":"type","args":"0x"}
+        let type_id_ch: [u8; 32] = [
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x54, 0x59,
+            0x50, 0x45, 0x5f, 0x49, 0x44,
+        ];
+        let s = script(&type_id_ch, 1, &[]);
+        assert_eq!(
+            s,
+            hex_decode(
+                "0x3500000010000000300000003100000000000000000000000000000000000000000000000000000000545950455f49440100000000"
+            )
+        );
+    }
+
+    fn hex_decode(h: &str) -> Vec<u8> {
+        let h = h.trim_start_matches("0x");
+        (0..h.len())
+            .step_by(2)
+            .map(|i| u8::from_str_radix(&h[i..i + 2], 16).unwrap())
+            .collect()
     }
 
     #[test]
@@ -168,14 +205,29 @@ mod tests {
     }
 
     #[test]
-    fn witness_args_offsets_are_monotonic() {
-        let w = witness_args(Some(&[0u8; 65]), Some(&[2u8; 32]), None);
-        let total = u32::from_le_bytes(w[0..4].try_into().unwrap()) as usize;
-        assert_eq!(total, w.len());
-        let o1 = u32::from_le_bytes(w[8..12].try_into().unwrap());
-        let o2 = u32::from_le_bytes(w[12..16].try_into().unwrap());
-        let o3 = u32::from_le_bytes(w[16..20].try_into().unwrap());
-        // Third field absent: its offset equals the table's total size.
-        assert!(o1 >= 20 && o2 > o1 && o3 as usize == total);
+    fn witness_args_encoding_matches_ckb_cli_ground_truth() {
+        // Produced by: ckb-cli molecule encode --type WitnessArgs
+        //   {"lock":null,"input_type":"0x0102..20","output_type":null}
+        let input_type: [u8; 32] = core::array::from_fn(|i| (i + 1) as u8);
+        let w = witness_args(None, Some(&input_type), None);
+        assert_eq!(
+            w,
+            hex_decode(
+                "0x34000000100000001000000034000000200000000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20"
+            )
+        );
+    }
+
+    #[test]
+    fn empty_dynvec_serializes_as_single_zero() {
+        assert_eq!(dyn_collection(&[]), vec![0, 0, 0, 0]);
+    }
+
+    #[test]
+    fn single_item_dynvec_has_no_offsets() {
+        // Ground truth from RawTransaction outputs_data = ["0x0102"]:
+        //   total 14, header 8, item Bytes [len=2][0102] directly.
+        let d = dyn_collection(&[bytes(&[0x01, 0x02])]);
+        assert_eq!(d, hex_decode("0x0e00000008000000020000000102"));
     }
 }

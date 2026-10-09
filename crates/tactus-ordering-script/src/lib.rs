@@ -33,15 +33,13 @@ pub fn ckb_blake2b(data: &[u8]) -> [u8; 32] {
     out
 }
 
-/// Blake2b-160 with the CKB personalization (lock args / code hash prefix).
+/// CKB blake160: the first 20 bytes of the 32-byte ckbhash — **not** a
+/// 20-byte blake2b digest (the digest length is part of blake2b's parameter
+/// block, so the two differ completely). Verified against `ckb-cli util
+/// key-info` on the dev key.
 pub fn ckb_blakeb160(data: &[u8]) -> [u8; 20] {
-    let mut out = [0u8; 20];
-    let mut hasher = blake2b_ref::Blake2bBuilder::new(20)
-        .personal(b"ckb-default-hash")
-        .build();
-    hasher.update(data);
-    hasher.finalize(&mut out);
-    out
+    let h = ckb_blake2b(data);
+    h[..20].try_into().expect("20 bytes from a 32-byte digest")
 }
 
 /// Fixed-layout encoding of the OrderingHead (188 bytes; spec §3.2,

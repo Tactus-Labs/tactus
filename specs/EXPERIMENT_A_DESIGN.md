@@ -89,3 +89,19 @@ Identical CKB devnet for all arms; dominant-builder driver; configurable wallet
 signing delay; planned and unplanned reorganisation injection; checkpoint
 reference tracking. A run is reproducible only if the devnet configuration,
 txpool/miner policy snapshot, seeds and workload scripts are pinned.
+
+## 9. Related designs — Kaspa KIP-21 lanes and SeqCommit
+
+Kaspa's Based Apps provide an **L1-native application-lane commitment
+(SeqCommit)**: a consensus-level authenticated entry point for an
+application's own transaction sequence, so a proving system attests that
+application's sequence without rescanning the global DAG. This is a different
+authentication model for the same family of problems this experiment studies —
+whose sequence is admissible, and how its processing is authenticated without
+an indexer. When the A1/A2/A3′ results are in, compare them against what a
+consensus-level lane commitment would and would not buy on CKB: a native
+rule, a script-enforced equivalent built from Cell/Script primitives, or a
+CKB protocol extension. First sources:
+[Kaspa Based Apps](https://docs.kaspa.org/programmability/based-apps) and the
+[vProgs architecture proposal](https://research.kas.pa/t/concrete-proposal-for-a-synchronously-composable-verifiable-programs-architecture/387)
+— a research reference, not a dependency (DAG note §3.4).
