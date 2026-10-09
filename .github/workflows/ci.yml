@@ -26,6 +26,31 @@ jobs:
       - name: Harness smoke (regression on the A1 fee-effect)
         run: cargo run --locked --quiet --bin tactus-o1-experiment-a >/dev/null
 
+  evm-differential:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@1.92.0
+      - uses: Swatinem/rust-cache@v2
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.26.8'
+          cache: false
+      - name: Build independent pinned Go Ethereum transition tool
+        run: |
+          mkdir -p "$RUNNER_TEMP/evm-tools"
+          GOBIN="$RUNNER_TEMP/evm-tools" go install github.com/ethereum/go-ethereum/cmd/evm@v1.17.8
+      - name: Compare Ethereum roots, gas and rejection indices
+        run: |
+          cargo run --locked --quiet -p tactus-o1-execution --example execution-vectors -- artifacts/evm-differential
+          python3 scripts/check-execution-geth.py "$RUNNER_TEMP/evm-tools/evm" artifacts/evm-differential specs/test-vectors/execution-v1/geth-1.17.8.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: evm-differential
+          path: artifacts/evm-differential/
+
   ckb-mechanisms:
     runs-on: ubuntu-latest
     timeout-minutes: 15

@@ -105,10 +105,11 @@ zero-slot deletion/refunds, logs, REVERT/HALT, upfront/intrinsic/fee failures,
 remaining block gas, SHA256/identity precompiles, block environment and parent
 BLOCKHASH, empty blocks, deterministic replay and atomic rejection of every
 truncated batch prefix. These are focused regressions, not a complete Ethereum
-state-test corpus or differential-conformance claim.
+state-test corpus. A separate [Geth comparison](EXECUTION_DIFFERENTIAL_REPORT.md)
+now verifies 9 scenarios and 14 blocks against independent Go execution.
 
 Still required: persistent crash-safe journal/state, full canonical CKB-to-EVM
-recovery and network-driven reorg handling, independent differential fixtures,
+recovery and network-driven reorg handling, broader differential conformance,
 standard JSON-RPC/tool deployment, proved resource bounds, authenticated genesis
 and priority semantics, zkVM guest/prover and CKB validity settlement. No execution
 result currently authorizes withdrawals.

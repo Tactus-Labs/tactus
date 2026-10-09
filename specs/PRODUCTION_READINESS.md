@@ -30,6 +30,9 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
   hashes. Empty blocks, fee accounting and in-memory atomic replay are tested.
   See [execution rules and limits](EXECUTION_V1.md). This is not persistent state
   or proof-backed settlement.
+- Independent Geth 1.17.8 comparison: 9 scenarios, 14 blocks, matching Ethereum
+  roots, gas, logs bloom and rejection indices. Frozen independent results are
+  enforced by Rust tests; see [comparison evidence](EXECUTION_DIFFERENTIAL_REPORT.md).
 
 ## Work that still blocks the user's production objective
 
