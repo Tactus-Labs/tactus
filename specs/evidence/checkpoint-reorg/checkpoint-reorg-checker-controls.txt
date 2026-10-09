@@ -1,0 +1,4 @@
+orphan remains live: rejected (orphan checkpoint survived)
+no winning height advantage: rejected (wrong branch heights)
+wrong recovered history: rejected (canonical checkpoint and reconstruction differ)
+rejection used canonical dependency: rejected (wrong checkpoint dependency)

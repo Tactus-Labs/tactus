@@ -1,0 +1,10 @@
+{
+  "evidence_sha256": "9f9469f9d99924b14050bb627cb8656863aacfd4359a5787ae419653c6353ff2",
+  "orphaned_blocks": 4,
+  "canonical_batches": 1,
+  "orphan_dependency_rejected": true,
+  "canonical_dependency_committed": true,
+  "settled": false,
+  "production_ready": false,
+  "consensus_reexecuted_by_this_checker": false
+}

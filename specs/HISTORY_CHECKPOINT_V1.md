@@ -84,5 +84,7 @@ checkpoint dependency while current ordering continues. That consumer is not
 implemented or qualified here. Proof/public-journal binding, actual deployment
 identity, contiguous predecessor settlement, proof-bound obligation discharge,
 withdrawal conservation and checkpoint recovery across unplanned reorgs remain
-open. Checkpoints on an orphaned branch must not authorize canonical settlement;
-this particular suite has not yet exercised that reorg boundary. G3 remains OPEN.
+open. A subsequent [two-node P2P reorg experiment](CHECKPOINT_REORG_REPORT.md)
+now replaces four canonical blocks on both CKB versions, rejects dependencies on
+orphaned checkpoints, and accepts the winning checkpoint. That controlled result
+does not qualify unplanned faults or proof-consuming settlement. G3 remains OPEN.

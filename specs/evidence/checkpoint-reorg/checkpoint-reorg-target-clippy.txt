@@ -1,0 +1,11 @@
+   Compiling find-msvc-tools v0.1.14
+   Compiling shlex v2.0.1
+   Compiling cc v1.6.0
+    Checking cfg-if v1.0.5
+    Checking molecule v0.7.5
+    Checking ckb-gen-types v0.112.1
+   Compiling ckb-std v0.15.3
+    Checking gcd v2.3.0
+    Checking buddy-alloc v0.5.1
+    Checking tactus-o1-history-checkpoint-script v0.1.0 (/home/arthur/RustRoverProjects/tactus-o1/proofs/ckb-history-checkpoint)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.69s

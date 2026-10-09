@@ -100,7 +100,9 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
   retain exact Anchor successor states in immutable typed cells. Both CKB versions
   reject 22 negative controls and allow later ordering to reference old checkpoints
   while rejecting a spent mutable Anchor dependency. This supplies a bounded
-  history mechanism; the proof-consuming SettlementTip and reorg qualification
+  history mechanism. A [real P2P checkpoint reorg](CHECKPOINT_REORG_REPORT.md) now
+  rejects an orphaned checkpoint dependency and accepts its canonical replacement
+  on both versions; proof-consuming SettlementTip and unplanned-fault qualification
   are still absent. The [Groth16 receipt harness](PROOF_RECEIPT_V1.md) is implemented,
   with its first real compressed proof still pending at this milestone.
 

@@ -1,0 +1,20 @@
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.10s
+info: component rust-std for target riscv64imac-unknown-none-elf is up to date
+    Finished `release` profile [optimized + debuginfo] target(s) in 0.04s
+ef74c68ff3c2f92b8d35f3371a886e012279ab9faddd893d8846fb31ee1f02c2  artifacts/tactus_o1_ordering_script.elf
+cb3f5133a648c79794fe2160088cb3c96047b09a435f2b94dbb93e3df9e85a1a  artifacts/tactus_o1_head_lock.elf
+d27b0a95318dc4d2455264274ac1a91b2c3ef11c01b3413e0fe32bf6ad47b71e  artifacts/tactus_o1_anchor_script.elf
+cca551dc59bcdff7c32c7df0d8e11fbe1ba57430b4fe30d53b0689fab89e2b75  artifacts/tactus_o1_priority_script.elf
+11b9a15db893414950cf05dafe5565a330a19eba7293112f278b8261abc9f62a  artifacts/tactus_o1_sealed_script.elf
+warning: unused import: `ckb_types::prelude::*`
+  --> src/lib.rs:25:9
+   |
+25 |         ckb_types::prelude::*,
+   |         ^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `tactus-o1-history-checkpoint-script` (lib) generated 1 warning (run `cargo fix --lib -p tactus-o1-history-checkpoint-script` to apply 1 suggestion)
+    Finished `release` profile [optimized] target(s) in 0.01s
+fa52904ee4075e0ae2863627d409c5854b211e065785540cb4432dbabcc94521  artifacts/tactus_o1_history_checkpoint_script.elf
+Port 18714 is occupied; refusing to touch an existing node

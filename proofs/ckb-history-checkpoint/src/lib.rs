@@ -22,7 +22,6 @@ mod onchain {
     use super::*;
     use ckb_std::{
         ckb_constants::Source,
-        ckb_types::prelude::*,
         error::SysError,
         high_level::{load_cell_capacity, load_cell_type_hash, load_script},
         syscalls,

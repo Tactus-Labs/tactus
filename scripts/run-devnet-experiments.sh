@@ -14,7 +14,7 @@ if [[ "$($CKB_BIN --version)" != "ckb $required_version "* ]]; then
   exit 1
 fi
 suite="${TACTUS_DEVNET_SUITE:-replay-a123}"
-case "$suite" in replay-a123|replay-batch|replay-evm|replay-priority|replay-sealed|replay-admission|replay-network|replay-load|replay-seal-contention|replay-proof-verifier|replay-history-checkpoint) ;; *) echo 'Unknown devnet suite' >&2; exit 1 ;; esac
+case "$suite" in replay-a123|replay-batch|replay-evm|replay-priority|replay-sealed|replay-admission|replay-network|replay-load|replay-seal-contention|replay-proof-verifier|replay-history-checkpoint|replay-checkpoint-reorg) ;; *) echo 'Unknown devnet suite' >&2; exit 1 ;; esac
 cargo build --locked --bin "$suite"
 if [[ "$suite" == replay-evm || "$suite" == replay-network ]]; then
   cargo build --locked --bin recover-execution
@@ -26,7 +26,7 @@ bash scripts/build-ordering-script.sh
 if [[ "$suite" == replay-proof-verifier ]]; then
   bash scripts/build-proof-check-script.sh
 fi
-if [[ "$suite" == replay-history-checkpoint ]]; then
+if [[ "$suite" == replay-history-checkpoint || "$suite" == replay-checkpoint-reorg ]]; then
   bash scripts/build-history-checkpoint-script.sh
 fi
 mkdir -p artifacts
@@ -41,7 +41,7 @@ export TACTUS_DEVNET_SUITE="$suite"
 python3 - <<'PY'
 import os,socket
 ports=[int(os.environ['TACTUS_CKB_RPC_ADDR'].split(':')[1]),int(os.getenv('TACTUS_DEVNET_P2P_PORT','18715'))]
-if os.environ['TACTUS_DEVNET_SUITE']=='replay-network':ports.extend([int(os.environ['TACTUS_PEER_RPC_ADDR'].split(':')[1]),int(os.getenv('TACTUS_PEER_P2P_PORT','18717'))])
+if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-network','replay-checkpoint-reorg'):ports.extend([int(os.environ['TACTUS_PEER_RPC_ADDR'].split(':')[1]),int(os.getenv('TACTUS_PEER_P2P_PORT','18717'))])
 assert len(set(ports))==len(ports), 'Node ports must be distinct'
 for port in ports:
  s=socket.socket();s.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
@@ -67,7 +67,7 @@ lock.args = "0xc155c0113355a061173d1ff21075ec37754ec1ca"
 lock.hash_type = "type"
 
 '''+s[i:];p.write_text(s)
-if os.environ['TACTUS_DEVNET_SUITE']=='replay-network':
+if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-network','replay-checkpoint-reorg'):
  shutil.copytree(root/'node',root/'peer')
  peer=root/'peer/ckb.toml'
  peer.write_text(peer.read_text().replace(os.environ['TACTUS_CKB_RPC_ADDR'],os.environ['TACTUS_PEER_RPC_ADDR']).replace('/tcp/'+os.getenv('TACTUS_DEVNET_P2P_PORT','18715')+'"','/tcp/'+os.getenv('TACTUS_PEER_P2P_PORT','18717')+'"'))
@@ -80,12 +80,12 @@ for name in ['Cargo.lock','scripts/build-ordering-script.sh','scripts/ordering-s
 binaries=['target/debug/'+os.environ['TACTUS_DEVNET_SUITE']]
 if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-evm','replay-network'):binaries.append('target/debug/recover-execution')
 if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-sealed','replay-network'):binaries.append('target/debug/recover-sealed')
-if os.environ['TACTUS_DEVNET_SUITE']=='replay-network':binaries.extend([str(root/'peer/ckb.toml'),str(root/'peer/specs/dev.toml')])
+if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-network','replay-checkpoint-reorg'):binaries.extend([str(root/'peer/ckb.toml'),str(root/'peer/specs/dev.toml')])
 if os.environ['TACTUS_DEVNET_SUITE']=='replay-proof-verifier':
  binaries.append('artifacts/tactus_o1_proof_check_script.elf')
  proof_dir=pathlib.Path(os.environ['TACTUS_PROOF_DIR'])
  binaries.extend(str(proof_dir/name) for name in ['result.json','public-values.bin','groth16-proof.bin','proof.bin'])
-if os.environ['TACTUS_DEVNET_SUITE']=='replay-history-checkpoint':
+if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-history-checkpoint','replay-checkpoint-reorg'):
  binaries.append('artifacts/tactus_o1_history_checkpoint_script.elf')
 for name in binaries:manifest['files'][name]=hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest()
 
@@ -104,14 +104,14 @@ cleanup() {
   wait "$node_pid" 2>/dev/null || true
 }
 trap cleanup EXIT
-if [[ "$suite" == replay-network ]]; then
+if [[ "$suite" == replay-network || "$suite" == replay-checkpoint-reorg ]]; then
   "$CKB_BIN" run -C "$run_dir/peer" --indexer > "$run_dir/peer.log" 2>&1 &
   peer_pid=$!
 fi
 python3 - <<'PY'
 import os,urllib.request,json,time
 addresses=[os.environ['TACTUS_CKB_RPC_ADDR']]
-if os.environ['TACTUS_DEVNET_SUITE']=='replay-network':addresses.append(os.environ['TACTUS_PEER_RPC_ADDR'])
+if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-network','replay-checkpoint-reorg'):addresses.append(os.environ['TACTUS_PEER_RPC_ADDR'])
 for address in addresses:
  url='http://'+address
  for _ in range(150):
