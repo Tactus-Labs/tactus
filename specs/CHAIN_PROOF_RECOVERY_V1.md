@@ -82,3 +82,35 @@ data, checkpoint dependencies, fees, node-packed size, exact script rejections,
 and cold recovery. It performs no cryptographic verification itself. Multiple
 proved intervals, reorg rollback, another prover's completion, proof-bound
 obligations, custody/exits and all remaining production gates stay open.
+
+## Sequential proof qualification
+
+The driver also accepts `TACTUS_SECOND_SETTLEMENT_PROOF_DIR` with a completed
+first proof directory. It publishes the second canonical batch before applying
+either proof, rejects applying interval two to the initial Tip, and then applies
+both proofs in order. This exercises first-proof settlement using its immutable
+checkpoint after the mutable Anchor has already advanced. The second phase checks
+both predecessor roots, coordinated successor mutations, replay of either proof,
+rollback and fresh recovery of two proved transitions. The accompanying
+`scripts/check-two-settlements.py` reconciles the two publication/proof phases,
+actual fee inputs, exact retained proof bytes, expected script failures and cold
+recovery. Its intended seven commits and 62 rejections remain assertions awaiting
+successful runs, not measured results.
+
+On CKB 0.210.0, a measured negative run supplied the previously completed genuine
+synthetic-domain Groth16 proof to the canonical-deployment loader. The loader
+rejected the journal mismatch; the suite records `complete=false`, `settled=false`
+and the exact error. This validates the host guard, not a positive on-chain proof
+transition. Two CLI controls reject missing first-proof prerequisites and mixed
+preparation/application modes before connecting to a node. Artifact reads are
+bounded to 4,096 proof bytes, 768 public bytes and 65,536 metadata bytes.
+[Guard logs and exact source proof](evidence/settlement-proof-guards/) are retained.
+
+```bash
+TACTUS_SETTLEMENT_PROOF_DIR=/absolute/path/to/completed/first/proof \
+TACTUS_SECOND_SETTLEMENT_PROOF_DIR=/absolute/path/to/completed/second/proof \
+TACTUS_DEVNET_SUITE=replay-settlement-bootstrap CKB_BIN=/absolute/path/to/ckb-0.210.0 \
+  scripts/run-devnet-experiments.sh
+python3 scripts/check-two-settlements.py /absolute/path/to/evidence.json \
+  /absolute/path/to/completed/first/proof /absolute/path/to/completed/second/proof
+```

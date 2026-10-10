@@ -13,9 +13,7 @@ spec.loader.exec_module(bootstrap)
 require, raw, digest = bootstrap.require, bootstrap.raw, bootstrap.digest
 
 
-def check(path):
-    source = path.read_bytes()
-    evidence = json.loads(source)
+def check_document(evidence):
     results = evidence['results']
     require(results['suite'] == 'settlement-next-input-v1' and results['complete']
             and results['error'] is None and results['settled'] is False
@@ -70,10 +68,15 @@ def check(path):
             and cold['settled_batches'] == 0 and cold['proved_transitions'] == 0
             and cold['initialized'] is False and cold['settled'] is False,
             'cold recovery treated publication as settlement')
-    return {'evidence_sha256': hashlib.sha256(source).hexdigest(),
-            'journal_sha256': hashlib.sha256(b).hexdigest(), 'published_batches': 2,
+    return {'journal_sha256': hashlib.sha256(b).hexdigest(), 'published_batches': 2,
             'prefix_batches': 1, 'settled_batches': 0, 'negative_controls': 20,
             'proof_generated': False, 'settled': False, 'production_ready': False}
+
+
+def check(path):
+    source = path.read_bytes()
+    return {'evidence_sha256': hashlib.sha256(source).hexdigest(),
+            **check_document(json.loads(source))}
 
 
 if __name__ == '__main__':

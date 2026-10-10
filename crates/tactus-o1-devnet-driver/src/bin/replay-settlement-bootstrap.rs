@@ -1,4 +1,6 @@
 //! Real deployment, canonical input export and optional real-proof settlement qualification.
+#[path = "replay-settlement-bootstrap/continuation.rs"]
+mod continuation;
 use serde_json::{json, Value};
 use tactus_o1_devnet_driver::{
     batch_lab::{self, Anchor},
@@ -147,6 +149,16 @@ fn cold_recovery(chain: &[u8], anchor: &[u8], tip: &[u8]) -> Result<Value, Strin
     serde_json::from_slice(&output.stdout).map_err(|e| e.to_string())
 }
 fn run() -> Result<(), String> {
+    let second_directory = std::env::var_os("TACTUS_SECOND_SETTLEMENT_PROOF_DIR");
+    if second_directory.is_some() && std::env::var_os("TACTUS_SETTLEMENT_PROOF_DIR").is_none() {
+        return Err("second proof qualification requires the first real proof directory".into());
+    }
+    if std::env::var_os("TACTUS_PREPARE_SECOND_PROOF").is_some()
+        && std::env::var_os("TACTUS_SETTLEMENT_PROOF_DIR").is_some()
+    {
+        return Err("input preparation and proof qualification are separate modes".into());
+    }
+
     let evidence = std::env::var("TACTUS_EVIDENCE_PATH").map_err(|_| "use isolated launcher")?;
     let root =
         std::path::PathBuf::from(std::env::var("TACTUS_RUN_DIR").map_err(|_| "run directory")?);
@@ -515,26 +527,60 @@ fn run() -> Result<(), String> {
 
         results["proving_input"] = exported;
         results["settlement_code_hash"] = rpc::bytes_to_hex(&code).into();
-        if let Some(directory) = std::env::var_os("TACTUS_SETTLEMENT_PROOF_DIR") {
-            let directory = std::path::PathBuf::from(directory);
-            let proof =
-                std::fs::read(directory.join("groth16-proof.bin")).map_err(|e| e.to_string())?;
-            let public =
-                std::fs::read(directory.join("public-values.bin")).map_err(|e| e.to_string())?;
-            let source: Value = serde_json::from_slice(
-                &std::fs::read(directory.join("result.json")).map_err(|e| e.to_string())?,
-            )
+        let prepared_second = if let Some(directory) = second_directory {
+            let continuation: Value = serde_json::from_str(include_str!(
+                "../../../../specs/test-vectors/proof-v1/settlement-continuation.json"
+            ))
             .map_err(|e| e.to_string())?;
-            if public != journal
-                || source["proof_generated"] != true
-                || source["proof_kind"] != "SP1 real Groth16"
-                || source["guest_verifying_key"] != core["guest_verifying_key"]
-                || source["public_values_hex"] != rpc::bytes_to_hex(&journal)[2..]
-                || proof.is_empty()
-                || proof.len() > 4096
-            {
-                return Err("completed proof does not match canonical deployment export".into());
+            let next = tactus_o1_devnet_driver::settlement_inputs::prepare_next_input(
+                &mut lab,
+                &mut anchor,
+                &mut engine,
+                &results["proving_input"],
+                &continuation,
+                checkpoint_code,
+                &root,
+            )?;
+            let expected = rpc::decode_hex(
+                next["expected_journal_hex"]
+                    .as_str()
+                    .ok_or("second journal")?,
+            )?;
+            let second = continuation::read(
+                std::path::Path::new(&directory),
+                &expected,
+                &core["guest_verifying_key"],
+            )?;
+            let second_tip = rpc::decode_hex(next["next_tip_data"].as_str().ok_or("second Tip")?)?;
+            let skip = advance_tip(
+                &lab,
+                tip_point,
+                tip_capacity,
+                &settlement_script,
+                &second_tip,
+                &framed(&second.journal, &second.bytes),
+            )?;
+            reject(&mut lab, &code, "settlement/skip-first-interval", &skip, 7)?;
+            let cold = cold_recovery(&chain, &anchor.script, &settlement_script)?;
+            if cold["settled_batches"] != 0 || cold["published_batches"] != 2 {
+                return Err("pre-proof recovery differs from two published intervals".into());
             }
+            results["cold_after_second_publication"] = cold;
+            results["next_proving_input"] = next.clone();
+            results["second_source_proof"] = second.source.clone();
+            Some((next, second))
+        } else {
+            None
+        };
+        if let Some(directory) = std::env::var_os("TACTUS_SETTLEMENT_PROOF_DIR") {
+            let loaded = continuation::read(
+                std::path::Path::new(&directory),
+                &journal,
+                &core["guest_verifying_key"],
+            )?;
+            let proof = loaded.bytes;
+            let source = loaded.source;
+            results["settlement_fee_input"] = json!({"tx_hash":rpc::bytes_to_hex(&lab.wallets[0].point.tx_hash),"index":format!("0x{:x}",lab.wallets[0].point.index),"capacity":lab.wallets[0].capacity});
             results["suite"] = "settlement-first-proof-v1".into();
             results["scope"] = "real-domain Groth16 consumption, exact first state transition and live-successor replay rejection; no custody or withdrawals".into();
             results["source_proof"] = source;
@@ -676,6 +722,33 @@ fn run() -> Result<(), String> {
             results["cold_settlement_recovery"] = recovered_tip;
             results["settled"] = true.into();
             results["withdrawal_authority"] = false.into();
+            if let Some((next, second)) = prepared_second {
+                let second_transition = continuation::qualify(
+                    &mut lab,
+                    continuation::Context {
+                        code: &code,
+                        script: &settlement_script,
+                        capacity: tip_capacity,
+                        first_transition: &results["first_transition"],
+                        first_journal: &journal,
+                        first_proof: &proof,
+                    },
+                    &next,
+                    &second,
+                )?;
+                let cold = cold_recovery(&chain, &anchor.script, &settlement_script)?;
+                if cold["settled_batches"] != 2
+                    || cold["proved_transitions"] != 2
+                    || cold["data"] != second_transition["data"]
+                    || cold["tip"]["tx_hash"] != second_transition["hash"]
+                {
+                    return Err("cold recovery differs from second proof successor".into());
+                }
+                results["second_transition"] = second_transition;
+                results["cold_second_settlement_recovery"] = cold;
+                results["suite"] = "settlement-two-proofs-v1".into();
+                results["scope"]="two real Groth16 transitions, stale mutable Anchor independence, skipped interval and replay rejection, fresh cold recovery; no custody or withdrawals".into();
+            }
         }
         if std::env::var_os("TACTUS_PREPARE_SECOND_PROOF").is_some() {
             if results["settled"] == true {

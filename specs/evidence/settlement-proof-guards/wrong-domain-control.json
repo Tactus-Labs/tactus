@@ -1,0 +1,8 @@
+{
+  "control": "genuine synthetic-domain Groth16 cannot substitute for canonical deployment proof",
+  "exit_code": 1,
+  "error": "completed proof does not match canonical deployment export",
+  "run_directory": "/home/arthur/RustRoverProjects/tactus-o1/artifacts/settlement-bootstrap-HIhytklS",
+  "proof_generated": true,
+  "settled": false
+}

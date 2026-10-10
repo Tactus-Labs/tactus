@@ -93,9 +93,10 @@ if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-history-checkpoint','replay-che
  binaries.append('artifacts/tactus_o1_history_checkpoint_script.elf')
 if os.environ['TACTUS_DEVNET_SUITE']=='replay-settlement-bootstrap':
  binaries.extend(['artifacts/tactus_o1_settlement_script.elf','specs/evidence/execution-core-proof/result.json','target/debug/recover-settlement'])
- if 'TACTUS_SETTLEMENT_PROOF_DIR' in os.environ:
-  proof_dir=pathlib.Path(os.environ['TACTUS_SETTLEMENT_PROOF_DIR'])
-  binaries.extend(str(proof_dir/name) for name in ['result.json','public-values.bin','groth16-proof.bin','proof.bin'])
+ for key in ['TACTUS_SETTLEMENT_PROOF_DIR','TACTUS_SECOND_SETTLEMENT_PROOF_DIR']:
+  if key in os.environ:
+   proof_dir=pathlib.Path(os.environ[key])
+   binaries.extend(str(proof_dir/name) for name in ['result.json','public-values.bin','groth16-proof.bin','proof.bin'])
 for name in binaries:manifest['files'][name]=hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest()
 
 paths=subprocess.check_output(['git','ls-files','--cached','--others','--exclude-standard','-z'],text=True).split('\0')

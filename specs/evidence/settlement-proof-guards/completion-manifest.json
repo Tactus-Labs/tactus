@@ -1,0 +1,21 @@
+{
+  "head_before_commit": "b4d2a8c3680fede0456b1ec3cab2102c949ee4b8",
+  "source_sha256": {
+    "Cargo.lock": "d1e83ee7925c86276223c5b01a46cc25c9a1c81d811b713381dd9d3a4e835f92",
+    "crates/tactus-o1-devnet-driver/src/bin/replay-settlement-bootstrap.rs": "e7abed0b0449f538ddb887370dd049bc0e6727b12a3f8fa696cc37a77ba681f8",
+    "crates/tactus-o1-devnet-driver/src/bin/replay-settlement-bootstrap/continuation.rs": "e20cf79c4a2613d3056476818e0f9d6db651c9909d2405bcc237f98b8742e9f5",
+    "scripts/check-first-settlement.py": "e02d3b22c0808d1d33b118eb13fc2b823f6dabacce3e242ed4b3a50e8abb028d",
+    "scripts/check-next-proof-input.py": "36e662e067b65e4fcb43d55544559e4bbe1c2969a9f10a390e1004d6c9e27f0a",
+    "scripts/check-two-settlements.py": "7accbfc4cc4be1fca3235d0816e0abeb88aeb2d065f5c11590e876dad7a2e4f8",
+    "scripts/run-devnet-experiments.sh": "cde2c5a4b7a93c1bb65b79ddf5a393b45ccd3321abb3d8b7157614ac63a2c7e2"
+  },
+  "ckb_version": "0.210.0",
+  "measured_controls": [
+    "genuine foreign-domain proof rejected by loader",
+    "second-proof mode requires first proof",
+    "preparation and application modes are exclusive"
+  ],
+  "positive_two_proof_consumption": "implemented, awaiting two completed real-domain proofs",
+  "settled": false,
+  "production_ready": false
+}

@@ -1,0 +1,12 @@
+[
+  {
+    "case": "second-without-first",
+    "exit_code": 1,
+    "error": "SETTLEMENT BOOTSTRAP FAILED: second proof qualification requires the first real proof directory"
+  },
+  {
+    "case": "prepare-and-apply",
+    "exit_code": 1,
+    "error": "SETTLEMENT BOOTSTRAP FAILED: input preparation and proof qualification are separate modes"
+  }
+]

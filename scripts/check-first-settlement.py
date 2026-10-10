@@ -20,9 +20,7 @@ receipts = sibling('check-proof-receipts')
 require, raw = bootstrap.require, bootstrap.raw
 
 
-def check(path, proof_dir):
-    source = path.read_bytes()
-    evidence = json.loads(source)
+def check_document(evidence, proof_dir):
     results = evidence['results']
     require(results['suite'] == 'settlement-first-proof-v1' and results['complete']
             and results['error'] is None and results['settled'] is True,
@@ -128,11 +126,16 @@ def check(path, proof_dir):
             and cold['settled'] is True and cold['withdrawal_authority'] is False
             and cold['settlement_type_script'] == export['settlement_type_script'],
             'cold settlement recovery differs')
-    return {'evidence_sha256': hashlib.sha256(source).hexdigest(),
-            'proof_sha256': hashlib.sha256(proof).hexdigest(),
+    return {'proof_sha256': hashlib.sha256(proof).hexdigest(),
             'settlement_transaction': item['hash'], 'negative_controls': 40,
             'cryptographic_verification_performed_by_this_checker': False,
             'settled': True, 'withdrawal_authority': False, 'production_ready': False}
+
+
+def check(path, proof_dir):
+    source = path.read_bytes()
+    return {'evidence_sha256': hashlib.sha256(source).hexdigest(),
+            **check_document(json.loads(source), proof_dir)}
 
 
 if __name__ == '__main__':

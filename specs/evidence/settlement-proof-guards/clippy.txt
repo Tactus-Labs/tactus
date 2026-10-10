@@ -1,0 +1,3 @@
+    Checking tactus-o1-ordering-script v0.1.0 (/home/arthur/RustRoverProjects/tactus-o1/crates/tactus-o1-ordering-script)
+    Checking tactus-o1-devnet-driver v0.1.0 (/home/arthur/RustRoverProjects/tactus-o1/crates/tactus-o1-devnet-driver)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.76s
