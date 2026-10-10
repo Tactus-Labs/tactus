@@ -1,5 +1,7 @@
 //! Authenticated A3 publication composed with an atomic real SettlementTip.
 //! Preparation is explicitly unproved; optional qualification consumes only a real proof.
+#[path = "replay-sealed-settlement/reorg.rs"]
+mod reorg;
 use serde_json::{json, Value};
 use std::{fs, path::PathBuf};
 use tactus_o1_devnet_driver::{
@@ -213,6 +215,11 @@ fn run() -> Result<(), String> {
                 &format!("sealed-settlement/genesis epoch batch {batch}"),
             )?;
         }
+        let reorg_plan = if std::env::var_os("TACTUS_OBLIGATION_REORG").is_some() {
+            Some(reorg::prepare(&lab)?)
+        } else {
+            None
+        };
         sealed::seal(
             &mut lab,
             &mut net,
@@ -472,6 +479,17 @@ fn run() -> Result<(), String> {
             for obligation in result["obligations"].as_array_mut().ok_or("obligations")? {
                 obligation["proof_settled"] = true.into();
             }
+        }
+        if let Some(plan) = reorg_plan {
+            result["reorg"] = reorg::qualify(
+                &mut lab,
+                plan,
+                &net,
+                &chain,
+                &settlement_script,
+                &publication,
+            )?;
+            result["suite"] = "sealed-obligation-reorg-v1".into();
         }
         result["complete"] = true.into();
         Ok::<_, String>(())

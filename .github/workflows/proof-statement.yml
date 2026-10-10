@@ -40,6 +40,8 @@ jobs:
           python3 -B scripts/test-sealed-settlement.py
           (cd specs/evidence/obligation-recovery && sha256sum --check SHA256SUMS)
           python3 -B scripts/test-obligation-recovery.py
+          (cd specs/evidence/obligation-reorg && sha256sum --check SHA256SUMS)
+          python3 -B scripts/test-obligation-reorg.py
           python3 -B scripts/test-sealed-proof-preparation.py
           (cd specs/evidence/settlement-next-input && sha256sum --check SHA256SUMS)
           (cd specs/evidence/settlement-proof-guards && sha256sum --check SHA256SUMS)

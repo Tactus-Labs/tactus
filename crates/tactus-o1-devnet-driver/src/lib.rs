@@ -22,3 +22,5 @@ pub mod settlement_lab;
 pub mod settlement_recovery;
 
 pub mod obligation_recovery;
+
+pub mod p2p_lab;

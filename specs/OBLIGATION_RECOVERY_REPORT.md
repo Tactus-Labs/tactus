@@ -57,7 +57,8 @@ publication, retain eight later active duties alongside three published duties,
 and preserve exact admission/seal/publication identities. Existing malformed
 lane, incomplete seal, omitted mandatory-prefix, changed lock/capacity and
 recovery reorg tests still pass. The complete root workspace test suite passes. These prefix tests are not an actual new P2P
-rollback experiment; that measured obligation-specific experiment remains open.
+rollback experiment; the subsequent [actual P2P obligation experiment](OBLIGATION_REORG_REPORT.md) now
+qualifies rollback of the pending seal and publication. Proof-bound rollback remains open.
 
 The real A3 proof path invokes the combined cold observer again after Tip
 consumption and requires four settled duties, including the malformed one.

@@ -69,9 +69,11 @@ def check_document(evidence,proof_dir):
     require(consumed['point']==export['settlement_tip'] and consumed['live_cell']['status'] in ('dead','unknown'), 'predecessor still live or wrong point')
     for name,event in [('creation',boot),('consumer',accepted)]:
         observed=consumed[name]
+        expected_transaction=copy.deepcopy(event['transaction'])
+        for output in expected_transaction['outputs']:output.setdefault('type',None)
         require(observed['tx_status']['status']=='committed' and observed['transaction']['hash']==event['hash']
                 and observed['tx_status']['block_hash']==event['block_hash']
-                and all(observed['transaction'][field]==event['transaction'][field] for field in ['inputs','outputs','outputs_data','witnesses']), 'canonical consumption record differs')
+                and all(observed['transaction'][field]==expected_transaction[field] for field in ['inputs','outputs','outputs_data','witnesses']), 'canonical consumption record differs')
     require(sum(i['previous_output']==export['settlement_tip'] for i in consumed['consumer']['transaction']['inputs'])==1, 'Tip not consumed exactly once')
     controls={}
     for name,offset,code in [('interval data',736,9),('forced final state',640,7),('predecessor',248,7)]:
