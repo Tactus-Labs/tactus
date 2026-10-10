@@ -136,10 +136,18 @@ def main():
         wait_ready()
         assert call('eth_getBlockByNumber', ['latest',False]) == block
         assert call('tactus_getStatus') == status
+        base_count = len(records)
+        for filter in [{}, {'fromBlock':'earliest','toBlock':'latest'}, {'blockHash':block['hash']}, {'address':[sender],'topics':[None]}]:
+            assert call('eth_getLogs',[filter]) == []
+        for filter, code in [({'blockHash':'0x'+'00'*32},-32000), ({'blockHash':block['hash'],'fromBlock':'0x0'},-32602), ({'toBlock':'0xa'},-32602), ({'topics':[None]*5},-32602), ({'blockHash':'0x01'},-32602)]:
+            reply = wire({'jsonrpc':'2.0','id':'logs-error','method':'eth_getLogs','params':[filter]})
+            assert reply['id']=='logs-error' and reply['error']['code']==code
+        log_filter_records = records[base_count:]
+        records = records[:base_count]
         report = {'schema':1, 'ckb_version':version,'source_lab':source.name,'records':records,
-                  'complete':True,'node_unavailability_recovery':True,'rpc_p2p_reorg_measured':False,'production_ready':False}
+                  'log_filter_records':log_filter_records,'complete':True,'node_unavailability_recovery':True,'rpc_p2p_reorg_measured':False,'production_ready':False}
         (root / 'http-evidence.json').write_text(json.dumps(report,indent=2)+'\n')
-        print(f'PASS: {len(records)} real HTTP exchanges, dense receipts, canonical roots, node loss/recovery', flush=True)
+        print(f'PASS: {len(records)} baseline + {len(log_filter_records)} log HTTP exchanges, dense receipts, canonical roots, node loss/recovery', flush=True)
     finally:
         stop(observer); stop(node)
         for log in logs: log.close()

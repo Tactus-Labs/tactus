@@ -121,6 +121,7 @@ impl Snapshot {
                     for log in receipt_view["logs"].as_array_mut().ok_or("receipt logs")? {
                         log["blockHash"] = json!(block.hash);
                         log["blockNumber"] = json!(quantity(number));
+                        log["blockTimestamp"] = json!(quantity(block.header.timestamp));
                         log["transactionHash"] = json!(hash);
                         log["transactionIndex"] = json!(quantity(index as u64));
                         log["logIndex"] = json!(quantity(log_index));
@@ -149,6 +150,75 @@ impl Snapshot {
             genesis: initial,
             latest: engine,
         })
+    }
+    fn logs(&self, value: &Value) -> Result<Value, crate::RpcError> {
+        use crate::{logs, RpcError};
+        let criteria = logs::Criteria::parse(value)?;
+        let field = |key| value.get(key).filter(|v| !v.is_null());
+        let (start, end) = if let Some(hash) = field("blockHash") {
+            if field("fromBlock").is_some() || field("toBlock").is_some() {
+                return Err(RpcError(
+                    -32602,
+                    "blockHash cannot be combined with a block range",
+                ));
+            }
+            let hash = parse_hash(hash)?;
+            let number = self
+                .blocks
+                .iter()
+                .find(|(_, b)| b["hash"] == json!(hash))
+                .map(|(n, _)| *n)
+                .ok_or(RpcError(-32000, "unknown canonical block"))?;
+            (number, number)
+        } else {
+            let start = field("fromBlock")
+                .map(|v| self.number(v))
+                .transpose()?
+                .unwrap_or(self.head);
+            let end = field("toBlock")
+                .map(|v| self.number(v))
+                .transpose()?
+                .unwrap_or(self.head);
+            if start > end || end > self.head {
+                return Err(RpcError(-32602, "invalid or future log range"));
+            }
+            if end - start >= logs::MAX_BLOCKS {
+                return Err(RpcError(-32005, "log range exceeds 1024 blocks; paginate"));
+            }
+            (start, end)
+        };
+        let mut result = Vec::new();
+        let mut bytes = 2usize;
+        for (_, block) in self.blocks.range(start..=end) {
+            for hash in block["transactions"]
+                .as_array()
+                .ok_or(RpcError(-32603, "block transactions"))?
+            {
+                let receipt = self
+                    .receipts
+                    .get(&parse_hash(hash)?)
+                    .ok_or(RpcError(-32603, "missing receipt"))?;
+                for log in receipt["logs"]
+                    .as_array()
+                    .ok_or(RpcError(-32603, "receipt logs"))?
+                {
+                    if criteria.matches(log) {
+                        bytes += serde_json::to_vec(log)
+                            .map_err(|_| RpcError(-32603, "log serialization"))?
+                            .len()
+                            + 1;
+                        if result.len() == logs::MAX_LOGS || bytes > logs::MAX_BYTES {
+                            return Err(RpcError(
+                                -32005,
+                                "log results exceed limit; narrow the filter",
+                            ));
+                        }
+                        result.push(log.clone());
+                    }
+                }
+            }
+        }
+        Ok(json!(result))
     }
     fn number(&self, value: &Value) -> Result<u64, crate::RpcError> {
         match value.as_str() {
@@ -219,6 +289,10 @@ impl Snapshot {
                         .collect::<Vec<_>>());
                 }
                 Ok(result)
+            }
+            "eth_getLogs" => {
+                arity(1)?;
+                self.logs(&params[0])
             }
             "eth_getTransactionByHash" | "eth_getTransactionReceipt" => {
                 arity(1)?;
@@ -301,7 +375,7 @@ fn parse_quantity(value: &str) -> Result<u64, crate::RpcError> {
     }
     u64::from_str_radix(s, 16).map_err(|_| crate::RpcError(-32602, "invalid quantity"))
 }
-fn parse_hash(value: &Value) -> Result<B256, crate::RpcError> {
+pub(crate) fn parse_hash(value: &Value) -> Result<B256, crate::RpcError> {
     value
         .as_str()
         .filter(|s| s.starts_with("0x") && s.len() == 66)
@@ -312,6 +386,216 @@ fn parse_hash(value: &Value) -> Result<B256, crate::RpcError> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    fn fixtures() -> Value {
+        serde_json::from_str(include_str!(
+            "../../../specs/test-vectors/execution-v1/geth-1.17.8.json"
+        ))
+        .unwrap()
+    }
+    fn replay_fixture(case: &Value) -> Snapshot {
+        use tactus_o1_devnet_driver::tx::CellOutPoint;
+        use tactus_o1_protocol::batch;
+        let genesis: Genesis = serde_json::from_value(case["genesis"].clone()).unwrap();
+        let engine = Executor::new(&genesis).unwrap();
+        let input = rpc::decode_hex(case["batch"].as_str().unwrap()).unwrap();
+        let summary = batch::validate_batch(&input, engine.anchor()).unwrap();
+        Snapshot::replay(
+            json!({"settled_batches":0,"ckb_genesis":"fixture","tip":null}),
+            recovery::RecoveredAnchor {
+                pinned_height: 1,
+                pinned_hash: "fixture".into(),
+                genesis: *engine.anchor(),
+                genesis_allocation: genesis.allocation_bytes().unwrap(),
+                point: CellOutPoint {
+                    tx_hash: [0; 32],
+                    index: 0,
+                },
+                state: summary.next,
+                batches: vec![recovery::RecoveredBatch {
+                    anchor_transaction: "fixture".into(),
+                    publication_output: 0,
+                    input_bytes: input,
+                    summary,
+                }],
+            },
+        )
+        .unwrap()
+    }
+    #[test]
+    fn reconstructed_rpc_receipts_and_logs_match_independent_geth_vectors() {
+        let mut blocks = 0;
+        let mut logs = 0;
+        let fixture = fixtures();
+        for case in fixture["cases"].as_array().unwrap() {
+            let snapshot = replay_fixture(case);
+            for (index, oracle) in case["geth"].as_array().unwrap().iter().enumerate() {
+                let number = quantity(index as u64 + 1);
+                let block = snapshot
+                    .query("eth_getBlockByNumber", &[json!(number), json!(false)])
+                    .unwrap();
+                for (actual, expected) in [
+                    ("stateRoot", "stateRoot"),
+                    ("transactionsRoot", "txRoot"),
+                    ("receiptsRoot", "receiptsRoot"),
+                    ("logsBloom", "logsBloom"),
+                    ("gasUsed", "gasUsed"),
+                ] {
+                    assert_eq!(
+                        block[actual], oracle[expected],
+                        "{} {number} {actual}",
+                        case["name"]
+                    );
+                }
+                let filtered = snapshot
+                    .query("eth_getLogs", &[json!({"blockHash":block["hash"]})])
+                    .unwrap();
+                let mut expected_logs = Vec::new();
+                for receipt in oracle["receipts"].as_array().unwrap() {
+                    let actual = snapshot
+                        .query(
+                            "eth_getTransactionReceipt",
+                            &[receipt["transactionHash"].clone()],
+                        )
+                        .unwrap();
+                    for key in [
+                        "transactionHash",
+                        "transactionIndex",
+                        "status",
+                        "gasUsed",
+                        "cumulativeGasUsed",
+                        "logsBloom",
+                    ] {
+                        assert_eq!(actual[key], receipt[key]);
+                    }
+                    if receipt["contractAddress"] == json!(Address::ZERO) {
+                        assert!(actual["contractAddress"].is_null());
+                    } else {
+                        assert_eq!(actual["contractAddress"], receipt["contractAddress"]);
+                    }
+                    let mut expected = receipt["logs"].as_array().unwrap().clone();
+                    // The standalone Geth transition tool uses a dummy block hash.
+                    for log in &mut expected {
+                        log["blockHash"] = block["hash"].clone();
+                    }
+                    assert_eq!(actual["logs"], json!(expected));
+                    expected_logs.extend(expected);
+                }
+                assert_eq!(filtered, json!(expected_logs));
+                logs += expected_logs.len();
+                blocks += 1;
+            }
+            let expected: Vec<_> = snapshot
+                .blocks
+                .iter()
+                .filter(|(n, _)| **n > 0)
+                .flat_map(|(_, b)| {
+                    snapshot
+                        .query("eth_getLogs", &[json!({"blockHash":b["hash"]})])
+                        .unwrap()
+                        .as_array()
+                        .unwrap()
+                        .clone()
+                })
+                .collect();
+            assert_eq!(
+                snapshot
+                    .query("eth_getLogs", &[json!({"fromBlock":"earliest"})])
+                    .unwrap(),
+                json!(expected)
+            );
+        }
+        assert_eq!(blocks, 14);
+        assert_eq!(logs, 2);
+    }
+    #[test]
+    fn log_selection_defaults_and_errors_are_explicit() {
+        let fixture = fixtures();
+        let case = fixture["cases"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|v| v["name"] == "deploy-write-clear")
+            .unwrap();
+        let snapshot = replay_fixture(case);
+        let latest = snapshot.query("eth_getLogs", &[json!({})]).unwrap();
+        assert_eq!(latest.as_array().unwrap().len(), 1);
+        assert_eq!(latest[0]["blockNumber"], "0x2");
+        assert_eq!(
+            snapshot
+                .query(
+                    "eth_getLogs",
+                    &[json!({"fromBlock":"0x1","toBlock":"0x2","address":latest[0]["address"]})]
+                )
+                .unwrap()
+                .as_array()
+                .unwrap()
+                .len(),
+            2
+        );
+        assert_eq!(
+            snapshot
+                .query(
+                    "eth_getLogs",
+                    &[json!({"fromBlock":"earliest","address":Address::ZERO})]
+                )
+                .unwrap(),
+            json!([])
+        );
+        assert_eq!(
+            snapshot
+                .query("eth_getLogs", &[json!({"topics":[null]})])
+                .unwrap(),
+            json!([])
+        );
+        for filter in [
+            json!({"blockHash":snapshot.blocks[&1]["hash"],"fromBlock":"0x1"}),
+            json!({"fromBlock":"0x2","toBlock":"0x1"}),
+            json!({"toBlock":"0x3"}),
+            json!({"fromBlock":"finalized"}),
+            json!({"blockHash":B256::ZERO}),
+        ] {
+            assert!(snapshot.query("eth_getLogs", &[filter]).is_err());
+        }
+    }
+    #[test]
+    fn oversized_log_responses_fail_instead_of_truncating() {
+        let fixture = fixtures();
+        let case = fixture["cases"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|v| v["name"] == "deploy-write-clear")
+            .unwrap();
+        let mut snapshot = replay_fixture(case);
+        snapshot.head = 2048;
+        assert_eq!(
+            snapshot
+                .query(
+                    "eth_getLogs",
+                    &[json!({"fromBlock":"0x0","toBlock":"0x400"})]
+                )
+                .unwrap_err()
+                .0,
+            -32005
+        );
+        snapshot.head = 2;
+        let hash = parse_hash(&snapshot.blocks[&2]["transactions"][0]).unwrap();
+        let log = snapshot.receipts[&hash]["logs"][0].clone();
+        snapshot.receipts.get_mut(&hash).unwrap()["logs"] =
+            json!(vec![log.clone(); crate::logs::MAX_LOGS + 1]);
+        assert_eq!(
+            snapshot.query("eth_getLogs", &[json!({})]).unwrap_err().0,
+            -32005
+        );
+        let mut large = log;
+        large["data"] = json!("00".repeat(crate::logs::MAX_BYTES / 2));
+        snapshot.receipts.get_mut(&hash).unwrap()["logs"] = json!([large]);
+        assert_eq!(
+            snapshot.query("eth_getLogs", &[json!({})]).unwrap_err().0,
+            -32005
+        );
+    }
+
     #[test]
     fn quantities_and_hashes_require_wire_encoding() {
         for invalid in [

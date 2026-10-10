@@ -1,4 +1,5 @@
 //! Local read-only Ethereum observer backed by canonical CKB recovery.
+mod logs;
 mod snapshot;
 use axum::{
     body::Bytes,

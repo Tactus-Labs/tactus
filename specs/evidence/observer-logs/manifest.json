@@ -1,0 +1,17 @@
+{
+  "git_head": "b1ca346e5879369d0a4846c0af79237d76a2bf30",
+  "files": {
+    "Cargo.lock": "d1e83ee7925c86276223c5b01a46cc25c9a1c81d811b713381dd9d3a4e835f92",
+    "services/observer-rpc/Cargo.lock": "ceb4743222cef7d08a2952616da02edbc2b676f706c52ed85ad1fd872f47d7d1",
+    "services/observer-rpc/Cargo.toml": "05a9c08c8c91089b6c8091e150c54edb2775238637a8e7fcac6deeebee101816",
+    "services/observer-rpc/src/main.rs": "9f5b4ac2a5aa2f2d270ff07d3d449e667e4e406508675cad737baadea0c5fa83",
+    "services/observer-rpc/src/snapshot.rs": "aeb313a760067033344b6b537092d3129b8acfbcb34b059e3ef85f1aad6a5a84",
+    "services/observer-rpc/src/logs.rs": "bed591b0a348687620e12f53aadc78f8fe2d91721a3e5e4829a88600d60d4abb",
+    "scripts/qualify-observer-rpc.py": "54a9206f8802f5bf987bd125c4f99a40af9b249dbc2869346fe39e20494a9b09",
+    "artifacts/observer-rpc-target/debug/tactus-o1-observer-rpc": "5e2f3873a651b5e7f5d020440c091987e324de08ce1c0f8df38b334752eb08fe",
+    "specs/test-vectors/execution-v1/geth-1.17.8.json": "dbdadec48daf8657b84b16c8d6ca0efd5653912e27939cf44450145cd7858232"
+  },
+  "rustc": "rustc 1.92.0 (ded5c06cf 2025-12-08)",
+  "geth_fixture_role": "independent frozen execution results, not a live Geth JSON-RPC comparison",
+  "production_ready": false
+}

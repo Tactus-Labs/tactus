@@ -23,6 +23,7 @@ Supported methods:
 - `web3_clientVersion`, `net_version`, `eth_chainId`, `eth_blockNumber`.
 - `eth_getBlockByNumber`, `eth_getBlockByHash`, with hashes or full transactions.
 - `eth_getTransactionByHash`, `eth_getTransactionReceipt`.
+- `eth_getLogs`, bounded stateless event lookup; see [log qualification](OBSERVER_LOGS_REPORT.md).
 - `eth_getBalance`, `eth_getTransactionCount`, `eth_getCode`, `eth_getStorageAt`.
 - `tactus_getStatus`, reporting the CKB pin and separate published/proved counts.
 
@@ -93,11 +94,12 @@ replay, but does **not** bound the upstream recovery scan or its memory. This
 must be replaced with bounded incremental indexing and durable checkpoints
 before production. No throughput or sustained-load claim is made.
 
-There is no `eth_call`, gas estimation, log filtering, mempool, transaction
+There is no `eth_call`, gas estimation, persistent filters, mempool, transaction
 submission, signing, WebSocket subscriptions, arbitrary historical state,
-EIP-1898 state selectors, or external exposure/authentication design. This
-fixture has empty logs and no contract creation; those RPC representations
-need separate qualification. A subsequent [actual P2P observer experiment](OBSERVER_REORG_REPORT.md)
+EIP-1898 state selectors, or external exposure/authentication design. The original live CKB
+fixture has empty logs and no contract creation; the subsequent
+[Geth-backed RPC tests](OBSERVER_LOGS_REPORT.md) qualify those representations
+against executed contract fixtures. Live contract-event P2P tests remain open. A subsequent [actual P2P observer experiment](OBSERVER_REORG_REPORT.md)
 qualifies publication rollback and restoration in the same live service process.
 Settled proof rollback and simultaneous client traffic remain separate work. Proof-covered A3 status
 will require the real proof currently being generated.

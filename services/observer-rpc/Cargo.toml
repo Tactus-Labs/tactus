@@ -19,3 +19,6 @@ alloy-eips = "=2.1.1"
 alloy-primitives = { version = "=1.6.0", features = ["serde", "k256"] }
 tactus-o1-devnet-driver = { path = "../../crates/tactus-o1-devnet-driver" }
 tactus-o1-execution = { path = "../../crates/tactus-o1-execution" }
+
+[dev-dependencies]
+tactus-o1-protocol = { path = "../../crates/tactus-o1-protocol" }
