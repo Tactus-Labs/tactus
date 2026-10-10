@@ -28,6 +28,9 @@ fi
 if [[ "$suite" == replay-sealed || "$suite" == replay-network || "$suite" == replay-sealed-settlement ]]; then
   cargo build --locked --bin recover-sealed
 fi
+if [[ "$suite" == replay-sealed-settlement ]]; then
+  cargo build --locked --bin recover-obligations
+fi
 bash scripts/build-ordering-script.sh
 if [[ "$suite" == replay-proof-verifier ]]; then
   bash scripts/build-proof-check-script.sh
@@ -103,6 +106,7 @@ if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-settlement-bootstrap','replay-s
   if key in os.environ:
    proof_dir=pathlib.Path(os.environ[key])
    binaries.extend(str(proof_dir/name) for name in ['result.json','public-values.bin','groth16-proof.bin','proof.bin'])
+if os.environ['TACTUS_DEVNET_SUITE']=='replay-sealed-settlement':binaries.append('target/debug/recover-obligations')
 for name in binaries:manifest['files'][name]=hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest()
 
 paths=subprocess.check_output(['git','ls-files','--cached','--others','--exclude-standard','-z'],text=True).split('\0')

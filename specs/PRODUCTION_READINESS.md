@@ -6,6 +6,12 @@ rollup deployment or custody of user assets.
 
 ## Implemented and measured
 
+- [Canonical A3 obligation recovery](OBLIGATION_RECOVERY_REPORT.md) now reconstructs
+  each admission, seal and publication, joins them with settlement at the same
+  pinned block, and retains deterministic invalid-input outcomes. Actual cold
+  recovery distinguishes all three pending phases; proof-covered fulfillment
+  and obligation-specific network rollback are still awaiting qualification.
+
 - [A3 with atomic SettlementTip preparation](SEALED_SETTLEMENT_REPORT.md) now binds
   four authenticated duties across two lanes to a nine-batch canonical proof input.
   Current CKB rejects omitted/reordered duties and malformed proof; independent

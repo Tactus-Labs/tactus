@@ -40,6 +40,50 @@ fn cold_gate(chain: &[u8], net: &sealed::Network) -> Result<Value, String> {
     }
     Ok(report)
 }
+fn cold_obligations(
+    chain: &[u8],
+    net: &sealed::Network,
+    tip: &[u8],
+    expected: &str,
+) -> Result<Value, String> {
+    let output = std::process::Command::new("target/debug/recover-obligations")
+        .args([
+            rpc::bytes_to_hex(chain),
+            rpc::bytes_to_hex(&net.gate.script),
+            rpc::bytes_to_hex(&net.anchor.script),
+            rpc::bytes_to_hex(tip),
+        ])
+        .output()
+        .map_err(|e| e.to_string())?;
+    if !output.status.success() {
+        return Err(String::from_utf8_lossy(&output.stderr).into_owned());
+    }
+    let report: Value = serde_json::from_slice(&output.stdout).map_err(|e| e.to_string())?;
+    let rows = report["obligations"]
+        .as_array()
+        .ok_or("recovered obligations")?;
+    let settled = expected == "settled";
+    if rows.len() != 4
+        || report["admissions"] != 4
+        || report["counts"][expected] != 4
+        || rows
+            .iter()
+            .any(|row| row["proof_settled"] != settled || row["status"] != expected)
+    {
+        return Err("cold obligation lifecycle differs".into());
+    }
+    let invalid = rows
+        .iter()
+        .find(|row| row["payload"] == "0x01")
+        .ok_or("missing malformed duty")?;
+    if matches!(expected, "published" | "settled")
+        && (invalid["outcome"]["status"] != "Malformed"
+            || invalid["publication"]["input_slot"] != 2)
+    {
+        return Err("cold recovery lost malformed obligation".into());
+    }
+    Ok(report)
+}
 fn run() -> Result<(), String> {
     let evidence = std::env::var("TACTUS_EVIDENCE_PATH").map_err(|_| "use isolated launcher")?;
     let root = PathBuf::from(std::env::var("TACTUS_RUN_DIR").map_err(|_| "run directory")?);
@@ -158,6 +202,8 @@ fn run() -> Result<(), String> {
         ] {
             sealed::append(&mut lab, &mut net, lane, actor, payload, label)?;
         }
+        result["cold_obligations_after_admission"] =
+            cold_obligations(&chain, &net, &settlement_script, "admitted")?;
         for batch in 0..8 {
             sealed::advance(
                 &mut lab,
@@ -173,6 +219,8 @@ fn run() -> Result<(), String> {
             1,
             "sealed-settlement/seal both authenticated lanes",
         )?;
+        result["cold_obligations_after_seal"] =
+            cold_obligations(&chain, &net, &settlement_script, "sealed")?;
         let messages = net
             .schedule
             .required(net.snapshot.as_ref().map(|(_, s)| s))
@@ -330,6 +378,8 @@ fn run() -> Result<(), String> {
             &malformed,
             9,
         )?;
+        result["cold_obligations_before_proof"] =
+            cold_obligations(&chain, &net, &settlement_script, "published")?;
         result["proving_input"] = exported;
         result["genesis"] = json!(genesis);
         result["execution"] = json!(executed);
@@ -412,6 +462,8 @@ fn run() -> Result<(), String> {
             if wire != tx::wire_bytes(&valid)? {
                 return Err("node proof transaction size differs".into());
             }
+            result["cold_obligations_after_proof"] =
+                cold_obligations(&chain, &net, &settlement_script, "settled")?;
             result["settled"] = true.into();
             result["suite"] = "sealed-settlement-proof-v1".into();
             result["source_proof"] = proof.source;

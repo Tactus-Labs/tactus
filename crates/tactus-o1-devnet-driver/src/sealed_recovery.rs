@@ -8,12 +8,29 @@ use crate::{
     tx::{CellOutPoint, OutSpec},
 };
 use serde_json::{json, Value};
+use std::collections::BTreeMap;
 use tactus_o1_ordering_script::{ckb_blake2b, genesis_identity};
 use tactus_o1_protocol::{
     batch::{self, AnchorState},
     sealed::{self as s, Lane, Schedule},
 };
 
+#[derive(Clone, Debug)]
+pub struct Publication {
+    pub point: CellOutPoint,
+    pub batch: u64,
+    pub block: u64,
+    pub slot: usize,
+}
+#[derive(Clone, Debug)]
+pub struct Obligation {
+    pub lane: u8,
+    pub sequence: u64,
+    pub payload: Vec<u8>,
+    pub admission: CellOutPoint,
+    pub seal: Option<CellOutPoint>,
+    pub publication: Option<Publication>,
+}
 pub struct RecoveredSealed {
     pub network: Network,
     pub pinned_height: u64,
@@ -22,6 +39,7 @@ pub struct RecoveredSealed {
     pub admissions: u64,
     pub seals: u64,
     pub batches: u64,
+    pub obligations: Vec<Obligation>,
 }
 fn number(v: &Value) -> Result<u64, String> {
     u64::from_str_radix(
@@ -118,6 +136,7 @@ struct Scanner {
     admissions: u64,
     seals: u64,
     batches: u64,
+    obligations: BTreeMap<(u8, u64), Obligation>,
 }
 impl Scanner {
     fn new(gate_script: &[u8], anchor_script: &[u8]) -> Result<Self, String> {
@@ -140,6 +159,7 @@ impl Scanner {
             admissions: 0,
             seals: 0,
             batches: 0,
+            obligations: BTreeMap::new(),
         })
     }
     fn genesis(&mut self, t: &Value, i: usize) -> Result<(), String> {
@@ -256,6 +276,30 @@ impl Scanner {
                     }
                 }
                 verified.ok_or("gate batch missing exact mandatory-prefix publication")?;
+                for (slot, message) in net
+                    .schedule
+                    .required(net.snapshot.as_ref().map(|(_, s)| s))
+                    .map_err(err)?
+                    .into_iter()
+                    .enumerate()
+                {
+                    let item = self
+                        .obligations
+                        .get_mut(&(message.lane, message.sequence))
+                        .ok_or("published duty was never admitted")?;
+                    if item.payload != message.payload
+                        || item.seal.is_none()
+                        || item.publication.is_some()
+                    {
+                        return Err("published duty identity or lifecycle differs".into());
+                    }
+                    item.publication = Some(Publication {
+                        point: ac.point,
+                        batch: net.anchor.state.next_batch_number,
+                        block: net.anchor.state.last_block_number + 1,
+                        slot,
+                    });
+                }
                 next.anchor.point = ac.point;
                 next.anchor.state = state;
                 self.batches = self
@@ -281,10 +325,21 @@ impl Scanner {
                         break;
                     }
                 }
-                next.snapshot = Some((
-                    found.ok_or("seal missing immutable exact snapshot")?,
-                    snapshot,
-                ));
+                let point = found.ok_or("seal missing immutable exact snapshot")?;
+                for message in snapshot.ordered().map_err(err)? {
+                    let item = self
+                        .obligations
+                        .get_mut(&(message.lane, message.sequence))
+                        .ok_or("sealed duty was never admitted")?;
+                    if item.payload != message.payload
+                        || item.seal.is_some()
+                        || item.publication.is_some()
+                    {
+                        return Err("sealed duty identity or lifecycle differs".into());
+                    }
+                    item.seal = Some(point);
+                }
+                next.snapshot = Some((point, snapshot));
                 sealed_lanes = Some(active);
                 self.seals = self.seals.checked_add(1).ok_or("seal counter overflow")?;
             }
@@ -312,6 +367,25 @@ impl Scanner {
                         return Err("lane successor differs from authenticated replay".into());
                     }
                     if sealed_lanes.is_none() {
+                        let sequence = lane
+                            .next_sequence
+                            .checked_sub(1)
+                            .ok_or("admission sequence")?;
+                        let obligation = Obligation {
+                            lane: lane.index,
+                            sequence,
+                            payload: lane.queue.last().ok_or("admission payload")?.clone(),
+                            admission: c.point,
+                            seal: None,
+                            publication: None,
+                        };
+                        if self
+                            .obligations
+                            .insert((lane.index, sequence), obligation)
+                            .is_some()
+                        {
+                            return Err("duplicate admission identity".into());
+                        }
                         self.admissions = self
                             .admissions
                             .checked_add(1)
@@ -338,13 +412,22 @@ pub fn recover_sealed(
     anchor_script: &[u8],
     genesis_hash: &str,
 ) -> Result<RecoveredSealed, String> {
+    let tip = rpc::call("get_tip_header", json!([]))?;
+    recover_sealed_at(gate_script, anchor_script, genesis_hash, &tip)
+}
+
+pub(crate) fn recover_sealed_at(
+    gate_script: &[u8],
+    anchor_script: &[u8],
+    genesis_hash: &str,
+    tip: &Value,
+) -> Result<RecoveredSealed, String> {
     let mut scanner = Scanner::new(gate_script, anchor_script)?;
     if rpc::decode_hex(genesis_hash)?.len() != 32
         || rpc::call("get_block_hash", json!(["0x0"]))?.as_str() != Some(genesis_hash)
     {
         return Err("CKB genesis hash mismatch".into());
     }
-    let tip = rpc::call("get_tip_header", json!([]))?;
     let height = number(&tip["number"])?;
     let mut previous = None;
     for n in 0..=height {
@@ -380,6 +463,7 @@ pub fn recover_sealed(
         admissions: scanner.admissions,
         seals: scanner.seals,
         batches: scanner.batches,
+        obligations: scanner.obligations.into_values().collect(),
     })
 }
 
@@ -455,6 +539,52 @@ mod tests {
         assert_eq!(net.lanes[0].1.queue.len(), 8);
         assert_eq!(net.lanes[0].1.next_sequence, 11);
         assert_eq!(net.snapshot.unwrap().1.ordered().unwrap().len(), 3);
+    }
+    #[test]
+    fn canonical_prefix_rebuilds_obligation_lifecycle_after_rollback() {
+        for (end, admitted, sealed, published) in [
+            (12, 3, 0, 0),
+            (13, 0, 3, 0),
+            (22, 8, 3, 0),
+            (23, 8, 0, 3),
+            (30, 8, 0, 3),
+        ] {
+            let (mut scanner, txs) = fixture();
+            for tx in &txs[..end] {
+                scanner.apply(tx).unwrap();
+            }
+            let rows: Vec<_> = scanner.obligations.values().collect();
+            assert_eq!(rows.iter().filter(|o| o.seal.is_none()).count(), admitted);
+            assert_eq!(
+                rows.iter()
+                    .filter(|o| o.seal.is_some() && o.publication.is_none())
+                    .count(),
+                sealed
+            );
+            assert_eq!(
+                rows.iter().filter(|o| o.publication.is_some()).count(),
+                published
+            );
+            for row in rows.iter().filter(|o| o.publication.is_some()) {
+                let publication = row.publication.as_ref().unwrap();
+                assert_eq!(
+                    (publication.batch, publication.block, publication.slot),
+                    (8, 9, row.sequence as usize)
+                );
+                assert_eq!(
+                    rpc::bytes_to_hex(&publication.point.tx_hash),
+                    txs[22]["hash"]
+                );
+                assert_eq!(
+                    rpc::bytes_to_hex(&row.seal.unwrap().tx_hash),
+                    txs[12]["hash"]
+                );
+                assert_eq!(
+                    rpc::bytes_to_hex(&row.admission.tx_hash),
+                    txs[2 + row.sequence as usize]["hash"]
+                );
+            }
+        }
     }
     #[test]
     fn reject_forged_genesis_identity() {

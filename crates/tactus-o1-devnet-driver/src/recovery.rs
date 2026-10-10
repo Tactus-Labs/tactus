@@ -2,7 +2,7 @@
 //! This recovers input publications; execution_recovery independently replays
 //! supported execution domains. Neither path proves settled withdrawals.
 use crate::{lab, molecule, rpc, tx::CellOutPoint};
-use serde_json::json;
+use serde_json::{json, Value};
 use tactus_o1_ordering_script::OrderingHead;
 
 pub fn recover_head(type_script: &[u8]) -> Result<(CellOutPoint, OrderingHead), String> {
@@ -147,8 +147,16 @@ pub fn allocation_from_genesis(
 /// Reconstruct the complete committed input sequence from canonical CKB blocks.
 /// No operator database, indexer or unpublished witness cache is consulted.
 pub fn recover_published_batches(type_script: &[u8]) -> Result<RecoveredAnchor, String> {
-    use tactus_o1_protocol::batch::{self, AnchorState};
     let pinned = rpc::call("get_tip_header", json!([]))?;
+    recover_published_batches_at(type_script, &pinned)
+}
+
+/// Replay a specified canonical prefix, allowing several observers to share it.
+pub(crate) fn recover_published_batches_at(
+    type_script: &[u8],
+    pinned: &Value,
+) -> Result<RecoveredAnchor, String> {
+    use tactus_o1_protocol::batch::{self, AnchorState};
     let height = u64::from_str_radix(
         pinned["number"]
             .as_str()

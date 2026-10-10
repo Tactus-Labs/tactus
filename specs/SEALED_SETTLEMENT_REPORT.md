@@ -87,3 +87,8 @@ Local driver tests, Clippy for both affected crates, the archived first-settleme
 and P2P rollback checkers, the new evidence controls and the independent Geth
 comparison pass. CI includes archive integrity, the evidence controls, canonical
 statement replay and the Geth comparison; remote CI execution is not claimed.
+
+The subsequent [combined obligation observer](OBLIGATION_RECOVERY_REPORT.md) now
+reconstructs individual pending duties and their publication outcomes alongside
+the exact settlement boundary at one canonical prefix. Actual proof-covered duty
+recovery remains pending.

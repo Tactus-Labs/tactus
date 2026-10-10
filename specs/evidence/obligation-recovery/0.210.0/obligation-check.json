@@ -1,0 +1,16 @@
+{
+  "evidence_sha256": "a719d305c3a348fb16fa474ef7d9f40fda9aa4a08edd72cc68b53324734ba00b",
+  "commits": 17,
+  "negative_controls": 4,
+  "admissions": 4,
+  "lanes": 2,
+  "published_batches": 9,
+  "settled_batches": 0,
+  "malformed_slot": 2,
+  "journal_sha256": "72382e25dce7c3cba0e47702e9dcbc0d3ddf87c52e6126237bcbb78c5473240f",
+  "accepted_execution_proof": false,
+  "production_ready": false,
+  "cold_lifecycle_phases": 3,
+  "same_prefix_settlement_binding": true,
+  "settled_duties": 0
+}
