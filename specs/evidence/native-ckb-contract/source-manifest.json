@@ -1,0 +1,24 @@
+{
+  "source_base_commit": "766983f",
+  "files": {
+    "Cargo.lock": "d1e83ee7925c86276223c5b01a46cc25c9a1c81d811b713381dd9d3a4e835f92",
+    "contracts/bridge/compiler.json": "84e89f75daba2273fc1ef17be1f37e2e27cc7946e819fd98203e61973b6418ec",
+    "contracts/bridge/NativeCKB.sol": "ff45b9a43b732ac38e3d1576655115fe191a7732041a7fdcb747b2f23ae79f8f",
+    "contracts/bridge/NativeCKB.json": "080aa924652a06701ae59f917a2c1e7a0e2450871e9e162351d3c7db71caa120",
+    "crates/tactus-o1-execution/examples/support/native_ckb.rs": "aee76ea27694f3288c0d9be8fc70e7ae98d168b4a7577d601f899fec1120d5bd",
+    "crates/tactus-o1-execution/examples/native-ckb-vectors.rs": "fd2454f39312a9308aa9931d151393531bda6c111c2450433d2c0034d472d361",
+    "crates/tactus-o1-execution/tests/native_ckb.rs": "f48a462002b25772d5bef1f6515ece17ea289dd4d75fb8c730a185308fe74509",
+    "services/bridge-checker/go.mod": "9310715c3d08b396492850f8284bb654b767102b2a027328e96fd90032be8efe",
+    "services/bridge-checker/go.sum": "2056f24badea0a22ac3f1a1d39e2dfccb3da0e8f885108c93a9f755f088c8d38",
+    "services/bridge-checker/bridge_test.go": "486980b3be34f0c926e79864c6f52b1cec0792437010e3b510dabd8117f9f89d",
+    "scripts/build-bridge-contract.py": "2897a73589ccfa5084273a3be3e977b9c57650737f17fb44c44628b8dc00849a"
+  },
+  "solc_sha256": "f3e987dc6ecebd4bd350c48edcbc320b46cf9e3109bd3fc3d88f1acaf4c428f7",
+  "geth_sha256": "6dd182964a3b77def464ba825d5d7d0e38e18e02872604dc583bb8a091cb1e29",
+  "tools": {
+    "go": "go version go1.26.8-X:nodwarf5 linux/amd64",
+    "rustc": "rustc 1.92.0 (ded5c06cf 2025-12-08)",
+    "solc": "solc, the solidity compiler commandline interface\nVersion: 0.8.30+commit.73712a01.Linux.g++",
+    "geth": "evm version 1.17.8-stable"
+  }
+}

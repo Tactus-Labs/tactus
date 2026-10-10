@@ -1,0 +1,156 @@
+{
+  "authenticated_l1_deposits": false,
+  "burnt": 1000,
+  "calls": [
+    {
+      "caller": "0x0000000000000000000000000000000000001234",
+      "gas": 283,
+      "output": "38ff3953c0cbdf4b6b2fbae70f4f85e50a222cd7d252a826e96323d27f321827",
+      "signature": "DOMAIN()",
+      "success": true
+    },
+    {
+      "caller": "0x0000000000000000000000000000000000001234",
+      "gas": 569,
+      "output": "a28e3045",
+      "signature": "creditDeposit(bytes32,address,uint64)",
+      "success": false
+    },
+    {
+      "caller": "0x0000000000000000000000000000000000000000",
+      "gas": 609,
+      "output": "b2e532de",
+      "signature": "creditDeposit(bytes32,address,uint64)",
+      "success": false
+    },
+    {
+      "caller": "0x0000000000000000000000000000000000000000",
+      "gas": 635,
+      "output": "b2e532de",
+      "signature": "creditDeposit(bytes32,address,uint64)",
+      "success": false
+    },
+    {
+      "caller": "0x0000000000000000000000000000000000000000",
+      "gas": 693,
+      "output": "9c8d2cd2",
+      "signature": "creditDeposit(bytes32,address,uint64)",
+      "success": false
+    },
+    {
+      "caller": "0x0000000000000000000000000000000000000000",
+      "gas": 721,
+      "output": "9c8d2cd2",
+      "signature": "creditDeposit(bytes32,address,uint64)",
+      "success": false
+    },
+    {
+      "caller": "0x0000000000000000000000000000000000000000",
+      "gas": 93749,
+      "output": "",
+      "signature": "creditDeposit(bytes32,address,uint64)",
+      "success": true
+    },
+    {
+      "caller": "0x0000000000000000000000000000000000000000",
+      "gas": 2912,
+      "output": "8ee5d878",
+      "signature": "creditDeposit(bytes32,address,uint64)",
+      "success": false
+    },
+    {
+      "caller": "0x0000000000000000000000000000000000000000",
+      "gas": 5136,
+      "output": "aca5f518",
+      "signature": "creditDeposit(bytes32,address,uint64)",
+      "success": false
+    },
+    {
+      "caller": "0x0000000000000000000000000000000000001234",
+      "gas": 27365,
+      "output": "0000000000000000000000000000000000000000000000000000000000000001",
+      "signature": "transfer(address,uint256)",
+      "success": true
+    },
+    {
+      "caller": "0x0000000000000000000000000000000000005678",
+      "gas": 76906,
+      "output": "0000000000000000000000000000000000000000000000000000000000000001",
+      "signature": "withdraw(uint64,bytes32)",
+      "success": true
+    },
+    {
+      "caller": "0x0000000000000000000000000000000000005678",
+      "gas": 2686,
+      "output": "f4d678b8",
+      "signature": "withdraw(uint64,bytes32)",
+      "success": false
+    },
+    {
+      "caller": "0x0000000000000000000000000000000000001234",
+      "gas": 37106,
+      "output": "0000000000000000000000000000000000000000000000000000000000000002",
+      "signature": "withdraw(uint64,bytes32)",
+      "success": true
+    },
+    {
+      "caller": "0x0000000000000000000000000000000000001234",
+      "gas": 2686,
+      "output": "f4d678b8",
+      "signature": "withdraw(uint64,bytes32)",
+      "success": false
+    },
+    {
+      "caller": "0x0000000000000000000000000000000000001234",
+      "gas": 2538,
+      "output": "ed7fe97c4588d89c1c353faa985a5df84f7d170753e156244481aa907bfcbf83",
+      "signature": "withdrawals(uint64)",
+      "success": true
+    },
+    {
+      "caller": "0x0000000000000000000000000000000000001234",
+      "gas": 2538,
+      "output": "30a1bb7545b3bfb78a99590a265a8cc971f52d1b76d59e7cd944ce8e11c72b6d",
+      "signature": "withdrawals(uint64)",
+      "success": true
+    },
+    {
+      "caller": "0x0000000000000000000000000000000000001234",
+      "gas": 2316,
+      "output": "0000000000000000000000000000000000000000000000000000000000000000",
+      "signature": "totalSupply()",
+      "success": true
+    },
+    {
+      "caller": "0x0000000000000000000000000000000000001234",
+      "gas": 2338,
+      "output": "00000000000000000000000000000000000000000000000000000000000003e8",
+      "signature": "cumulativeDeposited()",
+      "success": true
+    },
+    {
+      "caller": "0x0000000000000000000000000000000000001234",
+      "gas": 2317,
+      "output": "00000000000000000000000000000000000000000000000000000000000003e8",
+      "signature": "cumulativeWithdrawn()",
+      "success": true
+    },
+    {
+      "caller": "0x0000000000000000000000000000000000001234",
+      "gas": 2403,
+      "output": "0000000000000000000000000000000000000000000000000000000000000002",
+      "signature": "withdrawalCount()",
+      "success": true
+    }
+  ],
+  "contract": "0xfa0f05a76ebcbf400856ccccf29ff66d8acc843f",
+  "credited": 1000,
+  "custody_release": false,
+  "domain": "0x38ff3953c0cbdf4b6b2fbae70f4f85e50a222cd7d252a826e96323d27f321827",
+  "evm_fork": "Shanghai",
+  "geth_version": "1.17.8",
+  "production_ready": false,
+  "runtime_keccak": "0x6dae9f6ae2cdc79b7cde3468729205fd36be138d9647c7af16d5424ff4ceb0fc",
+  "supply": 0,
+  "withdrawals": 2
+}

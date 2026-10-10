@@ -102,6 +102,15 @@ jobs:
         run: |
           mkdir -p "$RUNNER_TEMP/evm-tools"
           GOBIN="$RUNNER_TEMP/evm-tools" go install github.com/ethereum/go-ethereum/cmd/evm@v1.17.8
+      - name: Rebuild pinned bridge contract and verify direct-call semantics
+        run: |
+          python3 scripts/build-bridge-contract.py
+          git diff --exit-code -- contracts/bridge/NativeCKB.json
+          (cd services/bridge-checker && TACTUS_BRIDGE_GETH_EXPORT="$RUNNER_TEMP/bridge-system-calls.json" go test -count=1 ./...)
+          cmp "$RUNNER_TEMP/bridge-system-calls.json" specs/evidence/native-ckb-contract/system-calls-geth.json
+          (cd specs/evidence/native-ckb-contract && sha256sum --check SHA256SUMS)
+          python3 -B scripts/check-native-ckb-contract.py
+          python3 -B scripts/test-native-ckb-contract.py
       - name: Compare Ethereum roots, gas and rejection indices
         run: |
           cargo run --locked --quiet -p tactus-o1-execution --example execution-vectors -- artifacts/evm-differential
@@ -111,12 +120,18 @@ jobs:
           cmp artifacts/settlement-continuation/continuation.json specs/test-vectors/proof-v1/settlement-continuation.json
           cargo run --locked --quiet -p tactus-o1-execution --example sealed-settlement-oracle -- specs/evidence/sealed-settlement-input/0.210.0/proving-input.json artifacts/sealed-settlement-geth
           python3 scripts/check-execution-geth.py "$RUNNER_TEMP/evm-tools/evm" artifacts/sealed-settlement-geth specs/evidence/sealed-settlement-input/0.210.0/geth/verified.json
+      - name: Compare signed bridge calls with independent Geth
+        run: |
+          cargo run --locked --quiet -p tactus-o1-execution --example native-ckb-vectors -- artifacts/native-ckb-contract
+          gzip -dc specs/evidence/native-ckb-contract/verified.json.gz > "$RUNNER_TEMP/native-ckb-verified.json"
+          python3 -B scripts/check-execution-geth.py "$RUNNER_TEMP/evm-tools/evm" artifacts/native-ckb-contract "$RUNNER_TEMP/native-ckb-verified.json"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: evm-differential
           path: |
             artifacts/evm-differential/
+            artifacts/native-ckb-contract/
             artifacts/settlement-continuation/
             artifacts/sealed-settlement-geth/
 

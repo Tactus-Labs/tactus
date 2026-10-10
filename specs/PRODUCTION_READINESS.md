@@ -6,6 +6,11 @@ rollup deployment or custody of user assets.
 
 ## Implemented and measured
 
+- [Native CKB ledger and burn commitments](NATIVE_CKB_BRIDGE.md) now have pinned
+  Solidity bytecode, 27 signed execution/Geth comparisons and independent system-
+  call contract tests. Authenticated L1 deposits, the new execution/proof domain
+  and actual vault release are still missing; G7 remains OPEN.
+
 - [CKB authenticated settled-state reads](SETTLED_STATE_PROOF_REPORT.md) now verify
   three actual A3 account/slot witnesses against the live, proof-settled Tip.
   Seventeen script-specific negative controls reject; immutable read certificates
