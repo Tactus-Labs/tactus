@@ -60,8 +60,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - ckb: '0.121.0'
-            sha256: '87502b4906790317ca5cc8f33849d49286a8befc808dcc769876b120f1558ea1'
           - ckb: '0.210.0'
             sha256: 'f7ea14476229883153eaef2f96aa3ae9e67c6f7254fe642aa06014cc6333d017'
     steps:

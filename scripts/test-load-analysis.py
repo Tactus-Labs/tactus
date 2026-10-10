@@ -15,13 +15,13 @@ class RetainedLoadEvidence(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.evidence = {}
-        for version in ['0.121.0', '0.210.0']:
+        for version in ['0.210.0']:
             path = ROOT / f'specs/evidence/sustained-load/ckb-{version}-evidence.json.gz'
             cls.evidence[version] = json.loads(gzip.decompress(path.read_bytes()))
-        cls.reference = cls.evidence['0.121.0']
+        cls.reference = cls.evidence['0.210.0']
         cls.fees = ANALYZER['fees_by_event'](cls.reference['evidence'])
 
-    def test_both_complete_matrices_reconcile(self):
+    def test_current_matrix_reconciles(self):
         for version, evidence in self.evidence.items():
             with self.subTest(version=version):
                 self.assertEqual(len(ANALYZER['audit'](evidence)), 36)

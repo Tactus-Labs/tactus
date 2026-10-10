@@ -15,18 +15,18 @@ class SealEvidence(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.evidence = {}
-        for version in ['0.121.0', '0.210.0']:
+        for version in ['0.210.0']:
             path = ROOT / f'specs/evidence/seal-contention/ckb-{version}-evidence.json.gz'
             cls.evidence[version] = json.loads(gzip.decompress(path.read_bytes()))
 
-    def test_both_versions_reconcile_every_epoch(self):
+    def test_current_version_reconciles_every_epoch(self):
         for version, evidence in self.evidence.items():
             with self.subTest(version=version):
                 self.assertEqual(len(ANALYZER['audit'](evidence)), 12)
 
     def test_missing_epoch_and_fabricated_progress_are_rejected(self):
         for kind in ['epoch', 'count', 'targets', 'latency', 'duplicate']:
-            evidence = copy.deepcopy(self.evidence['0.121.0'])
+            evidence = copy.deepcopy(self.evidence['0.210.0'])
             case = evidence['results']['cases'][0]
             if kind == 'epoch':
                 case['epochs'].pop()
@@ -43,7 +43,7 @@ class SealEvidence(unittest.TestCase):
 
     def test_snapshot_omission_and_false_input_overlap_are_rejected(self):
         for kind in ['snapshot', 'input']:
-            evidence = copy.deepcopy(self.evidence['0.121.0'])
+            evidence = copy.deepcopy(self.evidence['0.210.0'])
             for event in evidence['evidence']:
                 if kind == 'snapshot' and event['label'].endswith('/rebuilt seal after exhausted churn'):
                     transaction = event['transaction']
@@ -60,7 +60,7 @@ class SealEvidence(unittest.TestCase):
                 ANALYZER['audit'](evidence)
 
     def test_wrong_actual_processing_order_is_rejected(self):
-        evidence = copy.deepcopy(self.evidence['0.121.0'])
+        evidence = copy.deepcopy(self.evidence['0.210.0'])
         for event in evidence['evidence']:
             if event['label'].endswith('/process-0'):
                 encoded = bytearray.fromhex(event['transaction']['outputs_data'][1][2:])

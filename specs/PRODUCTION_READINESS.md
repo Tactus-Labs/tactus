@@ -160,10 +160,10 @@ cargo run --locked --bin tactus-o1-experiment-a
 CKB_BIN=/absolute/path/to/ckb scripts/run-devnet-experiments.sh
 ```
 
-The launcher defaults to reference CKB 0.121.0 and isolated RPC/P2P ports
+The supported development and CI target is CKB 0.210.0 only. Previous 0.121.0
+measurements are historical evidence. The launcher uses isolated RPC/P2P ports
 18714/18715. `TACTUS_DEVNET_RPC_PORT` and `TACTUS_DEVNET_P2P_PORT` select other ports.
-`TACTUS_CKB_VERSION=0.210.0` selects the explicit compatibility run. The selected
-binary must match the selected version. Each run creates a fresh directory under
+The selected binary must be CKB 0.210.0. Each run creates a fresh directory under
 `artifacts/a123-*`; configuration, manifest, logs, evidence and summary are kept
 there, and its own node is stopped on exit. Existing nodes are never stopped or
 reconfigured. The fixed keys are for these funded dummy chains only.

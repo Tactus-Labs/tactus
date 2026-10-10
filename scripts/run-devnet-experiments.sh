@@ -4,9 +4,9 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 CKB_BIN="${CKB_BIN:-ckb}"
 CKB_BIN="$(command -v "$CKB_BIN")"
-required_version="${TACTUS_CKB_VERSION:-0.121.0}"
-if [[ "$required_version" != 0.121.0 && "$required_version" != 0.210.0 ]]; then
-  echo 'Supported laboratory versions: 0.121.0, 0.210.0.' >&2
+required_version="${TACTUS_CKB_VERSION:-0.210.0}"
+if [[ "$required_version" != 0.210.0 ]]; then
+  echo 'Supported laboratory version: 0.210.0.' >&2
   exit 1
 fi
 if [[ "$($CKB_BIN --version)" != "ckb $required_version "* ]]; then

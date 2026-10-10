@@ -33,7 +33,7 @@ jobs:
           (cd specs/evidence/chain-proof-recovery && sha256sum --check SHA256SUMS)
       - name: Reconcile retained checkpoint transactions (not script execution)
         run: |
-          for version in 0.121.0 0.210.0; do
+          for version in 0.210.0; do
             gzip -dc "specs/evidence/history-checkpoint/$version/evidence.json.gz" > "$RUNNER_TEMP/checkpoint-$version.json"
             python3 scripts/check-history-checkpoints.py "$RUNNER_TEMP/checkpoint-$version.json"
             gzip -dc "specs/evidence/checkpoint-reorg/$version/evidence.json.gz" > "$RUNNER_TEMP/checkpoint-reorg-$version.json"
@@ -45,7 +45,7 @@ jobs:
           done
       - name: Reconcile real proof receipt evidence (not cryptographic verification)
         run: |
-          for version in 0.121.0 0.210.0; do
+          for version in 0.210.0; do
             gzip -dc "specs/evidence/execution-groth16-proof/$version/evidence.json.gz" > "$RUNNER_TEMP/receipt-$version.json"
             python3 scripts/check-proof-receipts.py "$RUNNER_TEMP/receipt-$version.json" specs/evidence/execution-groth16-proof/proof
           done
@@ -57,6 +57,6 @@ jobs:
           python3 scripts/check-ckb-verifier-port.py
           rustc --edition=2021 --deny warnings --test proofs/vendor/lazy_static-1.5.1/src/ckb_lazy.rs -o "$RUNNER_TEMP/ckb-lazy-tests"
           "$RUNNER_TEMP/ckb-lazy-tests" --test-threads=1
-          for version in 0.121.0 0.210.0; do
+          for version in 0.210.0; do
             cargo run --locked --manifest-path proofs/sp1/Cargo.toml -p tactus-o1-proof-journal --example check-chain-input -- "specs/evidence/settlement-bootstrap/$version/proving-input.json"
           done

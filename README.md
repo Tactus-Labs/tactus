@@ -141,7 +141,7 @@ To run the workspace tests:
 cargo test --locked --workspace
 ```
 
-For real transaction-pool and CKB-VM experiments, install **CKB 0.121.0** and
+For real transaction-pool and CKB-VM experiments, install **CKB 0.210.0** and
 have Bash and Python 3 available. The launcher builds the RISC-V scripts and
 creates a fresh, funded local chain:
 
@@ -151,8 +151,8 @@ CKB_BIN=/absolute/path/to/ckb scripts/run-devnet-experiments.sh
 
 The launcher uses loopback ports `18714` and `18715`, saves logs and evidence
 under `artifacts/`, and stops its own node when finished. Its fixed keys belong
-only to these disposable devnets. To use CKB **0.210.0**, set
-`TACTUS_CKB_VERSION=0.210.0` and point `CKB_BIN` at the matching binary.
+only to these disposable devnets. Development and CI target CKB **0.210.0**;
+point `CKB_BIN` at that version’s binary.
 See [local validation](specs/PRODUCTION_READINESS.md#local-validation) for more details.
 
 ## Find your way around
