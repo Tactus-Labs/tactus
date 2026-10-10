@@ -1,5 +1,5 @@
 [package]
-name = "tactus-o1-proof-check-script"
+name = "tactus-o1-settlement-script"
 version = "0.1.0"
 edition = "2021"
 rust-version = "1.92"
@@ -10,7 +10,7 @@ lazy_static = { path = "../vendor/lazy_static-1.5.1" }
 lazy_static = { version = "=1.5.1", features = ["ckb_single_thread"] }
 [dependencies]
 sp1-verifier = { version = "=6.8.1", default-features = false }
-ckb-std = { version = "0.15", default-features = false, features = ["ckb-types", "allocator"] }
+ckb-std = { version = "=0.15.3", default-features = false, features = ["ckb-types", "allocator"] }
 [lib]
 crate-type = ["staticlib", "rlib"]
 [profile.release]

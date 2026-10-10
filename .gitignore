@@ -2,6 +2,7 @@
 /proofs/sp1/target
 /proofs/ckb-proof-check/target
 /proofs/ckb-history-checkpoint/target
+/proofs/ckb-settlement/target
 .idea/
 .vscode/
 *.log

@@ -1,0 +1,2 @@
+tactus_o1_proof_check_script.elf: no disassembled RISC-V A-extension atomic instructions
+tactus_o1_settlement_script.elf: no disassembled RISC-V A-extension atomic instructions

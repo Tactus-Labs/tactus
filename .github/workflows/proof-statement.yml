@@ -28,6 +28,7 @@ jobs:
           (cd specs/evidence/execution-core-proof && sha256sum --check SHA256SUMS)
           (cd specs/evidence/history-checkpoint && sha256sum --check SHA256SUMS)
           (cd specs/evidence/checkpoint-reorg && sha256sum --check SHA256SUMS)
+          (cd specs/evidence/settlement-bootstrap && sha256sum --check SHA256SUMS)
       - name: Reconcile retained checkpoint transactions (not script execution)
         run: |
           for version in 0.121.0 0.210.0; do
@@ -35,6 +36,17 @@ jobs:
             python3 scripts/check-history-checkpoints.py "$RUNNER_TEMP/checkpoint-$version.json"
             gzip -dc "specs/evidence/checkpoint-reorg/$version/evidence.json.gz" > "$RUNNER_TEMP/checkpoint-reorg-$version.json"
             python3 scripts/check-checkpoint-reorg.py "$RUNNER_TEMP/checkpoint-reorg-$version.json"
+            gzip -dc "specs/evidence/settlement-bootstrap/$version/evidence.json.gz" > "$RUNNER_TEMP/settlement-bootstrap-$version.json"
+            python3 scripts/check-settlement-bootstrap.py "$RUNNER_TEMP/settlement-bootstrap-$version.json"
           done
       - name: Check bounded history checkpoint state rules
         run: cargo test --locked --manifest-path proofs/ckb-history-checkpoint/Cargo.toml
+      - name: Check SettlementTip state binding and verifier-port provenance
+        run: |
+          cargo test --locked --manifest-path proofs/ckb-settlement/Cargo.toml
+          python3 scripts/check-ckb-verifier-port.py
+          rustc --edition=2021 --deny warnings --test proofs/vendor/lazy_static-1.5.1/src/ckb_lazy.rs -o "$RUNNER_TEMP/ckb-lazy-tests"
+          "$RUNNER_TEMP/ckb-lazy-tests" --test-threads=1
+          for version in 0.121.0 0.210.0; do
+            cargo run --locked --manifest-path proofs/sp1/Cargo.toml -p tactus-o1-proof-journal --example check-chain-input -- "specs/evidence/settlement-bootstrap/$version/proving-input.json"
+          done

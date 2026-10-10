@@ -1,0 +1,374 @@
+   Compiling tactus-o1-devnet-driver v0.1.0 (/home/arthur/RustRoverProjects/tactus-o1/crates/tactus-o1-devnet-driver)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.48s
+     Running unittests src/lib.rs (target/debug/deps/tactus_o1_anchor_script-e4c9f6e46050bbeb)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/tactus_o1_devnet_driver-8b0de68c301032c3)
+
+running 19 tests
+test molecule::tests::cell_input_layout_is_44_bytes ... ok
+test molecule::tests::single_item_dynvec_has_no_offsets ... ok
+test molecule::tests::witness_args_encoding_matches_ckb_cli_ground_truth ... ok
+test lab::tests::rejection_evidence_requires_the_exact_type_script_failure ... ok
+test rpc::tests::malformed_hex_is_rejected_without_panicking_or_losing_bytes ... ok
+test molecule::tests::empty_dynvec_serializes_its_total_size ... ok
+test molecule::tests::script_encoding_matches_ckb_cli_ground_truth ... ok
+test molecule::tests::external_scripts_reject_every_truncation_and_noncanonical_offset ... ok
+test tx::tests::occupied_capacity_uses_fields_not_molecule_overhead ... ok
+test sealed_recovery::tests::reject_forged_genesis_identity ... ok
+test sealed_recovery::tests::reject_consistent_anchor_that_omits_mandatory_prefix ... ok
+test sealed_recovery::tests::reject_noop_or_corrupt_lane ... ok
+test sealed_recovery::tests::reject_disconnected_lane_and_capacity_or_lock_takeover ... ok
+test sealed_recovery::tests::reject_destroyed_gate_on_an_anchor_advance ... ok
+test sealed_recovery::tests::replay_real_canonical_history_and_ignore_counterfeit_snapshot ... ok
+test sealed_recovery::tests::reject_incomplete_seal_and_replaced_snapshot ... ok
+test execution_recovery::tests::reorg_during_pointer_publication_never_returns_stale_success ... ok
+test execution_recovery::tests::chain_type_and_execution_genesis_mismatches_fail_closed ... ok
+test execution_recovery::tests::replay_time_reorg_cannot_publish_new_pointer_and_retry_reuses_checked_journal ... ok
+
+test result: ok. 19 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+     Running unittests src/bin/gen-dev-key.rs (target/debug/deps/gen_dev_key-a1c4f39b1f72e173)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/probe.rs (target/debug/deps/probe-e9a4c66caec53f63)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/recover-execution.rs (target/debug/deps/recover_execution-600b627a1974c302)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/recover-sealed.rs (target/debug/deps/recover_sealed-4310b37fb9c07e39)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/replay-a1.rs (target/debug/deps/replay_a1-adfbcb79d38bcdeb)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/replay-a123.rs (target/debug/deps/replay_a123-365af0e8cc3d25c8)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/replay-admission.rs (target/debug/deps/replay_admission-6427281dbaa0d128)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/replay-batch.rs (target/debug/deps/replay_batch-eb5871a3fca73c46)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/replay-checkpoint-reorg.rs (target/debug/deps/replay_checkpoint_reorg-6328f94b6b6b33bb)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/replay-evm.rs (target/debug/deps/replay_evm-45c2b6e0d6c7db01)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/replay-history-checkpoint.rs (target/debug/deps/replay_history_checkpoint-a65395611a531b76)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/replay-load.rs (target/debug/deps/replay_load-3d641e762ab071f4)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/replay-network.rs (target/debug/deps/replay_network-ec9496bfe87ee88f)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/replay-priority.rs (target/debug/deps/replay_priority-ac747b5212e38e36)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/replay-proof-verifier.rs (target/debug/deps/replay_proof_verifier-94ef798d1473d843)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/replay-seal-contention.rs (target/debug/deps/replay_seal_contention-a7fd54fe3d13f912)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/replay-sealed.rs (target/debug/deps/replay_sealed-82ca66f027f94db9)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/replay-settlement-bootstrap.rs (target/debug/deps/replay_settlement_bootstrap-2ad555f59cc0bc9c)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/tactus_o1_execution-4a3e4905f21a5ada)
+
+running 1 test
+test store::lock_release_tests::closing_writer_releases_lock_even_with_duplicated_descriptor ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running unittests src/bin/replay-execution.rs (target/debug/deps/replay_execution-887a8388c505487e)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/execution.rs (target/debug/deps/execution-541d756345df8612)
+
+running 12 tests
+test rejected_slots_are_committed_even_when_ethereum_state_and_roots_match ... ok
+test basefee_rounding_supply_bound_and_genesis_domain_are_explicit ... ok
+test precompiles_use_real_sha256_and_identity ... ok
+test signature_chain_canonical_encoding_and_type_rejections_are_total ... ok
+test legacy_access_list_and_dynamic_fee_envelopes_make_matching_receipts ... ok
+test revert_and_exception_charge_nonce_and_gas_but_revert_storage_and_logs ... ok
+test invalid_fee_intrinsic_gas_and_eoa_code_do_not_mutate_state ... ok
+test remaining_block_gas_checks_declared_limit_without_stalling_next_slot ... ok
+test block_context_parent_hash_and_empty_blocks_are_executed ... ok
+test deploy_then_write_storage_and_log_then_clear_slot ... ok
+test malformed_nonce_and_balance_failures_do_not_poison_following_transfers ... ok
+test truncated_batch_wrong_domain_and_replay_do_not_leave_partial_execution ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.51s
+
+     Running tests/geth_vectors.rs (target/debug/deps/geth_vectors-4820b0241bbe9614)
+
+running 1 test
+test independent_geth_shanghai_roots_gas_and_rejections_match ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.09s
+
+     Running tests/store.rs (target/debug/deps/store-873e40b395aa406f)
+
+running 11 tests
+test empty_journal_still_pins_execution_rules_and_genesis_header ... ok
+test unicode_or_unknown_files_fail_without_panicking ... ok
+test malformed_input_does_not_poison_writer_or_create_a_record ... ok
+test failed_publication_poison_requires_reopen_and_never_overwrites_record ... ok
+test wrong_genesis_or_missing_genesis_does_not_reinitialize_history ... ok
+test equivalent_zero_storage_encodings_share_one_canonical_genesis ... ok
+test incomplete_staging_file_is_ignored_and_replaced ... ok
+test published_record_survives_crash_before_staging_unlink ... ok
+test cli_restarts_in_another_process_and_returns_identical_head ... ok
+test exclusive_writer_and_restart_replay_match_independent_fixture ... ok
+test checksum_truncation_gap_and_wrong_derived_root_fail_closed ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.08s
+
+     Running unittests src/lib.rs (target/debug/deps/tactus_o1_experiment_a-61e74167fd363448)
+
+running 16 tests
+test decision::tests::simulated_snapshot_latency_never_proves_unimplemented_enforcement ... ok
+test sim::tests::uncontested_admission_meets_window_minimum ... ok
+test tests::fixed_aggregate_survival_is_lane_count_neutral ... ok
+test sim_a2::tests::lazy_builder_penalty_only_fails_g2_evidence ... ok
+test tests::fixed_per_lane_survival_degrades_with_lane_count ... ok
+test sim_a2::tests::admission_is_contention_free ... ok
+test sim_a2::tests::forced_inclusion_rescues_lazy_builder ... ok
+test sim_a2::tests::honest_builder_processes_everything_before_deadline ... ok
+test tests::adversarial_model_has_no_analytic_answer ... ok
+test sim::tests::fee_priority_only_helps_simultaneous_conflicts ... ok
+test sim_a3::tests::no_churn_gives_full_anchor_survival ... ok
+test sim_a3::tests::adversarial_churn_collapses_live_refs_but_not_sealed ... ok
+test sim_a3::tests::parallel_lanes_admit_users_better_than_singleton ... ok
+test sim::tests::doa_rate_grows_with_signing_delay ... ok
+test sim_a3::tests::l1_more_lanes_worsen_invalidation ... ok
+test sim_a3::tests::l2_constant_aggregate_keeps_survival_stable ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/debug/deps/tactus_o1_experiment_a-c7542a5b1134e40c)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/tactus_o1_head_lock-d37fcc11cfe5bb9a)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/tactus_o1_ordering_script-a8839d5a78a0aecd)
+
+running 8 tests
+test tests::genesis_bound_fields_are_frozen ... ok
+test tests::corrupted_cursor_is_not_carried_forward ... ok
+test tests::encoding_roundtrip_is_canonical ... ok
+test tests::enqueue_updates_only_inbox ... ok
+test tests::genesis_must_be_empty_and_identity_is_seed_bound ... ok
+test tests::cursor_may_advance_but_not_regress_or_pass_tail ... ok
+test tests::exhausted_counters_never_wrap ... ok
+test tests::append_batch_updates_only_accumulator ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/hash_oracle.rs (target/debug/deps/hash_oracle-1dcf1699f80dd452)
+
+running 1 test
+test ckb_blake2b_matches_ckb_cli_oracle ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/tactus_o1_priority_script-e9ac884170d2ae8c)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/tactus_o1_protocol-b7631008cd6b0bbf)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/batch_vectors.rs (target/debug/deps/batch_vectors-8a5987ed98fc7888)
+
+running 9 tests
+test malformed_suffix_cannot_apply_partial_transaction_effects ... ok
+test same_second_blocks_are_allowed_but_regressions_are_not ... ok
+test counters_never_wrap_and_genesis_cannot_start_mid_history ... ok
+test commits_block_boundaries_order_and_fee_recipient ... ok
+test independent_python_wire_vectors_match_rust_and_next_state ... ok
+test domain_and_chain_replay_and_gaps_fail ... ok
+test counts_and_byte_limits_reject_before_unbounded_allocation ... ok
+test every_truncation_and_trailing_bytes_fail ... ok
+test exact_maximum_bytes_are_accepted_one_more_is_rejected ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/genesis.rs (target/debug/deps/genesis-84d03993b65bc5b4)
+
+running 6 tests
+test zero_storage_empty_accounts_and_supply_overflow_fail ... ok
+test address_and_storage_order_are_canonical ... ok
+test every_truncation_suffix_and_bad_magic_is_rejected ... ok
+test independent_python_bytes_and_hash_match ... ok
+test hostile_counts_are_bounded_before_allocation ... ok
+test exact_maximum_allocation_roundtrips_and_limits_reject ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/priority.rs (target/debug/deps/priority-277083e4367f82dc)
+
+running 4 tests
+test payload_and_policy_resource_bounds_are_binding ... ok
+test challenge_preserves_identity_and_cannot_rechallenge_or_invent_inclusion ... ok
+test canonical_codec_rejects_all_truncations_unknown_stages_and_suffixes ... ok
+test bounded_inclusion_record_keeps_message_and_cannot_be_included_again ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/sealed.rs (target/debug/deps/sealed-1bbfb9db9c3bc22b)
+
+running 8 tests
+test counter_overflow_and_cursor_forgery_fail_closed ... ok
+test duty_cannot_be_moved_to_a_later_evm_block ... ok
+test admission_is_positive_bounded_and_preserves_contiguous_history ... ok
+test genesis_has_a_finite_batch_quota_and_sealing_requires_all_lanes ... ok
+test fifo_round_robin_skips_empty_lanes_and_rejects_favorable_subsets ... ok
+test full_snapshot_is_exhausted_within_quota_and_old_snapshot_cannot_be_reused ... ok
+test canonical_codecs_reject_truncation_suffix_mutation_and_excess_allocation ... ok
+test every_small_occupancy_pattern_drains_without_skipping_or_duplication ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.16s
+
+     Running unittests src/lib.rs (target/debug/deps/tactus_o1_sealed_script-ba755825caf827a9)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests tactus_o1_anchor_script
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests tactus_o1_devnet_driver
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests tactus_o1_execution
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests tactus_o1_experiment_a
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests tactus_o1_head_lock
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests tactus_o1_ordering_script
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests tactus_o1_priority_script
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests tactus_o1_protocol
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests tactus_o1_sealed_script
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

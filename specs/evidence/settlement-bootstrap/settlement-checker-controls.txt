@@ -1,0 +1,6 @@
+wrong domain: rejected (deployment domain differs)
+wrong allocation: rejected (allocation binding differs)
+wrong checkpoint outpoint: rejected (wrong checkpoint outpoint)
+false settlement claim: rejected (unsupported settlement claim)
+wrong verifier rejection: rejected (not the precise settlement script rejection)
+altered native expected journal: rejected

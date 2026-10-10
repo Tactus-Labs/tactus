@@ -1,0 +1,7 @@
+
+running 2 tests
+test tests::initializes_once_and_keeps_the_same_value ... ok
+test tests::recursion_and_poison_fail_before_uninitialized_access ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+

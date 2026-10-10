@@ -1,0 +1,21 @@
+    Checking lazy_static v1.5.1 (/home/arthur/RustRoverProjects/tactus-o1/proofs/vendor/lazy_static-1.5.1)
+warning: eliding a lifetime that's named elsewhere is confusing
+  --> /home/arthur/RustRoverProjects/tactus-o1/proofs/vendor/lazy_static-1.5.1/src/core_lazy.rs:18:49
+   |
+18 |     pub fn get<F>(&'static self, builder: F) -> &T
+   |                    -------                      ^^ the same lifetime is elided here
+   |                    |
+   |                    the lifetime is named here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+   = note: `#[warn(mismatched_lifetime_syntaxes)]` on by default
+help: consistently use `'static`
+   |
+18 |     pub fn get<F>(&'static self, builder: F) -> &'static T
+   |                                                  +++++++
+
+warning: `lazy_static` (lib) generated 1 warning (run `cargo clippy --fix --lib -p lazy_static` to apply 1 suggestion)
+    Checking substrate-bn-succinct-rs v0.6.0
+    Checking sp1-verifier v6.8.1
+    Checking tactus-o1-settlement-script v0.1.0 (/home/arthur/RustRoverProjects/tactus-o1/proofs/ckb-settlement)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.52s

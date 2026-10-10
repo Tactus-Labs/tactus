@@ -1,0 +1,5 @@
+   Compiling ckb-gen-types v0.112.1
+   Compiling ckb-std v0.15.3
+   Compiling tactus-o1-proof-check-script v0.1.0 (/home/arthur/RustRoverProjects/tactus-o1/proofs/ckb-proof-check)
+    Finished `release` profile [optimized] target(s) in 5.84s
+ea7def2e1d98a8f8098eec8755e85d36e1a90b9c51738b77ccdc47d455ae8e3a  artifacts/tactus_o1_proof_check_script.elf

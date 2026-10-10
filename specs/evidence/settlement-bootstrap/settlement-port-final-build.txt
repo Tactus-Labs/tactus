@@ -1,0 +1,6 @@
+   Compiling lazy_static v1.5.1 (/home/arthur/RustRoverProjects/tactus-o1/proofs/vendor/lazy_static-1.5.1)
+   Compiling substrate-bn-succinct-rs v0.6.0
+   Compiling sp1-verifier v6.8.1
+   Compiling tactus-o1-settlement-script v0.1.0 (/home/arthur/RustRoverProjects/tactus-o1/proofs/ckb-settlement)
+    Finished `release` profile [optimized] target(s) in 1.73s
+58e5d7f4c3cd8665a9870760267b837f60ef7b04cc92599ff35e5f02abdd1f93  artifacts/tactus_o1_settlement_script.elf

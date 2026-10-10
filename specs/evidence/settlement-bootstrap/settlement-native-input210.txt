@@ -1,0 +1,1 @@
+{"interval_batches":1,"native_journal_match":true,"next_header_hash":"ee01d4c2d0b3055cce4ef9342eeeda4517f232a3e1789170d253335693b62b9d","next_state_root":"39d75d240f98e864a088b6003e2f94134baec5a63bd0bdea9c955e14427527e7","prefix_batches":0,"proof_generated":false,"settled":false}

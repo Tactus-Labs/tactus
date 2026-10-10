@@ -1,0 +1,9 @@
+{
+  "crate_sha256": "20870f649af7073d53e38067b2a84312175d56ea15217e1b15bc83506ec50afb",
+  "unchanged_upstream_files": 18,
+  "declared_modified_upstream_files": [
+    "Cargo.toml",
+    "src/lib.rs"
+  ],
+  "cryptographic_implementation_patched": false
+}

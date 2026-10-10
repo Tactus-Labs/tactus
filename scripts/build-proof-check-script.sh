@@ -2,6 +2,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 mkdir -p artifacts
+export RUSTFLAGS="${RUSTFLAGS:+$RUSTFLAGS }--cfg tactus_ckb_single_thread --check-cfg=cfg(tactus_ckb_single_thread)"
 export CARGO_BUILD_JOBS="${CARGO_BUILD_JOBS:-2}"
 cargo build --locked --release --manifest-path proofs/ckb-proof-check/Cargo.toml --target riscv64imac-unknown-none-elf
 proof_lld="$(rustc --print sysroot)/lib/rustlib/$(rustc -vV | sed -n 's/^host: //p')/bin/rust-lld"

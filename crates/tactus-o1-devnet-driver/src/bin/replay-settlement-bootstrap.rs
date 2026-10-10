@@ -1,0 +1,465 @@
+//! Real deployment and rejection boundaries; successful execution settlement is pending.
+use serde_json::{json, Value};
+use tactus_o1_devnet_driver::{
+    batch_lab::{self, Anchor},
+    lab::{self, Lab},
+    molecule, recovery, rpc,
+    tx::{self, CellOutPoint, OutSpec, TX_FEE},
+};
+use tactus_o1_execution::{Executor, Genesis};
+use tactus_o1_ordering_script::{ckb_blake2b, genesis_identity};
+use tactus_o1_protocol::{
+    batch::{self, AnchorState, BatchInput},
+    genesis,
+};
+
+fn number(v: &Value) -> Result<u64, String> {
+    u64::from_str_radix(v.as_str().ok_or("number")?.trim_start_matches("0x"), 16)
+        .map_err(|e| e.to_string())
+}
+fn tip_data(
+    anchor: &AnchorState,
+    initialized: bool,
+    state: &[u8; 32],
+    header: &[u8; 32],
+) -> Vec<u8> {
+    let mut bytes = b"TO1TIP01".to_vec();
+    bytes.push(u8::from(initialized));
+    bytes.extend_from_slice(&[0; 7]);
+    bytes.extend_from_slice(&anchor.encode());
+    bytes.extend_from_slice(state);
+    bytes.extend_from_slice(header);
+    bytes
+}
+fn tip_output(lab: &Lab, script: &[u8], data: &[u8]) -> OutSpec {
+    let lock = molecule::script(&ckb_blake2b(&lab.lock_elf), 2, &ckb_blake2b(script));
+    OutSpec {
+        capacity: OutSpec::required_capacity(&lock, Some(script), 280),
+        lock,
+        type_script: Some(script.to_vec()),
+        data: data.to_vec(),
+    }
+}
+fn ordinary(lab: &Lab, mut outputs: Vec<OutSpec>) -> Result<Value, String> {
+    let w = &lab.wallets[0];
+    let spent: u64 = outputs.iter().map(|o| o.capacity).sum();
+    outputs.push(OutSpec {
+        capacity: w.capacity.checked_sub(spent + TX_FEE).ok_or("capacity")?,
+        lock: w.key.lock_script(),
+        type_script: None,
+        data: vec![],
+    });
+    tx::build_and_sign(
+        &w.key,
+        &lab.secp,
+        &lab.deps,
+        &[(w.point, w.capacity)],
+        &outputs,
+        None,
+    )
+    .map(|(_, t)| t)
+}
+fn bootstrap_tx(
+    lab: &Lab,
+    anchor: &Anchor,
+    allocation: &[u8],
+    script: &[u8],
+    data: &[u8],
+) -> Result<Value, String> {
+    ordinary(
+        lab,
+        vec![
+            tip_output(lab, script, data),
+            batch_lab::head_output(anchor, anchor.state),
+            batch_lab::da_output(anchor, allocation),
+        ],
+    )
+}
+fn advance_tip(
+    lab: &Lab,
+    point: CellOutPoint,
+    capacity: u64,
+    script: &[u8],
+    data: &[u8],
+    witness: &[u8],
+) -> Result<Value, String> {
+    let w = &lab.wallets[0];
+    let mut out = tip_output(lab, script, data);
+    out.capacity = capacity;
+    tx::build_with_permissionless_prefix(
+        &w.key,
+        &lab.secp,
+        &lab.deps,
+        &[(point, capacity), (w.point, w.capacity)],
+        &[
+            out,
+            OutSpec {
+                capacity: w.capacity - TX_FEE,
+                lock: w.key.lock_script(),
+                type_script: None,
+                data: vec![],
+            },
+        ],
+        Some(witness),
+        1,
+    )
+    .map(|(_, t)| t)
+}
+fn reject(
+    lab: &mut Lab,
+    code: &[u8; 32],
+    label: &str,
+    transaction: &Value,
+    expected: i8,
+) -> Result<(), String> {
+    let reason = format!("error code {expected}");
+    match rpc::send_transaction_json(transaction) {
+        Err(error) if lab::rejection_matches(&error, &reason, code) => {
+            lab.evidence.push(json!({"label":label,"result":"rejected","expected_reason":reason,"error":error,"transaction":transaction}));
+            println!("{label}: rejected ({reason})");
+            Ok(())
+        }
+        other => Err(format!("{label}: expected {reason}, got {other:?}")),
+    }
+}
+fn framed(journal: &[u8], proof: &[u8]) -> Vec<u8> {
+    let mut out = b"TO1SETW1".to_vec();
+    out.extend_from_slice(journal);
+    out.extend_from_slice(&(proof.len() as u32).to_le_bytes());
+    out.extend_from_slice(proof);
+    out
+}
+fn run() -> Result<(), String> {
+    let evidence = std::env::var("TACTUS_EVIDENCE_PATH").map_err(|_| "use isolated launcher")?;
+    let root =
+        std::path::PathBuf::from(std::env::var("TACTUS_RUN_DIR").map_err(|_| "run directory")?);
+    let mut lab = Lab::connect_with_script("artifacts/tactus_o1_anchor_script.elf")?;
+    let mut results = json!({"suite":"settlement-bootstrap-v1","complete":false,"settled":false,"production_ready":false,"G3":"OPEN","scope":"real atomic initialization, structural rejections, malformed-proof rejection and canonical proving input export; no accepted execution proof yet"});
+    let outcome = (|| {
+        let settlement_elf = std::fs::read("artifacts/tactus_o1_settlement_script.elf")
+            .map_err(|e| e.to_string())?;
+        let checkpoint_elf = std::fs::read("artifacts/tactus_o1_history_checkpoint_script.elf")
+            .map_err(|e| e.to_string())?;
+        let code = ckb_blake2b(&settlement_elf);
+        let checkpoint_code = ckb_blake2b(&checkpoint_elf);
+        let deps = lab.publish_cells(
+            "settlement/deploy immutable programs",
+            &[settlement_elf, checkpoint_elf],
+            0,
+            true,
+        )?;
+        lab.deps.extend(deps);
+        let fixture: Value = serde_json::from_str(include_str!(
+            "../../../../specs/test-vectors/execution-v1/geth-1.17.8.json"
+        ))
+        .map_err(|e| e.to_string())?;
+        let case = &fixture["cases"][0];
+        let mut ethereum_genesis: Genesis =
+            serde_json::from_value(case["genesis"].clone()).map_err(|e| e.to_string())?;
+        let allocation = ethereum_genesis
+            .allocation_bytes()
+            .map_err(|e| e.to_string())?;
+        let allocation_hash = genesis::commitment(&allocation).map_err(|e| format!("{e:?}"))?;
+        let old_parent = AnchorState::genesis(
+            ethereum_genesis.rollup_id.0,
+            tactus_o1_execution::rules_hash(),
+            ethereum_genesis.chain_id,
+        )
+        .map_err(|e| format!("{e:?}"))?;
+        let old_batch = BatchInput::decode(
+            &rpc::decode_hex(case["batch"].as_str().ok_or("batch")?)?,
+            &old_parent,
+        )
+        .map_err(|e| format!("{e:?}"))?;
+        let wallet = &lab.wallets[0];
+        let seed: [u8; 44] = molecule::cell_input(
+            0,
+            &molecule::out_point(&wallet.point.tx_hash, wallet.point.index),
+        )
+        .try_into()
+        .unwrap();
+        let identity = genesis_identity(&seed, 1);
+        ethereum_genesis.rollup_id = identity.into();
+        let anchor_script = tx::anchor_type_script(&lab.ordering_elf, &identity, &allocation)?;
+        let anchor_hash = ckb_blake2b(&anchor_script);
+        let state = AnchorState::genesis(
+            identity,
+            tactus_o1_execution::rules_hash(),
+            ethereum_genesis.chain_id,
+        )
+        .map_err(|e| format!("{e:?}"))?;
+        let anchor_lock = molecule::script(&ckb_blake2b(&lab.lock_elf), 2, &anchor_hash);
+        let mut anchor = Anchor {
+            point: wallet.point,
+            capacity: OutSpec::required_capacity(&anchor_lock, Some(&anchor_script), 200)
+                + 10 * TX_FEE,
+            state,
+            lock: anchor_lock,
+            script: anchor_script,
+            immutable: molecule::script(&ckb_blake2b(&lab.ordering_elf), 2, &[]),
+        };
+        let chain = rpc::decode_hex(
+            rpc::call("get_block_hash", json!(["0x0"]))?
+                .as_str()
+                .ok_or("chain")?,
+        )?;
+        let core: Value = serde_json::from_str(include_str!(
+            "../../../../specs/evidence/execution-core-proof/result.json"
+        ))
+        .map_err(|e| e.to_string())?;
+        let guest_key = rpc::decode_hex(core["guest_verifying_key"].as_str().ok_or("guest key")?)?;
+        let mut config = b"TO1CFG01".to_vec();
+        for field in [
+            &chain[..],
+            &anchor_hash[..],
+            &guest_key[..],
+            &checkpoint_code[..],
+            &allocation_hash[..],
+        ] {
+            config.extend_from_slice(field);
+        }
+        let settlement_script = molecule::script(&code, 2, &config);
+        let settlement_hash = ckb_blake2b(&settlement_script);
+        let initial = tip_data(&anchor.state, false, &[0; 32], &[0; 32]);
+        let baseline = bootstrap_tx(&lab, &anchor, &allocation, &settlement_script, &initial)?;
+        results["initialization_cycles"] = rpc::call("estimate_cycles", json!([baseline]))?;
+        for (name, offset) in [
+            ("reserved", 9),
+            ("unproved-initial-state", 216),
+            ("unproved-initial-header", 248),
+            ("initialized-before-proof", 8),
+        ] {
+            let mut changed = initial.clone();
+            changed[offset] ^= 1;
+            let tx = bootstrap_tx(&lab, &anchor, &allocation, &settlement_script, &changed)?;
+            reject(&mut lab, &code, &format!("settlement/{name}"), &tx, 3)?;
+        }
+        let tx = bootstrap_tx(
+            &lab,
+            &anchor,
+            &allocation,
+            &settlement_script,
+            &initial[..279],
+        )?;
+        reject(&mut lab, &code, "settlement/short-tip", &tx, 3)?;
+        let mut wrong = config.clone();
+        wrong[136] ^= 1;
+        let tx = bootstrap_tx(
+            &lab,
+            &anchor,
+            &allocation,
+            &molecule::script(&code, 2, &wrong),
+            &initial,
+        )?;
+        reject(&mut lab, &code, "settlement/wrong-allocation", &tx, 4)?;
+        let tx = ordinary(&lab, vec![tip_output(&lab, &settlement_script, &initial)])?;
+        reject(&mut lab, &code, "settlement/no-anchor-genesis", &tx, 4)?;
+        let tx = ordinary(
+            &lab,
+            vec![
+                tip_output(&lab, &settlement_script, &initial),
+                batch_lab::head_output(&anchor, anchor.state),
+                batch_lab::da_output(&anchor, &allocation),
+                tip_output(&lab, &settlement_script, &initial),
+            ],
+        )?;
+        reject(&mut lab, &code, "settlement/duplicate-tip", &tx, 2)?;
+        let boot = lab.commit(
+            "settlement/atomic Anchor and uninitialized Tip genesis",
+            &baseline,
+        )?;
+        let tip_point = lab::point(&boot, 0)?;
+        let tip_capacity = number(&baseline["outputs"][0]["capacity"])?;
+        anchor.point = lab::point(&boot, 1)?;
+        lab.wallets[0].point = lab::point(&boot, 3)?;
+        lab.wallets[0].capacity = number(&baseline["outputs"][3]["capacity"])?;
+        lab.deps.push(anchor.point);
+        let tx = ordinary(&lab, vec![tip_output(&lab, &settlement_script, &initial)])?;
+        lab.deps.pop();
+        reject(
+            &mut lab,
+            &code,
+            "settlement/late-bootstrap-from-anchor-dependency",
+            &tx,
+            4,
+        )?;
+        let bytes = BatchInput {
+            parent: anchor.state,
+            blocks: old_batch.blocks,
+        }
+        .encode()
+        .map_err(|e| format!("{e:?}"))?;
+        let mut engine = Executor::new(&ethereum_genesis).map_err(|e| e.to_string())?;
+        let previous_state = engine.state_root();
+        let previous_header = engine.head().hash_slow();
+        let before = *engine.anchor();
+        engine.apply_batch(&bytes).map_err(|e| e.to_string())?;
+        let after = *engine.anchor();
+        let checkpoint_script = molecule::script(&checkpoint_code, 2, &anchor_hash);
+        let checkpoint_lock = lab.wallets[0].key.lock_script();
+        let checkpoint = OutSpec {
+            capacity: OutSpec::required_capacity(&checkpoint_lock, Some(&checkpoint_script), 200),
+            lock: checkpoint_lock,
+            type_script: Some(checkpoint_script),
+            data: after.encode().to_vec(),
+        };
+        let publication = batch_lab::shape(
+            &lab,
+            &anchor,
+            0,
+            vec![
+                checkpoint,
+                batch_lab::head_output(&anchor, after),
+                batch_lab::da_output(&anchor, &bytes),
+            ],
+            Some(&2u32.to_le_bytes()),
+        )?;
+        let published = lab.commit(
+            "settlement/canonical batch and ending checkpoint",
+            &publication,
+        )?;
+        let checkpoint_point = lab::point(&published, 0)?;
+        anchor.point = lab::point(&published, 1)?;
+        anchor.state = after;
+        lab.wallets[0].point = lab::point(&published, 3)?;
+        lab.wallets[0].capacity = number(&publication["outputs"][3]["capacity"])?;
+        let recovered = recovery::recover_published_batches(&anchor.script)?;
+        if recovered.state != after
+            || recovered.genesis_allocation != allocation
+            || recovered.batches.len() != 1
+            || recovered.batches[0].input_bytes != bytes
+        {
+            return Err("canonical proving input differs from builder".into());
+        }
+        let mut domain = chain.clone();
+        domain.extend_from_slice(&anchor_hash);
+        domain.extend_from_slice(&settlement_hash);
+        domain.extend_from_slice(&identity);
+        domain.extend_from_slice(&ethereum_genesis.chain_id.to_le_bytes());
+        let fixed = rpc::decode_hex(
+            include_str!("../../../../specs/test-vectors/proof-v1/transfers-journal.hex").trim(),
+        )?;
+        let mut journal = b"TO1PRF01".to_vec();
+        journal.extend_from_slice(&fixed[8..40]);
+        journal.extend_from_slice(&domain);
+        journal.extend_from_slice(&allocation_hash);
+        journal.extend_from_slice(&before.encode());
+        journal.extend_from_slice(&after.encode());
+        for field in [
+            previous_state.0,
+            engine.state_root().0,
+            previous_header.0,
+            engine.head().hash_slow().0,
+        ] {
+            journal.extend_from_slice(&field);
+        }
+        let mut interval =
+            batch::hash(b"tactus/o1/proof-interval/v1", &1u64.to_le_bytes()).to_vec();
+        interval.extend_from_slice(&(bytes.len() as u64).to_le_bytes());
+        interval.extend_from_slice(&bytes);
+        journal.extend_from_slice(&batch::hash(b"tactus/o1/proof-interval-step/v1", &interval));
+        let next_tip = tip_data(
+            &after,
+            true,
+            &engine.state_root().0,
+            &engine.head().hash_slow().0,
+        );
+        let bad_proof = framed(&journal, &[42]); // Deliberately invalid negative control, never accepted.
+        let tx = advance_tip(
+            &lab,
+            tip_point,
+            tip_capacity,
+            &settlement_script,
+            &next_tip,
+            &bad_proof,
+        )?;
+        reject(
+            &mut lab,
+            &code,
+            "settlement/missing-authenticated-checkpoint",
+            &tx,
+            8,
+        )?;
+        lab.deps.push(checkpoint_point);
+        let tx = advance_tip(
+            &lab,
+            tip_point,
+            tip_capacity,
+            &settlement_script,
+            &next_tip,
+            &bad_proof,
+        )?;
+        reject(
+            &mut lab,
+            &code,
+            "settlement/malformed-proof-rejected",
+            &tx,
+            9,
+        )?;
+        for (name, offset, expected) in [
+            ("network", 40, 6),
+            ("ordering", 72, 6),
+            ("settlement", 104, 6),
+            ("allocation", 176, 6),
+            ("predecessor", 248, 7),
+            ("ending-history", 456, 7),
+            ("state", 640, 7),
+            ("header", 704, 7),
+        ] {
+            let mut changed = journal.clone();
+            changed[offset] ^= 1;
+            let tx = advance_tip(
+                &lab,
+                tip_point,
+                tip_capacity,
+                &settlement_script,
+                &next_tip,
+                &framed(&changed, &[42]),
+            )?;
+            reject(
+                &mut lab,
+                &code,
+                &format!("settlement/binding-{name}"),
+                &tx,
+                expected,
+            )?;
+        }
+        let tx = advance_tip(
+            &lab,
+            tip_point,
+            tip_capacity,
+            &settlement_script,
+            &next_tip,
+            &framed(&journal, &[]),
+        )?;
+        reject(&mut lab, &code, "settlement/empty-proof", &tx, 5)?;
+        let live = rpc::call(
+            "get_live_cell",
+            json!([{"tx_hash":boot,"index":"0x0"},true]),
+        )?;
+        if live["status"] != "live"
+            || live["cell"]["data"]["content"] != rpc::bytes_to_hex(&initial)
+        {
+            return Err("negative controls changed uninitialized Tip".into());
+        }
+        let exported = json!({"schema":1,"source":"canonical CKB genesis allocation and published batch recovery","domain_hex":rpc::bytes_to_hex(&domain),"allocation_hex":rpc::bytes_to_hex(&recovered.genesis_allocation),"prefix_batches":0,"batches":[rpc::bytes_to_hex(&recovered.batches[0].input_bytes)],"expected_journal_hex":rpc::bytes_to_hex(&journal),"guest_verifying_key":core["guest_verifying_key"],"settlement_type_script":rpc::bytes_to_hex(&settlement_script),"anchor_type_script":rpc::bytes_to_hex(&anchor.script),"settlement_tip":{"tx_hash":boot,"index":"0x0","capacity":tip_capacity,"data":rpc::bytes_to_hex(&initial)},"checkpoint":{"tx_hash":published,"index":"0x0"},"fee_input":{"tx_hash":published,"index":"0x3","capacity":lab.wallets[0].capacity},"next_tip_data":rpc::bytes_to_hex(&next_tip),"deployment_dependencies":lab.deps.iter().map(|p|json!({"tx_hash":rpc::bytes_to_hex(&p.tx_hash),"index":format!("0x{:x}",p.index)})).collect::<Vec<_>>(),"observed_canonical_tip":rpc::call("get_tip_header",json!([]))?,"settled":false,"production_ready":false});
+        std::fs::write(
+            root.join("proving-input.json"),
+            serde_json::to_vec_pretty(&exported).map_err(|e| e.to_string())?,
+        )
+        .map_err(|e| e.to_string())?;
+        results["proving_input"] = exported;
+        results["settlement_code_hash"] = rpc::bytes_to_hex(&code).into();
+        results["complete"] = true.into();
+        Ok::<_, String>(())
+    })();
+    results["error"] = json!(outcome.as_ref().err());
+    lab.save(&evidence, results)?;
+    outcome
+}
+fn main() {
+    if let Err(error) = run() {
+        eprintln!("SETTLEMENT BOOTSTRAP FAILED: {error}");
+        std::process::exit(1);
+    }
+}
