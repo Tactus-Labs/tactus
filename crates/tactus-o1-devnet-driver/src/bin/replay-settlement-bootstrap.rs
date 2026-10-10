@@ -4,11 +4,14 @@ mod continuation;
 #[path = "replay-settlement-bootstrap/reorg.rs"]
 mod reorg;
 use serde_json::{json, Value};
+use tactus_o1_devnet_driver::settlement_lab::{
+    advance_tip, cold_recovery, consumed_tip, framed, reject, tip_data, tip_output,
+};
 use tactus_o1_devnet_driver::{
     batch_lab::{self, Anchor},
     lab::{self, Lab},
     molecule, recovery, rpc,
-    tx::{self, CellOutPoint, OutSpec, TX_FEE},
+    tx::{self, OutSpec, TX_FEE},
 };
 use tactus_o1_execution::{Executor, Genesis};
 use tactus_o1_ordering_script::{ckb_blake2b, genesis_identity};
@@ -20,29 +23,6 @@ use tactus_o1_protocol::{
 fn number(v: &Value) -> Result<u64, String> {
     u64::from_str_radix(v.as_str().ok_or("number")?.trim_start_matches("0x"), 16)
         .map_err(|e| e.to_string())
-}
-fn tip_data(
-    anchor: &AnchorState,
-    initialized: bool,
-    state: &[u8; 32],
-    header: &[u8; 32],
-) -> Vec<u8> {
-    let mut bytes = b"TO1TIP01".to_vec();
-    bytes.push(u8::from(initialized));
-    bytes.extend_from_slice(&[0; 7]);
-    bytes.extend_from_slice(&anchor.encode());
-    bytes.extend_from_slice(state);
-    bytes.extend_from_slice(header);
-    bytes
-}
-fn tip_output(lab: &Lab, script: &[u8], data: &[u8]) -> OutSpec {
-    let lock = molecule::script(&ckb_blake2b(&lab.lock_elf), 2, &ckb_blake2b(script));
-    OutSpec {
-        capacity: OutSpec::required_capacity(&lock, Some(script), 280),
-        lock,
-        type_script: Some(script.to_vec()),
-        data: data.to_vec(),
-    }
 }
 fn ordinary(lab: &Lab, mut outputs: Vec<OutSpec>) -> Result<Value, String> {
     let w = &lab.wallets[0];
@@ -78,106 +58,6 @@ fn bootstrap_tx(
             batch_lab::da_output(anchor, allocation),
         ],
     )
-}
-fn advance_tip(
-    lab: &Lab,
-    point: CellOutPoint,
-    capacity: u64,
-    script: &[u8],
-    data: &[u8],
-    witness: &[u8],
-) -> Result<Value, String> {
-    let w = &lab.wallets[0];
-    let mut out = tip_output(lab, script, data);
-    out.capacity = capacity;
-    tx::build_with_permissionless_prefix(
-        &w.key,
-        &lab.secp,
-        &lab.deps,
-        &[(point, capacity), (w.point, w.capacity)],
-        &[
-            out,
-            OutSpec {
-                capacity: w.capacity - TX_FEE,
-                lock: w.key.lock_script(),
-                type_script: None,
-                data: vec![],
-            },
-        ],
-        Some(witness),
-        1,
-    )
-    .map(|(_, t)| t)
-}
-// get_live_cell may report "unknown" for an already spent output. Prove the
-// consumption using both canonical transactions instead of assuming "dead".
-fn consumed_tip(point: CellOutPoint, successor: &str) -> Result<Value, String> {
-    let previous =
-        json!({"tx_hash":rpc::bytes_to_hex(&point.tx_hash),"index":format!("0x{:x}",point.index)});
-    let live = rpc::call("get_live_cell", json!([previous, true]))?;
-    let creation = rpc::call("get_transaction", json!([previous["tx_hash"]]))?;
-    let consumer = rpc::call("get_transaction", json!([successor]))?;
-    if !matches!(live["status"].as_str(), Some("dead" | "unknown"))
-        || creation["tx_status"]["status"] != "committed"
-        || consumer["tx_status"]["status"] != "committed"
-        || creation["transaction"]["outputs"]
-            .as_array()
-            .ok_or("creation outputs")?
-            .get(point.index as usize)
-            .is_none()
-        || consumer["transaction"]["inputs"]
-            .as_array()
-            .ok_or("consumer inputs")?
-            .iter()
-            .filter(|input| input["previous_output"] == previous)
-            .count()
-            != 1
-    {
-        return Err("canonical predecessor consumption not established".into());
-    }
-    Ok(json!({"point":previous,"live_cell":live,"creation":creation,"consumer":consumer}))
-}
-
-fn reject(
-    lab: &mut Lab,
-    code: &[u8; 32],
-    label: &str,
-    transaction: &Value,
-    expected: i8,
-) -> Result<(), String> {
-    let reason = format!("error code {expected}");
-    match rpc::send_transaction_json(transaction) {
-        Err(error) if lab::rejection_matches(&error, &reason, code) => {
-            lab.evidence.push(json!({"label":label,"result":"rejected","expected_reason":reason,"error":error,"transaction":transaction}));
-            println!("{label}: rejected ({reason})");
-            Ok(())
-        }
-        other => Err(format!("{label}: expected {reason}, got {other:?}")),
-    }
-}
-fn framed(journal: &[u8], proof: &[u8]) -> Vec<u8> {
-    let mut out = b"TO1SETW1".to_vec();
-    out.extend_from_slice(journal);
-    out.extend_from_slice(&(proof.len() as u32).to_le_bytes());
-    out.extend_from_slice(proof);
-    out
-}
-fn cold_recovery(chain: &[u8], anchor: &[u8], tip: &[u8]) -> Result<Value, String> {
-    let output = std::process::Command::new("target/debug/recover-settlement")
-        .args([
-            rpc::bytes_to_hex(chain),
-            rpc::bytes_to_hex(anchor),
-            rpc::bytes_to_hex(tip),
-        ])
-        .output()
-        .map_err(|e| e.to_string())?;
-    if !output.status.success() {
-        return Err(format!(
-            "cold settlement recovery: {}",
-            String::from_utf8_lossy(&output.stderr)
-        ));
-    }
-    serde_json::from_slice(&output.stdout).map_err(|e| e.to_string())
 }
 fn run() -> Result<(), String> {
     let reorg_mode = std::env::var_os("TACTUS_SETTLEMENT_REORG").is_some();

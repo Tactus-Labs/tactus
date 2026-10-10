@@ -1,50 +1,13 @@
 //! Real second-proof qualification. No positive path accepts placeholder proofs.
 use super::{advance_tip, consumed_tip, framed, number, reject};
 use serde_json::{json, Value};
-use std::{fs::File, io::Read, path::Path};
 use tactus_o1_devnet_driver::{
     lab::{self, Lab},
     rpc,
     tx::{self, TX_FEE},
 };
 
-pub(super) struct Proof {
-    pub bytes: Vec<u8>,
-    pub journal: Vec<u8>,
-    pub source: Value,
-}
-fn bounded(path: &Path, limit: u64) -> Result<Vec<u8>, String> {
-    let mut bytes = Vec::new();
-    File::open(path)
-        .map_err(|e| e.to_string())?
-        .take(limit + 1)
-        .read_to_end(&mut bytes)
-        .map_err(|e| e.to_string())?;
-    if bytes.len() as u64 > limit {
-        return Err("proof artifact exceeds runner limit".into());
-    }
-    Ok(bytes)
-}
-pub(super) fn read(directory: &Path, expected: &[u8], key: &Value) -> Result<Proof, String> {
-    let bytes = bounded(&directory.join("groth16-proof.bin"), 4096)?;
-    let journal = bounded(&directory.join("public-values.bin"), 768)?;
-    let source: Value = serde_json::from_slice(&bounded(&directory.join("result.json"), 65536)?)
-        .map_err(|e| e.to_string())?;
-    if journal != expected
-        || source["proof_generated"] != true
-        || source["proof_kind"] != "SP1 real Groth16"
-        || source["guest_verifying_key"] != *key
-        || source["public_values_hex"] != rpc::bytes_to_hex(expected)[2..]
-        || bytes.is_empty()
-    {
-        return Err("completed proof does not match canonical deployment export".into());
-    }
-    Ok(Proof {
-        bytes,
-        journal,
-        source,
-    })
-}
+pub(super) use tactus_o1_devnet_driver::settlement_lab::{read, Proof};
 
 pub(super) struct Context<'a> {
     pub code: &'a [u8; 32],

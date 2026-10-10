@@ -36,6 +36,8 @@ jobs:
           (cd specs/evidence/first-settlement && sha256sum --check SHA256SUMS)
           python3 -B scripts/test-first-settlement.py
           python3 -B scripts/test-settlement-reorg.py
+          (cd specs/evidence/sealed-settlement-input && sha256sum --check SHA256SUMS)
+          python3 -B scripts/test-sealed-settlement.py
           (cd specs/evidence/settlement-next-input && sha256sum --check SHA256SUMS)
           (cd specs/evidence/settlement-proof-guards && sha256sum --check SHA256SUMS)
           (cd specs/evidence/settlement-reorg-preparation && sha256sum --check SHA256SUMS)

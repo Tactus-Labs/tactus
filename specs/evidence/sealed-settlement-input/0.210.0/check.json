@@ -1,0 +1,13 @@
+{
+  "evidence_sha256": "2ec1ccff0ee97862e71d5d3c1c525ce7f7ca01dbe28627cb08a44b0af6a8ec97",
+  "commits": 17,
+  "negative_controls": 4,
+  "admissions": 4,
+  "lanes": 2,
+  "published_batches": 9,
+  "settled_batches": 0,
+  "malformed_slot": 2,
+  "journal_sha256": "72382e25dce7c3cba0e47702e9dcbc0d3ddf87c52e6126237bcbb78c5473240f",
+  "accepted_execution_proof": false,
+  "production_ready": false
+}

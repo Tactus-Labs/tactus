@@ -6,6 +6,12 @@ rollup deployment or custody of user assets.
 
 ## Implemented and measured
 
+- [A3 with atomic SettlementTip preparation](SEALED_SETTLEMENT_REPORT.md) now binds
+  four authenticated duties across two lanes to a nine-batch canonical proof input.
+  Current CKB rejects omitted/reordered duties and malformed proof; independent
+  cold recovery still reports zero settled batches. Native journal replay and Geth
+  roots agree; the dedicated A3 execution proof and real Tip transition remain pending.
+
 - Deterministic A1/A2/A3 simulations and conditional decisions.
 - CKB-VM OrderingHead creation and succession, singleton identity, checked
   counters, fixed capacity, immutable deployment code and a permissionless lock.

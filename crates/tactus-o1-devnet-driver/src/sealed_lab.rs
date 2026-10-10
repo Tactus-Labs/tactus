@@ -196,6 +196,19 @@ pub fn bootstrap_with_allocation(
     anchor_elf: &[u8],
     allocation: &[u8],
 ) -> Result<Network, String> {
+    bootstrap_with_auxiliary(lab, code, n, anchor_elf, allocation, |_| Ok(vec![]))
+}
+
+/// Atomically attach additional protocol genesis outputs to the same Anchor.
+/// Existing callers produce byte-identical transactions with no auxiliary cells.
+pub fn bootstrap_with_auxiliary(
+    lab: &mut Lab,
+    code: [u8; 32],
+    n: u8,
+    anchor_elf: &[u8],
+    allocation: &[u8],
+    extra: impl FnOnce(&Anchor) -> Result<Vec<OutSpec>, String>,
+) -> Result<Network, String> {
     let wallet = &lab.wallets[0];
     let seed: [u8; 44] = molecule::cell_input(
         0,
@@ -237,6 +250,7 @@ pub fn bootstrap_with_allocation(
         lanes.push((c, lane));
     }
     outputs.push(batch_lab::da_output(&anchor, allocation));
+    outputs.extend(extra(&anchor)?);
     let transaction = shape(lab, 0, &[], outputs, &[], &[])?;
     let hash = commit(lab, 0, &format!("sealed/{n} lanes/genesis"), &transaction)?;
     let mut network = Network {

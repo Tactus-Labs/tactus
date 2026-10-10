@@ -18,4 +18,5 @@ pub mod sealed_lab;
 
 pub mod sealed_recovery;
 pub mod settlement_inputs;
+pub mod settlement_lab;
 pub mod settlement_recovery;
