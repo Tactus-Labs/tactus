@@ -1,0 +1,5 @@
+INFO [10-10|12:16:28.361] Trie dumping started                     root=1dc8ce..d5fd45
+INFO [10-10|12:16:28.361] Trie dumping complete                    accounts=3 elapsed="309.734µs"
+INFO [10-10|12:16:28.361] Wrote file                               file=/home/arthur/RustRoverProjects/tactus-o1/artifacts/sealed-settlement-WdwX9GP4/geth/sealed-nine-batches/9/post-alloc.json
+INFO [10-10|12:16:28.362] Wrote file                               file=/home/arthur/RustRoverProjects/tactus-o1/artifacts/sealed-settlement-WdwX9GP4/geth/sealed-nine-batches/9/result.json
+INFO [10-10|12:16:28.362] Wrote file                               file=/home/arthur/RustRoverProjects/tactus-o1/artifacts/sealed-settlement-WdwX9GP4/geth/sealed-nine-batches/9/body.rlp
