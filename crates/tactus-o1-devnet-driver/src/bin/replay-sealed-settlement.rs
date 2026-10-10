@@ -1,5 +1,7 @@
 //! Authenticated A3 publication composed with an atomic real SettlementTip.
 //! Preparation is explicitly unproved; optional qualification consumes only a real proof.
+#[path = "replay-sealed-settlement/proof_reorg.rs"]
+mod proof_reorg;
 #[path = "replay-sealed-settlement/reorg.rs"]
 mod reorg;
 use serde_json::{json, Value};
@@ -401,6 +403,11 @@ fn run() -> Result<(), String> {
                 &journal,
                 &core["guest_verifying_key"],
             )?;
+            let proof_reorg_plan = if std::env::var_os("TACTUS_SEALED_PROOF_REORG").is_some() {
+                Some(proof_reorg::prepare(&lab)?)
+            } else {
+                None
+            };
             let encoded = framed(&journal, &proof.bytes);
             let valid = advance_tip(
                 &lab,
@@ -478,6 +485,22 @@ fn run() -> Result<(), String> {
             result["transition"] = json!({"hash":hash,"cycles":cycles,"node_wire_bytes":wire,"consumption":consumption});
             for obligation in result["obligations"].as_array_mut().ok_or("obligations")? {
                 obligation["proof_settled"] = true.into();
+            }
+            if let Some(plan) = proof_reorg_plan {
+                result["proof_reorg"] = proof_reorg::qualify(
+                    &mut lab,
+                    plan,
+                    proof_reorg::Context {
+                        network: &net,
+                        chain: &chain,
+                        script: &settlement_script,
+                        input: &result["proving_input"],
+                        original: &valid,
+                        orphan: &hash,
+                        witness: &encoded,
+                    },
+                )?;
+                result["suite"] = "sealed-proof-reorg-v1".into();
             }
         }
         if let Some(plan) = reorg_plan {
