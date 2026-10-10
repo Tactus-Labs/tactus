@@ -1,0 +1,35 @@
+{
+  "commits": 5,
+  "negative_controls": 19,
+  "deposited_shannons": 25000000000,
+  "reserved_shannons": 39000000000,
+  "vault_capacity_shannons": 64000000000,
+  "deposits": [
+    {
+      "actor": 0,
+      "amount_shannons": 10000000000,
+      "vm_cycles": 1883793,
+      "wire_bytes": 1241,
+      "receipt_capacity_shannons": 23800000000
+    },
+    {
+      "actor": 1,
+      "amount_shannons": 15000000000,
+      "vm_cycles": 1877703,
+      "wire_bytes": 1241,
+      "receipt_capacity_shannons": 23800000000
+    }
+  ],
+  "authenticated_l2_credit": false,
+  "withdrawal_executed": false,
+  "production_ready": false,
+  "cold_processes": 4,
+  "recovered_counts": [
+    0,
+    1,
+    2,
+    2
+  ],
+  "captured_blocks": 21,
+  "consensus_verified_independently": false
+}

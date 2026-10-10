@@ -1,0 +1,329 @@
+{
+  "cold_after_deposit_0": {
+    "authenticated_l2_credit": false,
+    "canonical_pin_rechecked": true,
+    "capacity_shannons": "49000000000",
+    "ckb_genesis": "0xddd6aea22911805968ca3f89bda08aa9d8024fc00b2c9ffb07b1bcd170673c6a",
+    "consensus_source": "selected CKB node; no independent consensus or Groth16 verification",
+    "current_live_rechecked": true,
+    "deposit_count": 1,
+    "deposited_shannons": "10000000000",
+    "deposits": [
+      {
+        "amount_shannons": "10000000000",
+        "block_hash": "0x6586b5298b954fc6ac5cabee3c34f97005aa872c4e7df950587a9793d9b1eba5",
+        "cumulative_shannons": "10000000000",
+        "deposit_id": "0x3549019c14796ec04130e54b7b6bd482544708fde5a8229b2ccdfa6af5e972d7",
+        "height": 12,
+        "output": {
+          "capacity": "0x58a972e00",
+          "lock": {
+            "args": "0x",
+            "code_hash": "0x3b0c9f82f019407ad1784fcf0d62fe695eba3cf235c2e8ce474af5aebbe39237",
+            "hash_type": "data1"
+          },
+          "type": {
+            "args": "0x544f315245433031f0289f9f83745513e30d2cad1092d7a447f7992d23230bc13fda601c5472632b",
+            "code_hash": "0x3b0c9f82f019407ad1784fcf0d62fe695eba3cf235c2e8ce474af5aebbe39237",
+            "hash_type": "data1"
+          }
+        },
+        "point": {
+          "index": "0x1",
+          "tx_hash": "0x3b9e22b3468503b753e7aeb9fc2f40bf421a9a23af21f64426352da608ea23bb"
+        },
+        "recipient": "0x1111111111111111111111111111111111111111",
+        "record": "0x544f3144505230310100000000000000111111111111111111111111111111111111111100e40b54020000001de029063ad3da7920a8f1691a48112d774a8aa93e5d2b66ed1acd0122c026c814cb104c0a529ea894356d030d2b9ef9feede5b3b25b17ad4d0ffc3044c7de6100e40b54020000000000000000000000",
+        "sequence": 1,
+        "transaction_index": 1
+      }
+    ],
+    "genesis": {
+      "block_hash": "0xd7362bebc9008e9f86a3a5f9959824b2ce548329378c9015af4ade7e5f135daf",
+      "height": 8,
+      "point": {
+        "index": "0x0",
+        "tx_hash": "0x3f245abebb0a16f76e9a493e082ae109d8a72e47cdb26b3423691f3ad4467842"
+      }
+    },
+    "kind": "canonical-native-vault-v1",
+    "output": {
+      "capacity": "0xb68a0aa00",
+      "lock": {
+        "args": "0xf0289f9f83745513e30d2cad1092d7a447f7992d23230bc13fda601c5472632b",
+        "code_hash": "0x1a79ae4b82f5588e07fc0b94a0e8fbcf61f1adc06d05d753d13e2e63eec76dee",
+        "hash_type": "data1"
+      },
+      "type": {
+        "args": "0x544f315641553031084e29c0996ea92fab44c5f20915accbd57001304d81fa2252986bc98554ff14ddd6aea22911805968ca3f89bda08aa9d8024fc00b2c9ffb07b1bcd170673c6a0303030303030303030303030303030303030303030303030303030303030303697a00000000000004040404040404040404040404040404040404040505050505050505050505050505050505050505050505050505050505050505",
+        "code_hash": "0x3b0c9f82f019407ad1784fcf0d62fe695eba3cf235c2e8ce474af5aebbe39237",
+        "hash_type": "data1"
+      }
+    },
+    "pinned_hash": "0x6586b5298b954fc6ac5cabee3c34f97005aa872c4e7df950587a9793d9b1eba5",
+    "pinned_height": 12,
+    "point": {
+      "index": "0x0",
+      "tx_hash": "0x3b9e22b3468503b753e7aeb9fc2f40bf421a9a23af21f64426352da608ea23bb"
+    },
+    "production_ready": false,
+    "release_transitions": 0,
+    "released_shannons": "0",
+    "reserve_shannons": "39000000000",
+    "schema": 1,
+    "state": "0x544f31565354303100c694140900000000e40b5402000000000000000000000000000000000000000000000000000000010000000000000014cb104c0a529ea894356d030d2b9ef9feede5b3b25b17ad4d0ffc3044c7de614b7fc56c848d86ebc97c0cf4b6a57c5c04c3ac11270a9a65834b4887da524eac",
+    "vault_script": "0xd90000001000000030000000310000003b0c9f82f019407ad1784fcf0d62fe695eba3cf235c2e8ce474af5aebbe3923702a4000000544f315641553031084e29c0996ea92fab44c5f20915accbd57001304d81fa2252986bc98554ff14ddd6aea22911805968ca3f89bda08aa9d8024fc00b2c9ffb07b1bcd170673c6a0303030303030303030303030303030303030303030303030303030303030303697a00000000000004040404040404040404040404040404040404040505050505050505050505050505050505050505050505050505050505050505"
+  },
+  "cold_after_deposit_1": {
+    "authenticated_l2_credit": false,
+    "canonical_pin_rechecked": true,
+    "capacity_shannons": "64000000000",
+    "ckb_genesis": "0xddd6aea22911805968ca3f89bda08aa9d8024fc00b2c9ffb07b1bcd170673c6a",
+    "consensus_source": "selected CKB node; no independent consensus or Groth16 verification",
+    "current_live_rechecked": true,
+    "deposit_count": 2,
+    "deposited_shannons": "25000000000",
+    "deposits": [
+      {
+        "amount_shannons": "10000000000",
+        "block_hash": "0x6586b5298b954fc6ac5cabee3c34f97005aa872c4e7df950587a9793d9b1eba5",
+        "cumulative_shannons": "10000000000",
+        "deposit_id": "0x3549019c14796ec04130e54b7b6bd482544708fde5a8229b2ccdfa6af5e972d7",
+        "height": 12,
+        "output": {
+          "capacity": "0x58a972e00",
+          "lock": {
+            "args": "0x",
+            "code_hash": "0x3b0c9f82f019407ad1784fcf0d62fe695eba3cf235c2e8ce474af5aebbe39237",
+            "hash_type": "data1"
+          },
+          "type": {
+            "args": "0x544f315245433031f0289f9f83745513e30d2cad1092d7a447f7992d23230bc13fda601c5472632b",
+            "code_hash": "0x3b0c9f82f019407ad1784fcf0d62fe695eba3cf235c2e8ce474af5aebbe39237",
+            "hash_type": "data1"
+          }
+        },
+        "point": {
+          "index": "0x1",
+          "tx_hash": "0x3b9e22b3468503b753e7aeb9fc2f40bf421a9a23af21f64426352da608ea23bb"
+        },
+        "recipient": "0x1111111111111111111111111111111111111111",
+        "record": "0x544f3144505230310100000000000000111111111111111111111111111111111111111100e40b54020000001de029063ad3da7920a8f1691a48112d774a8aa93e5d2b66ed1acd0122c026c814cb104c0a529ea894356d030d2b9ef9feede5b3b25b17ad4d0ffc3044c7de6100e40b54020000000000000000000000",
+        "sequence": 1,
+        "transaction_index": 1
+      },
+      {
+        "amount_shannons": "15000000000",
+        "block_hash": "0xac2d7fd83992ae8f842c6e089e3aff23310e6c39bbf6d6a4db09abed561215f1",
+        "cumulative_shannons": "25000000000",
+        "deposit_id": "0xd52f9c259fc5d59ecf2bb9f50cd251018c4e9c613e3e71ac2e6b6f1b1a4ece12",
+        "height": 16,
+        "output": {
+          "capacity": "0x58a972e00",
+          "lock": {
+            "args": "0x",
+            "code_hash": "0x3b0c9f82f019407ad1784fcf0d62fe695eba3cf235c2e8ce474af5aebbe39237",
+            "hash_type": "data1"
+          },
+          "type": {
+            "args": "0x544f315245433031f0289f9f83745513e30d2cad1092d7a447f7992d23230bc13fda601c5472632b",
+            "code_hash": "0x3b0c9f82f019407ad1784fcf0d62fe695eba3cf235c2e8ce474af5aebbe39237",
+            "hash_type": "data1"
+          }
+        },
+        "point": {
+          "index": "0x1",
+          "tx_hash": "0x18922d59a32788abd2838c51d37b5c9d4f7ed873de53337dd3fa198764b17e96"
+        },
+        "recipient": "0x1212121212121212121212121212121212121212",
+        "record": "0x544f3144505230310200000000000000121212121212121212121212121212121212121200d6117e0300000014cb104c0a529ea894356d030d2b9ef9feede5b3b25b17ad4d0ffc3044c7de61c2abed49c07e4575ec9b7cfe585ec5e7cc77d2028ad4ecffe9e622052e47793d00ba1dd2050000000000000000000000",
+        "sequence": 2,
+        "transaction_index": 1
+      }
+    ],
+    "genesis": {
+      "block_hash": "0xd7362bebc9008e9f86a3a5f9959824b2ce548329378c9015af4ade7e5f135daf",
+      "height": 8,
+      "point": {
+        "index": "0x0",
+        "tx_hash": "0x3f245abebb0a16f76e9a493e082ae109d8a72e47cdb26b3423691f3ad4467842"
+      }
+    },
+    "kind": "canonical-native-vault-v1",
+    "output": {
+      "capacity": "0xee6b28000",
+      "lock": {
+        "args": "0xf0289f9f83745513e30d2cad1092d7a447f7992d23230bc13fda601c5472632b",
+        "code_hash": "0x1a79ae4b82f5588e07fc0b94a0e8fbcf61f1adc06d05d753d13e2e63eec76dee",
+        "hash_type": "data1"
+      },
+      "type": {
+        "args": "0x544f315641553031084e29c0996ea92fab44c5f20915accbd57001304d81fa2252986bc98554ff14ddd6aea22911805968ca3f89bda08aa9d8024fc00b2c9ffb07b1bcd170673c6a0303030303030303030303030303030303030303030303030303030303030303697a00000000000004040404040404040404040404040404040404040505050505050505050505050505050505050505050505050505050505050505",
+        "code_hash": "0x3b0c9f82f019407ad1784fcf0d62fe695eba3cf235c2e8ce474af5aebbe39237",
+        "hash_type": "data1"
+      }
+    },
+    "pinned_hash": "0xac2d7fd83992ae8f842c6e089e3aff23310e6c39bbf6d6a4db09abed561215f1",
+    "pinned_height": 16,
+    "point": {
+      "index": "0x0",
+      "tx_hash": "0x18922d59a32788abd2838c51d37b5c9d4f7ed873de53337dd3fa198764b17e96"
+    },
+    "production_ready": false,
+    "release_transitions": 0,
+    "released_shannons": "0",
+    "reserve_shannons": "39000000000",
+    "schema": 1,
+    "state": "0x544f31565354303100c694140900000000ba1dd2050000000000000000000000000000000000000000000000000000000200000000000000c2abed49c07e4575ec9b7cfe585ec5e7cc77d2028ad4ecffe9e622052e47793d4b7fc56c848d86ebc97c0cf4b6a57c5c04c3ac11270a9a65834b4887da524eac",
+    "vault_script": "0xd90000001000000030000000310000003b0c9f82f019407ad1784fcf0d62fe695eba3cf235c2e8ce474af5aebbe3923702a4000000544f315641553031084e29c0996ea92fab44c5f20915accbd57001304d81fa2252986bc98554ff14ddd6aea22911805968ca3f89bda08aa9d8024fc00b2c9ffb07b1bcd170673c6a0303030303030303030303030303030303030303030303030303030303030303697a00000000000004040404040404040404040404040404040404040505050505050505050505050505050505050505050505050505050505050505"
+  },
+  "cold_final": {
+    "authenticated_l2_credit": false,
+    "canonical_pin_rechecked": true,
+    "capacity_shannons": "64000000000",
+    "ckb_genesis": "0xddd6aea22911805968ca3f89bda08aa9d8024fc00b2c9ffb07b1bcd170673c6a",
+    "consensus_source": "selected CKB node; no independent consensus or Groth16 verification",
+    "current_live_rechecked": true,
+    "deposit_count": 2,
+    "deposited_shannons": "25000000000",
+    "deposits": [
+      {
+        "amount_shannons": "10000000000",
+        "block_hash": "0x6586b5298b954fc6ac5cabee3c34f97005aa872c4e7df950587a9793d9b1eba5",
+        "cumulative_shannons": "10000000000",
+        "deposit_id": "0x3549019c14796ec04130e54b7b6bd482544708fde5a8229b2ccdfa6af5e972d7",
+        "height": 12,
+        "output": {
+          "capacity": "0x58a972e00",
+          "lock": {
+            "args": "0x",
+            "code_hash": "0x3b0c9f82f019407ad1784fcf0d62fe695eba3cf235c2e8ce474af5aebbe39237",
+            "hash_type": "data1"
+          },
+          "type": {
+            "args": "0x544f315245433031f0289f9f83745513e30d2cad1092d7a447f7992d23230bc13fda601c5472632b",
+            "code_hash": "0x3b0c9f82f019407ad1784fcf0d62fe695eba3cf235c2e8ce474af5aebbe39237",
+            "hash_type": "data1"
+          }
+        },
+        "point": {
+          "index": "0x1",
+          "tx_hash": "0x3b9e22b3468503b753e7aeb9fc2f40bf421a9a23af21f64426352da608ea23bb"
+        },
+        "recipient": "0x1111111111111111111111111111111111111111",
+        "record": "0x544f3144505230310100000000000000111111111111111111111111111111111111111100e40b54020000001de029063ad3da7920a8f1691a48112d774a8aa93e5d2b66ed1acd0122c026c814cb104c0a529ea894356d030d2b9ef9feede5b3b25b17ad4d0ffc3044c7de6100e40b54020000000000000000000000",
+        "sequence": 1,
+        "transaction_index": 1
+      },
+      {
+        "amount_shannons": "15000000000",
+        "block_hash": "0xac2d7fd83992ae8f842c6e089e3aff23310e6c39bbf6d6a4db09abed561215f1",
+        "cumulative_shannons": "25000000000",
+        "deposit_id": "0xd52f9c259fc5d59ecf2bb9f50cd251018c4e9c613e3e71ac2e6b6f1b1a4ece12",
+        "height": 16,
+        "output": {
+          "capacity": "0x58a972e00",
+          "lock": {
+            "args": "0x",
+            "code_hash": "0x3b0c9f82f019407ad1784fcf0d62fe695eba3cf235c2e8ce474af5aebbe39237",
+            "hash_type": "data1"
+          },
+          "type": {
+            "args": "0x544f315245433031f0289f9f83745513e30d2cad1092d7a447f7992d23230bc13fda601c5472632b",
+            "code_hash": "0x3b0c9f82f019407ad1784fcf0d62fe695eba3cf235c2e8ce474af5aebbe39237",
+            "hash_type": "data1"
+          }
+        },
+        "point": {
+          "index": "0x1",
+          "tx_hash": "0x18922d59a32788abd2838c51d37b5c9d4f7ed873de53337dd3fa198764b17e96"
+        },
+        "recipient": "0x1212121212121212121212121212121212121212",
+        "record": "0x544f3144505230310200000000000000121212121212121212121212121212121212121200d6117e0300000014cb104c0a529ea894356d030d2b9ef9feede5b3b25b17ad4d0ffc3044c7de61c2abed49c07e4575ec9b7cfe585ec5e7cc77d2028ad4ecffe9e622052e47793d00ba1dd2050000000000000000000000",
+        "sequence": 2,
+        "transaction_index": 1
+      }
+    ],
+    "genesis": {
+      "block_hash": "0xd7362bebc9008e9f86a3a5f9959824b2ce548329378c9015af4ade7e5f135daf",
+      "height": 8,
+      "point": {
+        "index": "0x0",
+        "tx_hash": "0x3f245abebb0a16f76e9a493e082ae109d8a72e47cdb26b3423691f3ad4467842"
+      }
+    },
+    "kind": "canonical-native-vault-v1",
+    "output": {
+      "capacity": "0xee6b28000",
+      "lock": {
+        "args": "0xf0289f9f83745513e30d2cad1092d7a447f7992d23230bc13fda601c5472632b",
+        "code_hash": "0x1a79ae4b82f5588e07fc0b94a0e8fbcf61f1adc06d05d753d13e2e63eec76dee",
+        "hash_type": "data1"
+      },
+      "type": {
+        "args": "0x544f315641553031084e29c0996ea92fab44c5f20915accbd57001304d81fa2252986bc98554ff14ddd6aea22911805968ca3f89bda08aa9d8024fc00b2c9ffb07b1bcd170673c6a0303030303030303030303030303030303030303030303030303030303030303697a00000000000004040404040404040404040404040404040404040505050505050505050505050505050505050505050505050505050505050505",
+        "code_hash": "0x3b0c9f82f019407ad1784fcf0d62fe695eba3cf235c2e8ce474af5aebbe39237",
+        "hash_type": "data1"
+      }
+    },
+    "pinned_hash": "0x764a69e44f91bb226c0a467b92f5980b9dc83285c7b1bd12d364749cb4f6888c",
+    "pinned_height": 20,
+    "point": {
+      "index": "0x0",
+      "tx_hash": "0x18922d59a32788abd2838c51d37b5c9d4f7ed873de53337dd3fa198764b17e96"
+    },
+    "production_ready": false,
+    "release_transitions": 0,
+    "released_shannons": "0",
+    "reserve_shannons": "39000000000",
+    "schema": 1,
+    "state": "0x544f31565354303100c694140900000000ba1dd2050000000000000000000000000000000000000000000000000000000200000000000000c2abed49c07e4575ec9b7cfe585ec5e7cc77d2028ad4ecffe9e622052e47793d4b7fc56c848d86ebc97c0cf4b6a57c5c04c3ac11270a9a65834b4887da524eac",
+    "vault_script": "0xd90000001000000030000000310000003b0c9f82f019407ad1784fcf0d62fe695eba3cf235c2e8ce474af5aebbe3923702a4000000544f315641553031084e29c0996ea92fab44c5f20915accbd57001304d81fa2252986bc98554ff14ddd6aea22911805968ca3f89bda08aa9d8024fc00b2c9ffb07b1bcd170673c6a0303030303030303030303030303030303030303030303030303030303030303697a00000000000004040404040404040404040404040404040404040505050505050505050505050505050505050505050505050505050505050505"
+  },
+  "cold_genesis": {
+    "authenticated_l2_credit": false,
+    "canonical_pin_rechecked": true,
+    "capacity_shannons": "39000000000",
+    "ckb_genesis": "0xddd6aea22911805968ca3f89bda08aa9d8024fc00b2c9ffb07b1bcd170673c6a",
+    "consensus_source": "selected CKB node; no independent consensus or Groth16 verification",
+    "current_live_rechecked": true,
+    "deposit_count": 0,
+    "deposited_shannons": "0",
+    "deposits": [],
+    "genesis": {
+      "block_hash": "0xd7362bebc9008e9f86a3a5f9959824b2ce548329378c9015af4ade7e5f135daf",
+      "height": 8,
+      "point": {
+        "index": "0x0",
+        "tx_hash": "0x3f245abebb0a16f76e9a493e082ae109d8a72e47cdb26b3423691f3ad4467842"
+      }
+    },
+    "kind": "canonical-native-vault-v1",
+    "output": {
+      "capacity": "0x91494c600",
+      "lock": {
+        "args": "0xf0289f9f83745513e30d2cad1092d7a447f7992d23230bc13fda601c5472632b",
+        "code_hash": "0x1a79ae4b82f5588e07fc0b94a0e8fbcf61f1adc06d05d753d13e2e63eec76dee",
+        "hash_type": "data1"
+      },
+      "type": {
+        "args": "0x544f315641553031084e29c0996ea92fab44c5f20915accbd57001304d81fa2252986bc98554ff14ddd6aea22911805968ca3f89bda08aa9d8024fc00b2c9ffb07b1bcd170673c6a0303030303030303030303030303030303030303030303030303030303030303697a00000000000004040404040404040404040404040404040404040505050505050505050505050505050505050505050505050505050505050505",
+        "code_hash": "0x3b0c9f82f019407ad1784fcf0d62fe695eba3cf235c2e8ce474af5aebbe39237",
+        "hash_type": "data1"
+      }
+    },
+    "pinned_hash": "0xd7362bebc9008e9f86a3a5f9959824b2ce548329378c9015af4ade7e5f135daf",
+    "pinned_height": 8,
+    "point": {
+      "index": "0x0",
+      "tx_hash": "0x3f245abebb0a16f76e9a493e082ae109d8a72e47cdb26b3423691f3ad4467842"
+    },
+    "production_ready": false,
+    "release_transitions": 0,
+    "released_shannons": "0",
+    "reserve_shannons": "39000000000",
+    "schema": 1,
+    "state": "0x544f31565354303100c6941409000000000000000000000000000000000000000000000000000000000000000000000000000000000000001de029063ad3da7920a8f1691a48112d774a8aa93e5d2b66ed1acd0122c026c84b7fc56c848d86ebc97c0cf4b6a57c5c04c3ac11270a9a65834b4887da524eac",
+    "vault_script": "0xd90000001000000030000000310000003b0c9f82f019407ad1784fcf0d62fe695eba3cf235c2e8ce474af5aebbe3923702a4000000544f315641553031084e29c0996ea92fab44c5f20915accbd57001304d81fa2252986bc98554ff14ddd6aea22911805968ca3f89bda08aa9d8024fc00b2c9ffb07b1bcd170673c6a0303030303030303030303030303030303030303030303030303030303030303697a00000000000004040404040404040404040404040404040404040505050505050505050505050505050505050505050505050505050505050505"
+  }
+}

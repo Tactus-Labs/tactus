@@ -87,6 +87,46 @@ fn reject(lab: &mut Lab, label: &str, tx: &Value, code: i8) -> Result<(), String
     }
 }
 
+fn cold(
+    cfg: &Config,
+    script: &[u8],
+    expected: &State,
+    capture: Option<&std::path::Path>,
+) -> Result<Value, String> {
+    let exe = std::env::current_exe().map_err(|e| e.to_string())?;
+    let mut command = std::process::Command::new(
+        exe.parent()
+            .ok_or("executable parent")?
+            .join("recover-native-vault"),
+    );
+    command
+        .args([
+            rpc::bytes_to_hex(&cfg.ckb_genesis),
+            rpc::bytes_to_hex(script),
+        ])
+        .env_remove("TACTUS_VAULT_CAPTURE")
+        .env_remove("TACTUS_VAULT_MAX_BLOCKS")
+        .env_remove("TACTUS_VAULT_MAX_DEPOSITS");
+    if let Some(path) = capture {
+        command.env("TACTUS_VAULT_CAPTURE", path);
+    }
+    let output = command.output().map_err(|e| e.to_string())?;
+    if !output.status.success() {
+        return Err(format!(
+            "cold vault recovery: {}",
+            String::from_utf8_lossy(&output.stderr)
+        ));
+    }
+    let report: Value = serde_json::from_slice(&output.stdout).map_err(|e| e.to_string())?;
+    if report["state"] != rpc::bytes_to_hex(&expected.encode())
+        || report["deposit_count"] != expected.count
+        || report["canonical_pin_rechecked"] != true
+        || report["current_live_rechecked"] != true
+    {
+        return Err("cold recovery differs from actual vault state".into());
+    }
+    Ok(report)
+}
 fn run() -> Result<(), String> {
     let evidence = std::env::var("TACTUS_EVIDENCE_PATH").map_err(|_| "use isolated launcher")?;
     let mut lab = Lab::connect_with_script("artifacts/tactus_o1_native_vault_script.elf")?;
@@ -156,6 +196,7 @@ fn run() -> Result<(), String> {
         let hash = commit(&mut lab, 0, "vault/genesis", &tx)?;
         let mut vault = lab::point(&hash, 0)?;
         result["genesis"] = json!({"hash":hash,"state":rpc::bytes_to_hex(&state.encode())});
+        result["cold_genesis"] = cold(&cfg, &script, &state, None)?;
         for round in 0..2 {
             let actor = round;
             let recipient = [0x11 + round as u8; 20];
@@ -243,6 +284,7 @@ fn run() -> Result<(), String> {
             )?;
             vault = lab::point(&hash, 0)?;
             state = next;
+            result[format!("cold_after_deposit_{round}")] = cold(&cfg, &script, &state, None)?;
             let receipt_live = rpc::call(
                 "get_live_cell",
                 json!([{"tx_hash":hash,"index":"0x1"},true]),
@@ -368,6 +410,8 @@ fn run() -> Result<(), String> {
         }
         result["final_state"] = json!(rpc::bytes_to_hex(&state.encode()));
         result["final_live"] = final_live;
+        let capture = std::path::Path::new(&evidence).with_file_name("canonical-blocks.json");
+        result["cold_final"] = cold(&cfg, &script, &state, Some(&capture))?;
         result["complete"] = json!(true);
         Ok(())
     })();

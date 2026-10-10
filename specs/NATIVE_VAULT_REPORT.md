@@ -141,7 +141,8 @@ scripts/run-devnet-experiments.sh
 python3 -B scripts/test-native-vault.py
 ```
 
-The next required integration is canonical record reconstruction, exactly-once
+[Canonical record reconstruction](NATIVE_VAULT_RECOVERY_REPORT.md) now passes
+four independent process recoveries. The next required integration is exactly-once
 system credit in a new execution/proof domain, a real accepted proof containing
 burns, and independently constructed vault release. These deposits alone close
 none of the custody, escape, upgrade or operational production gates.

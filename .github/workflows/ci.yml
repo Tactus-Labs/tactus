@@ -50,11 +50,14 @@ jobs:
       - run: cargo clippy --locked --manifest-path proofs/ckb-native-vault/Cargo.toml --all-targets -- -D warnings
       - run: cargo clippy --locked --manifest-path services/native-vault-lab/Cargo.toml --all-targets -- -D warnings
       - run: cargo test --locked --manifest-path proofs/ckb-native-vault/Cargo.toml
+      - run: cargo test --locked --manifest-path services/native-vault-lab/Cargo.toml
       - run: bash scripts/build-native-vault-script.sh
       - name: Audit funded deposits and real state-proof regression
         run: |
           (cd specs/evidence/native-vault && sha256sum --check SHA256SUMS)
           python3 -B scripts/test-native-vault.py
+          (cd specs/evidence/native-vault-recovery && sha256sum --check SHA256SUMS)
+          python3 -B scripts/test-native-vault-recovery.py
           python3 -B scripts/check-settled-state-proof.py specs/evidence/native-vault/state-proof-regression/evidence.json.gz
 
   settled-state-proof:
@@ -250,6 +253,8 @@ jobs:
             artifacts/native-vault-*/manifest.json
             artifacts/native-vault-*/replay.log
             artifacts/native-vault-*/vault-check.json
+            artifacts/native-vault-*/canonical-blocks.json
+            artifacts/native-vault-*/recovery-check.json
             artifacts/load-*/summary.json
             artifacts/load-*/manifest.json
             artifacts/load-*/replay.log

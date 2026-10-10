@@ -1,0 +1,24 @@
+deploy immutable code and independent actor funds: committed 0x5cb9a2ff905b6b99b15030b79d8ccf87a94175bae91ee326db4adaad7c33dbb2
+vault/false reserve: rejected (error code 4)
+vault/forged genesis identity: rejected (error code 2)
+vault/genesis: committed 0x3f245abebb0a16f76e9a493e082ae109d8a72e47cdb26b3423691f3ad4467842
+vault/receipt without funding transition: rejected (error code 2)
+vault/wrong recipient: rejected (error code 5)
+vault/wrong amount: rejected (error code 5)
+vault/wrong sequence: rejected (error code 5)
+vault/wrong previous accumulator: rejected (error code 5)
+vault/wrong next accumulator: rejected (error code 5)
+vault/wrong cumulative deposit: rejected (error code 5)
+vault/missing receipt: rejected (error code 2)
+vault/duplicate receipts: rejected (error code 2)
+vault/underfunded deposit: rejected (error code 4)
+vault/lock takeover: rejected (error code 4)
+vault/reserve rewrite: rejected (error code 5)
+vault/mutable receipt lock: rejected (error code 5)
+vault/deposit actor 0: committed 0x3b9e22b3468503b753e7aeb9fc2f40bf421a9a23af21f64426352da608ea23bb
+vault/deposit actor 1: committed 0x18922d59a32788abd2838c51d37b5c9d4f7ed873de53337dd3fa198764b17e96
+vault/second independent vault: committed 0x9c018ceae7d0cb466bd040ba98d4fd7273dd67ec97adf36d8a9f0075d10f873d
+vault/only one typed input per transition: rejected (error code 2)
+vault/cannot recreate singleton: rejected (error code 2)
+vault/no release without proof: rejected (error code 6)
+vault/cannot destroy funded vault: rejected (error code 3)

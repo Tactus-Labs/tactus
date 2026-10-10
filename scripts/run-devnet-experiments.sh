@@ -124,7 +124,7 @@ manifest={'node_version':subprocess.check_output([os.environ['TACTUS_CKB_BIN'],'
 for name in ['Cargo.lock','scripts/build-ordering-script.sh','scripts/ordering-script.ld','artifacts/tactus_o1_ordering_script.elf','artifacts/tactus_o1_head_lock.elf','artifacts/tactus_o1_anchor_script.elf','artifacts/tactus_o1_priority_script.elf','artifacts/tactus_o1_sealed_script.elf',str(root/'node/ckb.toml'),str(p),os.environ['TACTUS_CKB_BIN']]:
  manifest['files'][name]=hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest()
 binaries=[os.environ['TACTUS_DRIVER_BINARY']]
-if os.environ['TACTUS_DEVNET_SUITE']=='replay-native-vault':binaries.append('artifacts/tactus_o1_native_vault_script.elf')
+if os.environ['TACTUS_DEVNET_SUITE']=='replay-native-vault':binaries.extend(['artifacts/tactus_o1_native_vault_script.elf','services/native-vault-lab/target/debug/recover-native-vault'])
 if os.getenv('TACTUS_OBSERVER_RPC_BIN'):binaries.append(os.environ['TACTUS_OBSERVER_RPC_BIN'])
 if os.getenv('TACTUS_STATE_PROOFS_JSON'):binaries.extend(['artifacts/tactus_o1_state_proof_script.elf',os.environ['TACTUS_STATE_PROOFS_JSON']])
 if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-evm','replay-network'):binaries.append('target/debug/recover-execution')
@@ -200,6 +200,7 @@ if [[ "$suite" == replay-admission ]]; then
 fi
 if [[ "$suite" == replay-native-vault ]]; then
   python3 -B scripts/check-native-vault.py "$run_dir/evidence.json" > "$run_dir/vault-check.json"
+  python3 -B scripts/check-native-vault-recovery.py "$run_dir" > "$run_dir/recovery-check.json"
 fi
 python3 scripts/summarize-experiments.py "$run_dir/evidence.json" "$run_dir/summary.json"
 printf 'Complete: %s\n' "$run_dir/summary.json"

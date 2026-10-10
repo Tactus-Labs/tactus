@@ -6,6 +6,11 @@ rollup deployment or custody of user assets.
 
 ## Implemented and measured
 
+- [Canonical native vault recovery](NATIVE_VAULT_RECOVERY_REPORT.md) reconstructs
+  funded deposit records in four fresh processes, without an operator database
+  or indexer. Pin/live-cell rechecks fail closed on changes; actual P2P vault
+  reorgs, authenticated L2 credit and real release remain unqualified.
+
 - [Funded native CKB vault deposits](NATIVE_VAULT_REPORT.md) now atomically append
   immutable records for two independent actors. Five commits and nineteen exact
   negative controls pass on 0.210.0. Release validation is implemented but awaits
