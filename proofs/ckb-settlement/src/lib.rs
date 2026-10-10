@@ -327,6 +327,43 @@ mod onchain {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn retained_a3_groth16_and_every_public_domain_are_cryptographically_checked() {
+        let proof =
+            include_bytes!("../../../specs/evidence/sealed-chain-proof/proof/groth16-proof.bin");
+        let journal =
+            include_bytes!("../../../specs/evidence/sealed-chain-proof/proof/public-values.bin");
+        let key = "0x00eb2677694b390a31db8883db49c1a828d73618173ce6f3e5790b7678958b14";
+        let verify = |proof: &[u8], journal: &[u8], key: &str| {
+            sp1_verifier::Groth16Verifier::verify(
+                proof,
+                journal,
+                key,
+                &sp1_verifier::GROTH16_VK_BYTES,
+            )
+        };
+        assert!(verify(proof, journal, key).is_ok());
+        for offset in [
+            8, 40, 72, 104, 136, 168, 176, 208, 408, 608, 640, 672, 704, 736,
+        ] {
+            let mut altered = *journal;
+            altered[offset] ^= 1;
+            assert!(
+                verify(proof, &altered, key).is_err(),
+                "journal byte {offset}"
+            );
+        }
+        assert!(verify(
+            proof,
+            journal,
+            "0x01eb2677694b390a31db8883db49c1a828d73618173ce6f3e5790b7678958b14"
+        )
+        .is_err());
+        let mut altered = *proof;
+        altered[355] ^= 1;
+        assert!(verify(&altered, journal, key).is_err());
+    }
+
     fn fixture() -> (Config, [u8; 32], Tip, Tip, [u8; JOURNAL_BYTES]) {
         let text = include_str!("../../../specs/test-vectors/proof-v1/transfers-journal.hex")
             .trim()

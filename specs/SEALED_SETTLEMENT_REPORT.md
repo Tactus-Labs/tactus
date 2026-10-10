@@ -1,5 +1,7 @@
 # A3 admission composed with a canonical SettlementTip
 
+**Subsequent result:** [real proof fulfillment and P2P rollback now pass](SEALED_PROOF_SETTLEMENT_REPORT.md). The preparation run below remains an unproved input measurement.
+
 On 10 October 2026, **CKB 0.210.0** completed the preparation path joining two
 A3 lanes, authenticated sealing, nine canonical publications, a typed ending
 checkpoint and an atomic SettlementTip deployment. The actual run records
@@ -91,12 +93,12 @@ statement replay and the Geth comparison; remote CI execution is not claimed.
 The subsequent [combined obligation observer](OBLIGATION_RECOVERY_REPORT.md) now
 reconstructs individual pending duties and their publication outcomes alongside
 the exact settlement boundary at one canonical prefix. Actual proof-covered duty
-recovery remains pending.
+recovery is now measured in the linked actual-proof experiment.
 
 `scripts/check-sealed-proof.py` prepares independent reconciliation of a future
 positive proof run: all 18 commits/eight rejections, exact original proof bytes,
 canonical genesis-Tip consumption, unchanged reserved capacity, fee and cycles,
 public-field mutations/replay, and four cold-recovered settled duties. It already
 rejects the actual pending run and forged completion flags. Its positive path
-awaits the dedicated A3 proof; no accepted-proof result is inferred from these
-preparation guards.
+is now measured in the separate actual-proof archive; preparation guards alone
+still never establish proof acceptance.

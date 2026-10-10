@@ -1,0 +1,19 @@
+{
+  "evidence_sha256": "b9b16e5977b85a39bf88ea8009fad754afa14592d2dde3d1707712b9b3de3ef0",
+  "historical_commits_including_orphan": 20,
+  "negative_controls": 9,
+  "orphaned_blocks": 4,
+  "duties_after_rollback": {
+    "published": 4,
+    "settled": 0
+  },
+  "duties_after_replacement": {
+    "published": 0,
+    "settled": 4
+  },
+  "canonical_proved_transitions": 1,
+  "same_exact_proof": true,
+  "both_nodes_cold_recovery_match": true,
+  "replacement_cycles": 3984822194,
+  "production_ready": false
+}

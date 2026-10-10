@@ -1,0 +1,26 @@
+deploy immutable code and independent actor funds: committed 0x54fb6f4041a4a8faa76fc0478e40c9ba7574de6021590b8aea102c2120ce1687
+sealed-settlement/deploy immutable programs: committed 0xaae16fc54b07d72daa43dc7b6536033fadd3f53a06b37a32e150939f02f07c40
+sealed/2 lanes/genesis: committed 0x26d7859ee1cf51b137fef3a824eb46eec31d5d27fbe7df0fa814968c6e21da1d
+sealed-settlement/admit nonce zero: committed 0xf37484d101917eec468aa3cb2d23e7e673a369080900dc41815829756998a892
+sealed-settlement/admit nonce one: committed 0xdd7929e078dede781f811af8b542ec968fb17de77467cc26a494a164f18064c2
+sealed-settlement/admit malformed input: committed 0xa3e120c266be507bcfcb7c6c922d959ba5e5a4861474f43c99a8b7f9d1bbb958
+sealed-settlement/admit nonce two: committed 0x720d03c909ac291369e53f2777e9397ea47d5e9992d095c3afddb99f0dbcf525
+sealed-settlement/genesis epoch batch 0: committed 0x104791cc8cf1679633df9f389dbc9072ce1d03bb98c666bcd3627344ffd7bb10
+sealed-settlement/genesis epoch batch 1: committed 0x27824c7bf81bcf3ef61f4a5b042e9aca508af78466c34cef2cb12b26a8237d63
+sealed-settlement/genesis epoch batch 2: committed 0xb1275f2046a36710a9eaa15e0fb32e1b07b5abf557df0b5815aabcd2af0ece2b
+sealed-settlement/genesis epoch batch 3: committed 0xb4161003895aa3ae0ce13221aeb1c12abcfe97a17e914f1a9220287637dd8199
+sealed-settlement/genesis epoch batch 4: committed 0xdc177ad5bb0462890683f5f7a31807fbb6b095d9e74914bccc4eabb31b9b75a5
+sealed-settlement/genesis epoch batch 5: committed 0x2942f396921f78881d3a039efc93819662a998420d1d9be305595f31b3743f6e
+sealed-settlement/genesis epoch batch 6: committed 0xfe8d56da082e849fd080a13e9e6362f8654bb5c8dc1f16410f1bcb2a424bac04
+sealed-settlement/genesis epoch batch 7: committed 0x918ca941b4c3a95eb9aabc5e0314568cfc79dacd5b66e6e7a6168ccbc92bd0b2
+sealed-settlement/seal both authenticated lanes: committed 0x824e1581daa4a00c5b9d744355840362ea2aab548e82035e7bc59234ffee5b53
+sealed-settlement/omit forced inputs: rejected (15)
+sealed-settlement/reorder forced inputs: rejected (15)
+sealed-settlement/drop malformed obligation: rejected (15)
+sealed-settlement/mandatory publication and typed checkpoint: committed 0x483f442bec6850eb9a4c9f0736e740862b7093e10379fb18c1e83920d7f83711
+sealed-settlement/malformed proof cannot fulfill obligations: rejected (error code 9)
+sealed-settlement/tampered interval data: rejected (error code 9)
+sealed-settlement/tampered forced final state: rejected (error code 7)
+sealed-settlement/tampered predecessor: rejected (error code 7)
+sealed-settlement/real proof fulfills published obligations: committed 0x89fa2703c707a66fe2762c8c328c46e2987a76fdf60088b71f26ac7f34e5db27
+sealed-settlement/replay cannot fulfill twice: rejected (error code 7)

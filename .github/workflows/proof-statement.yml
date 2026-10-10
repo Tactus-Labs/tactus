@@ -48,6 +48,10 @@ jobs:
           (cd specs/evidence/obligation-restart && sha256sum --check SHA256SUMS)
           python3 -B scripts/test-obligation-restart.py
           python3 -B scripts/test-sealed-proof-preparation.py
+          (cd specs/evidence/sealed-chain-proof && sha256sum --check SHA256SUMS)
+          (cd specs/evidence/sealed-proof-settlement && sha256sum --check SHA256SUMS)
+          (cd specs/evidence/sealed-proof-reorg && sha256sum --check SHA256SUMS)
+          python3 -B scripts/test-sealed-proof.py
           (cd specs/evidence/settlement-next-input && sha256sum --check SHA256SUMS)
           (cd specs/evidence/settlement-proof-guards && sha256sum --check SHA256SUMS)
           (cd specs/evidence/settlement-reorg-preparation && sha256sum --check SHA256SUMS)

@@ -1,10 +1,9 @@
 # A3 proved-obligation rollback preparation
 
-The A3 harness now supports `TACTUS_SEALED_PROOF_REORG=1` with a completed,
-matching real proof directory. This mode is prepared for measurement; **no
-successful A3 proof rollback is claimed by this document**. The nine-batch A3
-proof is still running, and the local pipeline waits for its verified completion
-and independently checked first proof consumption before launching this case.
+This document preserves the pre-measurement design. The prepared mode is now
+measured successfully; see [real A3 proof fulfillment and rollback](SEALED_PROOF_SETTLEMENT_REPORT.md)
+for actual transactions, costs, raw archives and verification. The active queue
+has completed and no prover restart was needed.
 
 After canonical A3 publication and checkpoint creation, both CKB 0.210.0 nodes
 synchronize and partition. The primary must perform real proof verification,
@@ -25,7 +24,7 @@ input is permitted as a substitute for proof reuse.
 proof phase, historical commit/rejection counts, fee conflict, orphan states,
 canonical restored-Tip consumption, exact reused witness, and both pairs of
 cold reports. It does not perform cryptographic verification itself. The positive
-path still needs actual receipts from the pending proof. The preparation guard
+path now has actual receipts in the linked result archive. The preparation guard
 rejects existing unproved A3 evidence as a completed proof-reorg result.
 
 Clippy and the 22 driver unit tests pass. Three invalid launcher combinations
@@ -43,6 +42,6 @@ python3 -B scripts/check-sealed-proof-reorg.py /path/to/run/evidence.json \
   /absolute/path/to/completed-a3-proof
 ```
 
-G2/G3/G6 remain open pending measured proof-bound A3 fulfillment and this rollback,
-as well as the broader production requirements. Compilation and queued work are
+G2/G3/G6 remain open for broader production requirements despite the now measured
+proof-bound A3 fulfillment and rollback. Compilation and queued work are
 not a passing experiment.

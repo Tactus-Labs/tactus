@@ -6,6 +6,12 @@ rollup deployment or custody of user assets.
 
 ## Implemented and measured
 
+- [Real A3 proof fulfillment and rollback](SEALED_PROOF_SETTLEMENT_REPORT.md) now
+  settles all four duties, including a proved malformed-input rejection, across
+  nine canonical batches. Real P2P rollback restores them as pending; the same
+  proof with fresh funding settles them again on both observers. Costs remain
+  roughly 78 minutes proving and 3.985 billion CKB verification cycles.
+
 - [Read-only Ethereum RPC observer](OBSERVER_RPC_REPORT.md) now serves canonical
   blocks, transactions, receipts and current/genesis state over local HTTP.
   Thirty-one actual requests qualify A3 dense indices, roots and node outage
@@ -23,13 +29,15 @@ rollup deployment or custody of user assets.
   pinned block, and retains deterministic invalid-input outcomes. Actual cold
   recovery distinguishes all three pending phases. [Actual two-node rollback](OBLIGATION_REORG_REPORT.md)
   restores four duties after removing their seal/publication and republishes them
-  with identical outcomes. Proof-covered A3 fulfillment and rollback remain pending.
+  with identical outcomes. Proof-covered fulfillment and rollback now pass the
+  separate actual-proof experiment linked above.
 
 - [A3 with atomic SettlementTip preparation](SEALED_SETTLEMENT_REPORT.md) now binds
   four authenticated duties across two lanes to a nine-batch canonical proof input.
   Current CKB rejects omitted/reordered duties and malformed proof; independent
   cold recovery still reports zero settled batches. Native journal replay and Geth
-  roots agree; the dedicated A3 execution proof and real Tip transition remain pending.
+  roots agree; the dedicated real proof and Tip transition now pass the
+  [subsequent proof experiment](SEALED_PROOF_SETTLEMENT_REPORT.md).
 
 - Deterministic A1/A2/A3 simulations and conditional decisions.
 - CKB-VM OrderingHead creation and succession, singleton identity, checked
@@ -171,10 +179,10 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
 
 | Priority | Boundary | Required completion evidence |
 |---|---|---|
-| P0 | Full Experiment A / G2 | Add mandatory forced processing beyond the measured challenge-only failure; qualify independent-wallet load and hostile inclusion policy beyond the measured finite seal-churn budget, sustained queue/dependency workload and targeted-lane failure, proof-bound pending-record recovery, hostile miner policies and unplanned reorgs. Individual A2 authenticity, bounded overload/drain and planned-reorg carry-forward now have measurements. |
+| P0 | Full Experiment A / G2 | Add mandatory forced processing beyond the measured challenge-only failure; qualify independent-wallet load and hostile inclusion policy beyond the measured finite seal-churn budget, sustained queue/dependency workload and targeted-lane failure, hostile miner policies and unplanned reorgs. Proof-bound A3 duty recovery and planned proof rollback/reapplication now pass. Individual A2 authenticity, bounded overload/drain and planned-reorg carry-forward now have measurements. |
 | P0 | Batch admission / W-12 | The implemented input encoding/inline-DA bounds have optional authenticated A2 input prefixes and an A3 mandatory sealed-set gate, but still need the production enforcement selection, L1 timestamp bounds, on-chain/proved binding to the new Ethereum envelope and deterministic rejection semantics, plus proved execution resource limits. |
 | P0 | Execution / G5 | Extend the measured allocation-bound verified transition with state checkpoints, broader differential conformance and ordinary Ethereum tool deployment; replace experimental genesis/supply limits. |
-| P0 | Validity settlement / G3 | The first real-domain proof-consuming transition, 40 script rejections and planned P2P rollback/reapplication now pass. Two sequential nonempty intervals and skipped-proof rejection now pass. Qualify proof-bound A3 obligations, key/setup provenance and the remaining production envelope. |
+| P0 | Validity settlement / G3 | The first real-domain proof-consuming transition, 40 script rejections and planned P2P rollback/reapplication now pass. Two sequential nonempty intervals and skipped-proof rejection now pass. Proof-bound A3 fulfillment and same-proof P2P recovery now pass. Qualify key/setup provenance and the remaining production envelope. |
 | P0 | Recovery / G6 | Cold settlement recovery on two nodes now survives a planned P2P rollback and proof reapplication. Qualify another prover completing canonical inputs, unplanned faults/reorgs and archival retrieval. |
 | P0 | Bridge and exits / G7 | Deposit/withdrawal conservation, replay resistance and operator-independent exit evidence; no release on experimental cursors. |
 | P1 | Operations / G9 | Qualify the local journal under hardware/long-run faults; add network-driven reorg handling, monitored archival retrieval, independent operators and long-duration fault injection. |

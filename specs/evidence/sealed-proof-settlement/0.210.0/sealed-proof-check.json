@@ -1,0 +1,17 @@
+{
+  "evidence_sha256": "2b3e4c67cd3d8aa236030e5320f376cf77857bf61c431367245d395224f6824e",
+  "commits": 18,
+  "negative_controls": 8,
+  "published_batches": 9,
+  "settled_batches": 9,
+  "settled_duties": 4,
+  "malformed_settled_duties": 1,
+  "vm_cycles": 3984799764,
+  "node_wire_bytes": 2403,
+  "fee_shannons": 100000000,
+  "proof_sha256": "f74b36e96846b77435a5b84ca10efd3833531cb702f40c8831830c9c93472b43",
+  "journal_sha256": "72382e25dce7c3cba0e47702e9dcbc0d3ddf87c52e6126237bcbb78c5473240f",
+  "accepted_execution_proof": true,
+  "independent_cryptographic_verification": false,
+  "production_ready": false
+}
