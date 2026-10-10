@@ -92,3 +92,11 @@ The subsequent [combined obligation observer](OBLIGATION_RECOVERY_REPORT.md) now
 reconstructs individual pending duties and their publication outcomes alongside
 the exact settlement boundary at one canonical prefix. Actual proof-covered duty
 recovery remains pending.
+
+`scripts/check-sealed-proof.py` prepares independent reconciliation of a future
+positive proof run: all 18 commits/eight rejections, exact original proof bytes,
+canonical genesis-Tip consumption, unchanged reserved capacity, fee and cycles,
+public-field mutations/replay, and four cold-recovered settled duties. It already
+rejects the actual pending run and forged completion flags. Its positive path
+awaits the dedicated A3 proof; no accepted-proof result is inferred from these
+preparation guards.
