@@ -13,6 +13,7 @@ import subprocess
 import sys
 import tempfile
 import time
+import tomllib
 import urllib.request
 
 
@@ -31,7 +32,9 @@ def main():
     # Clear discovered peers in the COPY so this observer lab cannot join other labs.
     shutil.rmtree(root / 'node/data/network', ignore_errors=True)
     config = root / 'node/ckb.toml'
-    text = config.read_text().replace('127.0.0.1:18734', '127.0.0.1:18744').replace('/tcp/18735', '/tcp/18745')
+    text = config.read_text()
+    parsed = tomllib.loads(text)
+    text = text.replace(parsed['rpc']['listen_address'], '127.0.0.1:18744').replace(parsed['network']['listen_addresses'][0], '/ip4/127.0.0.1/tcp/18745')
     assert 'listen_address = "127.0.0.1:18744"' in text
     config.write_text(text)
     evidence = json.loads((source / 'evidence.json').read_bytes())['results']
@@ -89,8 +92,9 @@ def main():
         observer = subprocess.Popen([str(binary), str(root / 'config.json')], stdout=log, stderr=subprocess.STDOUT)
         wait_ready()
         status = call('tactus_getStatus')
-        assert status['publishedBatches'] == '0x9' and status['provedBatches'] == '0x0'
-        assert status['latestIsProofSettled'] is False and status['safeFinalizedPolicy'] is None
+        expected_proved = '0x9' if evidence['settled'] else '0x0'
+        assert status['publishedBatches'] == '0x9' and status['provedBatches'] == expected_proved
+        assert status['latestIsProofSettled'] == evidence['settled'] and status['safeFinalizedPolicy'] is None
         assert status['withdrawalAuthority'] is False and status['productionReady'] is False
         assert call('eth_chainId') == '0x7a69' and call('net_version') == '31337'
         block = call('eth_getBlockByNumber', ['latest', False])
@@ -144,10 +148,23 @@ def main():
             assert reply['id']=='logs-error' and reply['error']['code']==code
         log_filter_records = records[base_count:]
         records = records[:base_count]
+        base_count = len(records)
+        state_proofs = []
+        for tag, offset in [('earliest',608),('latest',640)]:
+            for address in [sender,'0x'+'11'*20,'0x'+'00'*20]:
+                result = call('eth_getProof',[address,['0x0','0x1','0x'+'00'*32],tag])
+                assert result['address']==address and len(result['storageProof'])==3
+                state_proofs.append({'tag':tag,'stateRoot':'0x'+journal[offset:offset+32].hex(),'result':result})
+        for params, code in [([sender,['0x0']*65,'latest'],-32005),([sender,[],'0x1'],-32000),(['0x01',[],'latest'],-32602)]:
+            reply = wire({'jsonrpc':'2.0','id':'proof-error','method':'eth_getProof','params':params})
+            assert reply['id']=='proof-error' and reply['error']['code']==code
+        proof_records = records[base_count:]
+        records = records[:base_count]
+        (root/'state-proofs.json').write_text(json.dumps(state_proofs,indent=2)+'\n')
         report = {'schema':1, 'ckb_version':version,'source_lab':source.name,'records':records,
-                  'log_filter_records':log_filter_records,'complete':True,'node_unavailability_recovery':True,'rpc_p2p_reorg_measured':False,'production_ready':False}
+                  'log_filter_records':log_filter_records,'proof_records':proof_records,'state_proofs':state_proofs,'complete':True,'node_unavailability_recovery':True,'rpc_p2p_reorg_measured':False,'production_ready':False}
         (root / 'http-evidence.json').write_text(json.dumps(report,indent=2)+'\n')
-        print(f'PASS: {len(records)} baseline + {len(log_filter_records)} log HTTP exchanges, dense receipts, canonical roots, node loss/recovery', flush=True)
+        print(f'PASS: {len(records)} baseline + {len(log_filter_records)} log + {len(proof_records)} proof HTTP exchanges, dense receipts, canonical roots, node loss/recovery', flush=True)
     finally:
         stop(observer); stop(node)
         for log in logs: log.close()

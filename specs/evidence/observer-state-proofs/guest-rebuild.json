@@ -1,0 +1,7 @@
+{
+  "byte_identical": true,
+  "before_sha256": "63e7879070038b22cab411bd025b0b876511734cb7ef78a6c849c491aa909a3c",
+  "after_sha256": "63e7879070038b22cab411bd025b0b876511734cb7ef78a6c849c491aa909a3c",
+  "root_lock_sha256": "d1e83ee7925c86276223c5b01a46cc25c9a1c81d811b713381dd9d3a4e835f92",
+  "host_api_excluded_on_zkvm": true
+}

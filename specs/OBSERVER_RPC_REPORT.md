@@ -25,6 +25,7 @@ Supported methods:
 - `eth_getTransactionByHash`, `eth_getTransactionReceipt`.
 - `eth_getLogs`, bounded stateless event lookup; see [log qualification](OBSERVER_LOGS_REPORT.md).
 - `eth_getBalance`, `eth_getTransactionCount`, `eth_getCode`, `eth_getStorageAt`.
+- `eth_getProof`, account/storage witnesses with [independent Geth verification](OBSERVER_STATE_PROOFS_REPORT.md).
 - `tactus_getStatus`, reporting the CKB pin and separate published/proved counts.
 
 Block/transaction/receipt queries retain the reconstructed prefix. State queries
@@ -101,5 +102,5 @@ fixture has empty logs and no contract creation; the subsequent
 [Geth-backed RPC tests](OBSERVER_LOGS_REPORT.md) qualify those representations
 against executed contract fixtures. Live contract-event P2P tests remain open. A subsequent [actual P2P observer experiment](OBSERVER_REORG_REPORT.md)
 qualifies publication rollback and restoration in the same live service process.
-Settled proof rollback and simultaneous client traffic remain separate work. Proof-covered A3 status
-will require the real proof currently being generated.
+Settled proof rollback and simultaneous client traffic remain separate work. [Proof-covered A3 status and account/storage witnesses](OBSERVER_STATE_PROOFS_REPORT.md)
+now have actual HTTP evidence against the accepted A3 settlement.

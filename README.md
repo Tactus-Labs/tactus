@@ -11,8 +11,8 @@ This repository contains the Rust implementation, protocol specifications, and
 experiments testing that goal under competition, censorship, and chain reorgs.
 
 > **Still under development.** Local execution, data publication, and recovery
-> have working implementations and test evidence. End-to-end validity settlement,
-> forced inclusion, and safe exits remain unfinished. Tactus O1 is **not ready
+> and real proof-verified SettlementTip transitions have working implementations
+> and test evidence. Production admission, custody and safe exits remain unfinished. Tactus O1 is **not ready
 > for production or user funds**. See the [readiness tracker](specs/PRODUCTION_READINESS.md).
 
 [Architecture](specs/TACTUS_O1_ARCHITECTURE_SPEC_v0.2.6.md) ·
@@ -25,8 +25,9 @@ experiments testing that goal under competition, censorship, and chain reorgs.
 
 A builder executes transactions and packages one or more EVM blocks into a
 batch. CKB establishes the canonical batch order and stores the complete inputs
-needed for replay. A separate proof-and-settlement path is intended to establish
-that the resulting state is correct before funds can be withdrawn.
+needed for replay. A real proof-and-settlement path verifies the resulting state and advances a
+canonical SettlementTip. Asset custody and withdrawals still require a bridge
+and independently verified release rules.
 
 ```mermaid
 %%{init: {"htmlLabels": false, "flowchart": {"htmlLabels": false, "nodeSpacing": 24, "rankSpacing": 36, "padding": 16}, "themeVariables": {"fontFamily": "Arial, sans-serif", "fontSize": "15px"}}}%%
@@ -37,15 +38,17 @@ flowchart TB
     anchor["02 · Anchor on CKB<br/>Order + immutable data"]
     replay["03 · Replay<br/>Rebuild EVM state"]
     proof["Prove execution"]
-    settlement["Verify and settle<br/>Bridge + withdrawals"]
+    settlement["Verify execution<br/>SettlementTip"]
+    bridge["Custody + withdrawals"]
 
     builder --> batch
 
     tx --> builder
     batch --> anchor
     anchor --> replay
-    anchor -.-> proof
-    proof -.-> settlement
+    anchor --> proof
+    proof --> settlement
+    settlement -.-> bridge
 
     classDef evm fill:#eff6ff,stroke:#2563eb,color:#172554,stroke-width:1.5px
     classDef chain fill:#ecfdf5,stroke:#059669,color:#064e3b,stroke-width:1.5px
@@ -53,8 +56,8 @@ flowchart TB
     classDef future fill:#f8fafc,stroke:#64748b,color:#334155,stroke-dasharray:5 4
     class tx,builder,batch evm
     class anchor chain
-    class replay recovery
-    class proof,settlement future
+    class replay,proof,settlement recovery
+    class bridge future
 ```
 
 **Solid paths** have local implementation evidence. **Dashed paths** are still

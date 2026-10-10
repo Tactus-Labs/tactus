@@ -45,6 +45,17 @@ jobs:
       - run: cargo fmt --manifest-path services/observer-rpc/Cargo.toml -- --check
       - run: cargo clippy --locked --manifest-path services/observer-rpc/Cargo.toml --all-targets -- -D warnings
       - run: cargo test --locked --manifest-path services/observer-rpc/Cargo.toml
+        env:
+          TACTUS_OBSERVER_PROOF_EXPORT: ${{ runner.temp }}/observer-state-proofs.json
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.26.8'
+          cache-dependency-path: services/proof-checker/go.sum
+      - name: Independently verify regenerated state witnesses with Geth
+        working-directory: services/proof-checker
+        run: |
+          go test ./...
+          go run . "$RUNNER_TEMP/observer-state-proofs.json"
       - name: Audit HTTP evidence and execution dependency pins
         run: |
           (cd specs/evidence/observer-rpc && sha256sum --check SHA256SUMS)
@@ -53,6 +64,8 @@ jobs:
           python3 -B scripts/test-observer-reorg.py
           (cd specs/evidence/observer-logs && sha256sum --check SHA256SUMS)
           python3 -B scripts/test-observer-logs.py
+          (cd specs/evidence/observer-state-proofs && sha256sum --check SHA256SUMS)
+          python3 -B scripts/test-observer-state-proofs.py
 
   evm-differential:
     runs-on: ubuntu-latest

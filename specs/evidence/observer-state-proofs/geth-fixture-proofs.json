@@ -1,0 +1,2513 @@
+[
+  {
+    "blockHash": "0x0d6098a6d75ed5e7ec063f9243240b81de22006f71a42e34efb35b100c686b1b",
+    "case": "three-envelope-types",
+    "result": {
+      "accountProof": [
+        "0xf872a12096c0ce48f34031c2fba95e06d35e0a358d8d40676afd4673ffad997034ae716bb84ef84c80880de0b6b3a7640000a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+      ],
+      "address": "0x2bd0c9fe079c8fca0e3352eb3d02839c371e5c41",
+      "balance": "0xde0b6b3a7640000",
+      "codeHash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+      "nonce": "0x0",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0xa7baf949c792b882fc5e72fd71c17b6268bff6c813001024a1407ba82b808155",
+    "tag": "earliest"
+  },
+  {
+    "blockHash": "0x0d6098a6d75ed5e7ec063f9243240b81de22006f71a42e34efb35b100c686b1b",
+    "case": "three-envelope-types",
+    "result": {
+      "accountProof": [
+        "0xf872a12096c0ce48f34031c2fba95e06d35e0a358d8d40676afd4673ffad997034ae716bb84ef84c80880de0b6b3a7640000a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+      ],
+      "address": "0x0000000000000000000000000000000000000000",
+      "balance": "0x0",
+      "codeHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "nonce": "0x0",
+      "storageHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0xa7baf949c792b882fc5e72fd71c17b6268bff6c813001024a1407ba82b808155",
+    "tag": "earliest"
+  },
+  {
+    "blockHash": "0x4e1fd3184e8d8d78dd8a08541dac5d1c17e7a160aeab9415371f739e6a4432f0",
+    "case": "three-envelope-types",
+    "result": {
+      "accountProof": [
+        "0xf8718080a03d574a93fa32b9b5d18ae462812297ca79bf2160ae7a4c403a5bc78f37ee53c6808080808080a00a79c0f8e690747627077c92a283601e55e8a00e43bc2c19d96a570f66048e7f80808080a050604cf92939c36cf9ca13284dab24ce79cef3ca049b3dfbd817eee405d380aa8080",
+        "0xf86ba032c07404b8c1df4c46226425cac68c28d27a766bbddce62309f36724839b22c0b848f84680820558a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+      ],
+      "address": "0x1111111111111111111111111111111111111111",
+      "balance": "0x558",
+      "codeHash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+      "nonce": "0x0",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x39d75d240f98e864a088b6003e2f94134baec5a63bd0bdea9c955e14427527e7",
+    "tag": "latest"
+  },
+  {
+    "blockHash": "0x4e1fd3184e8d8d78dd8a08541dac5d1c17e7a160aeab9415371f739e6a4432f0",
+    "case": "three-envelope-types",
+    "result": {
+      "accountProof": [
+        "0xf8718080a03d574a93fa32b9b5d18ae462812297ca79bf2160ae7a4c403a5bc78f37ee53c6808080808080a00a79c0f8e690747627077c92a283601e55e8a00e43bc2c19d96a570f66048e7f80808080a050604cf92939c36cf9ca13284dab24ce79cef3ca049b3dfbd817eee405d380aa8080",
+        "0xf871a036c0ce48f34031c2fba95e06d35e0a358d8d40676afd4673ffad997034ae716bb84ef84c03880de03eabd46574a8a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+      ],
+      "address": "0x2bd0c9fe079c8fca0e3352eb3d02839c371e5c41",
+      "balance": "0xde03eabd46574a8",
+      "codeHash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+      "nonce": "0x3",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x39d75d240f98e864a088b6003e2f94134baec5a63bd0bdea9c955e14427527e7",
+    "tag": "latest"
+  },
+  {
+    "blockHash": "0x4e1fd3184e8d8d78dd8a08541dac5d1c17e7a160aeab9415371f739e6a4432f0",
+    "case": "three-envelope-types",
+    "result": {
+      "accountProof": [
+        "0xf8718080a03d574a93fa32b9b5d18ae462812297ca79bf2160ae7a4c403a5bc78f37ee53c6808080808080a00a79c0f8e690747627077c92a283601e55e8a00e43bc2c19d96a570f66048e7f80808080a050604cf92939c36cf9ca13284dab24ce79cef3ca049b3dfbd817eee405d380aa8080",
+        "0xf86fa03ab0a4443bbea3fbe4d0e1503d11ff1367842fb0c8b28a5c8550f27599a40751b84cf84a8086427902799b00a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+      ],
+      "address": "0x2222222222222222222222222222222222222222",
+      "balance": "0x427902799b00",
+      "codeHash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+      "nonce": "0x0",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x39d75d240f98e864a088b6003e2f94134baec5a63bd0bdea9c955e14427527e7",
+    "tag": "latest"
+  },
+  {
+    "blockHash": "0x4e1fd3184e8d8d78dd8a08541dac5d1c17e7a160aeab9415371f739e6a4432f0",
+    "case": "three-envelope-types",
+    "result": {
+      "accountProof": [
+        "0xf8718080a03d574a93fa32b9b5d18ae462812297ca79bf2160ae7a4c403a5bc78f37ee53c6808080808080a00a79c0f8e690747627077c92a283601e55e8a00e43bc2c19d96a570f66048e7f80808080a050604cf92939c36cf9ca13284dab24ce79cef3ca049b3dfbd817eee405d380aa8080"
+      ],
+      "address": "0x0000000000000000000000000000000000000000",
+      "balance": "0x0",
+      "codeHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "nonce": "0x0",
+      "storageHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x39d75d240f98e864a088b6003e2f94134baec5a63bd0bdea9c955e14427527e7",
+    "tag": "latest"
+  },
+  {
+    "blockHash": "0x0d6098a6d75ed5e7ec063f9243240b81de22006f71a42e34efb35b100c686b1b",
+    "case": "invalid-slots-then-valid",
+    "result": {
+      "accountProof": [
+        "0xf872a12096c0ce48f34031c2fba95e06d35e0a358d8d40676afd4673ffad997034ae716bb84ef84c80880de0b6b3a7640000a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+      ],
+      "address": "0x2bd0c9fe079c8fca0e3352eb3d02839c371e5c41",
+      "balance": "0xde0b6b3a7640000",
+      "codeHash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+      "nonce": "0x0",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0xa7baf949c792b882fc5e72fd71c17b6268bff6c813001024a1407ba82b808155",
+    "tag": "earliest"
+  },
+  {
+    "blockHash": "0x0d6098a6d75ed5e7ec063f9243240b81de22006f71a42e34efb35b100c686b1b",
+    "case": "invalid-slots-then-valid",
+    "result": {
+      "accountProof": [
+        "0xf872a12096c0ce48f34031c2fba95e06d35e0a358d8d40676afd4673ffad997034ae716bb84ef84c80880de0b6b3a7640000a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+      ],
+      "address": "0x0000000000000000000000000000000000000000",
+      "balance": "0x0",
+      "codeHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "nonce": "0x0",
+      "storageHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0xa7baf949c792b882fc5e72fd71c17b6268bff6c813001024a1407ba82b808155",
+    "tag": "earliest"
+  },
+  {
+    "blockHash": "0xaa23cdda5be96baabea1f3746f01585e98153c2b31e57c7c33ae84448a3fc839",
+    "case": "invalid-slots-then-valid",
+    "result": {
+      "accountProof": [
+        "0xf8518080a05d70dc31e0d0c40e2855d824d3912e65327716230340a02d7e6bbae23fa7eaf5808080808080a08a660cfb836ceedf7b6137ab31afdb5465768b929c546ac9f83bd7f4990cf9a680808080808080",
+        "0xf871a036c0ce48f34031c2fba95e06d35e0a358d8d40676afd4673ffad997034ae716bb84ef84c02880de06f143d9d5400a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+      ],
+      "address": "0x2bd0c9fe079c8fca0e3352eb3d02839c371e5c41",
+      "balance": "0xde06f143d9d5400",
+      "codeHash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+      "nonce": "0x2",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x2bbff849acaae125039d1353d3137dc7be1f0a2fdb60904c9e735b852c827652",
+    "tag": "latest"
+  },
+  {
+    "blockHash": "0xaa23cdda5be96baabea1f3746f01585e98153c2b31e57c7c33ae84448a3fc839",
+    "case": "invalid-slots-then-valid",
+    "result": {
+      "accountProof": [
+        "0xf8518080a05d70dc31e0d0c40e2855d824d3912e65327716230340a02d7e6bbae23fa7eaf5808080808080a08a660cfb836ceedf7b6137ab31afdb5465768b929c546ac9f83bd7f4990cf9a680808080808080",
+        "0xf86fa03ab0a4443bbea3fbe4d0e1503d11ff1367842fb0c8b28a5c8550f27599a40751b84cf84a80862632e314a000a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+      ],
+      "address": "0x2222222222222222222222222222222222222222",
+      "balance": "0x2632e314a000",
+      "codeHash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+      "nonce": "0x0",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x2bbff849acaae125039d1353d3137dc7be1f0a2fdb60904c9e735b852c827652",
+    "tag": "latest"
+  },
+  {
+    "blockHash": "0xaa23cdda5be96baabea1f3746f01585e98153c2b31e57c7c33ae84448a3fc839",
+    "case": "invalid-slots-then-valid",
+    "result": {
+      "accountProof": [
+        "0xf8518080a05d70dc31e0d0c40e2855d824d3912e65327716230340a02d7e6bbae23fa7eaf5808080808080a08a660cfb836ceedf7b6137ab31afdb5465768b929c546ac9f83bd7f4990cf9a680808080808080"
+      ],
+      "address": "0x0000000000000000000000000000000000000000",
+      "balance": "0x0",
+      "codeHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "nonce": "0x0",
+      "storageHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x2bbff849acaae125039d1353d3137dc7be1f0a2fdb60904c9e735b852c827652",
+    "tag": "latest"
+  },
+  {
+    "blockHash": "0x0d6098a6d75ed5e7ec063f9243240b81de22006f71a42e34efb35b100c686b1b",
+    "case": "deploy-write-clear",
+    "result": {
+      "accountProof": [
+        "0xf872a12096c0ce48f34031c2fba95e06d35e0a358d8d40676afd4673ffad997034ae716bb84ef84c80880de0b6b3a7640000a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+      ],
+      "address": "0x2bd0c9fe079c8fca0e3352eb3d02839c371e5c41",
+      "balance": "0xde0b6b3a7640000",
+      "codeHash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+      "nonce": "0x0",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0xa7baf949c792b882fc5e72fd71c17b6268bff6c813001024a1407ba82b808155",
+    "tag": "earliest"
+  },
+  {
+    "blockHash": "0x0d6098a6d75ed5e7ec063f9243240b81de22006f71a42e34efb35b100c686b1b",
+    "case": "deploy-write-clear",
+    "result": {
+      "accountProof": [
+        "0xf872a12096c0ce48f34031c2fba95e06d35e0a358d8d40676afd4673ffad997034ae716bb84ef84c80880de0b6b3a7640000a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+      ],
+      "address": "0x0000000000000000000000000000000000000000",
+      "balance": "0x0",
+      "codeHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "nonce": "0x0",
+      "storageHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0xa7baf949c792b882fc5e72fd71c17b6268bff6c813001024a1407ba82b808155",
+    "tag": "earliest"
+  },
+  {
+    "blockHash": "0x23e68d4b046bfaf5be1d69113c00af36f2a9e9bc4dfb0e09e1bfb4fe0c546ea5",
+    "case": "deploy-write-clear",
+    "result": {
+      "accountProof": [
+        "0xf871a092eae6312583d89ed6c7fb7fadd718aa985857d0e1d07effe49c55e19b7da23480a004a70df094133b767c19c8a8a5e9ed4fee49cbe6813e5b2e15c2437c49f388c1808080808080a0ac8e37f79639da88e7e0948f174aa5c18c490aa3f4a42027be2d3fd4c3eb09a780808080808080",
+        "0xf86fa03ab0a4443bbea3fbe4d0e1503d11ff1367842fb0c8b28a5c8550f27599a40751b84cf84a80866d401523c400a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+      ],
+      "address": "0x2222222222222222222222222222222222222222",
+      "balance": "0x6d401523c400",
+      "codeHash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+      "nonce": "0x0",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x54d9cfc15b28ade6d764642a4eb6af432d7dc12eca45228013f8697286822b42",
+    "tag": "latest"
+  },
+  {
+    "blockHash": "0x23e68d4b046bfaf5be1d69113c00af36f2a9e9bc4dfb0e09e1bfb4fe0c546ea5",
+    "case": "deploy-write-clear",
+    "result": {
+      "accountProof": [
+        "0xf871a092eae6312583d89ed6c7fb7fadd718aa985857d0e1d07effe49c55e19b7da23480a004a70df094133b767c19c8a8a5e9ed4fee49cbe6813e5b2e15c2437c49f388c1808080808080a0ac8e37f79639da88e7e0948f174aa5c18c490aa3f4a42027be2d3fd4c3eb09a780808080808080",
+        "0xf871a036c0ce48f34031c2fba95e06d35e0a358d8d40676afd4673ffad997034ae716bb84ef84c03880ddfeb94df8efc54a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+      ],
+      "address": "0x2bd0c9fe079c8fca0e3352eb3d02839c371e5c41",
+      "balance": "0xddfeb94df8efc54",
+      "codeHash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+      "nonce": "0x3",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x54d9cfc15b28ade6d764642a4eb6af432d7dc12eca45228013f8697286822b42",
+    "tag": "latest"
+  },
+  {
+    "blockHash": "0x23e68d4b046bfaf5be1d69113c00af36f2a9e9bc4dfb0e09e1bfb4fe0c546ea5",
+    "case": "deploy-write-clear",
+    "result": {
+      "accountProof": [
+        "0xf871a092eae6312583d89ed6c7fb7fadd718aa985857d0e1d07effe49c55e19b7da23480a004a70df094133b767c19c8a8a5e9ed4fee49cbe6813e5b2e15c2437c49f388c1808080808080a0ac8e37f79639da88e7e0948f174aa5c18c490aa3f4a42027be2d3fd4c3eb09a780808080808080",
+        "0xf869a036c7f117bc0254841775a3303ecaae4e21ecf2aeed5e0bad1019fdeefe529cf1b846f8440180a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0f099db285beafe8ac787086703d585e389cb538c66a2dee8aca84db2efe6a128"
+      ],
+      "address": "0xd6c4d5c1ea7f99eb3cb42a178a1894ac6ded15cb",
+      "balance": "0x0",
+      "codeHash": "0xf099db285beafe8ac787086703d585e389cb538c66a2dee8aca84db2efe6a128",
+      "nonce": "0x1",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x54d9cfc15b28ade6d764642a4eb6af432d7dc12eca45228013f8697286822b42",
+    "tag": "latest"
+  },
+  {
+    "blockHash": "0x23e68d4b046bfaf5be1d69113c00af36f2a9e9bc4dfb0e09e1bfb4fe0c546ea5",
+    "case": "deploy-write-clear",
+    "result": {
+      "accountProof": [
+        "0xf871a092eae6312583d89ed6c7fb7fadd718aa985857d0e1d07effe49c55e19b7da23480a004a70df094133b767c19c8a8a5e9ed4fee49cbe6813e5b2e15c2437c49f388c1808080808080a0ac8e37f79639da88e7e0948f174aa5c18c490aa3f4a42027be2d3fd4c3eb09a780808080808080"
+      ],
+      "address": "0x0000000000000000000000000000000000000000",
+      "balance": "0x0",
+      "codeHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "nonce": "0x0",
+      "storageHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x54d9cfc15b28ade6d764642a4eb6af432d7dc12eca45228013f8697286822b42",
+    "tag": "latest"
+  },
+  {
+    "blockHash": "0xae8b1e7e1c075420aa8248373f0a421ee4c3f62df66f38fa7f88d5368ea90490",
+    "case": "revert-after-store-log",
+    "result": {
+      "accountProof": [
+        "0xf851808080a07ca59ab3871e1aed4e5c6b274413c33663be6d0491ed2865b8fe8fd46c6b8c668080808080a03ba7fc8b6dd7a50b49a4fa729d30aaa7634d532d48f9b0b79225e9994ce878b780808080808080",
+        "0xf869a037d95e0aa71e34defa88b4c43498bc8b90207e31ad0ef4aa6f5bea78bd25a1abb846f8440180a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a06e73e728963cd7ebfa486b7543a312931607fda7deb7fa487f6ea03d2432e9b7"
+      ],
+      "address": "0x3333333333333333333333333333333333333333",
+      "balance": "0x0",
+      "codeHash": "0x6e73e728963cd7ebfa486b7543a312931607fda7deb7fa487f6ea03d2432e9b7",
+      "nonce": "0x1",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0xeecbfd0f073877ccd2d150a0a2cdd056f207357f23d9640cc544847b4477dbac",
+    "tag": "earliest"
+  },
+  {
+    "blockHash": "0xae8b1e7e1c075420aa8248373f0a421ee4c3f62df66f38fa7f88d5368ea90490",
+    "case": "revert-after-store-log",
+    "result": {
+      "accountProof": [
+        "0xf851808080a07ca59ab3871e1aed4e5c6b274413c33663be6d0491ed2865b8fe8fd46c6b8c668080808080a03ba7fc8b6dd7a50b49a4fa729d30aaa7634d532d48f9b0b79225e9994ce878b780808080808080",
+        "0xf871a036c0ce48f34031c2fba95e06d35e0a358d8d40676afd4673ffad997034ae716bb84ef84c80880de0b6b3a7640000a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+      ],
+      "address": "0x2bd0c9fe079c8fca0e3352eb3d02839c371e5c41",
+      "balance": "0xde0b6b3a7640000",
+      "codeHash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+      "nonce": "0x0",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0xeecbfd0f073877ccd2d150a0a2cdd056f207357f23d9640cc544847b4477dbac",
+    "tag": "earliest"
+  },
+  {
+    "blockHash": "0xae8b1e7e1c075420aa8248373f0a421ee4c3f62df66f38fa7f88d5368ea90490",
+    "case": "revert-after-store-log",
+    "result": {
+      "accountProof": [
+        "0xf851808080a07ca59ab3871e1aed4e5c6b274413c33663be6d0491ed2865b8fe8fd46c6b8c668080808080a03ba7fc8b6dd7a50b49a4fa729d30aaa7634d532d48f9b0b79225e9994ce878b780808080808080"
+      ],
+      "address": "0x0000000000000000000000000000000000000000",
+      "balance": "0x0",
+      "codeHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "nonce": "0x0",
+      "storageHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0xeecbfd0f073877ccd2d150a0a2cdd056f207357f23d9640cc544847b4477dbac",
+    "tag": "earliest"
+  },
+  {
+    "blockHash": "0xdb377507fa6f2083355db4efc21b85424640f1790c4b39e4f95e4481c8872dab",
+    "case": "revert-after-store-log",
+    "result": {
+      "accountProof": [
+        "0xf8718080a06c0a000e924ab2f0519777663d62f1c507b133a12acbabcba0fa79f8dfec5cdaa07ca59ab3871e1aed4e5c6b274413c33663be6d0491ed2865b8fe8fd46c6b8c668080808080a0d7dafdc58866fe910d5a041905c6f62b928c020732603e0d14d30529fb49867d80808080808080",
+        "0xf869a037d95e0aa71e34defa88b4c43498bc8b90207e31ad0ef4aa6f5bea78bd25a1abb846f8440180a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a06e73e728963cd7ebfa486b7543a312931607fda7deb7fa487f6ea03d2432e9b7"
+      ],
+      "address": "0x3333333333333333333333333333333333333333",
+      "balance": "0x0",
+      "codeHash": "0x6e73e728963cd7ebfa486b7543a312931607fda7deb7fa487f6ea03d2432e9b7",
+      "nonce": "0x1",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x48c97b793430cb3c0fa26b2ca22afe1126080b412cab6ccb8a453980b05bbe6e",
+    "tag": "latest"
+  },
+  {
+    "blockHash": "0xdb377507fa6f2083355db4efc21b85424640f1790c4b39e4f95e4481c8872dab",
+    "case": "revert-after-store-log",
+    "result": {
+      "accountProof": [
+        "0xf8718080a06c0a000e924ab2f0519777663d62f1c507b133a12acbabcba0fa79f8dfec5cdaa07ca59ab3871e1aed4e5c6b274413c33663be6d0491ed2865b8fe8fd46c6b8c668080808080a0d7dafdc58866fe910d5a041905c6f62b928c020732603e0d14d30529fb49867d80808080808080",
+        "0xf871a036c0ce48f34031c2fba95e06d35e0a358d8d40676afd4673ffad997034ae716bb84ef84c02880de048baefc48200a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+      ],
+      "address": "0x2bd0c9fe079c8fca0e3352eb3d02839c371e5c41",
+      "balance": "0xde048baefc48200",
+      "codeHash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+      "nonce": "0x2",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x48c97b793430cb3c0fa26b2ca22afe1126080b412cab6ccb8a453980b05bbe6e",
+    "tag": "latest"
+  },
+  {
+    "blockHash": "0xdb377507fa6f2083355db4efc21b85424640f1790c4b39e4f95e4481c8872dab",
+    "case": "revert-after-store-log",
+    "result": {
+      "accountProof": [
+        "0xf8718080a06c0a000e924ab2f0519777663d62f1c507b133a12acbabcba0fa79f8dfec5cdaa07ca59ab3871e1aed4e5c6b274413c33663be6d0491ed2865b8fe8fd46c6b8c668080808080a0d7dafdc58866fe910d5a041905c6f62b928c020732603e0d14d30529fb49867d80808080808080",
+        "0xf86fa03ab0a4443bbea3fbe4d0e1503d11ff1367842fb0c8b28a5c8550f27599a40751b84cf84a80863aa6c8551000a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+      ],
+      "address": "0x2222222222222222222222222222222222222222",
+      "balance": "0x3aa6c8551000",
+      "codeHash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+      "nonce": "0x0",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x48c97b793430cb3c0fa26b2ca22afe1126080b412cab6ccb8a453980b05bbe6e",
+    "tag": "latest"
+  },
+  {
+    "blockHash": "0xdb377507fa6f2083355db4efc21b85424640f1790c4b39e4f95e4481c8872dab",
+    "case": "revert-after-store-log",
+    "result": {
+      "accountProof": [
+        "0xf8718080a06c0a000e924ab2f0519777663d62f1c507b133a12acbabcba0fa79f8dfec5cdaa07ca59ab3871e1aed4e5c6b274413c33663be6d0491ed2865b8fe8fd46c6b8c668080808080a0d7dafdc58866fe910d5a041905c6f62b928c020732603e0d14d30529fb49867d80808080808080"
+      ],
+      "address": "0x0000000000000000000000000000000000000000",
+      "balance": "0x0",
+      "codeHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "nonce": "0x0",
+      "storageHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x48c97b793430cb3c0fa26b2ca22afe1126080b412cab6ccb8a453980b05bbe6e",
+    "tag": "latest"
+  },
+  {
+    "blockHash": "0x7f92d8c06642504fdeb2487757bee8fce7f818dc910d515c319041a8e227d52e",
+    "case": "halt-after-store-log",
+    "result": {
+      "accountProof": [
+        "0xf851808080a083726b62262562825d70cd503cdd37109b224402842d7b3078cb0fcda2b8243c8080808080a03ba7fc8b6dd7a50b49a4fa729d30aaa7634d532d48f9b0b79225e9994ce878b780808080808080",
+        "0xf869a037d95e0aa71e34defa88b4c43498bc8b90207e31ad0ef4aa6f5bea78bd25a1abb846f8440180a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0f2d6746a91a09b370a74e15230b9c0b0f2fc30e4fb6e16106d42b86507d8ce61"
+      ],
+      "address": "0x3333333333333333333333333333333333333333",
+      "balance": "0x0",
+      "codeHash": "0xf2d6746a91a09b370a74e15230b9c0b0f2fc30e4fb6e16106d42b86507d8ce61",
+      "nonce": "0x1",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x2606aacfeb4eceb254b61383578544527a7b81e80e256ec443b7b45ad0762a63",
+    "tag": "earliest"
+  },
+  {
+    "blockHash": "0x7f92d8c06642504fdeb2487757bee8fce7f818dc910d515c319041a8e227d52e",
+    "case": "halt-after-store-log",
+    "result": {
+      "accountProof": [
+        "0xf851808080a083726b62262562825d70cd503cdd37109b224402842d7b3078cb0fcda2b8243c8080808080a03ba7fc8b6dd7a50b49a4fa729d30aaa7634d532d48f9b0b79225e9994ce878b780808080808080",
+        "0xf871a036c0ce48f34031c2fba95e06d35e0a358d8d40676afd4673ffad997034ae716bb84ef84c80880de0b6b3a7640000a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+      ],
+      "address": "0x2bd0c9fe079c8fca0e3352eb3d02839c371e5c41",
+      "balance": "0xde0b6b3a7640000",
+      "codeHash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+      "nonce": "0x0",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x2606aacfeb4eceb254b61383578544527a7b81e80e256ec443b7b45ad0762a63",
+    "tag": "earliest"
+  },
+  {
+    "blockHash": "0x7f92d8c06642504fdeb2487757bee8fce7f818dc910d515c319041a8e227d52e",
+    "case": "halt-after-store-log",
+    "result": {
+      "accountProof": [
+        "0xf851808080a083726b62262562825d70cd503cdd37109b224402842d7b3078cb0fcda2b8243c8080808080a03ba7fc8b6dd7a50b49a4fa729d30aaa7634d532d48f9b0b79225e9994ce878b780808080808080"
+      ],
+      "address": "0x0000000000000000000000000000000000000000",
+      "balance": "0x0",
+      "codeHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "nonce": "0x0",
+      "storageHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x2606aacfeb4eceb254b61383578544527a7b81e80e256ec443b7b45ad0762a63",
+    "tag": "earliest"
+  },
+  {
+    "blockHash": "0xd267e4e634d14124b7648fe5125a2b2f254a7c456a3dc0fbacc05f28cb9e2b5d",
+    "case": "halt-after-store-log",
+    "result": {
+      "accountProof": [
+        "0xf8718080a00dfb277c1a01e949aa3995bc33f148d60687243f5f61e7445d44e76eb3f9152da083726b62262562825d70cd503cdd37109b224402842d7b3078cb0fcda2b8243c8080808080a000d5fbfe00660f99ae0ef195aeb4ecc4607f20167ab79a38539b66b93eb2201c80808080808080",
+        "0xf869a037d95e0aa71e34defa88b4c43498bc8b90207e31ad0ef4aa6f5bea78bd25a1abb846f8440180a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0f2d6746a91a09b370a74e15230b9c0b0f2fc30e4fb6e16106d42b86507d8ce61"
+      ],
+      "address": "0x3333333333333333333333333333333333333333",
+      "balance": "0x0",
+      "codeHash": "0xf2d6746a91a09b370a74e15230b9c0b0f2fc30e4fb6e16106d42b86507d8ce61",
+      "nonce": "0x1",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x1574d03db3f9d52fa3531366400ca4f27d9a2b3c91cbf840362da3b9c558270c",
+    "tag": "latest"
+  },
+  {
+    "blockHash": "0xd267e4e634d14124b7648fe5125a2b2f254a7c456a3dc0fbacc05f28cb9e2b5d",
+    "case": "halt-after-store-log",
+    "result": {
+      "accountProof": [
+        "0xf8718080a00dfb277c1a01e949aa3995bc33f148d60687243f5f61e7445d44e76eb3f9152da083726b62262562825d70cd503cdd37109b224402842d7b3078cb0fcda2b8243c8080808080a000d5fbfe00660f99ae0ef195aeb4ecc4607f20167ab79a38539b66b93eb2201c80808080808080",
+        "0xf871a036c0ce48f34031c2fba95e06d35e0a358d8d40676afd4673ffad997034ae716bb84ef84c02880dde934cb5d10200a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+      ],
+      "address": "0x2bd0c9fe079c8fca0e3352eb3d02839c371e5c41",
+      "balance": "0xdde934cb5d10200",
+      "codeHash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+      "nonce": "0x2",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x1574d03db3f9d52fa3531366400ca4f27d9a2b3c91cbf840362da3b9c558270c",
+    "tag": "latest"
+  },
+  {
+    "blockHash": "0xd267e4e634d14124b7648fe5125a2b2f254a7c456a3dc0fbacc05f28cb9e2b5d",
+    "case": "halt-after-store-log",
+    "result": {
+      "accountProof": [
+        "0xf8718080a00dfb277c1a01e949aa3995bc33f148d60687243f5f61e7445d44e76eb3f9152da083726b62262562825d70cd503cdd37109b224402842d7b3078cb0fcda2b8243c8080808080a000d5fbfe00660f99ae0ef195aeb4ecc4607f20167ab79a38539b66b93eb2201c80808080808080",
+        "0xf870a03ab0a4443bbea3fbe4d0e1503d11ff1367842fb0c8b28a5c8550f27599a40751b84df84b80870123f2a2f91000a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+      ],
+      "address": "0x2222222222222222222222222222222222222222",
+      "balance": "0x123f2a2f91000",
+      "codeHash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+      "nonce": "0x0",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x1574d03db3f9d52fa3531366400ca4f27d9a2b3c91cbf840362da3b9c558270c",
+    "tag": "latest"
+  },
+  {
+    "blockHash": "0xd267e4e634d14124b7648fe5125a2b2f254a7c456a3dc0fbacc05f28cb9e2b5d",
+    "case": "halt-after-store-log",
+    "result": {
+      "accountProof": [
+        "0xf8718080a00dfb277c1a01e949aa3995bc33f148d60687243f5f61e7445d44e76eb3f9152da083726b62262562825d70cd503cdd37109b224402842d7b3078cb0fcda2b8243c8080808080a000d5fbfe00660f99ae0ef195aeb4ecc4607f20167ab79a38539b66b93eb2201c80808080808080"
+      ],
+      "address": "0x0000000000000000000000000000000000000000",
+      "balance": "0x0",
+      "codeHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "nonce": "0x0",
+      "storageHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x1574d03db3f9d52fa3531366400ca4f27d9a2b3c91cbf840362da3b9c558270c",
+    "tag": "latest"
+  },
+  {
+    "blockHash": "0x25043b5dd8259ecc403e8b3e720fbece0eebf8aa72165bdece9ba69b8f5297e5",
+    "case": "shanghai-selfdestruct",
+    "result": {
+      "accountProof": [
+        "0xf851808080a0dead7412ecbb1ef48b2a9947a9ab2ce487f24ff2c669a36ef9f348d8e0e7ee748080808080a03ba7fc8b6dd7a50b49a4fa729d30aaa7634d532d48f9b0b79225e9994ce878b780808080808080",
+        "0xf86ba037d95e0aa71e34defa88b4c43498bc8b90207e31ad0ef4aa6f5bea78bd25a1abb848f846018203e7a081d1fa699f807735499cf6f7df860797cf66f6a66b565cfcda3fae3521eb6861a07cf8d880119d4476b7927e949433862f665b94051f8521929e455494e62e685e"
+      ],
+      "address": "0x3333333333333333333333333333333333333333",
+      "balance": "0x3e7",
+      "codeHash": "0x7cf8d880119d4476b7927e949433862f665b94051f8521929e455494e62e685e",
+      "nonce": "0x1",
+      "storageHash": "0x81d1fa699f807735499cf6f7df860797cf66f6a66b565cfcda3fae3521eb6861",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [
+            "0xe3a120290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e5632a"
+          ],
+          "value": "0x2a"
+        },
+        {
+          "key": "0x1",
+          "proof": [
+            "0xe3a120290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e5632a"
+          ],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [
+            "0xe3a120290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e5632a"
+          ],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [
+            "0xe3a120290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e5632a"
+          ],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [
+            "0xe3a120290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e5632a"
+          ],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x255447b20d783508ffd16f0cac70c19b96808eadab61f5458a9ae6734bd5c5f8",
+    "tag": "earliest"
+  },
+  {
+    "blockHash": "0x25043b5dd8259ecc403e8b3e720fbece0eebf8aa72165bdece9ba69b8f5297e5",
+    "case": "shanghai-selfdestruct",
+    "result": {
+      "accountProof": [
+        "0xf851808080a0dead7412ecbb1ef48b2a9947a9ab2ce487f24ff2c669a36ef9f348d8e0e7ee748080808080a03ba7fc8b6dd7a50b49a4fa729d30aaa7634d532d48f9b0b79225e9994ce878b780808080808080",
+        "0xf871a036c0ce48f34031c2fba95e06d35e0a358d8d40676afd4673ffad997034ae716bb84ef84c80880de0b6b3a7640000a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+      ],
+      "address": "0x2bd0c9fe079c8fca0e3352eb3d02839c371e5c41",
+      "balance": "0xde0b6b3a7640000",
+      "codeHash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+      "nonce": "0x0",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x255447b20d783508ffd16f0cac70c19b96808eadab61f5458a9ae6734bd5c5f8",
+    "tag": "earliest"
+  },
+  {
+    "blockHash": "0x25043b5dd8259ecc403e8b3e720fbece0eebf8aa72165bdece9ba69b8f5297e5",
+    "case": "shanghai-selfdestruct",
+    "result": {
+      "accountProof": [
+        "0xf851808080a0dead7412ecbb1ef48b2a9947a9ab2ce487f24ff2c669a36ef9f348d8e0e7ee748080808080a03ba7fc8b6dd7a50b49a4fa729d30aaa7634d532d48f9b0b79225e9994ce878b780808080808080"
+      ],
+      "address": "0x0000000000000000000000000000000000000000",
+      "balance": "0x0",
+      "codeHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "nonce": "0x0",
+      "storageHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x255447b20d783508ffd16f0cac70c19b96808eadab61f5458a9ae6734bd5c5f8",
+    "tag": "earliest"
+  },
+  {
+    "blockHash": "0x9bf0fa5cbcd856dcc8a2e918d92527fbfe03c8781fd639eea72c34782a4445f3",
+    "case": "shanghai-selfdestruct",
+    "result": {
+      "accountProof": [
+        "0xf8718080a07495f1acbbd8ab836923d6e7df5575c486e3a1c4a30e3c9dc31266efc2b55b50808080808080a03ca7c08fe527e29bc1859adf38f8eef14e4849f9b750093bdf387f07b01acd7880808080a0e4519afde4ec66569920f4585ae7033a85e5a874eec94bcc1f471bd8d265a7a48080",
+        "0xf871a036c0ce48f34031c2fba95e06d35e0a358d8d40676afd4673ffad997034ae716bb84ef84c02880de039589bde75b8a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+      ],
+      "address": "0x2bd0c9fe079c8fca0e3352eb3d02839c371e5c41",
+      "balance": "0xde039589bde75b8",
+      "codeHash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+      "nonce": "0x2",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0xfd2a01378775dd630895919706a71e0fc4e526564d7583a4c77c09366496cd2e",
+    "tag": "latest"
+  },
+  {
+    "blockHash": "0x9bf0fa5cbcd856dcc8a2e918d92527fbfe03c8781fd639eea72c34782a4445f3",
+    "case": "shanghai-selfdestruct",
+    "result": {
+      "accountProof": [
+        "0xf8718080a07495f1acbbd8ab836923d6e7df5575c486e3a1c4a30e3c9dc31266efc2b55b50808080808080a03ca7c08fe527e29bc1859adf38f8eef14e4849f9b750093bdf387f07b01acd7880808080a0e4519afde4ec66569920f4585ae7033a85e5a874eec94bcc1f471bd8d265a7a48080",
+        "0xf86ba032c07404b8c1df4c46226425cac68c28d27a766bbddce62309f36724839b22c0b848f846808203e7a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+      ],
+      "address": "0x1111111111111111111111111111111111111111",
+      "balance": "0x3e7",
+      "codeHash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+      "nonce": "0x0",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0xfd2a01378775dd630895919706a71e0fc4e526564d7583a4c77c09366496cd2e",
+    "tag": "latest"
+  },
+  {
+    "blockHash": "0x9bf0fa5cbcd856dcc8a2e918d92527fbfe03c8781fd639eea72c34782a4445f3",
+    "case": "shanghai-selfdestruct",
+    "result": {
+      "accountProof": [
+        "0xf8718080a07495f1acbbd8ab836923d6e7df5575c486e3a1c4a30e3c9dc31266efc2b55b50808080808080a03ca7c08fe527e29bc1859adf38f8eef14e4849f9b750093bdf387f07b01acd7880808080a0e4519afde4ec66569920f4585ae7033a85e5a874eec94bcc1f471bd8d265a7a48080",
+        "0xf86fa03ab0a4443bbea3fbe4d0e1503d11ff1367842fb0c8b28a5c8550f27599a40751b84cf84a808643d9dd506e00a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+      ],
+      "address": "0x2222222222222222222222222222222222222222",
+      "balance": "0x43d9dd506e00",
+      "codeHash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+      "nonce": "0x0",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0xfd2a01378775dd630895919706a71e0fc4e526564d7583a4c77c09366496cd2e",
+    "tag": "latest"
+  },
+  {
+    "blockHash": "0x9bf0fa5cbcd856dcc8a2e918d92527fbfe03c8781fd639eea72c34782a4445f3",
+    "case": "shanghai-selfdestruct",
+    "result": {
+      "accountProof": [
+        "0xf8718080a07495f1acbbd8ab836923d6e7df5575c486e3a1c4a30e3c9dc31266efc2b55b50808080808080a03ca7c08fe527e29bc1859adf38f8eef14e4849f9b750093bdf387f07b01acd7880808080a0e4519afde4ec66569920f4585ae7033a85e5a874eec94bcc1f471bd8d265a7a48080"
+      ],
+      "address": "0x0000000000000000000000000000000000000000",
+      "balance": "0x0",
+      "codeHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "nonce": "0x0",
+      "storageHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0xfd2a01378775dd630895919706a71e0fc4e526564d7583a4c77c09366496cd2e",
+    "tag": "latest"
+  },
+  {
+    "blockHash": "0x7bec9a5d65a801a038a0a5e94515e4cb9fee5f536f7b4d697d2fe8fcac4062d1",
+    "case": "context-and-empty-block",
+    "result": {
+      "accountProof": [
+        "0xf851808080a03baabde70c9cf36208a37973ef46bc98dd36a5ee316b1a21dfe18f1edb4febdd8080808080a03ba7fc8b6dd7a50b49a4fa729d30aaa7634d532d48f9b0b79225e9994ce878b780808080808080",
+        "0xf869a037d95e0aa71e34defa88b4c43498bc8b90207e31ad0ef4aa6f5bea78bd25a1abb846f8440180a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a01de17d0089ab676d2e5aa19bef321a47e93ca655094614265b198fb80cbe10a1"
+      ],
+      "address": "0x3333333333333333333333333333333333333333",
+      "balance": "0x0",
+      "codeHash": "0x1de17d0089ab676d2e5aa19bef321a47e93ca655094614265b198fb80cbe10a1",
+      "nonce": "0x1",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0xa13f5a21410ea6881d1d3f59096268f409b27241254f5a3769617426a0611df3",
+    "tag": "earliest"
+  },
+  {
+    "blockHash": "0x7bec9a5d65a801a038a0a5e94515e4cb9fee5f536f7b4d697d2fe8fcac4062d1",
+    "case": "context-and-empty-block",
+    "result": {
+      "accountProof": [
+        "0xf851808080a03baabde70c9cf36208a37973ef46bc98dd36a5ee316b1a21dfe18f1edb4febdd8080808080a03ba7fc8b6dd7a50b49a4fa729d30aaa7634d532d48f9b0b79225e9994ce878b780808080808080",
+        "0xf871a036c0ce48f34031c2fba95e06d35e0a358d8d40676afd4673ffad997034ae716bb84ef84c80880de0b6b3a7640000a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+      ],
+      "address": "0x2bd0c9fe079c8fca0e3352eb3d02839c371e5c41",
+      "balance": "0xde0b6b3a7640000",
+      "codeHash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+      "nonce": "0x0",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0xa13f5a21410ea6881d1d3f59096268f409b27241254f5a3769617426a0611df3",
+    "tag": "earliest"
+  },
+  {
+    "blockHash": "0x7bec9a5d65a801a038a0a5e94515e4cb9fee5f536f7b4d697d2fe8fcac4062d1",
+    "case": "context-and-empty-block",
+    "result": {
+      "accountProof": [
+        "0xf851808080a03baabde70c9cf36208a37973ef46bc98dd36a5ee316b1a21dfe18f1edb4febdd8080808080a03ba7fc8b6dd7a50b49a4fa729d30aaa7634d532d48f9b0b79225e9994ce878b780808080808080"
+      ],
+      "address": "0x0000000000000000000000000000000000000000",
+      "balance": "0x0",
+      "codeHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "nonce": "0x0",
+      "storageHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0xa13f5a21410ea6881d1d3f59096268f409b27241254f5a3769617426a0611df3",
+    "tag": "earliest"
+  },
+  {
+    "blockHash": "0x949b40d2f3131438f9fbf3b3ebd4ca66735349347dd94456a4f2a7c1e8093ec8",
+    "case": "context-and-empty-block",
+    "result": {
+      "accountProof": [
+        "0xf8718080a0e6bd6acda79ab2c27734ec09a8c348a44039f022675abd78226ef8ca4dfdc99ea0d86bf9d083a50967a9480ee48eb28b038380329f10c513060481bbf2377f6e538080808080a0efad87f1ac9f131cab1cfb6631c629b9e565ee1513580a6e5bc73dedcb78e4f680808080808080",
+        "0xf869a037d95e0aa71e34defa88b4c43498bc8b90207e31ad0ef4aa6f5bea78bd25a1abb846f8440180a03986443c5b721508fc35bea8deb3f0dc77cc67668582aac7215ae86757859565a01de17d0089ab676d2e5aa19bef321a47e93ca655094614265b198fb80cbe10a1"
+      ],
+      "address": "0x3333333333333333333333333333333333333333",
+      "balance": "0x0",
+      "codeHash": "0x1de17d0089ab676d2e5aa19bef321a47e93ca655094614265b198fb80cbe10a1",
+      "nonce": "0x1",
+      "storageHash": "0x3986443c5b721508fc35bea8deb3f0dc77cc67668582aac7215ae86757859565",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [
+            "0xf8f18080a04355bd3061ad2d17e0782413925b4fd81a56bd162d91eedb2a00d6c87611471480a06b626fa87a3c3b450a1a337260a03ddafefb0c6821b01b8e8212b37584b8e7be808080a082a355515c1784fe8b42b5452ed8c390f9aa9a1c97baaed7e215fd76ae64250880a08035f400d9822c8e3e6d4010125620d4aa18254fdbf2da76a5ebfeb77d241bbfa0dd2b9fa91030a427fc97be1a455d5511125a6c610a7605676df54979f282c6afa0ba0179a5c06d89cd10b8483c2130d424551d5cb9e51a5d50b8bf46cebab007528080a07ec093943b7332b9a8de61f47ee3972a94f00c3ff4d82e15d204c23595fbf7d580",
+            "0xe2a0390decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e56303"
+          ],
+          "value": "0x3"
+        },
+        {
+          "key": "0x1",
+          "proof": [
+            "0xf8f18080a04355bd3061ad2d17e0782413925b4fd81a56bd162d91eedb2a00d6c87611471480a06b626fa87a3c3b450a1a337260a03ddafefb0c6821b01b8e8212b37584b8e7be808080a082a355515c1784fe8b42b5452ed8c390f9aa9a1c97baaed7e215fd76ae64250880a08035f400d9822c8e3e6d4010125620d4aa18254fdbf2da76a5ebfeb77d241bbfa0dd2b9fa91030a427fc97be1a455d5511125a6c610a7605676df54979f282c6afa0ba0179a5c06d89cd10b8483c2130d424551d5cb9e51a5d50b8bf46cebab007528080a07ec093943b7332b9a8de61f47ee3972a94f00c3ff4d82e15d204c23595fbf7d580",
+            "0xe2a0310e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf60a"
+          ],
+          "value": "0xa"
+        },
+        {
+          "key": "0x2",
+          "proof": [
+            "0xf8f18080a04355bd3061ad2d17e0782413925b4fd81a56bd162d91eedb2a00d6c87611471480a06b626fa87a3c3b450a1a337260a03ddafefb0c6821b01b8e8212b37584b8e7be808080a082a355515c1784fe8b42b5452ed8c390f9aa9a1c97baaed7e215fd76ae64250880a08035f400d9822c8e3e6d4010125620d4aa18254fdbf2da76a5ebfeb77d241bbfa0dd2b9fa91030a427fc97be1a455d5511125a6c610a7605676df54979f282c6afa0ba0179a5c06d89cd10b8483c2130d424551d5cb9e51a5d50b8bf46cebab007528080a07ec093943b7332b9a8de61f47ee3972a94f00c3ff4d82e15d204c23595fbf7d580",
+            "0xe7a0305787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ace858429f5f751"
+          ],
+          "value": "0x29f5f751"
+        },
+        {
+          "key": "0x7",
+          "proof": [
+            "0xf8f18080a04355bd3061ad2d17e0782413925b4fd81a56bd162d91eedb2a00d6c87611471480a06b626fa87a3c3b450a1a337260a03ddafefb0c6821b01b8e8212b37584b8e7be808080a082a355515c1784fe8b42b5452ed8c390f9aa9a1c97baaed7e215fd76ae64250880a08035f400d9822c8e3e6d4010125620d4aa18254fdbf2da76a5ebfeb77d241bbfa0dd2b9fa91030a427fc97be1a455d5511125a6c610a7605676df54979f282c6afa0ba0179a5c06d89cd10b8483c2130d424551d5cb9e51a5d50b8bf46cebab007528080a07ec093943b7332b9a8de61f47ee3972a94f00c3ff4d82e15d204c23595fbf7d580",
+            "0xf843a0366cc928b5edb82af9bd49922954155ab7b0942694bea4ce44661d9a8736c688a1a05e2af5116d1310459860859c8f79ddf32eb66aa8f066f8b2ada4dbe4947f3f9b"
+          ],
+          "value": "0x5e2af5116d1310459860859c8f79ddf32eb66aa8f066f8b2ada4dbe4947f3f9b"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [
+            "0xf8f18080a04355bd3061ad2d17e0782413925b4fd81a56bd162d91eedb2a00d6c87611471480a06b626fa87a3c3b450a1a337260a03ddafefb0c6821b01b8e8212b37584b8e7be808080a082a355515c1784fe8b42b5452ed8c390f9aa9a1c97baaed7e215fd76ae64250880a08035f400d9822c8e3e6d4010125620d4aa18254fdbf2da76a5ebfeb77d241bbfa0dd2b9fa91030a427fc97be1a455d5511125a6c610a7605676df54979f282c6afa0ba0179a5c06d89cd10b8483c2130d424551d5cb9e51a5d50b8bf46cebab007528080a07ec093943b7332b9a8de61f47ee3972a94f00c3ff4d82e15d204c23595fbf7d580",
+            "0xf843a0366cc928b5edb82af9bd49922954155ab7b0942694bea4ce44661d9a8736c688a1a05e2af5116d1310459860859c8f79ddf32eb66aa8f066f8b2ada4dbe4947f3f9b"
+          ],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x5ccdda42d6a87b712f8767b05cfd3a696fbfe1e532fad92240047461bf6ecad9",
+    "tag": "latest"
+  },
+  {
+    "blockHash": "0x949b40d2f3131438f9fbf3b3ebd4ca66735349347dd94456a4f2a7c1e8093ec8",
+    "case": "context-and-empty-block",
+    "result": {
+      "accountProof": [
+        "0xf8718080a0e6bd6acda79ab2c27734ec09a8c348a44039f022675abd78226ef8ca4dfdc99ea0d86bf9d083a50967a9480ee48eb28b038380329f10c513060481bbf2377f6e538080808080a0efad87f1ac9f131cab1cfb6631c629b9e565ee1513580a6e5bc73dedcb78e4f680808080808080",
+        "0xf871a036c0ce48f34031c2fba95e06d35e0a358d8d40676afd4673ffad997034ae716bb84ef84c02880ddf3e4722dba797a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+      ],
+      "address": "0x2bd0c9fe079c8fca0e3352eb3d02839c371e5c41",
+      "balance": "0xddf3e4722dba797",
+      "codeHash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+      "nonce": "0x2",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x5ccdda42d6a87b712f8767b05cfd3a696fbfe1e532fad92240047461bf6ecad9",
+    "tag": "latest"
+  },
+  {
+    "blockHash": "0x949b40d2f3131438f9fbf3b3ebd4ca66735349347dd94456a4f2a7c1e8093ec8",
+    "case": "context-and-empty-block",
+    "result": {
+      "accountProof": [
+        "0xf8718080a0e6bd6acda79ab2c27734ec09a8c348a44039f022675abd78226ef8ca4dfdc99ea0d86bf9d083a50967a9480ee48eb28b038380329f10c513060481bbf2377f6e538080808080a0efad87f1ac9f131cab1cfb6631c629b9e565ee1513580a6e5bc73dedcb78e4f680808080808080",
+        "0xf86fa03ab0a4443bbea3fbe4d0e1503d11ff1367842fb0c8b28a5c8550f27599a40751b84cf84a8086cca9e136bc00a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+      ],
+      "address": "0x2222222222222222222222222222222222222222",
+      "balance": "0xcca9e136bc00",
+      "codeHash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+      "nonce": "0x0",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x5ccdda42d6a87b712f8767b05cfd3a696fbfe1e532fad92240047461bf6ecad9",
+    "tag": "latest"
+  },
+  {
+    "blockHash": "0x949b40d2f3131438f9fbf3b3ebd4ca66735349347dd94456a4f2a7c1e8093ec8",
+    "case": "context-and-empty-block",
+    "result": {
+      "accountProof": [
+        "0xf8718080a0e6bd6acda79ab2c27734ec09a8c348a44039f022675abd78226ef8ca4dfdc99ea0d86bf9d083a50967a9480ee48eb28b038380329f10c513060481bbf2377f6e538080808080a0efad87f1ac9f131cab1cfb6631c629b9e565ee1513580a6e5bc73dedcb78e4f680808080808080"
+      ],
+      "address": "0x0000000000000000000000000000000000000000",
+      "balance": "0x0",
+      "codeHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "nonce": "0x0",
+      "storageHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x5ccdda42d6a87b712f8767b05cfd3a696fbfe1e532fad92240047461bf6ecad9",
+    "tag": "latest"
+  },
+  {
+    "blockHash": "0x0d6098a6d75ed5e7ec063f9243240b81de22006f71a42e34efb35b100c686b1b",
+    "case": "sha256-identity-precompiles",
+    "result": {
+      "accountProof": [
+        "0xf872a12096c0ce48f34031c2fba95e06d35e0a358d8d40676afd4673ffad997034ae716bb84ef84c80880de0b6b3a7640000a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+      ],
+      "address": "0x2bd0c9fe079c8fca0e3352eb3d02839c371e5c41",
+      "balance": "0xde0b6b3a7640000",
+      "codeHash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+      "nonce": "0x0",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0xa7baf949c792b882fc5e72fd71c17b6268bff6c813001024a1407ba82b808155",
+    "tag": "earliest"
+  },
+  {
+    "blockHash": "0x0d6098a6d75ed5e7ec063f9243240b81de22006f71a42e34efb35b100c686b1b",
+    "case": "sha256-identity-precompiles",
+    "result": {
+      "accountProof": [
+        "0xf872a12096c0ce48f34031c2fba95e06d35e0a358d8d40676afd4673ffad997034ae716bb84ef84c80880de0b6b3a7640000a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+      ],
+      "address": "0x0000000000000000000000000000000000000000",
+      "balance": "0x0",
+      "codeHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "nonce": "0x0",
+      "storageHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0xa7baf949c792b882fc5e72fd71c17b6268bff6c813001024a1407ba82b808155",
+    "tag": "earliest"
+  },
+  {
+    "blockHash": "0x350127a345a625e25d1c49b735f6deb1ddb10c65a9a59a76a21a71362782e7f0",
+    "case": "sha256-identity-precompiles",
+    "result": {
+      "accountProof": [
+        "0xf8518080a0d8bd82351378a70c6dfb2f6379d9f3e60c84ba9e5e9c411f5971bf8ee1c1aef9808080808080a03e9ac07fc1993fe36d8ea95e8ad5525d7ffb8386acc5ca7494b41d14967e101580808080808080",
+        "0xf86fa03ab0a4443bbea3fbe4d0e1503d11ff1367842fb0c8b28a5c8550f27599a40751b84cf84a8086265e318b6400a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+      ],
+      "address": "0x2222222222222222222222222222222222222222",
+      "balance": "0x265e318b6400",
+      "codeHash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+      "nonce": "0x0",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x7f4a7e9d689a7dde2a7d344e67ef2322e7b2c7e3ca435cc872271edec1ce8170",
+    "tag": "latest"
+  },
+  {
+    "blockHash": "0x350127a345a625e25d1c49b735f6deb1ddb10c65a9a59a76a21a71362782e7f0",
+    "case": "sha256-identity-precompiles",
+    "result": {
+      "accountProof": [
+        "0xf8518080a0d8bd82351378a70c6dfb2f6379d9f3e60c84ba9e5e9c411f5971bf8ee1c1aef9808080808080a03e9ac07fc1993fe36d8ea95e8ad5525d7ffb8386acc5ca7494b41d14967e101580808080808080",
+        "0xf871a036c0ce48f34031c2fba95e06d35e0a358d8d40676afd4673ffad997034ae716bb84ef84c02880de06ec30a7ea480a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+      ],
+      "address": "0x2bd0c9fe079c8fca0e3352eb3d02839c371e5c41",
+      "balance": "0xde06ec30a7ea480",
+      "codeHash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+      "nonce": "0x2",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x7f4a7e9d689a7dde2a7d344e67ef2322e7b2c7e3ca435cc872271edec1ce8170",
+    "tag": "latest"
+  },
+  {
+    "blockHash": "0x350127a345a625e25d1c49b735f6deb1ddb10c65a9a59a76a21a71362782e7f0",
+    "case": "sha256-identity-precompiles",
+    "result": {
+      "accountProof": [
+        "0xf8518080a0d8bd82351378a70c6dfb2f6379d9f3e60c84ba9e5e9c411f5971bf8ee1c1aef9808080808080a03e9ac07fc1993fe36d8ea95e8ad5525d7ffb8386acc5ca7494b41d14967e101580808080808080"
+      ],
+      "address": "0x0000000000000000000000000000000000000000",
+      "balance": "0x0",
+      "codeHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "nonce": "0x0",
+      "storageHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x7f4a7e9d689a7dde2a7d344e67ef2322e7b2c7e3ca435cc872271edec1ce8170",
+    "tag": "latest"
+  },
+  {
+    "blockHash": "0xacc9c613a122bae4a76537e0f94ea77d57393953ea04632a99b05611b090ec4a",
+    "case": "block-gas-exhaustion",
+    "result": {
+      "accountProof": [
+        "0xf851808080a05dcdba811d0d395d871fcfd8e576d61d02c1f09b6ccd51debd95224755fd183d8080808080a03ba7fc8b6dd7a50b49a4fa729d30aaa7634d532d48f9b0b79225e9994ce878b780808080808080",
+        "0xf869a037d95e0aa71e34defa88b4c43498bc8b90207e31ad0ef4aa6f5bea78bd25a1abb846f8440180a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0bcc90f2d6dada5b18e155c17a1c0a55920aae94f39857d39d0d8ed07ae8f228b"
+      ],
+      "address": "0x3333333333333333333333333333333333333333",
+      "balance": "0x0",
+      "codeHash": "0xbcc90f2d6dada5b18e155c17a1c0a55920aae94f39857d39d0d8ed07ae8f228b",
+      "nonce": "0x1",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x9ccd49362e010246e8ccf80633864c5415272c6266b62724f16b2f9e0bdb18fc",
+    "tag": "earliest"
+  },
+  {
+    "blockHash": "0xacc9c613a122bae4a76537e0f94ea77d57393953ea04632a99b05611b090ec4a",
+    "case": "block-gas-exhaustion",
+    "result": {
+      "accountProof": [
+        "0xf851808080a05dcdba811d0d395d871fcfd8e576d61d02c1f09b6ccd51debd95224755fd183d8080808080a03ba7fc8b6dd7a50b49a4fa729d30aaa7634d532d48f9b0b79225e9994ce878b780808080808080",
+        "0xf871a036c0ce48f34031c2fba95e06d35e0a358d8d40676afd4673ffad997034ae716bb84ef84c80880de0b6b3a7640000a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+      ],
+      "address": "0x2bd0c9fe079c8fca0e3352eb3d02839c371e5c41",
+      "balance": "0xde0b6b3a7640000",
+      "codeHash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+      "nonce": "0x0",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x9ccd49362e010246e8ccf80633864c5415272c6266b62724f16b2f9e0bdb18fc",
+    "tag": "earliest"
+  },
+  {
+    "blockHash": "0xacc9c613a122bae4a76537e0f94ea77d57393953ea04632a99b05611b090ec4a",
+    "case": "block-gas-exhaustion",
+    "result": {
+      "accountProof": [
+        "0xf851808080a05dcdba811d0d395d871fcfd8e576d61d02c1f09b6ccd51debd95224755fd183d8080808080a03ba7fc8b6dd7a50b49a4fa729d30aaa7634d532d48f9b0b79225e9994ce878b780808080808080"
+      ],
+      "address": "0x0000000000000000000000000000000000000000",
+      "balance": "0x0",
+      "codeHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "nonce": "0x0",
+      "storageHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x9ccd49362e010246e8ccf80633864c5415272c6266b62724f16b2f9e0bdb18fc",
+    "tag": "earliest"
+  },
+  {
+    "blockHash": "0x1f8ae54da3ff3cfb48310d1246171453d0d56de1ba194cd671cd15ba177313d8",
+    "case": "block-gas-exhaustion",
+    "result": {
+      "accountProof": [
+        "0xf8718080a0124abae6fdb7a9f2d219e556fceec0e5a59eff78712628b5240fa578929d83e6a05dcdba811d0d395d871fcfd8e576d61d02c1f09b6ccd51debd95224755fd183d8080808080a0922466c641690eac8af1557e6f026f2b1e7edf940aa0c381207f4e665089bae980808080808080",
+        "0xf869a037d95e0aa71e34defa88b4c43498bc8b90207e31ad0ef4aa6f5bea78bd25a1abb846f8440180a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0bcc90f2d6dada5b18e155c17a1c0a55920aae94f39857d39d0d8ed07ae8f228b"
+      ],
+      "address": "0x3333333333333333333333333333333333333333",
+      "balance": "0x0",
+      "codeHash": "0xbcc90f2d6dada5b18e155c17a1c0a55920aae94f39857d39d0d8ed07ae8f228b",
+      "nonce": "0x1",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x27e5f20b468dab7104c2316a897b9fef57f939923961bfb08d9850d2b0c1b913",
+    "tag": "latest"
+  },
+  {
+    "blockHash": "0x1f8ae54da3ff3cfb48310d1246171453d0d56de1ba194cd671cd15ba177313d8",
+    "case": "block-gas-exhaustion",
+    "result": {
+      "accountProof": [
+        "0xf8718080a0124abae6fdb7a9f2d219e556fceec0e5a59eff78712628b5240fa578929d83e6a05dcdba811d0d395d871fcfd8e576d61d02c1f09b6ccd51debd95224755fd183d8080808080a0922466c641690eac8af1557e6f026f2b1e7edf940aa0c381207f4e665089bae980808080808080",
+        "0xf871a036c0ce48f34031c2fba95e06d35e0a358d8d40676afd4673ffad997034ae716bb84ef84c02880dda09b03f7c7000a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+      ],
+      "address": "0x2bd0c9fe079c8fca0e3352eb3d02839c371e5c41",
+      "balance": "0xdda09b03f7c7000",
+      "codeHash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+      "nonce": "0x2",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x27e5f20b468dab7104c2316a897b9fef57f939923961bfb08d9850d2b0c1b913",
+    "tag": "latest"
+  },
+  {
+    "blockHash": "0x1f8ae54da3ff3cfb48310d1246171453d0d56de1ba194cd671cd15ba177313d8",
+    "case": "block-gas-exhaustion",
+    "result": {
+      "accountProof": [
+        "0xf8718080a0124abae6fdb7a9f2d219e556fceec0e5a59eff78712628b5240fa578929d83e6a05dcdba811d0d395d871fcfd8e576d61d02c1f09b6ccd51debd95224755fd183d8080808080a0922466c641690eac8af1557e6f026f2b1e7edf940aa0c381207f4e665089bae980808080808080",
+        "0xf870a03ab0a4443bbea3fbe4d0e1503d11ff1367842fb0c8b28a5c8550f27599a40751b84df84b8087038e67796b9000a056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421a0c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+      ],
+      "address": "0x2222222222222222222222222222222222222222",
+      "balance": "0x38e67796b9000",
+      "codeHash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470",
+      "nonce": "0x0",
+      "storageHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x27e5f20b468dab7104c2316a897b9fef57f939923961bfb08d9850d2b0c1b913",
+    "tag": "latest"
+  },
+  {
+    "blockHash": "0x1f8ae54da3ff3cfb48310d1246171453d0d56de1ba194cd671cd15ba177313d8",
+    "case": "block-gas-exhaustion",
+    "result": {
+      "accountProof": [
+        "0xf8718080a0124abae6fdb7a9f2d219e556fceec0e5a59eff78712628b5240fa578929d83e6a05dcdba811d0d395d871fcfd8e576d61d02c1f09b6ccd51debd95224755fd183d8080808080a0922466c641690eac8af1557e6f026f2b1e7edf940aa0c381207f4e665089bae980808080808080"
+      ],
+      "address": "0x0000000000000000000000000000000000000000",
+      "balance": "0x0",
+      "codeHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "nonce": "0x0",
+      "storageHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "storageProof": [
+        {
+          "key": "0x0",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x1",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x2",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0x7",
+          "proof": [],
+          "value": "0x0"
+        },
+        {
+          "key": "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "proof": [],
+          "value": "0x0"
+        }
+      ]
+    },
+    "stateRoot": "0x27e5f20b468dab7104c2316a897b9fef57f939923961bfb08d9850d2b0c1b913",
+    "tag": "latest"
+  }
+]

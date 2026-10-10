@@ -1,0 +1,24 @@
+{
+  "git_head": "7c193f06c648e6fd69a91f96410aaca4ae11cef9",
+  "files": {
+    "Cargo.lock": "d1e83ee7925c86276223c5b01a46cc25c9a1c81d811b713381dd9d3a4e835f92",
+    "crates/tactus-o1-execution/src/lib.rs": "45bcd1838e3634fb42f570c296072d9b7bfa38aa9c30b425379c87a7910387df",
+    "services/observer-rpc/Cargo.lock": "d3698cc206a3f48d4f3dfee740a212073ead3adcabbb4da5adc58892c407aa1f",
+    "services/observer-rpc/Cargo.toml": "9d8f842bbb2247a17de9be18f9e4ac28cf85703bdd139517ed3e834a158f6496",
+    "services/observer-rpc/src/main.rs": "59e0a01099c69bc37b9069d1240e3606eda3d76012996d3f012f0e75d1fddaf7",
+    "services/observer-rpc/src/snapshot.rs": "fcadb1e3a0063096df23eb342bbd224ba3504897d25da2cbef39d93973606980",
+    "services/observer-rpc/src/logs.rs": "bed591b0a348687620e12f53aadc78f8fe2d91721a3e5e4829a88600d60d4abb",
+    "services/observer-rpc/src/state_proof.rs": "d8ead1f3faded070a016b39c005e9cccd5c1323e753f1155a4741f618961f0d0",
+    "services/proof-checker/main.go": "8020cf27b9c16b89c675402cebd26169b30a2f8d696d3b0737973bf928e311ce",
+    "services/proof-checker/main_test.go": "48ae27a17cb16320e0b57cc7b05015db280dfd8429108f41339c3ccaa0ae1bb1",
+    "services/proof-checker/go.mod": "82411ee7a3a5c3ab8c2438b22119fd2ff72ad5ee2714bf3b4a3a582950f90fb9",
+    "services/proof-checker/go.sum": "9057fa1b67c4463c9739324d07fd847ba4d834c47ee5ecf71832f63e6365e25b",
+    "scripts/qualify-observer-rpc.py": "82a54e12c585cbbaa3a003fba22976eb2119a32576f8c3b919a4eec9449cd4e4",
+    "artifacts/observer-proof-checker": "dad7dd668b129e913eca7e0e63c9326c5fae586cdbd076d9eff4772f19b4c623",
+    "artifacts/observer-rpc-target/debug/tactus-o1-observer-rpc": "70fb791675d2fd04a8c906bc25f1d7c111b3a0c9b1f7fee39e019963d3a0bda3",
+    "specs/test-vectors/execution-v1/geth-1.17.8.json": "dbdadec48daf8657b84b16c8d6ca0efd5653912e27939cf44450145cd7858232"
+  },
+  "geth": "1.17.8",
+  "root_authenticated_by": "separate real A3 SettlementTip evidence; verifier checks MPT only",
+  "production_ready": false
+}

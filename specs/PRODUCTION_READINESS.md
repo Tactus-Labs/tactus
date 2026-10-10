@@ -6,6 +6,12 @@ rollup deployment or custody of user assets.
 
 ## Implemented and measured
 
+- [User-accessible state witnesses](OBSERVER_STATE_PROOFS_REPORT.md) now provide
+  account and storage proofs, independently checked by pinned Geth against
+  reconstructed roots. Live HTTP witnesses match the accepted A3 proof's state
+  roots and settled Tip. This supplies authenticated read evidence, not a vault
+  release rule or an implemented bridge.
+
 - [Real A3 proof fulfillment and rollback](SEALED_PROOF_SETTLEMENT_REPORT.md) now
   settles all four duties, including a proved malformed-input rejection, across
   nine canonical batches. Real P2P rollback restores them as pending; the same

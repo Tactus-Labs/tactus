@@ -1,6 +1,7 @@
 //! Local read-only Ethereum observer backed by canonical CKB recovery.
 mod logs;
 mod snapshot;
+mod state_proof;
 use axum::{
     body::Bytes,
     extract::{DefaultBodyLimit, State},

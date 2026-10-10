@@ -10,8 +10,8 @@ spec=importlib.util.spec_from_file_location('base',ROOT/'scripts/test-observer-r
 c=importlib.util.module_from_spec(spec);spec.loader.exec_module(c)
 
 
-def check(report, source):
-    c.check(report,source)
+def check(report, source, proved_batches=0):
+    c.check(report,source,proved_batches)
     logs=report['log_filter_records']
     assert len(logs)==9
     for i,row in enumerate(logs):

@@ -9,7 +9,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 ARCHIVE = ROOT / 'specs/evidence/observer-rpc'
 
 
-def check(report, source):
+def check(report, source, proved_batches=0):
     assert report['complete'] is True and report['node_unavailability_recovery'] is True
     assert report['production_ready'] is False and report['rpc_p2p_reorg_measured'] is False
     assert report['ckb_version'].split()[1] == '0.210.0'
@@ -32,8 +32,8 @@ def check(report, source):
     statuses = results('tactus_getStatus')
     assert len(statuses) == 2 and statuses[0] == statuses[1]
     status = statuses[0]
-    assert status['publishedBatches'] == '0x9' and status['provedBatches'] == '0x0'
-    assert status['latestIsProofSettled'] is False and status['safeFinalizedPolicy'] is None
+    assert status['publishedBatches'] == '0x9' and status['provedBatches'] == hex(proved_batches)
+    assert status['latestIsProofSettled'] == (proved_batches == 9) and status['safeFinalizedPolicy'] is None
     assert status['productionReady'] is False and status['withdrawalAuthority'] is False
     journal = bytes.fromhex(source['expected_journal_hex'][2:])
     blocks = results('eth_getBlockByNumber',['latest',False])

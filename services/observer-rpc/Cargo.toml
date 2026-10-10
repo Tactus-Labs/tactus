@@ -10,6 +10,8 @@ rust-version = "1.92"
 license = "MIT"
 
 [dependencies]
+alloy-trie = { version = "=0.9.8", features = ["ethereum"] }
+alloy-rlp = "=0.3.16"
 axum = "=0.7.9"
 tokio = { version = "=1.53.2", features = ["rt-multi-thread", "net", "signal", "sync", "time", "macros"] }
 serde = { version = "=1.0.229", features = ["derive"] }

@@ -290,6 +290,32 @@ impl Snapshot {
                 }
                 Ok(result)
             }
+            "eth_getProof" => {
+                arity(3)?;
+                let address = crate::logs::address(&params[0])?;
+                let keys = params[1]
+                    .as_array()
+                    .ok_or(RpcError(-32602, "storage keys must be an array"))?;
+                if keys.len() > 64 {
+                    return Err(RpcError(-32005, "at most 64 storage keys per proof"));
+                }
+                let keys = keys
+                    .iter()
+                    .map(crate::state_proof::storage_key)
+                    .collect::<Result<Vec<_>, _>>()?;
+                let number = self.number(&params[2])?;
+                let engine = if number == self.head {
+                    &self.latest
+                } else if number == 0 {
+                    &self.genesis
+                } else {
+                    return Err(RpcError(
+                        -32000,
+                        "historical state is not retained by this observer",
+                    ));
+                };
+                crate::state_proof::account_proof(engine, address, &keys)
+            }
             "eth_getLogs" => {
                 arity(1)?;
                 self.logs(&params[0])
@@ -594,6 +620,72 @@ mod tests {
             snapshot.query("eth_getLogs", &[json!({})]).unwrap_err().0,
             -32005
         );
+    }
+
+    #[test]
+    fn account_and_storage_proofs_cover_geth_fixtures_and_exclusion() {
+        let fixture = fixtures();
+        let mut exported = Vec::new();
+        for case in fixture["cases"].as_array().unwrap() {
+            let snapshot = replay_fixture(case);
+            assert_eq!(
+                json!(snapshot.latest.head().state_root),
+                case["geth"].as_array().unwrap().last().unwrap()["stateRoot"]
+            );
+            for (tag, engine) in [
+                ("earliest", &snapshot.genesis),
+                ("latest", &snapshot.latest),
+            ] {
+                let mut addresses: Vec<_> = engine.accounts().map(|(a, _)| a).collect();
+                addresses.push(Address::ZERO);
+                for address in addresses {
+                    let result = snapshot
+                        .query(
+                            "eth_getProof",
+                            &[
+                                json!(address),
+                                json!([
+                                    "0x0",
+                                    "0x1",
+                                    "0x2",
+                                    "0x7",
+                                    format!("0x{:064x}", U256::MAX)
+                                ]),
+                                json!(tag),
+                            ],
+                        )
+                        .unwrap();
+                    assert_eq!(result["address"], json!(address));
+                    assert_eq!(result["storageProof"].as_array().unwrap().len(), 5);
+                    assert_eq!(
+                        result["balance"],
+                        snapshot
+                            .query("eth_getBalance", &[json!(address), json!(tag)])
+                            .unwrap()
+                    );
+                    exported.push(json!({"case":case["name"],"tag":tag,"blockHash":engine.head().hash_slow(),"stateRoot":engine.head().state_root,"result":result}));
+                }
+            }
+        }
+        let snapshot = replay_fixture(&fixture["cases"][0]);
+        for keys in [
+            json!(["0x"]),
+            json!(["0x+1"]),
+            json!(["0xgg"]),
+            json!([format!("0x{}", "1".repeat(65))]),
+            json!(vec!["0x0"; 65]),
+        ] {
+            assert!(snapshot
+                .query(
+                    "eth_getProof",
+                    &[json!(Address::ZERO), keys, json!("latest")]
+                )
+                .is_err());
+        }
+        if let Ok(path) = std::env::var("TACTUS_OBSERVER_PROOF_EXPORT") {
+            std::fs::write(path, serde_json::to_vec_pretty(&exported).unwrap()).unwrap();
+        }
+        assert!(exported.len() > 40);
     }
 
     #[test]

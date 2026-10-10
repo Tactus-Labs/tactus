@@ -509,3 +509,18 @@ fn outcomes_commitment(
     }
     batch::hash(b"tactus/o1/slot-outcomes/v1", &bytes)
 }
+
+// Host-side witness construction must not add code to the pinned zkVM guest.
+#[cfg(not(target_os = "zkvm"))]
+impl Executor {
+    /// Read the complete live state for independent trie construction and witnesses.
+    /// This exposes no mutable execution state and uses the same account visibility
+    /// rules as individual account queries.
+    pub fn accounts(&self) -> impl Iterator<Item = (Address, GenesisAccount)> + '_ {
+        self.db
+            .cache
+            .accounts
+            .keys()
+            .filter_map(|address| self.account(*address).map(|account| (*address, account)))
+    }
+}
