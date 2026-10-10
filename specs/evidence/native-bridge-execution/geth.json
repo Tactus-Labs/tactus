@@ -1,0 +1,69 @@
+{
+  "authenticated_publication": false,
+  "blocks": [
+    {
+      "case": "actual-funded-record-bytes",
+      "gas_used": 0,
+      "number": 1,
+      "receipt_root": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "state_root": "0xeac09338e6b6e44f8e82a618c6a93900f3c5cba53e055456d338d284729e126e",
+      "transaction_root": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421"
+    },
+    {
+      "case": "actual-funded-record-bytes",
+      "gas_used": 0,
+      "number": 2,
+      "receipt_root": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+      "state_root": "0x25b05a60f0ea85eafbe571a600a37e860e4d120bf59eb4a7cdeb5e0ae99ca44d",
+      "transaction_root": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421"
+    },
+    {
+      "case": "synthetic-records-signed-transfer-burn-refill",
+      "gas_used": 34637,
+      "number": 1,
+      "receipt_root": "0xf9c7cc6963cbdbaa516dd48a2d6b0a17af75bdd5dfdd82b482f8a4936df07c56",
+      "state_root": "0x39d1bedd25168f901fa722587aed9fe9995c79cbb7c2db2465687955b59dbd31",
+      "transaction_root": "0xe84630230a11f556b6bcbe7eed8035b179557095cb728757a0b6ba80a2675f21"
+    },
+    {
+      "case": "synthetic-records-signed-transfer-burn-refill",
+      "gas_used": 99434,
+      "number": 2,
+      "receipt_root": "0xb7e1006ef7cad621da8d27121ace7b8be82f2692e22e843ead7006cc4640b4a0",
+      "state_root": "0x3b53c599ff0eb4a1c08ad859474973bc1eb22e1adc14a2c3130a29d422bd393f",
+      "transaction_root": "0xa379910c9b2254311a681b779cba76bd9410d2937a1dd1741abd0a080e883f69"
+    },
+    {
+      "case": "synthetic-records-signed-transfer-burn-refill",
+      "gas_used": 60434,
+      "number": 3,
+      "receipt_root": "0x7ad981e62b0e0b809f33707b2699aa53abb558f9b4d1d01d69ef8b42338e5c8b",
+      "state_root": "0x0b686c4ea00c3e119aafe72ae2f51b36a72bf87694e4dce295dd1cedc0bd17b9",
+      "transaction_root": "0xd13e5a8699d14c7c3eefcfb270e3f76194ce29512ba74ff3c326a3d92e7b1323"
+    },
+    {
+      "case": "synthetic-records-signed-transfer-burn-refill",
+      "gas_used": 22653,
+      "number": 4,
+      "receipt_root": "0xbc24b3389d36e2aa170b9db50fab370d5e388dd054f8119df83fb3a2948f8ffc",
+      "state_root": "0x666cab1f43507c87c1c8aa8f448010e88783c12f7c6dad1e7cc8a8a5733d3245",
+      "transaction_root": "0x54672e61be2d8f339f6a580002d564dd4e50593c0489ff857ae8f7864d4dc6cc"
+    },
+    {
+      "case": "synthetic-records-signed-transfer-burn-refill",
+      "gas_used": 60422,
+      "number": 5,
+      "receipt_root": "0x6fca96edddce9cdb19e121eaeb999f65908983c437dc310c316978737428d1e7",
+      "state_root": "0xb81ce21768799882c9f525f92e7f03ededb0bc202c01a9b03a887e91486329e6",
+      "transaction_root": "0xb9c9c3afefa10f4beec3891f21f24e9f68a4925855994e6796dadc868f94eef4"
+    }
+  ],
+  "custody_release": false,
+  "deposits": 5,
+  "fork": "Shanghai",
+  "geth": "1.17.8",
+  "production_ready": false,
+  "proof_settled": false,
+  "reverts": 1,
+  "signed_transactions": 5
+}

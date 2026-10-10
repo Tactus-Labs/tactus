@@ -18,6 +18,8 @@ jobs:
       - uses: Swatinem/rust-cache@v2
       - run: cargo fmt --all -- --check
       - run: cargo clippy --locked --workspace --all-targets -- -D warnings
+      - run: cargo clippy --locked -p tactus-o1-execution --features native-bridge --all-targets -- -D warnings
+      - run: cargo test --locked -p tactus-o1-execution --features native-bridge --test native_bridge
       - run: cargo test --locked --workspace --quiet
       - name: Audit retained seal contention and corrupted evidence
         run: python3 scripts/test-seal-analysis.py
@@ -153,6 +155,16 @@ jobs:
           cargo run --locked --quiet -p tactus-o1-execution --example native-ckb-vectors -- artifacts/native-ckb-contract
           gzip -dc specs/evidence/native-ckb-contract/verified.json.gz > "$RUNNER_TEMP/native-ckb-verified.json"
           python3 -B scripts/check-execution-geth.py "$RUNNER_TEMP/evm-tools/evm" artifacts/native-ckb-contract "$RUNNER_TEMP/native-ckb-verified.json"
+      - name: Reproduce candidate native custody execution
+        run: |
+          mkdir -p artifacts/native-bridge-execution
+          cargo run --locked --quiet -p tactus-o1-execution --features native-bridge --example native-bridge-vectors -- artifacts/native-bridge-execution/candidate.json
+          cmp artifacts/native-bridge-execution/candidate.json specs/evidence/native-bridge-execution/candidate.json
+          (cd services/bridge-checker && TACTUS_NATIVE_BRIDGE_VECTOR="$GITHUB_WORKSPACE/artifacts/native-bridge-execution/candidate.json" TACTUS_NATIVE_BRIDGE_GETH_EXPORT="$GITHUB_WORKSPACE/artifacts/native-bridge-execution/geth.json" go test -mod=readonly -count=1 -run TestCandidateNativeExecutionAgainstGeth .)
+          cmp artifacts/native-bridge-execution/geth.json specs/evidence/native-bridge-execution/geth.json
+          (cd specs/evidence/native-bridge-execution && sha256sum --check SHA256SUMS)
+          python3 -B scripts/check-native-bridge-execution.py artifacts/native-bridge-execution
+          python3 -B scripts/test-native-bridge-execution.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -160,6 +172,7 @@ jobs:
           path: |
             artifacts/evm-differential/
             artifacts/native-ckb-contract/
+            artifacts/native-bridge-execution/
             artifacts/settlement-continuation/
             artifacts/sealed-settlement-geth/
 

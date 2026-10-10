@@ -99,3 +99,7 @@ pub struct SettlementTip {
 }
 
 pub mod sealed;
+
+/// Candidate native custody profile; not enabled in the v1 proof guest.
+#[cfg(feature = "native-bridge")]
+pub mod native_bridge;

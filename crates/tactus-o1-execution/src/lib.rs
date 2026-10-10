@@ -524,3 +524,7 @@ impl Executor {
             .filter_map(|address| self.account(*address).map(|account| (*address, account)))
     }
 }
+
+/// Separate candidate execution domain for authenticated native deposits.
+#[cfg(feature = "native-bridge")]
+pub mod native_bridge;

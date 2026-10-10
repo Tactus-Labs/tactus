@@ -1,7 +1,9 @@
 # Native CKB bridge contract and remaining settlement integration
 
-Status: **contract semantics implemented and independently exercised; no
-L2 deposit credit or CKB release**. A [subsequent real-node experiment](NATIVE_VAULT_REPORT.md)
+Status: **contract semantics and candidate execution implemented; no authenticated
+L2 deposit settlement or CKB release**. [Execution v2](NATIVE_BRIDGE_EXECUTION_V2.md)
+now replays contiguous records and signed burns with independent Geth agreement.
+A [subsequent real-node experiment](NATIVE_VAULT_REPORT.md)
 now authenticates funded CKB deposit records. G7 remains OPEN. This advances the native-CKB portion
 of architecture §11; the explicitly defined xUDT domain remains required work.
 
@@ -33,7 +35,8 @@ receives no mint privilege. A new execution profile must reserve the zero
 address (including prohibiting genesis code there) and make this call only from
 CKB-authenticated, exactly-once deposit processing. **The current v1 executor
 has no such hook.** Its ordinary signed transactions cannot use this entry point.
-The direct VM calls in unit tests deliberately exercise contract logic; they do
+The optional candidate v2 hook is separate and still lacks CKB publication/proof
+authentication. The direct VM calls in unit tests deliberately exercise contract logic; they do
 not establish deposit authenticity or permissionless L1 processing.
 
 `withdraw(uint64,bytes32)` burns only the caller's tokens and stores a permanent

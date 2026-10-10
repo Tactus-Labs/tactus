@@ -8,3 +8,6 @@ repository.workspace = true
 
 [dependencies]
 blake2b-ref = "0.3"
+
+[features]
+native-bridge = []

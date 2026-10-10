@@ -18,3 +18,10 @@ serde_json = "1"
 
 [dev-dependencies]
 k256 = { version = "0.13", features = ["ecdsa"] }
+
+[features]
+native-bridge = ["tactus-o1-protocol/native-bridge"]
+
+[[example]]
+name = "native-bridge-vectors"
+required-features = ["native-bridge"]

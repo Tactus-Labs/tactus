@@ -1,0 +1,12 @@
+{
+  "blocks": 7,
+  "system_credits": 5,
+  "signed_transactions": 5,
+  "reverts": 1,
+  "actual_record_bytes": 2,
+  "synthetic_records": 3,
+  "authenticated_publication": false,
+  "proof_settled": false,
+  "custody_release": false,
+  "production_ready": false
+}
