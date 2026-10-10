@@ -3,7 +3,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 mkdir -p artifacts
 export CARGO_BUILD_JOBS="${CARGO_BUILD_JOBS:-2}"
-cargo build --locked --release --manifest-path proofs/ckb-state-proof/Cargo.toml --target riscv64imac-unknown-none-elf
+cargo rustc --crate-type staticlib --locked --release --manifest-path proofs/ckb-state-proof/Cargo.toml --target riscv64imac-unknown-none-elf
 state_proof_lld="$(rustc --print sysroot)/lib/rustlib/$(rustc -vV | sed -n 's/^host: //p')/bin/rust-lld"
 state_proof_temporary="$(mktemp "$PWD/artifacts/state-proof-XXXXXXXX.elf")"
 trap 'rm -f "$state_proof_temporary"' EXIT

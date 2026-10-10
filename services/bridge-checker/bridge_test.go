@@ -123,9 +123,12 @@ func TestIndependentDepositBurnConservation(t *testing.T) {
 			t.Fatal("withdrawal storage slot")
 		}
 	}
-	for sig, want := range map[string]uint64{"totalSupply()": 0, "cumulativeDeposited()": 1000, "cumulativeWithdrawn()": 1000, "withdrawalCount()": 2} {
-		if !bytes.Equal(invoke(owner, sig, true), word(want)) {
-			t.Fatal(sig)
+	for _, row := range []struct {
+		sig  string
+		want uint64
+	}{{"totalSupply()", 0}, {"cumulativeDeposited()", 1000}, {"cumulativeWithdrawn()", 1000}, {"withdrawalCount()", 2}} {
+		if !bytes.Equal(invoke(owner, row.sig, true), word(row.want)) {
+			t.Fatal(row.sig)
 		}
 	}
 	if path := os.Getenv("TACTUS_BRIDGE_GETH_EXPORT"); path != "" {

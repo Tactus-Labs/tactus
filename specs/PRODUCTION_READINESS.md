@@ -6,6 +6,11 @@ rollup deployment or custody of user assets.
 
 ## Implemented and measured
 
+- [Funded native CKB vault deposits](NATIVE_VAULT_REPORT.md) now atomically append
+  immutable records for two independent actors. Five commits and nineteen exact
+  negative controls pass on 0.210.0. Release validation is implemented but awaits
+  an authenticated bridge execution profile and a real proof-covered payout.
+
 - [Native CKB ledger and burn commitments](NATIVE_CKB_BRIDGE.md) now have pinned
   Solidity bytecode, 27 signed execution/Geth comparisons and independent system-
   call contract tests. Authenticated L1 deposits, the new execution/proof domain

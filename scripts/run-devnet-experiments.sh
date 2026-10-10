@@ -14,7 +14,7 @@ if [[ "$($CKB_BIN --version)" != "ckb $required_version "* ]]; then
   exit 1
 fi
 suite="${TACTUS_DEVNET_SUITE:-replay-a123}"
-case "$suite" in replay-a123|replay-batch|replay-evm|replay-priority|replay-sealed|replay-admission|replay-network|replay-load|replay-seal-contention|replay-proof-verifier|replay-history-checkpoint|replay-checkpoint-reorg|replay-settlement-bootstrap|replay-sealed-settlement) ;; *) echo 'Unknown devnet suite' >&2; exit 1 ;; esac
+case "$suite" in replay-a123|replay-batch|replay-evm|replay-priority|replay-sealed|replay-admission|replay-network|replay-load|replay-seal-contention|replay-proof-verifier|replay-history-checkpoint|replay-checkpoint-reorg|replay-settlement-bootstrap|replay-sealed-settlement|replay-native-vault) ;; *) echo 'Unknown devnet suite' >&2; exit 1 ;; esac
 if [[ -v TACTUS_SETTLEMENT_REORG ]]; then
   if [[ "$TACTUS_SETTLEMENT_REORG" != 1 || "$suite" != replay-settlement-bootstrap || -z "${TACTUS_SETTLEMENT_PROOF_DIR:-}" || -v TACTUS_SECOND_SETTLEMENT_PROOF_DIR || -v TACTUS_PREPARE_SECOND_PROOF ]]; then
     echo 'Settlement reorg requires TACTUS_SETTLEMENT_REORG=1 and only a first real proof directory in the settlement suite.' >&2
@@ -46,7 +46,15 @@ if [[ -v TACTUS_STATE_PROOFS_JSON && ( "$suite" != replay-sealed-settlement || -
   exit 1
 fi
 if [[ -v TACTUS_STATE_PROOFS_JSON ]]; then bash scripts/build-state-proof-script.sh; fi
-cargo build --locked --bin "$suite"
+driver_binary="target/debug/$suite"
+if [[ "$suite" == replay-native-vault ]]; then
+  bash scripts/build-native-vault-script.sh
+  cargo build --locked --manifest-path services/native-vault-lab/Cargo.toml
+  driver_binary="services/native-vault-lab/target/debug/replay-native-vault"
+else
+  cargo build --locked --bin "$suite"
+fi
+export TACTUS_DRIVER_BINARY="$driver_binary"
 if [[ "$suite" == replay-evm || "$suite" == replay-network ]]; then
   cargo build --locked --bin recover-execution
 fi
@@ -115,7 +123,8 @@ manifest={'node_version':subprocess.check_output([os.environ['TACTUS_CKB_BIN'],'
  'files':{}}
 for name in ['Cargo.lock','scripts/build-ordering-script.sh','scripts/ordering-script.ld','artifacts/tactus_o1_ordering_script.elf','artifacts/tactus_o1_head_lock.elf','artifacts/tactus_o1_anchor_script.elf','artifacts/tactus_o1_priority_script.elf','artifacts/tactus_o1_sealed_script.elf',str(root/'node/ckb.toml'),str(p),os.environ['TACTUS_CKB_BIN']]:
  manifest['files'][name]=hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest()
-binaries=['target/debug/'+os.environ['TACTUS_DEVNET_SUITE']]
+binaries=[os.environ['TACTUS_DRIVER_BINARY']]
+if os.environ['TACTUS_DEVNET_SUITE']=='replay-native-vault':binaries.append('artifacts/tactus_o1_native_vault_script.elf')
 if os.getenv('TACTUS_OBSERVER_RPC_BIN'):binaries.append(os.environ['TACTUS_OBSERVER_RPC_BIN'])
 if os.getenv('TACTUS_STATE_PROOFS_JSON'):binaries.extend(['artifacts/tactus_o1_state_proof_script.elf',os.environ['TACTUS_STATE_PROOFS_JSON']])
 if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-evm','replay-network'):binaries.append('target/debug/recover-execution')
@@ -139,7 +148,7 @@ for name in binaries:manifest['files'][name]=hashlib.sha256(pathlib.Path(name).r
 paths=subprocess.check_output(['git','ls-files','--cached','--others','--exclude-standard','-z'],text=True).split('\0')
 manifest['source_files']={name:hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest()
  for name in sorted(set(paths)) if name and pathlib.Path(name).is_file()
- and (name.startswith(('crates/','proofs/','services/','scripts/','.github/','.cargo/','specs/test-vectors/')) or name in ('Cargo.toml','Cargo.lock','rust-toolchain.toml'))}
+ and (name.startswith(('crates/','proofs/','services/','contracts/','scripts/','.github/','.cargo/','specs/test-vectors/')) or name in ('Cargo.toml','Cargo.lock','rust-toolchain.toml'))}
 (root/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
 PY
 "$CKB_BIN" run -C "$run_dir/node" --indexer > "$run_dir/node.log" 2>&1 &
@@ -171,7 +180,7 @@ for address in addresses:
 
 PY
 printf 'Evidence directory: %s\n' "$run_dir"
-"target/debug/$suite" 2>&1 | tee "$run_dir/replay.log"
+"$driver_binary" 2>&1 | tee "$run_dir/replay.log"
 if [[ "${TACTUS_OBLIGATION_CRASH:-}" == 1 ]]; then
   crash_old_pid="$node_pid"
   kill -KILL "$node_pid"
@@ -188,6 +197,9 @@ if [[ "${TACTUS_OBLIGATION_CRASH:-}" == 1 ]]; then
 fi
 if [[ "$suite" == replay-admission ]]; then
   python3 -B scripts/check-admission-fees.py "$run_dir/evidence.json" > "$run_dir/fee-check.json"
+fi
+if [[ "$suite" == replay-native-vault ]]; then
+  python3 -B scripts/check-native-vault.py "$run_dir/evidence.json" > "$run_dir/vault-check.json"
 fi
 python3 scripts/summarize-experiments.py "$run_dir/evidence.json" "$run_dir/summary.json"
 printf 'Complete: %s\n' "$run_dir/summary.json"

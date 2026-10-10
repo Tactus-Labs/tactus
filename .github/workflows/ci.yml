@@ -32,6 +32,31 @@ jobs:
       - name: Harness smoke (regression on the A1 fee-effect)
         run: cargo run --locked --quiet --bin tactus-o1-experiment-a >/dev/null
 
+  native-vault:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@1.92.0
+        with:
+          components: rustfmt, clippy
+          targets: riscv64imac-unknown-none-elf
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: |
+            proofs/ckb-native-vault
+            services/native-vault-lab
+      - run: cargo fmt --manifest-path proofs/ckb-native-vault/Cargo.toml -- --check
+      - run: cargo fmt --manifest-path services/native-vault-lab/Cargo.toml -- --check
+      - run: cargo clippy --locked --manifest-path proofs/ckb-native-vault/Cargo.toml --all-targets -- -D warnings
+      - run: cargo clippy --locked --manifest-path services/native-vault-lab/Cargo.toml --all-targets -- -D warnings
+      - run: cargo test --locked --manifest-path proofs/ckb-native-vault/Cargo.toml
+      - run: bash scripts/build-native-vault-script.sh
+      - name: Audit funded deposits and real state-proof regression
+        run: |
+          (cd specs/evidence/native-vault && sha256sum --check SHA256SUMS)
+          python3 -B scripts/test-native-vault.py
+          python3 -B scripts/check-settled-state-proof.py specs/evidence/native-vault/state-proof-regression/evidence.json.gz
+
   settled-state-proof:
     runs-on: ubuntu-latest
     steps:
@@ -195,6 +220,11 @@ jobs:
           TACTUS_CKB_VERSION: ${{ matrix.ckb }}
           TACTUS_DEVNET_SUITE: replay-sealed
         run: CKB_BIN="$RUNNER_TEMP/ckb/ckb" scripts/run-devnet-experiments.sh
+      - name: Qualify funded native CKB deposits and custody boundaries
+        env:
+          TACTUS_CKB_VERSION: ${{ matrix.ckb }}
+          TACTUS_DEVNET_SUITE: replay-native-vault
+        run: CKB_BIN="$RUNNER_TEMP/ckb/ckb" scripts/run-devnet-experiments.sh
       - name: Verify bounded churn against freshly rebuilt seals
         env:
           TACTUS_CKB_VERSION: ${{ matrix.ckb }}
@@ -216,6 +246,10 @@ jobs:
           name: ckb-experiment-evidence-${{ matrix.ckb }}
           path: |
             artifacts/load-*/evidence.json
+            artifacts/native-vault-*/evidence.json
+            artifacts/native-vault-*/manifest.json
+            artifacts/native-vault-*/replay.log
+            artifacts/native-vault-*/vault-check.json
             artifacts/load-*/summary.json
             artifacts/load-*/manifest.json
             artifacts/load-*/replay.log

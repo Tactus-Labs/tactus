@@ -261,6 +261,7 @@ pub fn collect_coinbase(
 }
 
 /// An output being built.
+#[derive(Clone)]
 pub struct OutSpec {
     pub capacity: u64,
     pub lock: Vec<u8>,

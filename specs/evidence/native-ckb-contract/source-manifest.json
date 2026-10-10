@@ -10,7 +10,7 @@
     "crates/tactus-o1-execution/tests/native_ckb.rs": "f48a462002b25772d5bef1f6515ece17ea289dd4d75fb8c730a185308fe74509",
     "services/bridge-checker/go.mod": "9310715c3d08b396492850f8284bb654b767102b2a027328e96fd90032be8efe",
     "services/bridge-checker/go.sum": "2056f24badea0a22ac3f1a1d39e2dfccb3da0e8f885108c93a9f755f088c8d38",
-    "services/bridge-checker/bridge_test.go": "486980b3be34f0c926e79864c6f52b1cec0792437010e3b510dabd8117f9f89d",
+    "services/bridge-checker/bridge_test.go": "fdd9f2186c234aebc9309400b336e20424e319a9a81d83b68fce1f88c7f2dbc5",
     "scripts/build-bridge-contract.py": "2897a73589ccfa5084273a3be3e977b9c57650737f17fb44c44628b8dc00849a"
   },
   "solc_sha256": "f3e987dc6ecebd4bd350c48edcbc320b46cf9e3109bd3fc3d88f1acaf4c428f7",
@@ -20,5 +20,7 @@
     "rustc": "rustc 1.92.0 (ded5c06cf 2025-12-08)",
     "solc": "solc, the solidity compiler commandline interface\nVersion: 0.8.30+commit.73712a01.Linux.g++",
     "geth": "evm version 1.17.8-stable"
-  }
+  },
+  "export_revalidated_at_base_commit": "5b59e05",
+  "export_revalidation": "Use deterministic getter ordering; a fresh Geth run produces byte-identical system-calls-geth.json."
 }

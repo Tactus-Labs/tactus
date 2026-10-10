@@ -201,7 +201,7 @@ pub fn verify(claim: &Claim, bytes: &[u8]) -> Result<(), i8> {
     .map_err(|_| 7)
 }
 
-#[cfg(target_arch = "riscv64")]
+#[cfg(all(target_arch = "riscv64", feature = "entry"))]
 mod onchain {
     use super::*;
     use alloc::vec;

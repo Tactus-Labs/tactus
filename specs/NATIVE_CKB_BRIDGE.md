@@ -1,7 +1,8 @@
 # Native CKB bridge contract and remaining settlement integration
 
-Status: **contract semantics implemented and independently exercised; no live
-CKB deposits or releases**. G7 remains OPEN. This advances the native-CKB portion
+Status: **contract semantics implemented and independently exercised; no
+L2 deposit credit or CKB release**. A [subsequent real-node experiment](NATIVE_VAULT_REPORT.md)
+now authenticates funded CKB deposit records. G7 remains OPEN. This advances the native-CKB portion
 of architecture §11; the explicitly defined xUDT domain remains required work.
 
 ## Implemented contract

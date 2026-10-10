@@ -10,3 +10,6 @@
 artifacts/
 /services/observer-rpc/target
 /proofs/ckb-state-proof/target
+
+/proofs/ckb-native-vault/target/
+/services/native-vault-lab/target/

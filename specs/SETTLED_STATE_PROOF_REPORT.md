@@ -5,6 +5,10 @@ not a vault, bridge, deposit path, or withdrawal authorization. G1–G9 remain O
 
 ## Result
 
+The original measurements below remain pinned to their archived binary. A
+[subsequent library refactor and actual CKB regression](NATIVE_VAULT_REPORT.md#mpt-library-regression-and-reproducibility)
+qualifies the newly linked standalone program and its reuse by the native vault.
+
 The actual A3 nine-batch Groth16 proof settles the canonical Tip, then a separate
 CKB-VM type script authenticates three account/slot reads against that live Tip.
 All 23 transactions commit; all 25 negative controls reject at the expected
