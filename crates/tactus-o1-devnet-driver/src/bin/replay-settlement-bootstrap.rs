@@ -1,4 +1,4 @@
-//! Real deployment and rejection boundaries; successful execution settlement is pending.
+//! Real deployment, canonical input export and optional real-proof settlement qualification.
 use serde_json::{json, Value};
 use tactus_o1_devnet_driver::{
     batch_lab::{self, Anchor},
@@ -128,6 +128,23 @@ fn framed(journal: &[u8], proof: &[u8]) -> Vec<u8> {
     out.extend_from_slice(&(proof.len() as u32).to_le_bytes());
     out.extend_from_slice(proof);
     out
+}
+fn cold_recovery(chain: &[u8], anchor: &[u8], tip: &[u8]) -> Result<Value, String> {
+    let output = std::process::Command::new("target/debug/recover-settlement")
+        .args([
+            rpc::bytes_to_hex(chain),
+            rpc::bytes_to_hex(anchor),
+            rpc::bytes_to_hex(tip),
+        ])
+        .output()
+        .map_err(|e| e.to_string())?;
+    if !output.status.success() {
+        return Err(format!(
+            "cold settlement recovery: {}",
+            String::from_utf8_lossy(&output.stderr)
+        ));
+    }
+    serde_json::from_slice(&output.stdout).map_err(|e| e.to_string())
 }
 fn run() -> Result<(), String> {
     let evidence = std::env::var("TACTUS_EVIDENCE_PATH").map_err(|_| "use isolated launcher")?;
@@ -448,8 +465,218 @@ fn run() -> Result<(), String> {
             serde_json::to_vec_pretty(&exported).map_err(|e| e.to_string())?,
         )
         .map_err(|e| e.to_string())?;
+        let recovered_tip = cold_recovery(&chain, &anchor.script, &settlement_script)?;
+        if recovered_tip["initialized"] != false
+            || recovered_tip["data"] != rpc::bytes_to_hex(&initial)
+        {
+            return Err("cold recovery differs from uninitialized Tip".into());
+        }
+        results["cold_bootstrap_recovery"] = recovered_tip;
+        let mut cold_controls = Vec::new();
+        for (name, field, offset, reason) in [
+            (
+                "wrong-chain",
+                0,
+                0,
+                "trusted deployment/chain binding mismatch",
+            ),
+            (
+                "wrong-anchor",
+                1,
+                53,
+                "trusted deployment/chain binding mismatch",
+            ),
+            (
+                "wrong-settlement-key",
+                2,
+                125,
+                "settlement deployment not found",
+            ),
+        ] {
+            let mut arguments = [
+                chain.clone(),
+                anchor.script.clone(),
+                settlement_script.clone(),
+            ];
+            arguments[field][offset] ^= 1;
+            let output = std::process::Command::new("target/debug/recover-settlement")
+                .args(arguments.iter().map(|v| rpc::bytes_to_hex(v)))
+                .output()
+                .map_err(|e| e.to_string())?;
+            let error = String::from_utf8_lossy(&output.stderr);
+            if output.status.success() || !error.contains(reason) {
+                return Err(format!(
+                    "cold recovery {name}: expected {reason}, got {error}"
+                ));
+            }
+            cold_controls.push(json!({"control":name,"rejected":true,"error":error}));
+        }
+        results["cold_recovery_controls"] = json!(cold_controls);
+
         results["proving_input"] = exported;
         results["settlement_code_hash"] = rpc::bytes_to_hex(&code).into();
+        if let Some(directory) = std::env::var_os("TACTUS_SETTLEMENT_PROOF_DIR") {
+            let directory = std::path::PathBuf::from(directory);
+            let proof =
+                std::fs::read(directory.join("groth16-proof.bin")).map_err(|e| e.to_string())?;
+            let public =
+                std::fs::read(directory.join("public-values.bin")).map_err(|e| e.to_string())?;
+            let source: Value = serde_json::from_slice(
+                &std::fs::read(directory.join("result.json")).map_err(|e| e.to_string())?,
+            )
+            .map_err(|e| e.to_string())?;
+            if public != journal
+                || source["proof_generated"] != true
+                || source["proof_kind"] != "SP1 real Groth16"
+                || source["guest_verifying_key"] != core["guest_verifying_key"]
+                || source["public_values_hex"] != rpc::bytes_to_hex(&journal)[2..]
+                || proof.is_empty()
+                || proof.len() > 4096
+            {
+                return Err("completed proof does not match canonical deployment export".into());
+            }
+            results["suite"] = "settlement-first-proof-v1".into();
+            results["scope"] = "real-domain Groth16 consumption, exact first state transition and live-successor replay rejection; no custody or withdrawals".into();
+            results["source_proof"] = source;
+            let valid = advance_tip(
+                &lab,
+                tip_point,
+                tip_capacity,
+                &settlement_script,
+                &next_tip,
+                &framed(&journal, &proof),
+            )?;
+            let cycles = rpc::call("estimate_cycles", json!([valid]))?;
+            results["valid_proof_preflight_cycles"] = cycles.clone();
+            for (name, offset, expected) in [
+                ("profile", 8, 6),
+                ("network", 40, 6),
+                ("ordering", 72, 6),
+                ("settlement", 104, 6),
+                ("rollup", 136, 6),
+                ("chain", 168, 6),
+                ("allocation", 176, 6),
+                ("predecessor", 248, 7),
+                ("ending-history", 456, 7),
+                ("previous-state", 608, 9),
+                ("next-state", 640, 7),
+                ("previous-header", 672, 9),
+                ("next-header", 704, 7),
+                ("interval-data", 736, 9),
+            ] {
+                let mut changed = journal.clone();
+                changed[offset] ^= 1;
+                let tx = advance_tip(
+                    &lab,
+                    tip_point,
+                    tip_capacity,
+                    &settlement_script,
+                    &next_tip,
+                    &framed(&changed, &proof),
+                )?;
+                reject(
+                    &mut lab,
+                    &code,
+                    &format!("settlement/proved-{name}-tamper"),
+                    &tx,
+                    expected,
+                )?;
+            }
+            for offset in [0, proof.len() - 1] {
+                let mut changed = proof.clone();
+                changed[offset] ^= 1;
+                let tx = advance_tip(
+                    &lab,
+                    tip_point,
+                    tip_capacity,
+                    &settlement_script,
+                    &next_tip,
+                    &framed(&journal, &changed),
+                )?;
+                reject(
+                    &mut lab,
+                    &code,
+                    &format!("settlement/proof-byte-{offset}-tamper"),
+                    &tx,
+                    9,
+                )?;
+            }
+            // Altering both the claimed output and its matching public value must
+            // still fail real cryptography, not merely structural correspondence.
+            for (name, journal_offset, tip_offset) in [("state", 640, 216), ("header", 704, 248)] {
+                let mut changed = journal.clone();
+                changed[journal_offset] ^= 1;
+                let mut bad_tip = next_tip.clone();
+                bad_tip[tip_offset] ^= 1;
+                let tx = advance_tip(
+                    &lab,
+                    tip_point,
+                    tip_capacity,
+                    &settlement_script,
+                    &bad_tip,
+                    &framed(&changed, &proof),
+                )?;
+                reject(
+                    &mut lab,
+                    &code,
+                    &format!("settlement/coordinated-{name}-tamper"),
+                    &tx,
+                    9,
+                )?;
+            }
+            let settled = lab.commit("settlement/first real proof transition", &valid)?;
+            let packed = rpc::call("get_transaction", json!([settled, "0x0"]))?;
+            let node_bytes =
+                rpc::decode_hex(packed["transaction"].as_str().ok_or("packed transaction")?)?.len();
+            if node_bytes != tx::wire_bytes(&valid)? {
+                return Err("node wire size mismatch".into());
+            }
+            let next_point = lab::point(&settled, 0)?;
+            lab.wallets[0].point = lab::point(&settled, 1)?;
+            lab.wallets[0].capacity = number(&valid["outputs"][1]["capacity"])?;
+            let successor = rpc::call(
+                "get_live_cell",
+                json!([{"tx_hash":settled,"index":"0x0"},true]),
+            )?;
+            if successor["status"] != "live"
+                || successor["cell"]["data"]["content"] != rpc::bytes_to_hex(&next_tip)
+            {
+                return Err("committed successor differs from proved state".into());
+            }
+            let old = rpc::call(
+                "get_live_cell",
+                json!([{"tx_hash":boot,"index":"0x0"},true]),
+            )?;
+            if old["status"] != "dead" {
+                return Err("predecessor Tip remains live".into());
+            }
+            for (name, data) in [
+                ("replay-on-live-successor", &next_tip),
+                ("rollback-to-genesis", &initial),
+            ] {
+                let tx = advance_tip(
+                    &lab,
+                    next_point,
+                    tip_capacity,
+                    &settlement_script,
+                    data,
+                    &framed(&journal, &proof),
+                )?;
+                reject(&mut lab, &code, &format!("settlement/{name}"), &tx, 7)?;
+            }
+            results["first_transition"] = json!({"hash":settled,"vm_cycles":number(&cycles["cycles"] )?,"node_wire_bytes":node_bytes,"tip_capacity_shannons":tip_capacity,"fee_shannons":TX_FEE,"data":rpc::bytes_to_hex(&next_tip),"predecessor_status":old["status"],"successor_status":successor["status"]});
+            let recovered_tip = cold_recovery(&chain, &anchor.script, &settlement_script)?;
+            if recovered_tip["initialized"] != true
+                || recovered_tip["data"] != rpc::bytes_to_hex(&next_tip)
+                || recovered_tip["tip"]["tx_hash"] != settled
+                || recovered_tip["settled_batches"] != 1
+            {
+                return Err("cold recovery differs from committed proof successor".into());
+            }
+            results["cold_settlement_recovery"] = recovered_tip;
+            results["settled"] = true.into();
+            results["withdrawal_authority"] = false.into();
+        }
         results["complete"] = true.into();
         Ok::<_, String>(())
     })();

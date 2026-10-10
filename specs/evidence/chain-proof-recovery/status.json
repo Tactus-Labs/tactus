@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "native_and_guest_journal_match": true,
+  "cold_bootstrap_recovery_versions": [
+    "0.121.0",
+    "0.210.0"
+  ],
+  "cold_identity_rejections_per_version": 3,
+  "host_input_rejections": 4,
+  "groth16_proof_completed_at_archive": false,
+  "proof_run_directory": "artifacts/chain-proof-mEeIJqcp",
+  "settlement_positive_path": "implemented, awaiting real-domain Groth16 proof",
+  "settled": false,
+  "production_ready": false
+}

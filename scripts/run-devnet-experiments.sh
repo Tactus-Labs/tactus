@@ -31,6 +31,7 @@ if [[ "$suite" == replay-history-checkpoint || "$suite" == replay-checkpoint-reo
 fi
 if [[ "$suite" == replay-settlement-bootstrap ]]; then
   bash scripts/build-settlement-script.sh
+  cargo build --locked --bin recover-settlement
 fi
 mkdir -p artifacts
 run_dir="$(mktemp -d "$PWD/artifacts/${suite#replay-}-XXXXXXXX")"
@@ -91,7 +92,10 @@ if os.environ['TACTUS_DEVNET_SUITE']=='replay-proof-verifier':
 if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-history-checkpoint','replay-checkpoint-reorg','replay-settlement-bootstrap'):
  binaries.append('artifacts/tactus_o1_history_checkpoint_script.elf')
 if os.environ['TACTUS_DEVNET_SUITE']=='replay-settlement-bootstrap':
- binaries.extend(['artifacts/tactus_o1_settlement_script.elf','specs/evidence/execution-core-proof/result.json'])
+ binaries.extend(['artifacts/tactus_o1_settlement_script.elf','specs/evidence/execution-core-proof/result.json','target/debug/recover-settlement'])
+ if 'TACTUS_SETTLEMENT_PROOF_DIR' in os.environ:
+  proof_dir=pathlib.Path(os.environ['TACTUS_SETTLEMENT_PROOF_DIR'])
+  binaries.extend(str(proof_dir/name) for name in ['result.json','public-values.bin','groth16-proof.bin','proof.bin'])
 for name in binaries:manifest['files'][name]=hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest()
 
 paths=subprocess.check_output(['git','ls-files','--cached','--others','--exclude-standard','-z'],text=True).split('\0')

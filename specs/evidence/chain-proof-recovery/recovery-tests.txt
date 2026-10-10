@@ -1,0 +1,9 @@
+   Compiling tactus-o1-devnet-driver v0.1.0 (/home/arthur/RustRoverProjects/tactus-o1/crates/tactus-o1-devnet-driver)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.52s
+     Running unittests src/lib.rs (target/debug/deps/tactus_o1_devnet_driver-898812acad760b67)
+
+running 1 test
+test settlement_recovery::tests::replayed_state_rejects_forged_roots_and_unproved_initialization ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 19 filtered out; finished in 0.02s
+

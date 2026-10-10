@@ -1,0 +1,16 @@
+{
+  "head_before_commit": "ca045057e2d960ff058b16272bff8d643d8a5b4d",
+  "files": {
+    "crates/tactus-o1-devnet-driver/src/settlement_recovery.rs": "9b8ad1f5c03f13971b93423cdc96120bc8e6274ae4a2ea4b96c6aba2618533ae",
+    "crates/tactus-o1-devnet-driver/src/bin/recover-settlement.rs": "759e521865510fd966a893042b0f0b532d098e0801c2e6d9c168aae97fec736c",
+    "crates/tactus-o1-devnet-driver/src/bin/replay-settlement-bootstrap.rs": "534cd300fa00217163f569128ce859a09148dc729d734ee41bcdc65490acec6a",
+    "proofs/sp1/host/src/bin/chain-proof.rs": "242cca8a6c4e448223ee432bd33954566f0dcd53f824d8ab324b04b24469098f",
+    "scripts/run-chain-proof.sh": "2df66f170975c6c4de6a20128aaa89ac2f9780c15b4fe34de5dcc14ab699c5cd",
+    "scripts/check-first-settlement.py": "d149a7373eb13c6303083c4fee2ae7a3fd75d324efd3eeebb0823479d6bca720",
+    "scripts/check-settlement-bootstrap.py": "2444eba541a5c5d1d33c4c929a9093c636869e6cf2a3824bf9a81ebf4e4cbd80",
+    "scripts/run-devnet-experiments.sh": "4473c80cc68846ce19fb97f87e4d8d2a45cd6da56775d6767248362c8c8b3d38",
+    "Cargo.lock": "d1e83ee7925c86276223c5b01a46cc25c9a1c81d811b713381dd9d3a4e835f92"
+  },
+  "workspace_tests_passed": 97,
+  "groth16_proof_completed": false
+}

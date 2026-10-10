@@ -1,0 +1,22 @@
+[
+  {
+    "control": "wrong-journal",
+    "exit_code": 1,
+    "error": "chain export differs from independently replayed journal"
+  },
+  {
+    "control": "empty-interval",
+    "exit_code": 1,
+    "error": "empty interval or prefix outside input"
+  },
+  {
+    "control": "unknown-schema",
+    "exit_code": 1,
+    "error": "unknown chain input schema"
+  },
+  {
+    "control": "verification-bypass",
+    "exit_code": 1,
+    "error": "verification bypass environment is forbidden"
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "evidence_sha256": "4f98f198d15975c421c5d3898feae6e8dee80449a09606054e6ef6adeeb51f9f",
+  "journal_sha256": "c8df35222b39de81a8569905a3dc6385afd7f70ddc955d63c6239cd4227fbc65",
+  "negative_controls": 20,
+  "initialization_cycles": 1828426,
+  "accepted_execution_proof": false,
+  "settled": false,
+  "production_ready": false
+}

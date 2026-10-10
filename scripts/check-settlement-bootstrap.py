@@ -28,9 +28,7 @@ def packed(script):
             + len(args).to_bytes(4, 'little') + args)
 
 
-def check(path):
-    source = path.read_bytes()
-    evidence = json.loads(source)
+def check_document(evidence):
     result = evidence['results']
     require(result['suite'] == 'settlement-bootstrap-v1' and result['complete']
             and result['error'] is None, 'incomplete bootstrap')
@@ -113,10 +111,30 @@ def check(path):
         require(error['code'] == -302 and f'error code {code} on page ' in text
                 and code_hash[2:] in text and ('Inputs[0].Type' in text or 'Outputs[0].Type' in text),
                 'not the precise settlement script rejection')
-    return {'evidence_sha256': hashlib.sha256(source).hexdigest(),
-            'journal_sha256': hashlib.sha256(journal).hexdigest(), 'negative_controls': 20,
+    if 'cold_bootstrap_recovery' in result:
+        cold = result['cold_bootstrap_recovery']
+        require(cold['tip'] == {'tx_hash': boot['hash'], 'index': '0x0'}
+                and raw(cold['data']) == initial and cold['initialized'] is False
+                and cold['settled_batches'] == 0 and cold['published_batches'] == 1
+                and cold['proved_transitions'] == 0 and cold['settled'] is False
+                and cold['ckb_genesis'] == evidence['metadata']['consensus']['genesis_hash']
+                and raw(cold['anchor_type_script']) == anchor
+                and raw(cold['settlement_type_script']) == settlement,
+                'cold bootstrap recovery differs')
+        if 'cold_recovery_controls' in result:
+            controls = result['cold_recovery_controls']
+            require(len(controls) == 3 and {c['control'] for c in controls} == {
+                'wrong-chain', 'wrong-anchor', 'wrong-settlement-key'}
+                and all(c['rejected'] is True for c in controls), 'cold rejection set differs')
+    return {'journal_sha256': hashlib.sha256(journal).hexdigest(), 'negative_controls': 20,
             'initialization_cycles': int(result['initialization_cycles']['cycles'], 16),
             'accepted_execution_proof': False, 'settled': False, 'production_ready': False}
+
+
+def check(path):
+    source = path.read_bytes()
+    return {'evidence_sha256': hashlib.sha256(source).hexdigest(),
+            **check_document(json.loads(source))}
 
 
 if __name__ == '__main__':

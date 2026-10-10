@@ -17,3 +17,4 @@ pub mod execution_recovery;
 pub mod sealed_lab;
 
 pub mod sealed_recovery;
+pub mod settlement_recovery;

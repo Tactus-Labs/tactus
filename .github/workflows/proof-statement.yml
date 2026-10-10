@@ -30,6 +30,7 @@ jobs:
           (cd specs/evidence/history-checkpoint && sha256sum --check SHA256SUMS)
           (cd specs/evidence/checkpoint-reorg && sha256sum --check SHA256SUMS)
           (cd specs/evidence/settlement-bootstrap && sha256sum --check SHA256SUMS)
+          (cd specs/evidence/chain-proof-recovery && sha256sum --check SHA256SUMS)
       - name: Reconcile retained checkpoint transactions (not script execution)
         run: |
           for version in 0.121.0 0.210.0; do
@@ -39,6 +40,8 @@ jobs:
             python3 scripts/check-checkpoint-reorg.py "$RUNNER_TEMP/checkpoint-reorg-$version.json"
             gzip -dc "specs/evidence/settlement-bootstrap/$version/evidence.json.gz" > "$RUNNER_TEMP/settlement-bootstrap-$version.json"
             python3 scripts/check-settlement-bootstrap.py "$RUNNER_TEMP/settlement-bootstrap-$version.json"
+            gzip -dc "specs/evidence/chain-proof-recovery/$version/evidence.json.gz" > "$RUNNER_TEMP/chain-recovery-$version.json"
+            python3 scripts/check-settlement-bootstrap.py "$RUNNER_TEMP/chain-recovery-$version.json"
           done
       - name: Reconcile real proof receipt evidence (not cryptographic verification)
         run: |

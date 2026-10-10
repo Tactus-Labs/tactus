@@ -91,3 +91,8 @@ cargo +1.97.1 run --locked --manifest-path proofs/sp1/Cargo.toml -p tactus-o1-pr
 Accepted proof succession, replay rejection after settlement, independent prover
 recovery and Tip rollback under reorgs remain required. Production genesis/supply,
 L1 time bounds, obligation discharge, custody/exits and governance are also open.
+
+The [canonical proof runner and cold Tip recovery](CHAIN_PROOF_RECOVERY_V1.md)
+now match the real deployment journal in the actual unchanged guest and recover
+uninitialized Tips on both node versions. The optional real-proof transition
+qualification is implemented and remains pending its completed real-domain proof.
