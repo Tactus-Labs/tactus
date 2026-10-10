@@ -113,7 +113,8 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
   and verifies in a fresh process. The proof and measured workstation cost are
   retained. A subsequent [real Groth16 proof](EXECUTION_GROTH16_PROOF_REPORT.md) now
   verifies in CKB on both versions. The later [canonical first settlement](FIRST_SETTLEMENT_REPORT.md)
-  now passes; sequential intervals and production proving economics remain open.
+  now passes, as do [two consecutive intervals](TWO_SETTLEMENTS_REPORT.md);
+  production proving economics remain open.
 
 - [Transition-authenticated history checkpoints](HISTORY_CHECKPOINT_V1.md) now
   retain exact Anchor successor states in immutable typed cells. Both CKB versions
@@ -138,14 +139,15 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
   plus 15 cryptographic negative controls. It completed through a deliberate
   fresh-process final-wrap handoff. [First canonical settlement](FIRST_SETTLEMENT_REPORT.md)
   now passes on CKB 0.210.0, including two-node recovery after a four-block P2P
-  rollback and reuse of the same proof with fresh funding. Sequential proof
-  intervals and uninterrupted proving remain separate qualification requirements.
+  rollback and reuse of the same proof with fresh funding. [Two sequential real
+  proof intervals](TWO_SETTLEMENTS_REPORT.md) now pass, including skipped-first-proof
+  rejection and automated staged proving; production proving cost remains open.
 
 - [A state-changing second interval](SETTLEMENT_CONTINUATION_REPORT.md) now has
   canonical CKB 0.210.0 publication, exact prefix-one journal replay and independent
   Geth comparison across both blocks. Cold recovery distinguishes two published
-  batches from zero settled batches. Actual sequential proof consumption remains
-  pending; preparing inputs does not close G3.
+  batches from zero settled batches. [Actual sequential proof consumption](TWO_SETTLEMENTS_REPORT.md)
+  now advances to two proved batches with 62 rejection controls; this does not close G3.
 
 - [Repeated fresh seal contention](SEAL_CONTENTION_REPORT.md) now attains the
   finite `8 × lane_count` valid-append budget, rejects further full-queue churn,
@@ -160,7 +162,7 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
 | P0 | Full Experiment A / G2 | Add mandatory forced processing beyond the measured challenge-only failure; qualify independent-wallet load and hostile inclusion policy beyond the measured finite seal-churn budget, sustained queue/dependency workload and targeted-lane failure, proof-bound pending-record recovery, hostile miner policies and unplanned reorgs. Individual A2 authenticity, bounded overload/drain and planned-reorg carry-forward now have measurements. |
 | P0 | Batch admission / W-12 | The implemented input encoding/inline-DA bounds have optional authenticated A2 input prefixes and an A3 mandatory sealed-set gate, but still need the production enforcement selection, L1 timestamp bounds, on-chain/proved binding to the new Ethereum envelope and deterministic rejection semantics, plus proved execution resource limits. |
 | P0 | Execution / G5 | Extend the measured allocation-bound verified transition with state checkpoints, broader differential conformance and ordinary Ethereum tool deployment; replace experimental genesis/supply limits. |
-| P0 | Validity settlement / G3 | The first real-domain proof-consuming transition, 40 script rejections and planned P2P rollback/reapplication now pass. Qualify sequential nonempty intervals and skipped-proof rejection, proof-bound A3 obligations, key/setup provenance and the remaining production envelope. |
+| P0 | Validity settlement / G3 | The first real-domain proof-consuming transition, 40 script rejections and planned P2P rollback/reapplication now pass. Two sequential nonempty intervals and skipped-proof rejection now pass. Qualify proof-bound A3 obligations, key/setup provenance and the remaining production envelope. |
 | P0 | Recovery / G6 | Cold settlement recovery on two nodes now survives a planned P2P rollback and proof reapplication. Qualify another prover completing canonical inputs, unplanned faults/reorgs and archival retrieval. |
 | P0 | Bridge and exits / G7 | Deposit/withdrawal conservation, replay resistance and operator-independent exit evidence; no release on experimental cursors. |
 | P1 | Operations / G9 | Qualify the local journal under hardware/long-run faults; add network-driven reorg handling, monitored archival retrieval, independent operators and long-duration fault injection. |

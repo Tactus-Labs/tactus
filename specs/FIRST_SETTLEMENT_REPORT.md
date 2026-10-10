@@ -96,6 +96,6 @@ python3 -B scripts/test-settlement-reorg.py
 
 Sequential nonempty intervals, proof-bound A3 obligations, independent proving,
 unplanned faults, custody/exits, finality policy and production resource limits
-remain unqualified. The second interval's real proof is running separately. This
+remain unqualified. The [second real proof and sequential settlement](TWO_SETTLEMENTS_REPORT.md) now pass. This
 planned P2P rollback demonstrates recovery of this deployment, not a production
 finality guarantee or an independent light-client consensus check.

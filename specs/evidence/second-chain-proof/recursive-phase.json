@@ -1,0 +1,14 @@
+{
+  "elapsed_seconds": 3486.0115588379995,
+  "user_seconds": 12214.055973,
+  "system_seconds": 340.805946,
+  "max_rss_kib": 20887040,
+  "handoff": {
+    "reason": "deliberate fresh-process final wrapping after complete recursive witness",
+    "original_process_returncode": -15,
+    "witness_source": "/home/arthur/RustRoverProjects/tactus-o1/artifacts/chain-proof-hXj2Ooj8/tmp/.tmpA4PXLV",
+    "witness_sha256": "6126ad7a6a7884513e56b2681c59fcc3130bb1be0289c0baf0ae3b2f689d2286",
+    "witness_bytes": 2802650,
+    "continuous_full_proof_success": false
+  }
+}

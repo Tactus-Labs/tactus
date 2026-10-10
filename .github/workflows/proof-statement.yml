@@ -35,6 +35,9 @@ jobs:
           python3 -B scripts/test-chain-proof-staging.py
           (cd specs/evidence/first-settlement && sha256sum --check SHA256SUMS)
           python3 -B scripts/test-first-settlement.py
+          (cd specs/evidence/second-chain-proof && sha256sum --check SHA256SUMS)
+          (cd specs/evidence/two-settlements && sha256sum --check SHA256SUMS)
+          python3 -B scripts/test-two-settlements.py
           python3 -B scripts/test-settlement-reorg.py
           (cd specs/evidence/sealed-settlement-input && sha256sum --check SHA256SUMS)
           python3 -B scripts/test-sealed-settlement.py

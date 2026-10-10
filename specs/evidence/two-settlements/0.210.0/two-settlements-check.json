@@ -1,0 +1,13 @@
+{
+  "evidence_sha256": "c5f9918f480976091108f09375e51bbd434da32a4a60225f0f16b7611dc42c76",
+  "settlement_transactions": [
+    "0xe66f6edcdde555bda68dceb081e7d9bdd70da8986b45fb3dbcc42b30b27fd496",
+    "0xad2d56cbd76f42d785fd99b14f521ae77dc263668b3aac60cb7b241df8933b55"
+  ],
+  "negative_controls": 62,
+  "settled_batches": 2,
+  "cryptographic_verification_performed_by_this_checker": false,
+  "settled": true,
+  "withdrawal_authority": false,
+  "production_ready": false
+}

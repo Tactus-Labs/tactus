@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Reconcile two genuine proof-consuming transitions; no cryptographic verification."""
 import copy
+import gzip
 import hashlib
 import importlib.util
 import json
@@ -23,7 +24,13 @@ receipt = first_check.receipts
 
 def check(path, first_dir, second_dir):
     source = path.read_bytes()
-    document = json.loads(source)
+    if path.suffix == '.gz':
+        source = gzip.decompress(source)
+    return {'evidence_sha256': hashlib.sha256(source).hexdigest(),
+            **check_document(json.loads(source), first_dir, second_dir)}
+
+
+def check_document(document, first_dir, second_dir):
     results = document['results']
     require(results['suite'] == 'settlement-two-proofs-v1' and results['complete']
             and results['error'] is None and results['settled'] is True,
@@ -149,8 +156,7 @@ def check(path, first_dir, second_dir):
             and cold['settled_batches'] == cold['published_batches'] == cold['proved_transitions'] == 2
             and cold['settled'] is True and cold['withdrawal_authority'] is False,
             'second cold recovery differs')
-    return {'evidence_sha256': hashlib.sha256(source).hexdigest(),
-            'settlement_transactions': [prior['hash'], item['hash']], 'negative_controls': 62,
+    return {'settlement_transactions': [prior['hash'], item['hash']], 'negative_controls': 62,
             'settled_batches': 2, 'cryptographic_verification_performed_by_this_checker': False,
             'settled': True, 'withdrawal_authority': False, 'production_ready': False}
 

@@ -71,5 +71,6 @@ metadata. The selected proof directory is reported explicitly; staged output is
 
 The selector passes a retained-real-witness positive control and six corrupted
 candidate controls. The manually staged first proof above validates the underlying
-native wrapping and fresh verification path. End-to-end measurement of the new
-coordinator is assigned to the second canonical interval; it is not claimed here.
+native wrapping and fresh verification path. The [second canonical interval](TWO_SETTLEMENTS_REPORT.md) subsequently completed
+the automated coordinator end to end, fresh verification and actual sequential
+CKB settlement. Its measured recursive and final-wrapping costs are reported separately.
