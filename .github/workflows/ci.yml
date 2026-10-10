@@ -21,6 +21,10 @@ jobs:
       - run: cargo test --locked --workspace --quiet
       - name: Audit retained seal contention and corrupted evidence
         run: python3 scripts/test-seal-analysis.py
+      - name: Audit admission fee evidence and falsified controls
+        run: |
+          (cd specs/evidence/admission-fees && sha256sum --check SHA256SUMS)
+          python3 -B scripts/test-admission-fees.py
       - name: Independent batch codec vectors
         run: |
           python3 scripts/generate-batch-vectors.py
@@ -97,6 +101,12 @@ jobs:
           TACTUS_CKB_VERSION: ${{ matrix.ckb }}
           TACTUS_DEVNET_SUITE: replay-admission
         run: CKB_BIN="$RUNNER_TEMP/ckb/ckb" scripts/run-devnet-experiments.sh
+      - name: Compare admission under matched serialized-byte fees
+        env:
+          TACTUS_CKB_VERSION: ${{ matrix.ckb }}
+          TACTUS_DEVNET_SUITE: replay-admission
+          TACTUS_ADMISSION_FEES: wire-density
+        run: CKB_BIN="$RUNNER_TEMP/ckb/ckb" scripts/run-devnet-experiments.sh
       - name: Measure sustained L1 L2 L3 load, saturation and mandatory drain
         env:
           TACTUS_CKB_VERSION: ${{ matrix.ckb }}
@@ -159,6 +169,7 @@ jobs:
             artifacts/network-*/execution-genesis.json
             artifacts/admission-*/evidence.json
             artifacts/admission-*/summary.json
+            artifacts/admission-*/fee-check.json
             artifacts/admission-*/manifest.json
             artifacts/admission-*/replay.log
             artifacts/admission-*/node.log

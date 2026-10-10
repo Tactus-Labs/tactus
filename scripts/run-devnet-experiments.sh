@@ -135,5 +135,8 @@ for address in addresses:
 PY
 printf 'Evidence directory: %s\n' "$run_dir"
 "target/debug/$suite" 2>&1 | tee "$run_dir/replay.log"
+if [[ "$suite" == replay-admission ]]; then
+  python3 -B scripts/check-admission-fees.py "$run_dir/evidence.json" > "$run_dir/fee-check.json"
+fi
 python3 scripts/summarize-experiments.py "$run_dir/evidence.json" "$run_dir/summary.json"
 printf 'Complete: %s\n' "$run_dir/summary.json"

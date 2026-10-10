@@ -55,9 +55,60 @@ fn admitted(
         fee,
     )
 }
-fn metrics(t: &Value, fee: u64) -> Result<Value, String> {
+// Match serialized bytes, not CKB's cycle-weighted virtual size.
+const SHANNONS_PER_BYTE: u64 = 100_000;
+fn priced(
+    density: bool,
+    ratio: u64,
+    build: impl Fn(u64) -> Result<Value, String>,
+) -> Result<Value, String> {
+    let provisional = build(TX_FEE * ratio)?;
+    if !density {
+        return Ok(provisional);
+    }
+    let bytes = wire_bytes(&provisional)?;
+    let fee = (bytes as u64)
+        .checked_mul(SHANNONS_PER_BYTE)
+        .and_then(|n| n.checked_mul(ratio))
+        .ok_or("fee overflow")?;
+    let transaction = build(fee)?;
+    if wire_bytes(&transaction)? != bytes {
+        return Err("fee repricing changed serialized size".into());
+    }
+    Ok(transaction)
+}
+fn capacity(v: &Value) -> Result<u64, String> {
+    u64::from_str_radix(
+        v.as_str()
+            .ok_or("capacity string")?
+            .trim_start_matches("0x"),
+        16,
+    )
+    .map_err(|e| e.to_string())
+}
+fn metrics(t: &Value) -> Result<Value, String> {
     let cycles = rpc::call("estimate_cycles", json!([t]))?;
-    Ok(json!({"fee_shannons":fee,"wire_bytes":wire_bytes(t)?,"cycles":cycles,"transaction":t}))
+    let mut sources = Vec::new();
+    let mut total = 0u64;
+    for input in t["inputs"].as_array().ok_or("inputs")? {
+        let point = &input["previous_output"];
+        let cell = rpc::call("get_live_cell", json!([point, false]))?;
+        if cell["status"] != "live" {
+            return Err("candidate input is not initially live".into());
+        }
+        total = total
+            .checked_add(capacity(&cell["cell"]["output"]["capacity"])?)
+            .ok_or("input overflow")?;
+        sources.push(json!({"out_point":point,"cell":cell}));
+    }
+    for output in t["outputs"].as_array().ok_or("outputs")? {
+        total = total
+            .checked_sub(capacity(&output["capacity"])?)
+            .ok_or("negative fee")?;
+    }
+    Ok(
+        json!({"fee_shannons":total,"wire_bytes":wire_bytes(t)?,"cycles":cycles,"transaction":t,"resolved_inputs":sources}),
+    )
 }
 fn race(
     lab: &mut Lab,
@@ -68,7 +119,7 @@ fn race(
     delay: u64,
     ratio: u64,
 ) -> Result<Value, String> {
-    let candidates = [metrics(&txs[0], TX_FEE)?, metrics(&txs[1], TX_FEE * ratio)?];
+    let candidates = [metrics(&txs[0])?, metrics(&txs[1])?];
     let start = rpc::get_tip_block_number()?;
     let first = lab.attempt(&format!("{label}/adversary-first"), &txs[0])??;
     rpc::mine_blocks(delay)?;
@@ -148,8 +199,15 @@ fn race(
 }
 fn run() -> Result<(), String> {
     let path = std::env::var("TACTUS_EVIDENCE_PATH").map_err(|_| "use isolated launcher")?;
+    let density = match std::env::var("TACTUS_ADMISSION_FEES").as_deref() {
+        Err(std::env::VarError::NotPresent) | Ok("absolute") => false,
+        Ok("wire-density") => true,
+        _ => return Err("TACTUS_ADMISSION_FEES must be absolute or wire-density".into()),
+    };
     let mut lab = Lab::connect()?;
     let mut results = json!({"suite":"a123-matched-admission-v1","complete":false,"production_ready":false,"G2":"OPEN","scope":"admission-only; deterministic adversary-first schedule, two repeats; not stochastic fairness, forced execution or settlement"});
+    results["fee_policy"] = json!(if density { "wire-density" } else { "absolute" });
+    results["base_shannons_per_wire_byte"] = json!(density.then_some(SHANNONS_PER_BYTE));
     let outcome = (|| {
         let anchor =
             std::fs::read("artifacts/tactus_o1_anchor_script.elf").map_err(|e| e.to_string())?;
@@ -178,7 +236,7 @@ fn run() -> Result<(), String> {
                 for ratio in [1, 2, 10] {
                     for repeat in 0..2 {
                         let label = format!("{arm}/delay-{delay}/fee-{ratio}/repeat-{repeat}");
-                        // Identical payload bytes and absolute fees across arms. A1
+                        // Identical payload bytes and selected fee policy across arms. A1
                         // stores a commitment; the authenticated A2/A3 arms store bytes.
                         let payloads = [vec![0xa0; 64], vec![0xb1; 64]];
                         let (transactions, state, conflict) = if arm == "A1-shared-head" {
@@ -186,13 +244,19 @@ fn run() -> Result<(), String> {
                             let mut ts = Vec::new();
                             for (actor, payload) in payloads.iter().enumerate() {
                                 let hash = ckb_blake2b(payload);
-                                ts.push(lab.transition_tx(
-                                    &head,
-                                    lab::enqueue(&head, &hash),
-                                    &hash,
-                                    actor,
-                                    TX_FEE * if actor == 0 { 1 } else { ratio },
-                                    &[],
+                                ts.push(priced(
+                                    density,
+                                    if actor == 0 { 1 } else { ratio },
+                                    |fee| {
+                                        lab.transition_tx(
+                                            &head,
+                                            lab::enqueue(&head, &hash),
+                                            &hash,
+                                            actor,
+                                            fee,
+                                            &[],
+                                        )
+                                    },
                                 )?);
                             }
                             (ts.try_into().unwrap(), Some(head.point), true)
@@ -203,22 +267,26 @@ fn run() -> Result<(), String> {
                             if arm == "A2-independent-messages" {
                                 (
                                     [
-                                        admitted(
-                                            &lab,
-                                            &net,
-                                            &priority_code,
-                                            0,
-                                            payloads[0].clone(),
-                                            TX_FEE,
-                                        )?,
-                                        admitted(
-                                            &lab,
-                                            &net,
-                                            &priority_code,
-                                            1,
-                                            payloads[1].clone(),
-                                            TX_FEE * ratio,
-                                        )?,
+                                        priced(density, 1, |fee| {
+                                            admitted(
+                                                &lab,
+                                                &net,
+                                                &priority_code,
+                                                0,
+                                                payloads[0].clone(),
+                                                fee,
+                                            )
+                                        })?,
+                                        priced(density, ratio, |fee| {
+                                            admitted(
+                                                &lab,
+                                                &net,
+                                                &priority_code,
+                                                1,
+                                                payloads[1].clone(),
+                                                fee,
+                                            )
+                                        })?,
                                     ],
                                     None,
                                     false,
@@ -232,14 +300,20 @@ fn run() -> Result<(), String> {
                                     let next = lane
                                         .append(payload.clone())
                                         .map_err(|e| format!("{e:?}"))?;
-                                    ts.push(sealed::shape_with_fee(
-                                        &lab,
-                                        actor,
-                                        &[(cell.point, cell.capacity)],
-                                        vec![cell.output(next.encode().unwrap())],
-                                        &[],
-                                        &[],
-                                        TX_FEE * if actor == 0 { 1 } else { ratio },
+                                    ts.push(priced(
+                                        density,
+                                        if actor == 0 { 1 } else { ratio },
+                                        |fee| {
+                                            sealed::shape_with_fee(
+                                                &lab,
+                                                actor,
+                                                &[(cell.point, cell.capacity)],
+                                                vec![cell.output(next.encode().unwrap())],
+                                                &[],
+                                                &[],
+                                                fee,
+                                            )
+                                        },
                                     )?);
                                 }
                                 (
@@ -258,6 +332,24 @@ fn run() -> Result<(), String> {
                             delay,
                             ratio,
                         )?;
+                        for (actor, candidate) in row["candidates"]
+                            .as_array()
+                            .ok_or("candidates")?
+                            .iter()
+                            .enumerate()
+                        {
+                            let factor = if actor == 0 { 1 } else { ratio };
+                            let expected = if density {
+                                candidate["wire_bytes"].as_u64().ok_or("wire size")?
+                                    * SHANNONS_PER_BYTE
+                                    * factor
+                            } else {
+                                TX_FEE * factor
+                            };
+                            if candidate["fee_shannons"] != expected {
+                                return Err("resolved fee differs from policy".into());
+                            }
+                        }
                         row["arm"] = json!(arm);
                         row["repeat"] = json!(repeat);
                         rows.push(row);

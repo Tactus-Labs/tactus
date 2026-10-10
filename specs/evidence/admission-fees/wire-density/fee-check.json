@@ -1,0 +1,38 @@
+{
+  "fee_policy": "wire-density",
+  "races": 120,
+  "outcomes": {
+    "A1-shared-head": {
+      "live_pool_rejection": 6,
+      "both_committed": 0,
+      "victim_committed": 8,
+      "accepted_lost_conflict": 4,
+      "stale_input": 6
+    },
+    "A2-independent-messages": {
+      "victim_committed": 24,
+      "both_committed": 24
+    },
+    "A3-one-lane": {
+      "live_pool_rejection": 6,
+      "both_committed": 0,
+      "victim_committed": 8,
+      "accepted_lost_conflict": 4,
+      "stale_input": 6
+    },
+    "A3-four-lanes-targeted": {
+      "live_pool_rejection": 6,
+      "both_committed": 0,
+      "victim_committed": 8,
+      "accepted_lost_conflict": 4,
+      "stale_input": 6
+    },
+    "A3-four-lanes-disjoint": {
+      "victim_committed": 24,
+      "both_committed": 24
+    }
+  },
+  "production_ready": false,
+  "scope": "serialized-byte fee matching; not cycle-weighted miner fairness or forced execution",
+  "evidence_sha256": "1b880ef9d7ac7612a2b13582b5096ff0d3d39b72dfbf5b03d4f2de798aed6f31"
+}
