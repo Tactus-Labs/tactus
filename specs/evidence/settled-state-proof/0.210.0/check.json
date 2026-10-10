@@ -1,0 +1,32 @@
+{
+  "commits": 23,
+  "negative_controls": 25,
+  "authenticated_reads": [
+    {
+      "address": "0x2bd0c9fe079c8fca0e3352eb3d02839c371e5c41",
+      "vm_cycles": 1864239,
+      "wire_bytes": 1424,
+      "proof_bytes": 299,
+      "certificate_capacity_shannons": 40600000000
+    },
+    {
+      "address": "0x1111111111111111111111111111111111111111",
+      "vm_cycles": 1866045,
+      "wire_bytes": 1333,
+      "proof_bytes": 208,
+      "certificate_capacity_shannons": 40600000000
+    },
+    {
+      "address": "0x0000000000000000000000000000000000000000",
+      "vm_cycles": 1742512,
+      "wire_bytes": 1222,
+      "proof_bytes": 97,
+      "certificate_capacity_shannons": 40600000000
+    }
+  ],
+  "state_read_negative_controls": 17,
+  "settled_batches": 9,
+  "withdrawal_authority": false,
+  "independent_cryptographic_verification": false,
+  "production_ready": false
+}

@@ -462,6 +462,11 @@ pub fn append(head: &Head, batch: &[u8; 32]) -> OrderingHead {
 /// Match the named consensus boundary, never a transport error, another script,
 /// or a numeric prefix such as code 3 matching code 31.
 pub fn rejection_matches(error: &str, reason: &str, ordering_code_hash: &[u8; 32]) -> bool {
+    rejection_matches_at(error, reason, ordering_code_hash, "Inputs[0].Type")
+        || rejection_matches_at(error, reason, ordering_code_hash, "Outputs[0].Type")
+}
+
+pub fn rejection_matches_at(error: &str, reason: &str, code_hash: &[u8; 32], source: &str) -> bool {
     let Some(value) = error
         .strip_prefix("rpc error: ")
         .and_then(|s| serde_json::from_str::<Value>(s).ok())
@@ -474,8 +479,8 @@ pub fn rejection_matches(error: &str, reason: &str, ordering_code_hash: &[u8; 32
     if reason.starts_with("error code ") {
         return value["code"] == -302
             && error.contains(&format!("{reason} on page "))
-            && (error.contains("Inputs[0].Type") || error.contains("Outputs[0].Type"))
-            && error.contains(&rpc::bytes_to_hex(ordering_code_hash)[2..]);
+            && error.contains(source)
+            && error.contains(&rpc::bytes_to_hex(code_hash)[2..]);
     }
     false
 }
@@ -492,6 +497,20 @@ mod tests {
         );
         let error = format!("rpc error: {}", json!({"code":-302,"message":message}));
         assert!(rejection_matches(&error, "error code 3", &hash));
+        let second = error.replace("Inputs[0]", "Inputs[1]");
+        assert!(!rejection_matches(&second, "error code 3", &hash));
+        assert!(rejection_matches_at(
+            &second,
+            "error code 3",
+            &hash,
+            "Inputs[1].Type"
+        ));
+        assert!(!rejection_matches_at(
+            &second,
+            "error code 3",
+            &hash,
+            "Inputs[0].Type"
+        ));
         assert!(!rejection_matches(
             &error.replace("code 3 on", "code 31 on"),
             "error code 3",

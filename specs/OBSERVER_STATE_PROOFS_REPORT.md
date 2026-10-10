@@ -84,6 +84,7 @@ Proof generation currently rebuilds tries from the in-memory full replay;
 persistent state checkpoints and trie indexing are still required for production
 scale. Nonempty contract-storage witnesses have executed fixture evidence;
 live A3 storage in this run is empty. Historical proof retrieval, archival access,
-CKB verification of exit witnesses, replay-resistant vault releases and real
+[CKB verification of settled-state reads](SETTLED_STATE_PROOF_REPORT.md) now passes
+a separate real-Tip experiment. Replay-resistant vault releases and real
 deposit/withdrawal conservation remain outstanding. No fund-release authority
 is created by this read API.

@@ -32,6 +32,26 @@ jobs:
       - name: Harness smoke (regression on the A1 fee-effect)
         run: cargo run --locked --quiet --bin tactus-o1-experiment-a >/dev/null
 
+  settled-state-proof:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@1.92.0
+        with:
+          components: rustfmt, clippy
+          targets: riscv64imac-unknown-none-elf
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: proofs/ckb-state-proof
+      - run: cargo fmt --manifest-path proofs/ckb-state-proof/Cargo.toml -- --check
+      - run: cargo clippy --locked --manifest-path proofs/ckb-state-proof/Cargo.toml --all-targets -- -D warnings
+      - run: cargo test --locked --manifest-path proofs/ckb-state-proof/Cargo.toml
+      - run: bash scripts/build-state-proof-script.sh
+      - name: Audit actual state-read receipts and forged controls
+        run: |
+          (cd specs/evidence/settled-state-proof && sha256sum --check SHA256SUMS)
+          python3 -B scripts/test-settled-state-proof.py
+
   observer-rpc:
     runs-on: ubuntu-latest
     steps:

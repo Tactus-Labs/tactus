@@ -6,6 +6,8 @@ mod observer;
 mod proof_reorg;
 #[path = "replay-sealed-settlement/reorg.rs"]
 mod reorg;
+#[path = "replay-sealed-settlement/state_proof.rs"]
+mod state_proof;
 use serde_json::{json, Value};
 use std::{fs, path::PathBuf};
 use tactus_o1_devnet_driver::{
@@ -487,6 +489,15 @@ fn run() -> Result<(), String> {
             result["transition"] = json!({"hash":hash,"cycles":cycles,"node_wire_bytes":wire,"consumption":consumption});
             for obligation in result["obligations"].as_array_mut().ok_or("obligations")? {
                 obligation["proof_settled"] = true.into();
+            }
+            if std::env::var_os("TACTUS_STATE_PROOFS_JSON").is_some() {
+                result["state_proof"] = state_proof::qualify(
+                    &mut lab,
+                    &settlement_script,
+                    lab::point(&hash, 0)?,
+                    &next_tip,
+                )?;
+                result["suite"] = "settled-state-proof-v1".into();
             }
             if let Some(plan) = proof_reorg_plan {
                 result["proof_reorg"] = proof_reorg::qualify(

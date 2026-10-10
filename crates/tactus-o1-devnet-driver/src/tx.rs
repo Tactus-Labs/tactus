@@ -331,6 +331,51 @@ pub fn build_with_permissionless_prefix_and_since(
     unsigned_prefix: usize,
     since: &[u64],
 ) -> Result<(Vec<u8>, Value), String> {
+    build_signed(
+        key,
+        secp_dep,
+        extra_deps,
+        inputs,
+        outputs,
+        (input_type, None),
+        unsigned_prefix,
+        since,
+    )
+}
+
+/// Sign a standard funding group with an output-type creation witness.
+pub fn build_with_output_type(
+    key: &DevKey,
+    secp_dep: &CellOutPoint,
+    extra_deps: &[CellOutPoint],
+    inputs: &[(CellOutPoint, u64)],
+    outputs: &[OutSpec],
+    output_type: &[u8],
+) -> Result<(Vec<u8>, Value), String> {
+    build_signed(
+        key,
+        secp_dep,
+        extra_deps,
+        inputs,
+        outputs,
+        (None, Some(output_type)),
+        0,
+        &vec![0; inputs.len()],
+    )
+}
+
+#[allow(clippy::too_many_arguments)]
+fn build_signed(
+    key: &DevKey,
+    secp_dep: &CellOutPoint,
+    extra_deps: &[CellOutPoint],
+    inputs: &[(CellOutPoint, u64)],
+    outputs: &[OutSpec],
+    witness_types: (Option<&[u8]>, Option<&[u8]>),
+    unsigned_prefix: usize,
+    since: &[u64],
+) -> Result<(Vec<u8>, Value), String> {
+    let (input_type, output_type) = witness_types;
     if since.len() != inputs.len() {
         return Err("since count must equal input count".into());
     }
@@ -379,8 +424,8 @@ pub fn build_with_permissionless_prefix_and_since(
     // where blank_witness0 keeps input_type/output_type but zeroes the
     // 65-byte lock; remaining same-group witnesses hash as submitted.
     let mut witnesses = vec![Vec::new(); inputs.len()];
-    if let Some(commitment) = input_type {
-        witnesses[0] = molecule::witness_args(None, Some(commitment), None);
+    if input_type.is_some() || output_type.is_some() {
+        witnesses[0] = molecule::witness_args(None, input_type, output_type);
     }
     witnesses[unsigned_prefix] = molecule::witness_args(
         Some(&[0u8; 65]),
@@ -389,7 +434,11 @@ pub fn build_with_permissionless_prefix_and_since(
         } else {
             None
         },
-        None,
+        if unsigned_prefix == 0 {
+            output_type
+        } else {
+            None
+        },
     );
     let mut message_buf = tx_hash.to_vec();
     for witness in &witnesses[unsigned_prefix..] {
@@ -413,7 +462,11 @@ pub fn build_with_permissionless_prefix_and_since(
         } else {
             None
         },
-        None,
+        if unsigned_prefix == 0 {
+            output_type
+        } else {
+            None
+        },
     );
 
     let bytes = molecule::transaction(&raw, &witnesses);

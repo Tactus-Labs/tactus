@@ -41,6 +41,11 @@ if [[ -v TACTUS_OBSERVER_RPC_BIN && ( "${TACTUS_OBLIGATION_REORG:-}" != 1 || ! -
   echo 'Observer qualification requires the pending-duty P2P reorg and an executable TACTUS_OBSERVER_RPC_BIN.' >&2
   exit 1
 fi
+if [[ -v TACTUS_STATE_PROOFS_JSON && ( "$suite" != replay-sealed-settlement || -z "${TACTUS_SEALED_PROOF_DIR:-}" || -v TACTUS_SEALED_PROOF_REORG || -v TACTUS_OBLIGATION_REORG || ! -f "$TACTUS_STATE_PROOFS_JSON" ) ]]; then
+  echo 'State witness qualification requires the A3 real proof suite, a witness file, and no reorg mode.' >&2
+  exit 1
+fi
+if [[ -v TACTUS_STATE_PROOFS_JSON ]]; then bash scripts/build-state-proof-script.sh; fi
 cargo build --locked --bin "$suite"
 if [[ "$suite" == replay-evm || "$suite" == replay-network ]]; then
   cargo build --locked --bin recover-execution
@@ -112,6 +117,7 @@ for name in ['Cargo.lock','scripts/build-ordering-script.sh','scripts/ordering-s
  manifest['files'][name]=hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest()
 binaries=['target/debug/'+os.environ['TACTUS_DEVNET_SUITE']]
 if os.getenv('TACTUS_OBSERVER_RPC_BIN'):binaries.append(os.environ['TACTUS_OBSERVER_RPC_BIN'])
+if os.getenv('TACTUS_STATE_PROOFS_JSON'):binaries.extend(['artifacts/tactus_o1_state_proof_script.elf',os.environ['TACTUS_STATE_PROOFS_JSON']])
 if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-evm','replay-network'):binaries.append('target/debug/recover-execution')
 if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-sealed','replay-network','replay-sealed-settlement'):binaries.append('target/debug/recover-sealed')
 if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-network','replay-checkpoint-reorg') or os.getenv('TACTUS_SETTLEMENT_REORG') or os.getenv('TACTUS_OBLIGATION_REORG') or os.getenv('TACTUS_SEALED_PROOF_REORG'):binaries.extend([str(root/'peer/ckb.toml'),str(root/'peer/specs/dev.toml')])

@@ -6,6 +6,11 @@ rollup deployment or custody of user assets.
 
 ## Implemented and measured
 
+- [CKB authenticated settled-state reads](SETTLED_STATE_PROOF_REPORT.md) now verify
+  three actual A3 account/slot witnesses against the live, proof-settled Tip.
+  Seventeen script-specific negative controls reject; immutable read certificates
+  can be destroyed to recover capacity. This does not implement custody or exits.
+
 - [User-accessible state witnesses](OBSERVER_STATE_PROOFS_REPORT.md) now provide
   account and storage proofs, independently checked by pinned Geth against
   reconstructed roots. Live HTTP witnesses match the accepted A3 proof's state

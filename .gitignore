@@ -9,3 +9,4 @@
 # devnet artifacts are reproducible from scripts/build-ordering-script.sh
 artifacts/
 /services/observer-rpc/target
+/proofs/ckb-state-proof/target
