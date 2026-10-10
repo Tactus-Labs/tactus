@@ -1,0 +1,8 @@
+Actual complete recursive witness selected exactly
+Rejected witness-selection control: truncated
+Rejected witness-selection control: wrong-key
+Rejected witness-selection control: exit-code
+Rejected witness-selection control: missing-witness
+Rejected witness-selection control: missing-vk-root
+Rejected witness-selection control: oversize
+Selection controls only; cryptographic proof verified separately by real native wrapper and SDK

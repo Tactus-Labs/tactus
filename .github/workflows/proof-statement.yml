@@ -31,6 +31,8 @@ jobs:
           (cd specs/evidence/checkpoint-reorg && sha256sum --check SHA256SUMS)
           (cd specs/evidence/settlement-bootstrap && sha256sum --check SHA256SUMS)
           (cd specs/evidence/chain-proof-recovery && sha256sum --check SHA256SUMS)
+          (cd specs/evidence/chain-groth16-proof && sha256sum --check SHA256SUMS)
+          python3 -B scripts/test-chain-proof-staging.py
           (cd specs/evidence/settlement-next-input && sha256sum --check SHA256SUMS)
           (cd specs/evidence/settlement-proof-guards && sha256sum --check SHA256SUMS)
           (cd specs/evidence/settlement-reorg-preparation && sha256sum --check SHA256SUMS)

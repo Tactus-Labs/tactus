@@ -1,0 +1,9 @@
+{
+  "source": "artifacts/chain-proof-mEeIJqcp/tmp/.tmpDI8mLm",
+  "sha256": "b3674b709d2c49bf98b1361a53a76b2c7757602701e362ff33f24b234da55a09",
+  "bytes": 2802829,
+  "journal_sha256": "c8df35222b39de81a8569905a3dc6385afd7f70ddc955d63c6239cd4227fbc65",
+  "guest_verifying_key": "0x00eb2677694b390a31db8883db49c1a828d73618173ce6f3e5790b7678958b14",
+  "proof_completed": false,
+  "full_verification_pending": true
+}

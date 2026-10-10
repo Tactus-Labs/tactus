@@ -3,8 +3,10 @@
 Measured on 10 October 2026. The unchanged SP1 guest executed the canonical
 bootstrap export under real CKB/Anchor/SettlementTip identities and matched all
 768 expected public bytes. This archive captures execution before Groth16
-completion; it does **not** claim an accepted settlement transition. The full
-proof job remains separate from the completed checks below.
+completion; it does **not** claim an accepted settlement transition. The original execution-only archive remains unchanged. A subsequent
+[real canonical-domain Groth16 proof](CHAIN_GROTH16_PROOF_REPORT.md) now passes
+15 negative controls and fresh SDK verification; on-chain settlement qualification
+is still separate.
 
 ## Independent recovery
 

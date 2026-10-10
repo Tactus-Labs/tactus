@@ -120,6 +120,12 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
   checkpoint binding, but accepted valid-proof succession has not yet been measured;
   these initialization/negative results do not close G3.
 
+- [A real canonical-domain Groth16 proof](CHAIN_GROTH16_PROOF_REPORT.md) now
+  matches the actual deployment's full journal and passes fresh SDK verification
+  plus 15 cryptographic negative controls. It completed through a deliberate
+  fresh-process final-wrap handoff; uninterrupted proving and accepted canonical
+  settlement remain separate qualification requirements.
+
 - [A state-changing second interval](SETTLEMENT_CONTINUATION_REPORT.md) now has
   canonical CKB 0.210.0 publication, exact prefix-one journal replay and independent
   Geth comparison across both blocks. Cold recovery distinguishes two published

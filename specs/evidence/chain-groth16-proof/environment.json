@@ -1,0 +1,27 @@
+{
+  "environment": {
+    "RAYON_NUM_THREADS": "4",
+    "TOKIO_WORKER_THREADS": "4",
+    "GOMAXPROCS": "2",
+    "GOMEMLIMIT": "16GiB",
+    "GOGC": "25",
+    "SP1_CIRCUIT_MODE": "release",
+    "SP1_GROTH16_CIRCUIT_PATH": "/home/arthur/RustRoverProjects/tactus-o1/artifacts/prover-tools/circuits/groth16",
+    "ELEMENT_THRESHOLD": "50331648",
+    "HEIGHT_THRESHOLD": "524288",
+    "SHARD_SIZE": "1048576",
+    "TMPDIR": "/home/arthur/RustRoverProjects/tactus-o1/artifacts/chain-proof-mEeIJqcp/tmp",
+    "SP1_WORKER_CORE_BUFFER_SIZE": "1",
+    "SP1_WORKER_NUM_CORE_WORKERS": "1",
+    "SP1_WORKER_NUM_PREPARE_REDUCE_WORKERS": "1",
+    "SP1_WORKER_NUM_RECURSION_EXECUTOR_WORKERS": "1",
+    "SP1_WORKER_NUM_RECURSION_PROVER_WORKERS": "1",
+    "SP1_WORKER_NUM_SETUP_WORKERS": "1",
+    "SP1_WORKER_PREPARE_REDUCE_BUFFER_SIZE": "1",
+    "SP1_WORKER_RECURSION_EXECUTOR_BUFFER_SIZE": "1",
+    "SP1_WORKER_RECURSION_PROVER_BUFFER_SIZE": "1",
+    "SP1_WORKER_SETUP_BUFFER_SIZE": "1"
+  },
+  "git_head": "ca045057e2d960ff058b16272bff8d643d8a5b4d",
+  "proof_completed": false
+}

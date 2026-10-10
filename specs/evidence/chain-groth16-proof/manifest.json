@@ -1,0 +1,18 @@
+{
+  "proof_generated": true,
+  "fresh_canonical_verification": true,
+  "continuous_full_proof_success": false,
+  "current_ckb_input_exact_statement_match": true,
+  "settlement_accepted": false,
+  "production_ready": false,
+  "public_journal_sha256": "c8df35222b39de81a8569905a3dc6385afd7f70ddc955d63c6239cd4227fbc65",
+  "current_worktree_files_sha256": {
+    "proofs/sp1/host/src/bin/chain-proof.rs": "242cca8a6c4e448223ee432bd33954566f0dcd53f824d8ab324b04b24469098f",
+    "proofs/sp1/host/src/bin/wrap-witness.rs": "f0df2177ac3837570084e03663efa897eb06a9c17c786523e378f52297b52f12",
+    "scripts/run-chain-proof.sh": "bdc9ea98bd2311fc30f16b4969886e706a469c37af4bd46cd1d911dfd1fc56c9",
+    "scripts/finish-chain-proof-staged.py": "0ebeb11bd02c0f8c62dbf394ef6956f896fb8ece66622c99cfa6bc6d4e3fefaa",
+    "proofs/sp1/Cargo.lock": "2fb50d9bde6021c8963f93cc03c1e26fe366b12ad695611fd93a047938f2108b",
+    "Cargo.lock": "d1e83ee7925c86276223c5b01a46cc25c9a1c81d811b713381dd9d3a4e835f92"
+  },
+  "qualification": "Fresh chain-proof verification replays the full export and verifies the proof against the actual pinned guest ELF. The 0.210.0 export has identical proof inputs and public journal. On-chain acceptance remains a separate experiment."
+}

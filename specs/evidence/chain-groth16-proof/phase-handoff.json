@@ -1,0 +1,18 @@
+{
+  "time_utc": "2026-10-10T02:45:26.240566+00:00",
+  "action": "intentional SIGTERM after complete recursive witness retention, then fresh-process final wrapping",
+  "reason": "Final Groth16 key load under severe memory.high throttling with all 6 GiB allowed swap consumed; release retained Rust prover allocations",
+  "pid": 3228481,
+  "process_before": "    PID     ELAPSED     TIME %CPU   RSS STAT COMMAND\n3228481       56:31 03:15:53  346 21137504 Sl chain-proof\n",
+  "cgroup": {
+    "memory.events": "low 0\nhigh 137834\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "memory.current": "21800108032\n",
+    "memory.peak": "21803139072\n",
+    "memory.swap.current": "6442450944\n",
+    "memory.high": "21474836480\n",
+    "memory.max": "24696061952\n",
+    "memory.swap.max": "6442450944\n"
+  },
+  "continuous_full_proof_success": false,
+  "retained_witness_sha256": "b3674b709d2c49bf98b1361a53a76b2c7757602701e362ff33f24b234da55a09"
+}

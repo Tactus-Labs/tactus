@@ -1,0 +1,3 @@
+2026-10-10T02:48:17.422026Z  INFO initializing cpu prover
+Local CPU prover initialized after 40.950458309s
+Fresh process verified real proof and exact expected journal; key 0x00eb2677694b390a31db8883db49c1a828d73618173ce6f3e5790b7678958b14
