@@ -20,6 +20,24 @@ receipts = sibling('check-proof-receipts')
 require, raw = bootstrap.require, bootstrap.raw
 
 
+def check_consumption(measured, predecessor, successor):
+    observation = measured['predecessor_consumption']
+    point = {'tx_hash': predecessor['hash'], 'index': '0x0'}
+    require(observation['point'] == point
+            and observation['live_cell']['status'] == measured['predecessor_status']
+            and measured['predecessor_status'] in ('dead', 'unknown'), 'predecessor still live or wrong identity')
+    for name, record in [('creation', predecessor), ('consumer', successor)]:
+        view = observation[name]
+        require(view['tx_status']['status'] == 'committed'
+                and view['transaction']['hash'] == record['hash']
+                and view['tx_status']['block_hash'] == record['block_hash']
+                and view['transaction']['outputs'][0] == record['transaction']['outputs'][0]
+                and view['transaction']['outputs_data'] == record['transaction']['outputs_data'], 'canonical consumption identity differs')
+    inputs = observation['consumer']['transaction']['inputs']
+    require(inputs == successor['transaction']['inputs']
+            and sum(i['previous_output'] == point for i in inputs) == 1, 'successor does not consume predecessor')
+
+
 def check_document(evidence, proof_dir):
     results = evidence['results']
     require(results['suite'] == 'settlement-first-proof-v1' and results['complete']
@@ -68,8 +86,9 @@ def check_document(evidence, proof_dir):
             and measured['vm_cycles'] == int(item['cycles']['cycles'], 16)
             and measured['node_wire_bytes'] == receipts.wire_bytes(tx)
             and measured['tip_capacity_shannons'] == int(tx['outputs'][0]['capacity'], 16)
-            and measured['predecessor_status'] == 'dead' and measured['successor_status'] == 'live',
+            and measured['successor_status'] == 'live',
             'measurement or live-cell result differs')
+    check_consumption(measured, labels['settlement/atomic Anchor and uninitialized Tip genesis'], item)
     require(measured['fee_shannons'] == export['fee_input']['capacity']
             - int(tx['outputs'][1]['capacity'], 16), 'fee differs')
     expected = {}

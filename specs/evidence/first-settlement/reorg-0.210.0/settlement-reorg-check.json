@@ -1,0 +1,10 @@
+{
+  "orphaned_blocks": 4,
+  "settled_batches_after_rollback": 0,
+  "settled_batches_after_reapplication": 1,
+  "same_proof_reused": true,
+  "old_funding_rejected": true,
+  "production_ready": false,
+  "cryptography_reexecuted_by_checker": false,
+  "evidence_sha256": "d1360fb95a18473c4e06dad2d58c1d270aae1d89d157533b506d071b755aa8b6"
+}

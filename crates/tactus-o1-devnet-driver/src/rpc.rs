@@ -29,8 +29,15 @@ pub fn call_at(address: &str, method: &str, params: Value) -> Result<Value, Stri
         std::time::Duration::from_secs(5),
     )
     .map_err(|e| format!("connect: {e}"))?;
+    // Real Groth16 verification can exceed the ordinary query budget. Keep
+    // script execution bounded while leaving read-only queries fail-fast.
+    let read_seconds = if matches!(method, "estimate_cycles" | "send_transaction") {
+        120
+    } else {
+        15
+    };
     stream
-        .set_read_timeout(Some(std::time::Duration::from_secs(15)))
+        .set_read_timeout(Some(std::time::Duration::from_secs(read_seconds)))
         .map_err(|e| e.to_string())?;
     stream
         .set_write_timeout(Some(std::time::Duration::from_secs(15)))

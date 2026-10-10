@@ -90,8 +90,9 @@ def check(path, first_dir, second_dir):
             and measured['tip_capacity_shannons'] == int(tx['outputs'][0]['capacity'], 16)
             and measured['fee_shannons'] == int(prior['transaction']['outputs'][1]['capacity'], 16)
             - int(tx['outputs'][1]['capacity'], 16)
-            and measured['predecessor_status'] == 'dead' and measured['successor_status'] == 'live',
+            and measured['successor_status'] == 'live',
             'second measurement differs')
+    first_check.check_consumption(measured, prior, item)
     expected = {'settlement/skip-first-interval': 7}
     for name, offset, code in [
         ('profile',8,6),('network',40,6),('ordering',72,6),('settlement',104,6),

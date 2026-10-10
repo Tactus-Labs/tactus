@@ -5,8 +5,9 @@ bootstrap export under real CKB/Anchor/SettlementTip identities and matched all
 768 expected public bytes. This archive captures execution before Groth16
 completion; it does **not** claim an accepted settlement transition. The original execution-only archive remains unchanged. A subsequent
 [real canonical-domain Groth16 proof](CHAIN_GROTH16_PROOF_REPORT.md) now passes
-15 negative controls and fresh SDK verification; on-chain settlement qualification
-is still separate.
+15 negative controls and fresh SDK verification. A subsequent
+[first-settlement run](FIRST_SETTLEMENT_REPORT.md) also passes actual CKB proof
+consumption, 40 script rejections and planned P2P rollback/reapplication.
 
 ## Independent recovery
 
@@ -59,7 +60,7 @@ verification follows a successful complete proof. The measured launch additional
 used a systemd scope with MemoryHigh=20G, MemoryMax=23G and MemorySwapMax=6G; these
 are workstation experiment limits, not production memory qualification.
 
-## Pending positive settlement qualification
+## First positive settlement qualification
 
 The bootstrap driver accepts `TACTUS_SETTLEMENT_PROOF_DIR` only for a completed
 real Groth16 result with the exact regenerated canonical journal and guest key.
@@ -69,8 +70,9 @@ that successor and rollback to the initial state. Controls include all public
 fields, proof-byte changes, and coordinated changes to both journal and output
 roots that must reach and fail the actual cryptographic verifier. Cold recovery
 then independently reconstructs the proved successor. There is no mock-success
-mode. These positive-path assertions are implemented but **not measured as passed
-in this archive**; they require the running real-domain proof to complete.
+mode. The original execution-only archive did not measure these assertions. They now
+pass in the separate [first-settlement archive](FIRST_SETTLEMENT_REPORT.md),
+including canonical consumption evidence when a spent output reports `unknown`.
 
 ```bash
 TACTUS_SETTLEMENT_PROOF_DIR=/absolute/path/to/completed/proof \
@@ -82,8 +84,9 @@ python3 scripts/check-first-settlement.py /absolute/path/to/evidence.json /absol
 The independent Python checker reconciles proof witnesses, complete successor
 data, checkpoint dependencies, fees, node-packed size, exact script rejections,
 and cold recovery. It performs no cryptographic verification itself. Multiple
-proved intervals, reorg rollback, another prover's completion, proof-bound
-obligations, custody/exits and all remaining production gates stay open.
+proved intervals, another prover's completion, unplanned faults, proof-bound
+obligations, custody/exits and all remaining production gates stay open. Planned
+P2P rollback and same-proof reapplication now pass in the later experiment.
 
 ## Sequential proof qualification
 
@@ -117,7 +120,7 @@ python3 scripts/check-two-settlements.py /absolute/path/to/evidence.json \
   /absolute/path/to/completed/first/proof /absolute/path/to/completed/second/proof
 ```
 
-## Prepared real-proof P2P rollback qualification
+## Real-proof P2P rollback qualification
 
 `TACTUS_SETTLEMENT_REORG=1` adds a two-node partition/rejoin path to the first-proof
 suite. It requires exactly one completed real proof directory and cannot be mixed
@@ -140,9 +143,11 @@ transition, without counting the orphan transition.
 The independent checker projects the historical first-settlement phase, verifies
 its existing 40 rejection controls, then reconciles the alternate fee spend,
 original-transaction rejection, proof reuse, branch heights, restored cells and
-both nodes' cold-recovery reports. The intended **seven historical commit records
-(including the orphan) and 41 rejections** remain pending assertions until a real
-proof run passes. Compilation and mode guards do not establish rollback safety.
+both nodes' cold-recovery reports. The separate [real-proof run](FIRST_SETTLEMENT_REPORT.md) now passes with
+**seven historical commit records (including the orphan) and 41 rejections**.
+Both nodes independently recover zero settled batches after rollback and one
+after same-proof reapplication. The preparation archive alone establishes only
+compilation and mode guards; the later node evidence supports this result.
 This is a planned partition experiment; unplanned faults, independent proving,
 production finality policy and custody remain separate requirements.
 

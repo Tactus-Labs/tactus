@@ -109,6 +109,35 @@ fn advance_tip(
     )
     .map(|(_, t)| t)
 }
+// get_live_cell may report "unknown" for an already spent output. Prove the
+// consumption using both canonical transactions instead of assuming "dead".
+fn consumed_tip(point: CellOutPoint, successor: &str) -> Result<Value, String> {
+    let previous =
+        json!({"tx_hash":rpc::bytes_to_hex(&point.tx_hash),"index":format!("0x{:x}",point.index)});
+    let live = rpc::call("get_live_cell", json!([previous, true]))?;
+    let creation = rpc::call("get_transaction", json!([previous["tx_hash"]]))?;
+    let consumer = rpc::call("get_transaction", json!([successor]))?;
+    if !matches!(live["status"].as_str(), Some("dead" | "unknown"))
+        || creation["tx_status"]["status"] != "committed"
+        || consumer["tx_status"]["status"] != "committed"
+        || creation["transaction"]["outputs"]
+            .as_array()
+            .ok_or("creation outputs")?
+            .get(point.index as usize)
+            .is_none()
+        || consumer["transaction"]["inputs"]
+            .as_array()
+            .ok_or("consumer inputs")?
+            .iter()
+            .filter(|input| input["previous_output"] == previous)
+            .count()
+            != 1
+    {
+        return Err("canonical predecessor consumption not established".into());
+    }
+    Ok(json!({"point":previous,"live_cell":live,"creation":creation,"consumer":consumer}))
+}
+
 fn reject(
     lab: &mut Lab,
     code: &[u8; 32],
@@ -700,13 +729,7 @@ fn run() -> Result<(), String> {
             {
                 return Err("committed successor differs from proved state".into());
             }
-            let old = rpc::call(
-                "get_live_cell",
-                json!([{"tx_hash":boot,"index":"0x0"},true]),
-            )?;
-            if old["status"] != "dead" {
-                return Err("predecessor Tip remains live".into());
-            }
+            let consumption = consumed_tip(tip_point, &settled)?;
             for (name, data) in [
                 ("replay-on-live-successor", &next_tip),
                 ("rollback-to-genesis", &initial),
@@ -721,7 +744,7 @@ fn run() -> Result<(), String> {
                 )?;
                 reject(&mut lab, &code, &format!("settlement/{name}"), &tx, 7)?;
             }
-            results["first_transition"] = json!({"hash":settled,"vm_cycles":number(&cycles["cycles"] )?,"node_wire_bytes":node_bytes,"tip_capacity_shannons":tip_capacity,"fee_shannons":TX_FEE,"data":rpc::bytes_to_hex(&next_tip),"predecessor_status":old["status"],"successor_status":successor["status"]});
+            results["first_transition"] = json!({"hash":settled,"vm_cycles":number(&cycles["cycles"] )?,"node_wire_bytes":node_bytes,"tip_capacity_shannons":tip_capacity,"fee_shannons":TX_FEE,"data":rpc::bytes_to_hex(&next_tip),"predecessor_status":consumption["live_cell"]["status"],"predecessor_consumption":consumption,"successor_status":successor["status"]});
             let recovered_tip = cold_recovery(&chain, &anchor.script, &settlement_script)?;
             if recovered_tip["initialized"] != true
                 || recovered_tip["data"] != rpc::bytes_to_hex(&next_tip)

@@ -6,8 +6,9 @@ the export, derived the pinned ELF's verification key, verified the proof and
 matched all 768 expected public bytes. The current **CKB 0.210.0** export has the
 same domain, allocation, batches, interval and journal as the proving input.
 This replaces the earlier synthetic-domain proof as a valid candidate for the
-actual SettlementTip deployment. **On-chain acceptance is a separate experiment;
-G3 and production readiness remain OPEN.**
+actual SettlementTip deployment. **The later [first-settlement experiment](FIRST_SETTLEMENT_REPORT.md) now proves
+on-chain acceptance and planned P2P rollback/reapplication. G3 and production
+readiness remain OPEN.**
 
 ## Proof and verification
 

@@ -1,5 +1,5 @@
 //! Real second-proof qualification. No positive path accepts placeholder proofs.
-use super::{advance_tip, framed, number, reject};
+use super::{advance_tip, consumed_tip, framed, number, reject};
 use serde_json::{json, Value};
 use std::{fs::File, io::Read, path::Path};
 use tactus_o1_devnet_driver::{
@@ -163,14 +163,8 @@ pub(super) fn qualify(
         "get_live_cell",
         json!([{"tx_hash":hash,"index":"0x0"},true]),
     )?;
-    let old = rpc::call(
-        "get_live_cell",
-        json!([{"tx_hash":first_hash,"index":"0x0"},true]),
-    )?;
-    if live["status"] != "live"
-        || live["cell"]["data"]["content"] != rpc::bytes_to_hex(&tip)
-        || old["status"] != "dead"
-    {
+    let consumption = consumed_tip(lab::point(first_hash, 0)?, &hash)?;
+    if live["status"] != "live" || live["cell"]["data"]["content"] != rpc::bytes_to_hex(&tip) {
         return Err("second transition liveness or data differs".into());
     }
     let current = lab::point(&hash, 0)?;
@@ -212,6 +206,6 @@ pub(super) fn qualify(
     Ok(
         json!({"hash":hash,"vm_cycles":number(&cycles["cycles"] )?,"node_wire_bytes":wire,
         "tip_capacity_shannons":context.capacity,"fee_shannons":TX_FEE,"data":rpc::bytes_to_hex(&tip),
-        "predecessor_status":old["status"],"successor_status":live["status"]}),
+        "predecessor_status":consumption["live_cell"]["status"],"predecessor_consumption":consumption,"successor_status":live["status"]}),
     )
 }

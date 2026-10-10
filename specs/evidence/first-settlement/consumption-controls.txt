@@ -1,0 +1,6 @@
+Real node unknown/spent predecessor reconciles against committed creation and consumer
+Rejected: uncommitted-creation
+Rejected: uncommitted-consumer
+Rejected: wrong-input
+Rejected: live-predecessor
+Rejected: wrong-hash

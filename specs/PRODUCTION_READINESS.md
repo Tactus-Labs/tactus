@@ -99,8 +99,8 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
   batch with a local SP1 core STARK, passes 15 public-value/key rejection controls
   and verifies in a fresh process. The proof and measured workstation cost are
   retained. A subsequent [real Groth16 proof](EXECUTION_GROTH16_PROOF_REPORT.md) now
-  verifies in CKB on both versions. Valid-proof settlement succession remains
-  unqualified; neither result closes G3 or qualifies production proving economics.
+  verifies in CKB on both versions. The later [canonical first settlement](FIRST_SETTLEMENT_REPORT.md)
+  now passes; sequential intervals and production proving economics remain open.
 
 - [Transition-authenticated history checkpoints](HISTORY_CHECKPOINT_V1.md) now
   retain exact Anchor successor states in immutable typed cells. Both CKB versions
@@ -108,8 +108,8 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
   while rejecting a spent mutable Anchor dependency. This supplies a bounded
   history mechanism. A [real P2P checkpoint reorg](CHECKPOINT_REORG_REPORT.md) now
   rejects an orphaned checkpoint dependency and accepts its canonical replacement
-  on both versions; proof-consuming SettlementTip and unplanned-fault qualification
-  are still unqualified. The [Groth16 receipt experiment](EXECUTION_GROTH16_PROOF_REPORT.md) now
+  on both versions. The [first proof-consuming Tip and planned P2P rollback](FIRST_SETTLEMENT_REPORT.md)
+  now pass; unplanned-fault qualification remains open. The [Groth16 receipt experiment](EXECUTION_GROTH16_PROOF_REPORT.md) now
   commits two real verified receipts and rejects 28 controls on each version.
   Final wrapping recovered from an OOM in a fresh process; approximately 3.977
   billion CKB cycles per verification remains a material throughput cost.
@@ -117,14 +117,16 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
 - [SettlementTip atomic genesis](SETTLEMENT_TIP_V1.md) and 20 rejection controls
   pass on both CKB versions. Canonical chain data exports replay to the exact guest
   journal under real deployment identities. The script implements proof and
-  checkpoint binding, but accepted valid-proof succession has not yet been measured;
-  these initialization/negative results do not close G3.
+  checkpoint binding. A later [real proof-consuming transition](FIRST_SETTLEMENT_REPORT.md)
+  now passes with 40 script rejection controls; neither result alone closes G3.
 
 - [A real canonical-domain Groth16 proof](CHAIN_GROTH16_PROOF_REPORT.md) now
   matches the actual deployment's full journal and passes fresh SDK verification
   plus 15 cryptographic negative controls. It completed through a deliberate
-  fresh-process final-wrap handoff; uninterrupted proving and accepted canonical
-  settlement remain separate qualification requirements.
+  fresh-process final-wrap handoff. [First canonical settlement](FIRST_SETTLEMENT_REPORT.md)
+  now passes on CKB 0.210.0, including two-node recovery after a four-block P2P
+  rollback and reuse of the same proof with fresh funding. Sequential proof
+  intervals and uninterrupted proving remain separate qualification requirements.
 
 - [A state-changing second interval](SETTLEMENT_CONTINUATION_REPORT.md) now has
   canonical CKB 0.210.0 publication, exact prefix-one journal replay and independent
@@ -144,9 +146,9 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
 |---|---|---|
 | P0 | Full Experiment A / G2 | Add mandatory forced processing beyond the measured challenge-only failure; qualify independent-wallet load and hostile inclusion policy beyond the measured finite seal-churn budget, sustained queue/dependency workload and targeted-lane failure, proof-bound pending-record recovery, hostile miner policies and unplanned reorgs. Individual A2 authenticity, bounded overload/drain and planned-reorg carry-forward now have measurements. |
 | P0 | Batch admission / W-12 | The implemented input encoding/inline-DA bounds have optional authenticated A2 input prefixes and an A3 mandatory sealed-set gate, but still need the production enforcement selection, L1 timestamp bounds, on-chain/proved binding to the new Ethereum envelope and deterministic rejection semantics, plus proved execution resource limits. |
-| P0 | Execution / G5 | Bind published genesis and the implemented execution profile into a verified state transition; add state checkpoints, broader differential conformance and ordinary Ethereum tool deployment; replace experimental genesis/supply limits. |
-| P0 | Validity settlement / G3 | Real Groth16 compression and CKB receipt verification now pass. Qualify real-domain SettlementTip succession with wrong-state, wrong-order, wrong-domain, wrong-key and replay rejection. The verified synthetic-domain receipts do not establish canonical settlement. |
-| P0 | Recovery / G6 | Extend allocation-bound CKB-to-EVM reconstruction to proving inputs and settlement by another prover, with unplanned network reorgs. |
+| P0 | Execution / G5 | Extend the measured allocation-bound verified transition with state checkpoints, broader differential conformance and ordinary Ethereum tool deployment; replace experimental genesis/supply limits. |
+| P0 | Validity settlement / G3 | The first real-domain proof-consuming transition, 40 script rejections and planned P2P rollback/reapplication now pass. Qualify sequential nonempty intervals and skipped-proof rejection, proof-bound A3 obligations, key/setup provenance and the remaining production envelope. |
+| P0 | Recovery / G6 | Cold settlement recovery on two nodes now survives a planned P2P rollback and proof reapplication. Qualify another prover completing canonical inputs, unplanned faults/reorgs and archival retrieval. |
 | P0 | Bridge and exits / G7 | Deposit/withdrawal conservation, replay resistance and operator-independent exit evidence; no release on experimental cursors. |
 | P1 | Operations / G9 | Qualify the local journal under hardware/long-run faults; add network-driven reorg handling, monitored archival retrieval, independent operators and long-duration fault injection. |
 | P1 | Governance / G8 | Enforced upgrade boundaries and exit-preserving rules. |
