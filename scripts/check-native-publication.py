@@ -31,10 +31,11 @@ def advance(cfg,before,wire):
 
 def check(e,execution,geth):
     r=e['results'];events=e['evidence'];labels={x['label']:x for x in events}
-    require(r['suite']=='native-publication-v2' and r['complete'] is True and r['error'] is None,'incomplete suite')
+    checkpoint_mode=r['suite']=='native-checkpoint-v2'
+    require(r['suite'] in ['native-publication-v2','native-checkpoint-v2'] and r['complete'] is True and r['error'] is None,'incomplete suite')
     require(r['authenticated_publication'] is True and all(r[k] is False for k in ['proof_settled','withdrawal_executed','production_ready']),'unsupported scope')
     require(e['metadata']['node_version'].startswith('0.210.0'),'CKB version')
-    require(len(events)==len(labels)==37 and sum(x['result']=='committed' for x in events)==10,'ten commits/27 negatives')
+    require(len(events)==len(labels)==(54 if checkpoint_mode else 37) and sum(x['result']=='committed' for x in events)==(11 if checkpoint_mode else 10),'exact commit/rejection inventory')
     cfg=raw(r['config']);code=e['metadata']['ordering_code_hash'];lockcode=e['metadata']['lock_code_hash']
     require(code==hx(digest(b'',raw(events[0]['transaction']['outputs_data'][0]))),'deployed anchor program')
     vaultcode=hx(digest(b'',raw(labels['native/deploy pinned vault']['transaction']['outputs_data'][0])))
@@ -96,7 +97,7 @@ def check(e,execution,geth):
     require((slot(0),slot(1),slot(2),slot(6))==(16000000000,25000000000,9000000000,2),'local token conservation')
     require(r['final_root']==rows[-1]['state_root'] and r['final_header']==r['publications'][-1]['blocks'][0]['header'],'final replay report')
     codes={'missing genesis header':7,'nonempty genesis cursor':5,'missing joint vault':8,'wrong chain genesis':7,'wrong anchor lock':9,'inflated anchor reserve':9,'old execution rules':4,'seeded bridge storage':6,'zero caller allocation':6,'wrong bridge runtime':6,'wrong singleton identity':5,'missing authenticated receipt':14,'untyped copied receipt':14,'cross vault receipt':14,'forged amount with valid transcript':14,'forged recipient with valid transcript':14,'wrong successor cursor':12,'mutable publication':10,'metadata rewrite':4,'truncated batch':11,'wrong publication pointer':10,'anchor capacity rewrite':9,'anchor lock takeover':9,'duplicate deposit':11,'replay already published deposit':11,'spend immutable allocation':1,'spend immutable publication':1}
-    require({x['label'] for x in events if x['result']=='rejected'}=={'native/'+name for name in codes},'negative controls')
+    require({x['label'] for x in events if x['result']=='rejected' and not (checkpoint_mode and x['label'].startswith('checkpoint/'))}=={'native/'+name for name in codes},'negative controls')
     for label,code_num in codes.items():
         event=labels['native/'+label];error=json.loads(event['error'].removeprefix('rpc error: '))
         require(error['code']==-302 and event['expected_reason']==f'error code {code_num}' and f'error code {code_num} on page ' in event['error'] and code[2:] in event['error'],'wrong program/reason')
@@ -110,7 +111,36 @@ def check(e,execution,geth):
     for event in list(committed.values())[1:]:
         tx=event['transaction'];incoming=sum(int(committed[p['previous_output']['tx_hash']]['transaction']['outputs'][int(p['previous_output']['index'],16)]['capacity'],16) for p in tx['inputs'])
         require(incoming-sum(int(o['capacity'],16) for o in tx['outputs'])==100000000,'fee funding conservation')
-    return {'commits':10,'script_rejections':27,'authenticated_publications':2,'deposited_shannons':25000000000,'local_circulating_shannons':16000000000,'local_burned_shannons':9000000000,'vault_capacity_shannons':64000000000,'anchor_capacity_shannons':capacity,'publications':measure,'proof_settled':False,'withdrawal_executed':False,'production_ready':False}
+    checkpoint_report=check_checkpoints(e) if checkpoint_mode else None
+    return {'checkpoint':checkpoint_report,'commits':11 if checkpoint_mode else 10,'script_rejections':43 if checkpoint_mode else 27,'authenticated_publications':2,'deposited_shannons':25000000000,'local_circulating_shannons':16000000000,'local_burned_shannons':9000000000,'vault_capacity_shannons':64000000000,'anchor_capacity_shannons':capacity,'publications':measure,'proof_settled':False,'withdrawal_executed':False,'production_ready':False}
+
+def check_checkpoints(e):
+    r=e['results'];labels={x['label']:x for x in e['evidence']}
+    deploy=labels['checkpoint/deploy program'];require(deploy['result']=='committed','checkpoint deployment')
+    code=digest(b'',raw(deploy['transaction']['outputs_data'][0]))
+    script=b''.join(le(i,4) for i in [93,16,48,49])+code+b'\x02'+le(40,4)+b'TO1NCP02'+digest(b'',raw(r['anchor_script']))
+    lock={'code_hash':e['metadata']['lock_code_hash'],'hash_type':'data1','args':hx(digest(b'',script))}
+    ty={'code_hash':hx(code),'hash_type':'data1','args':hx(script[53:])}
+    require(len(r['checkpoints'])==2 and r['historical_checkpoint_rechecked'] is True,'checkpoint history count/recheck')
+    for i,cp in enumerate(r['checkpoints']):
+        event=labels[f'native/publish authenticated batch {i}'];tx=event['transaction']
+        require(cp['transaction']==event['hash'] and cp['index']==2 and cp['script']==hx(script),'checkpoint output identity')
+        require({'out_point':point(deploy,0),'dep_type':'code'} in tx['cell_deps'],'checkpoint deployed program')
+        require(tx['outputs'][2]=={'capacity':hex(57400000000),'lock':lock,'type':ty},'checkpoint reserve/type/lock')
+        require(tx['outputs_data'][2]==tx['outputs_data'][0]==r['publications'][i]['state'],'full transition checkpoint data')
+        live=cp['live'];require(live['status']=='live' and live['cell']['data']['content']==tx['outputs_data'][2] and live['cell']['output']==tx['outputs'][2],'checkpoint live report')
+        require(live['cell']['data']['hash']==hx(digest(b'',raw(tx['outputs_data'][2]))),'checkpoint data hash')
+    codes={'dependency alone':(4,'Outputs[0].Type'),'previous state':(7,'Outputs[2].Type'),'forged cursor':(7,'Outputs[2].Type'),'changed custody config':(7,'Outputs[2].Type'),'wrong publication hash':(7,'Outputs[2].Type'),'truncated state':(5,'Outputs[2].Type'),'duplicate checkpoint':(2,'Outputs[2].Type'),'wrong anchor binding':(4,'Outputs[2].Type'),'wrong argument domain':(1,'Outputs[2].Type'),'zero anchor identity':(1,'Outputs[2].Type'),'old anchor wire':(5,'Outputs[2].Type'),'historical checkpoint dependency':(4,'Outputs[0].Type')}
+    for i in range(2):
+        codes[f'destroy checkpoint {i}']=(2,'Inputs[0].Type');codes[f'consume and recreate {i}']=(2,'Inputs[0].Type')
+    require({x['label'] for x in e['evidence'] if x['result']=='rejected' and x['label'].startswith('checkpoint/')}=={'checkpoint/'+name for name in codes},'checkpoint negative inventory')
+    for name,(number,source) in codes.items():
+        event=labels['checkpoint/'+name];error=json.loads(event['error'].removeprefix('rpc error: '))
+        require(error['code']==-302 and event['expected_reason']==f'error code {number}' and f'error code {number} on page ' in event['error'] and code.hex() in event['error'] and f'source: {source}' in event['error'],'checkpoint exact rejection provenance')
+    require(len(labels['checkpoint/dependency alone']['transaction']['inputs'])==1,'dependency-only control inputs')
+    require(labels['checkpoint/previous state']['transaction']['outputs_data'][2]==r['genesis_state'],'previous-state control')
+    duplicate=labels['checkpoint/duplicate checkpoint']['transaction'];require(duplicate['outputs'][2]==duplicate['outputs'][3] and duplicate['outputs_data'][2]==duplicate['outputs_data'][3],'duplicate checkpoint control')
+    return {'authenticated_checkpoints':2,'script_rejections':16,'code_hash':hx(code),'capacity_shannons_each':57400000000,'historical_checkpoint_rechecked':True}
 
 if __name__=='__main__':
     p=pathlib.Path(sys.argv[1]);f=p/'evidence.json'

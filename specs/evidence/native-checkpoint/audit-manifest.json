@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/check-native-publication.py": "70eca5e82f7d55b4a65f50715f130779e8a1ab7e825fbd0b0d3739e9a8a972bb",
+    "scripts/test-native-checkpoint.py": "1cb0d982bf29bc19c9f5a4421bfa9414c67f881863a95d65402f58cc49ee7965",
+    ".github/workflows/ci.yml": "1c1e5db7be1676e8d96c347054947714bf6352da583a0b36ea3861851ceaa132",
+    "specs/NATIVE_CHECKPOINT_REPORT.md": "ef15166a08d38305ec38bf5e413a45a29b9e45149fe2e4aa7247a58d39cf323c",
+    "specs/NATIVE_BRIDGE_EXECUTION_V2.md": "3aa7f711bf01019dc842824369be801a5e72819fe7c26b0336e213fe5a118247",
+    "specs/NATIVE_PROOF_STATEMENT_V2.md": "ef52ecd0fdbf6bbd8b08bb42d606f5eb8b4754397cfdd8cec16774130c7c1dc1",
+    "specs/PRODUCTION_READINESS.md": "101c76895a7c449a940488abab48ef0a331402d20b6633010d99ca2783e9e56a"
+  }
+}

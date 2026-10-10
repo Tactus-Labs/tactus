@@ -1,0 +1,54 @@
+deploy immutable code and independent actor funds: committed 0xe851cd5187d051e89cbe7fbad6eb4ea97a469002a624410682a83ebed43fcdc1
+native/deploy pinned vault: committed 0x7c41476204d3bac6e11e344fff6a4a4c428f82da38df66af778b5afc9829f463
+checkpoint/deploy program: committed 0x7b7d6bbdee9bab0070be86211d56b493387e085081a13434b674f4ef45aa6409
+native/missing genesis header: rejected (error code 7)
+native/nonempty genesis cursor: rejected (error code 5)
+native/missing joint vault: rejected (error code 8)
+native/wrong chain genesis: rejected (error code 7)
+native/wrong anchor lock: rejected (error code 9)
+native/inflated anchor reserve: rejected (error code 9)
+native/old execution rules: rejected (error code 4)
+native/seeded bridge storage: rejected (error code 6)
+native/zero caller allocation: rejected (error code 6)
+native/wrong bridge runtime: rejected (error code 6)
+native/wrong singleton identity: rejected (error code 5)
+native/joint genesis: committed 0x0138ad16fbbed8505c0f49ecd6117f6e2853afdea32743e123e032c821b2ab0d
+native/deposit actor 0: committed 0x9978334a4818100882cd0d3db370c7e83274b9ca9c894444ec70b27864a6aeb4
+native/untyped copied receipt data: committed 0xb6c9336a3e6f323ae1628c682d0e7250d5c8f91a03a6bbd2328b2a380cce67b9
+native/foreign vault genesis: committed 0x24729d31c0e7e579e7a47b20226e731c4013d10d25902e2d4bac3c2c707aa5c7
+native/foreign funded receipt: committed 0x52a64a187123c3eabb4e76df4c5e02b31132ec42b8462cf8deb3b945565af1de
+native/missing authenticated receipt: rejected (error code 14)
+native/untyped copied receipt: rejected (error code 14)
+native/cross vault receipt: rejected (error code 14)
+native/forged amount with valid transcript: rejected (error code 14)
+native/forged recipient with valid transcript: rejected (error code 14)
+native/wrong successor cursor: rejected (error code 12)
+native/mutable publication: rejected (error code 10)
+native/metadata rewrite: rejected (error code 4)
+native/truncated batch: rejected (error code 11)
+native/wrong publication pointer: rejected (error code 10)
+native/anchor capacity rewrite: rejected (error code 9)
+native/anchor lock takeover: rejected (error code 9)
+native/duplicate deposit: rejected (error code 11)
+checkpoint/dependency alone: rejected (error code 4)
+checkpoint/previous state: rejected (error code 7)
+checkpoint/forged cursor: rejected (error code 7)
+checkpoint/changed custody config: rejected (error code 7)
+checkpoint/wrong publication hash: rejected (error code 7)
+checkpoint/truncated state: rejected (error code 5)
+checkpoint/duplicate checkpoint: rejected (error code 2)
+checkpoint/wrong anchor binding: rejected (error code 4)
+checkpoint/wrong argument domain: rejected (error code 1)
+checkpoint/zero anchor identity: rejected (error code 1)
+checkpoint/old anchor wire: rejected (error code 5)
+native/publish authenticated batch 0: committed 0xcdecc54f1e55ecbc284b02c339d6bc3a92f67a62d1b952ae4a9cf24061f3bed3
+checkpoint/destroy checkpoint 0: rejected (error code 2)
+checkpoint/consume and recreate 0: rejected (error code 2)
+native/replay already published deposit: rejected (error code 11)
+native/deposit actor 1: committed 0x70e98e6a5aed9cf38d07e6953866c2dfd6eba5b4bd116d4f3b1608f0154503ea
+native/publish authenticated batch 1: committed 0x3d3703e77df27dab506def2e35866caafa0b23e0a0031f8e4664c78ea4fd8063
+checkpoint/destroy checkpoint 1: rejected (error code 2)
+checkpoint/consume and recreate 1: rejected (error code 2)
+checkpoint/historical checkpoint dependency: rejected (error code 4)
+native/spend immutable allocation: rejected (error code 1)
+native/spend immutable publication: rejected (error code 1)

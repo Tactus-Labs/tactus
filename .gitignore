@@ -17,3 +17,5 @@ artifacts/
 /proofs/ckb-native-anchor/target/
 
 /proofs/native-sp1/target/
+
+/proofs/ckb-native-checkpoint/target/

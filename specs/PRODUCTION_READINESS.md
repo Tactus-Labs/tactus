@@ -6,6 +6,10 @@ rollup deployment or custody of user assets.
 
 ## Implemented and measured
 
+- [Immutable native custody checkpoints](NATIVE_CHECKPOINT_REPORT.md) now retain
+  the complete config and deposit cursor only during a real authenticated anchor
+  update: two checkpoints, 11 actual commits and 43 rejected controls on CKB
+  0.210.0. The new settlement verifier and actual custody release remain missing.
 - [Native custody proof statement v2](NATIVE_PROOF_STATEMENT_V2.md) now binds
   complete custody config, both deposit cursors and state/header roots in a
   separate guest. Two real SP1 CPU executions match the complete 940-byte

@@ -113,8 +113,9 @@ python3 -B scripts/test-native-bridge-execution.py
 Standalone publication now authenticates every included receipt at the script
 boundary. That check must be preserved in A3 integration, otherwise a forged
 irreversible publication can prevent valid proof settlement. The 256-byte native
-anchor, carried inside 428-byte publication metadata, still needs explicit
-A3/sealed/checkpoint/recovery support.
+anchor, carried inside 428-byte publication metadata, now has
+[transition-authenticated checkpoints](NATIVE_CHECKPOINT_REPORT.md). Native
+A3/sealed and full execution recovery support remain required.
 The [native proof journal](NATIVE_PROOF_STATEMENT_V2.md) now binds full vault
 identity, before/after cursors, allocation, ordering interval and resulting
 Ethereum roots; real proof generation and settlement remain pending. The settlement Tip can retain

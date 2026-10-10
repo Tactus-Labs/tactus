@@ -65,12 +65,18 @@ jobs:
           workspaces: |
             proofs/ckb-native-vault
             proofs/ckb-native-anchor
+            proofs/ckb-native-checkpoint
             services/native-vault-lab
       - run: bash scripts/build-native-anchor-script.sh
       - run: cargo fmt --manifest-path proofs/ckb-native-anchor/Cargo.toml -- --check
       - run: cargo clippy --locked --manifest-path proofs/ckb-native-anchor/Cargo.toml --all-targets -- -D warnings
       - run: cargo clippy --locked --manifest-path proofs/ckb-native-anchor/Cargo.toml --target riscv64imac-unknown-none-elf --lib -- -D warnings
       - run: cargo test --locked --manifest-path proofs/ckb-native-anchor/Cargo.toml
+      - run: cargo fmt --manifest-path proofs/ckb-native-checkpoint/Cargo.toml -- --check
+      - run: cargo clippy --locked --manifest-path proofs/ckb-native-checkpoint/Cargo.toml --all-targets -- -D warnings
+      - run: cargo clippy --locked --manifest-path proofs/ckb-native-checkpoint/Cargo.toml --target riscv64imac-unknown-none-elf --lib -- -D warnings
+      - run: cargo test --locked --manifest-path proofs/ckb-native-checkpoint/Cargo.toml
+      - run: bash scripts/build-native-checkpoint-script.sh
       - run: cargo fmt --manifest-path proofs/ckb-native-vault/Cargo.toml -- --check
       - run: cargo fmt --manifest-path services/native-vault-lab/Cargo.toml -- --check
       - run: cargo clippy --locked --manifest-path proofs/ckb-native-vault/Cargo.toml --all-targets -- -D warnings
@@ -86,6 +92,8 @@ jobs:
           python3 -B scripts/test-native-vault-recovery.py
           (cd specs/evidence/native-publication && sha256sum --check SHA256SUMS)
           python3 -B scripts/test-native-publication.py
+          (cd specs/evidence/native-checkpoint && sha256sum --check SHA256SUMS)
+          python3 -B scripts/test-native-checkpoint.py
           python3 -B scripts/check-settled-state-proof.py specs/evidence/native-vault/state-proof-regression/evidence.json.gz
 
   settled-state-proof:
@@ -271,13 +279,18 @@ jobs:
           TACTUS_CKB_VERSION: ${{ matrix.ckb }}
           TACTUS_DEVNET_SUITE: replay-native-vault
         run: CKB_BIN="$RUNNER_TEMP/ckb/ckb" scripts/run-devnet-experiments.sh
+      - name: Immutable native custody checkpoints on CKB 0.210.0
+        env:
+          TACTUS_CKB_VERSION: ${{ matrix.ckb }}
+          TACTUS_DEVNET_SUITE: replay-native-checkpoint
+        run: CKB_BIN="$RUNNER_TEMP/ckb/ckb" scripts/run-devnet-experiments.sh
       - name: Authenticate native custody publications and replay their signed burns
         env:
           TACTUS_CKB_VERSION: ${{ matrix.ckb }}
           TACTUS_DEVNET_SUITE: replay-native-publication
         run: |
           CKB_BIN="$RUNNER_TEMP/ckb/ckb" scripts/run-devnet-experiments.sh
-          for publication_evidence in artifacts/native-publication-*/evidence.json; do
+          for publication_evidence in artifacts/native-publication-*/evidence.json artifacts/native-checkpoint-*/evidence.json; do
             publication_run="${publication_evidence%/evidence.json}"
             (cd services/bridge-checker && TACTUS_NATIVE_PUBLICATION_VECTOR="$GITHUB_WORKSPACE/$publication_run/execution.json" TACTUS_NATIVE_PUBLICATION_GETH_EXPORT="$GITHUB_WORKSPACE/$publication_run/geth.json" go test -count=1 -mod=readonly -run TestPublishedNativeExecutionAgainstGeth .)
             python3 -B scripts/check-native-publication.py "$publication_run" > "$publication_run/check.json"
@@ -315,6 +328,16 @@ jobs:
             artifacts/native-publication-*/execution.json
             artifacts/native-publication-*/geth.json
             artifacts/native-publication-*/check.json
+            artifacts/native-checkpoint-*/evidence.json
+            artifacts/native-checkpoint-*/summary.json
+            artifacts/native-checkpoint-*/manifest.json
+            artifacts/native-checkpoint-*/replay.log
+            artifacts/native-checkpoint-*/node.log
+            artifacts/native-checkpoint-*/node/ckb.toml
+            artifacts/native-checkpoint-*/node/specs/dev.toml
+            artifacts/native-checkpoint-*/execution.json
+            artifacts/native-checkpoint-*/geth.json
+            artifacts/native-checkpoint-*/check.json
             artifacts/load-*/summary.json
             artifacts/load-*/manifest.json
             artifacts/load-*/replay.log

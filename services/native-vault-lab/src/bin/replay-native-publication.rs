@@ -113,6 +113,36 @@ fn reject(lab: &mut Lab, label: &str, tx: &Value, code: i8) -> Result<(), String
         )),
     }
 }
+struct Checkpoint {
+    code: [u8; 32],
+    script: Vec<u8>,
+    lock: Vec<u8>,
+}
+impl Checkpoint {
+    fn output(&self, data: Vec<u8>) -> OutSpec {
+        typed(self.lock.clone(), self.script.clone(), data, None)
+    }
+    fn reject(
+        &self,
+        lab: &mut Lab,
+        label: &str,
+        tx: &Value,
+        code: i8,
+        source: &str,
+    ) -> Result<(), String> {
+        let reason = format!("error code {code}");
+        match rpc::send_transaction_json(tx) {
+            Err(e) if lab::rejection_matches_at(&e, &reason, &self.code, source) => {
+                lab.evidence.push(json!({"label":format!("checkpoint/{label}"),"result":"rejected","expected_reason":reason,"error":e,"transaction":tx}));
+                println!("checkpoint/{label}: rejected ({reason})");
+                Ok(())
+            }
+            other => Err(format!(
+                "checkpoint/{label}: expected own {source} error {code}, got {other:?}"
+            )),
+        }
+    }
+}
 fn user(i: u8) -> Address {
     Address::from_public_key(
         SigningKey::from_bytes((&[0x21 + i; 32]).into())
@@ -287,6 +317,12 @@ fn run() -> Result<(), String> {
     let path = std::env::var("TACTUS_EVIDENCE_PATH").map_err(|_| "isolated launcher required")?;
     let mut lab = Lab::connect_with_script("artifacts/tactus_o1_native_anchor_script.elf")?;
     let mut result = json!({"suite":"native-publication-v2","complete":false,"error":null,"production_ready":false,"proof_settled":false,"withdrawal_executed":false,"publications":[]});
+    let checkpoint_mode =
+        std::env::var("TACTUS_DEVNET_SUITE").as_deref() == Ok("replay-native-checkpoint");
+    if checkpoint_mode {
+        result["suite"] = json!("native-checkpoint-v2");
+        result["checkpoints"] = json!([]);
+    }
     let outcome = (|| {
         let elf = std::fs::read("artifacts/tactus_o1_native_vault_script.elf")
             .map_err(|e| e.to_string())?;
@@ -297,6 +333,21 @@ fn run() -> Result<(), String> {
         let tx = build(&lab, 0, &[], vec![untyped(immutable, elf)], &[], &[], None)?;
         let h = commit(&mut lab, 0, "native/deploy pinned vault", &tx)?;
         lab.deps.push(lab::point(&h, 0)?);
+        let checkpoint_code = if checkpoint_mode {
+            let elf = std::fs::read("artifacts/tactus_o1_native_checkpoint_script.elf")
+                .map_err(|e| e.to_string())?;
+            let code = batch::hash(b"", &elf);
+            let o = untyped(
+                molecule::script(&batch::hash(b"", &lab.lock_elf), 2, &[]),
+                elf,
+            );
+            let tx = build(&lab, 0, &[], vec![o], &[], &[], None)?;
+            let h = commit(&mut lab, 0, "checkpoint/deploy program", &tx)?;
+            lab.deps.push(lab::point(&h, 0)?);
+            Some(code)
+        } else {
+            None
+        };
         let fund = lab.wallets[0].point;
         let input = molecule::cell_input(0, &molecule::out_point(&fund.tx_hash, fund.index));
         let ckb: [u8; 32] = rpc::decode_hex(
@@ -321,6 +372,22 @@ fn run() -> Result<(), String> {
             script,
             lock,
         } = genesis_outputs(&lab, &state, &g)?;
+        let checkpoint = checkpoint_code.map(|code| {
+            let checkpoint_script = molecule::script(
+                &code,
+                2,
+                &[b"TO1NCP02".as_slice(), &batch::hash(b"", &script)].concat(),
+            );
+            Checkpoint {
+                code,
+                lock: molecule::script(
+                    &batch::hash(b"", &lab.lock_elf),
+                    2,
+                    &batch::hash(b"", &checkpoint_script),
+                ),
+                script: checkpoint_script,
+            }
+        });
         let capacity = outs[0].capacity;
         for (mode, label, code) in [
             (0, "missing genesis header", 7),
@@ -440,7 +507,7 @@ fn run() -> Result<(), String> {
             let bytes = input
                 .encode(&c, &state.anchor)
                 .map_err(|e| format!("encode {e:?}"))?;
-            let outputs = publication_outputs(&state, &script, &lock, capacity, bytes.clone())?;
+            let mut outputs = publication_outputs(&state, &script, &lock, capacity, bytes.clone())?;
             if round == 0 {
                 let fake = build(
                     &lab,
@@ -572,6 +639,83 @@ fn run() -> Result<(), String> {
                     reject(&mut lab, &format!("native/{label}"), &tx, code)?;
                 }
             }
+            if let Some(cp) = &checkpoint {
+                let correct = cp.output(outputs[0].data.clone());
+                if round == 0 {
+                    let tx = build(
+                        &lab,
+                        0,
+                        &[],
+                        vec![correct.clone()],
+                        &[anchor_point],
+                        &[],
+                        None,
+                    )?;
+                    cp.reject(&mut lab, "dependency alone", &tx, 4, "Outputs[0].Type")?;
+                    for (mode, label, code) in [
+                        (0, "previous state", 7),
+                        (1, "forged cursor", 7),
+                        (2, "changed custody config", 7),
+                        (3, "wrong publication hash", 7),
+                        (4, "truncated state", 5),
+                        (5, "duplicate checkpoint", 2),
+                        (6, "wrong anchor binding", 4),
+                        (7, "wrong argument domain", 1),
+                        (8, "zero anchor identity", 1),
+                        (9, "old anchor wire", 5),
+                    ] {
+                        let mut candidate = correct.clone();
+                        match mode {
+                            0 => candidate.data = state.encode().to_vec(),
+                            1 => candidate.data[372] ^= 1,
+                            2 => candidate.data[140] ^= 1,
+                            3 => candidate.data[220] ^= 1,
+                            4 => {
+                                candidate.data.pop();
+                            }
+                            6 => {
+                                candidate.type_script = Some(molecule::script(
+                                    &cp.code,
+                                    2,
+                                    &[b"TO1NCP02".as_slice(), &[9; 32]].concat(),
+                                ))
+                            }
+                            7 => {
+                                candidate.type_script = Some(molecule::script(
+                                    &cp.code,
+                                    2,
+                                    &[b"TO1NCP01".as_slice(), &batch::hash(b"", &script)].concat(),
+                                ))
+                            }
+                            8 => {
+                                candidate.type_script = Some(molecule::script(
+                                    &cp.code,
+                                    2,
+                                    &[b"TO1NCP02".as_slice(), &[0; 32]].concat(),
+                                ))
+                            }
+                            9 => candidate.data = candidate.data[172..372].to_vec(),
+                            _ => {}
+                        }
+                        let mut o = outputs.clone();
+                        o.push(candidate);
+                        if mode == 5 {
+                            o.push(correct.clone());
+                        }
+                        let tx = build(
+                            &lab,
+                            1,
+                            &[(anchor_point, capacity)],
+                            o,
+                            &[rp],
+                            &[],
+                            Some(&1u32.to_le_bytes()),
+                        )?;
+                        cp.reject(&mut lab, label, &tx, code, "Outputs[2].Type")?;
+                    }
+                }
+                outputs.push(correct);
+            }
             let publication_capacity = outputs[1].capacity;
             let tx = build(
                 &lab,
@@ -588,6 +732,52 @@ fn run() -> Result<(), String> {
                 &format!("native/publish authenticated batch {round}"),
                 &tx,
             )?;
+            if let Some(cp) = &checkpoint {
+                let cell = (lab::point(&h, 2)?, n(&tx["outputs"][2]["capacity"]));
+                let data = rpc::decode_hex(tx["outputs_data"][2].as_str().unwrap())?;
+                let out = cp.output(data.clone());
+                let live = rpc::call("get_live_cell", json!([{"tx_hash":h,"index":"0x2"},true]))?;
+                if live["status"] != "live" || live["cell"]["data"]["content"] != hx(&data) {
+                    return Err("checkpoint not live".into());
+                }
+                result["checkpoints"]
+                    .as_array_mut()
+                    .unwrap()
+                    .push(json!({"transaction":h,"index":2,"script":hx(&cp.script),"live":live}));
+                for (label, o) in [
+                    ("destroy checkpoint", vec![]),
+                    ("consume and recreate", vec![out.clone()]),
+                ] {
+                    let bad = build(&lab, 0, &[cell], o, &[], &[], None)?;
+                    cp.reject(
+                        &mut lab,
+                        &format!("{label} {round}"),
+                        &bad,
+                        2,
+                        "Inputs[0].Type",
+                    )?;
+                }
+                if round == 1 {
+                    let p = &result["checkpoints"][0];
+                    let old = lab::point(p["transaction"].as_str().unwrap(), 2)?;
+                    let bad = build(&lab, 0, &[], vec![out], &[old], &[], None)?;
+                    cp.reject(
+                        &mut lab,
+                        "historical checkpoint dependency",
+                        &bad,
+                        4,
+                        "Outputs[0].Type",
+                    )?;
+                    let old_live = rpc::call(
+                        "get_live_cell",
+                        json!([{"tx_hash":hx(&old.tx_hash),"index":"0x2"},true]),
+                    )?;
+                    if old_live != p["live"] {
+                        return Err("historical checkpoint changed".into());
+                    }
+                    result["historical_checkpoint_rechecked"] = json!(true);
+                }
+            }
             anchor_point = lab::point(&h, 0)?;
             publication_cells.push((lab::point(&h, 1)?, publication_capacity));
             let parent_header = engine.head().clone();
