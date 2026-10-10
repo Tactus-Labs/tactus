@@ -49,6 +49,8 @@ jobs:
         run: |
           (cd specs/evidence/observer-rpc && sha256sum --check SHA256SUMS)
           python3 -B scripts/test-observer-rpc.py
+          (cd specs/evidence/observer-reorg && sha256sum --check SHA256SUMS)
+          python3 -B scripts/test-observer-reorg.py
 
   evm-differential:
     runs-on: ubuntu-latest

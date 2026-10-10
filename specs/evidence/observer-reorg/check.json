@@ -1,0 +1,22 @@
+{
+  "historical_commits_including_orphans": 20,
+  "negative_controls": 5,
+  "orphaned_blocks": 8,
+  "restored_admitted_duties": 4,
+  "republished_duties": 4,
+  "settled_duties": 0,
+  "both_nodes_cold_recovery_match": true,
+  "same_payloads_and_execution": true,
+  "truncate_used": false,
+  "submit_block_used": false,
+  "production_ready": false,
+  "same_observer_process": true,
+  "rpc_prefix_sequence": [
+    9,
+    8,
+    9
+  ],
+  "orphan_transactions_and_receipts_removed": 3,
+  "same_execution_restored": true,
+  "rollback_unavailable_polls": 11
+}

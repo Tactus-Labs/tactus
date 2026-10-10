@@ -97,7 +97,7 @@ There is no `eth_call`, gas estimation, log filtering, mempool, transaction
 submission, signing, WebSocket subscriptions, arbitrary historical state,
 EIP-1898 state selectors, or external exposure/authentication design. This
 fixture has empty logs and no contract creation; those RPC representations
-need separate qualification. The live RPC process has not yet been observed
-across an actual P2P reorg; its pin checks alone are not that evidence. The
-underlying recovery path has separate P2P evidence. Proof-covered A3 status
+need separate qualification. A subsequent [actual P2P observer experiment](OBSERVER_REORG_REPORT.md)
+qualifies publication rollback and restoration in the same live service process.
+Settled proof rollback and simultaneous client traffic remain separate work. Proof-covered A3 status
 will require the real proof currently being generated.

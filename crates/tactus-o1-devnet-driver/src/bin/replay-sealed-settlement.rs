@@ -1,5 +1,7 @@
 //! Authenticated A3 publication composed with an atomic real SettlementTip.
 //! Preparation is explicitly unproved; optional qualification consumes only a real proof.
+#[path = "replay-sealed-settlement/observer.rs"]
+mod observer;
 #[path = "replay-sealed-settlement/proof_reorg.rs"]
 mod proof_reorg;
 #[path = "replay-sealed-settlement/reorg.rs"]

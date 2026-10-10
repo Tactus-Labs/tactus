@@ -66,6 +66,11 @@ pub fn qualify(
     tip: &[u8],
     publication: &Value,
 ) -> Result<Value, String> {
+    let mut observer = super::observer::Probe::start(chain, &net.anchor.script, tip)?;
+    let observed_before = observer
+        .as_mut()
+        .map(|p| p.observe(9, None, false))
+        .transpose()?;
     let peer = plan["peer"].as_str().ok_or("peer")?;
     let common = &plan["common_tip"];
     let orphan = rpc::call("get_tip_header", json!([]))?;
@@ -111,6 +116,10 @@ pub fn qualify(
     {
         return Err("orphan pin survived".into());
     }
+    let observed_rollback = observer
+        .as_mut()
+        .map(|p| p.observe(8, observed_before.as_ref(), true))
+        .transpose()?;
     let rolled = cold(None, chain, net, tip)?;
     let peer_rolled = cold(Some(peer), chain, net, tip)?;
     if rolled != peer_rolled
@@ -205,6 +214,10 @@ pub fn qualify(
     )?;
     let final_tip = rpc::call("get_tip_header", json!([]))?;
     converged(peer, &final_tip["hash"])?;
+    let observed_republication = observer
+        .as_mut()
+        .map(|p| p.observe(9, observed_before.as_ref(), false))
+        .transpose()?;
     let final_report = cold(None, chain, &recovered, tip)?;
     let peer_final = cold(Some(peer), chain, &recovered, tip)?;
     if final_report != peer_final
@@ -215,6 +228,6 @@ pub fn qualify(
         return Err("cold recovery did not restore duties".into());
     }
     Ok(
-        json!({"plan":plan,"orphan_tip":orphan,"winning_tip":winning,"final_tip":final_tip,"orphan_seal_status":old_seal_status,"orphan_publication_status":old_publication_status,"orphan_checkpoint_status":checkpoint_status,"cold_after_rollback":rolled,"peer_cold_after_rollback":peer_rolled,"alternative_hash":alternative_hash,"replacement_publication":rpc::bytes_to_hex(&recovered.anchor.point.tx_hash),"cold_after_republication":final_report,"peer_cold_after_republication":peer_final,"orphaned_blocks":super::number(&orphan["number"])?-super::number(&common["number"])?,"truncate_used":false,"submit_block_used":false,"proof_generated":false,"settled":false,"production_ready":false}),
+        json!({"rpc_observer":{"before":observed_before,"after_rollback":observed_rollback,"after_republication":observed_republication},"plan":plan,"orphan_tip":orphan,"winning_tip":winning,"final_tip":final_tip,"orphan_seal_status":old_seal_status,"orphan_publication_status":old_publication_status,"orphan_checkpoint_status":checkpoint_status,"cold_after_rollback":rolled,"peer_cold_after_rollback":peer_rolled,"alternative_hash":alternative_hash,"replacement_publication":rpc::bytes_to_hex(&recovered.anchor.point.tx_hash),"cold_after_republication":final_report,"peer_cold_after_republication":peer_final,"orphaned_blocks":super::number(&orphan["number"])?-super::number(&common["number"])?,"truncate_used":false,"submit_block_used":false,"proof_generated":false,"settled":false,"production_ready":false}),
     )
 }

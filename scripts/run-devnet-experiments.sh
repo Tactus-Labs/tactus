@@ -37,6 +37,10 @@ if [[ -v TACTUS_SEALED_PROOF_REORG ]]; then
     exit 1
   fi
 fi
+if [[ -v TACTUS_OBSERVER_RPC_BIN && ( "${TACTUS_OBLIGATION_REORG:-}" != 1 || ! -x "$TACTUS_OBSERVER_RPC_BIN" ) ]]; then
+  echo 'Observer qualification requires the pending-duty P2P reorg and an executable TACTUS_OBSERVER_RPC_BIN.' >&2
+  exit 1
+fi
 cargo build --locked --bin "$suite"
 if [[ "$suite" == replay-evm || "$suite" == replay-network ]]; then
   cargo build --locked --bin recover-execution
@@ -107,6 +111,7 @@ manifest={'node_version':subprocess.check_output([os.environ['TACTUS_CKB_BIN'],'
 for name in ['Cargo.lock','scripts/build-ordering-script.sh','scripts/ordering-script.ld','artifacts/tactus_o1_ordering_script.elf','artifacts/tactus_o1_head_lock.elf','artifacts/tactus_o1_anchor_script.elf','artifacts/tactus_o1_priority_script.elf','artifacts/tactus_o1_sealed_script.elf',str(root/'node/ckb.toml'),str(p),os.environ['TACTUS_CKB_BIN']]:
  manifest['files'][name]=hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest()
 binaries=['target/debug/'+os.environ['TACTUS_DEVNET_SUITE']]
+if os.getenv('TACTUS_OBSERVER_RPC_BIN'):binaries.append(os.environ['TACTUS_OBSERVER_RPC_BIN'])
 if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-evm','replay-network'):binaries.append('target/debug/recover-execution')
 if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-sealed','replay-network','replay-sealed-settlement'):binaries.append('target/debug/recover-sealed')
 if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-network','replay-checkpoint-reorg') or os.getenv('TACTUS_SETTLEMENT_REORG') or os.getenv('TACTUS_OBLIGATION_REORG') or os.getenv('TACTUS_SEALED_PROOF_REORG'):binaries.extend([str(root/'peer/ckb.toml'),str(root/'peer/specs/dev.toml')])
@@ -128,7 +133,7 @@ for name in binaries:manifest['files'][name]=hashlib.sha256(pathlib.Path(name).r
 paths=subprocess.check_output(['git','ls-files','--cached','--others','--exclude-standard','-z'],text=True).split('\0')
 manifest['source_files']={name:hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest()
  for name in sorted(set(paths)) if name and pathlib.Path(name).is_file()
- and (name.startswith(('crates/','proofs/','scripts/','.github/','.cargo/','specs/test-vectors/')) or name in ('Cargo.toml','Cargo.lock','rust-toolchain.toml'))}
+ and (name.startswith(('crates/','proofs/','services/','scripts/','.github/','.cargo/','specs/test-vectors/')) or name in ('Cargo.toml','Cargo.lock','rust-toolchain.toml'))}
 (root/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
 PY
 "$CKB_BIN" run -C "$run_dir/node" --indexer > "$run_dir/node.log" 2>&1 &
