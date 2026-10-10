@@ -1,0 +1,23 @@
+{
+  "schema": "native-guest-execution-v2",
+  "passed": true,
+  "guest_verifying_key": "0x00d159402000943b66d0df65c2c154592efbc8490b1ee44dfce8a181cd5e77e5",
+  "guest_sha256": "dba570acf089f81e396a8daef4b96a5ab1da33cb906a62ed8e3e9854076249a5",
+  "journals": [
+    {
+      "prefix": 0,
+      "interval": 2,
+      "journal_sha256": "11af16eab1e1369c3b342d6585db09397d7d9f72a31d4aa176570393adaf2230"
+    },
+    {
+      "prefix": 1,
+      "interval": 1,
+      "journal_sha256": "84e94dfa602812cde16da74313ae90dd63a083b21c60b4e07017e5ce5688182c"
+    }
+  ],
+  "authenticated_publication_audited_separately": true,
+  "proof_generated": false,
+  "ckb_settlement": false,
+  "custody_release": false,
+  "production_ready": false
+}

@@ -15,3 +15,5 @@ artifacts/
 /services/native-vault-lab/target/
 
 /proofs/ckb-native-anchor/target/
+
+/proofs/native-sp1/target/

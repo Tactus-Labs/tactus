@@ -115,8 +115,9 @@ boundary. That check must be preserved in A3 integration, otherwise a forged
 irreversible publication can prevent valid proof settlement. The 256-byte native
 anchor, carried inside 428-byte publication metadata, still needs explicit
 A3/sealed/checkpoint/recovery support.
-The proof journal must bind full vault identity, before/after cursors, allocation,
-ordering interval and resulting Ethereum roots. The settlement Tip can retain
+The [native proof journal](NATIVE_PROOF_STATEMENT_V2.md) now binds full vault
+identity, before/after cursors, allocation, ordering interval and resulting
+Ethereum roots; real proof generation and settlement remain pending. The settlement Tip can retain
 the existing root/header layout only if its new verifier binds all those fields.
 
 Avoid a deployment hash cycle: the vault's EVM DOMAIN omits settlement identity,

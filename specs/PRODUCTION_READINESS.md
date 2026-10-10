@@ -6,6 +6,11 @@ rollup deployment or custody of user assets.
 
 ## Implemented and measured
 
+- [Native custody proof statement v2](NATIVE_PROOF_STATEMENT_V2.md) now binds
+  complete custody config, both deposit cursors and state/header roots in a
+  separate guest. Two real SP1 CPU executions match the complete 940-byte
+  journals, real publication anchors and independent Geth roots. Cryptographic proof, native settlement and actual
+  custody release remain unqualified; G7 remains OPEN.
 - [Authenticated native publication](NATIVE_PUBLICATION_REPORT.md) binds funded
   receipts at the CKB script boundary: ten commits and 27 exact rejections on
   0.210.0. Two published credit/burn blocks match Geth. A3 integration, new proof
@@ -29,7 +34,7 @@ rollup deployment or custody of user assets.
 - [Native CKB ledger and burn commitments](NATIVE_CKB_BRIDGE.md) now have pinned
   Solidity bytecode, 27 signed execution/Geth comparisons and independent system-
   call contract tests. Candidate execution v2 is now implemented; authenticated
-  A3 publication integration, the new proof domain and actual release remain
+  A3 publication integration, proof settlement and actual release remain
   missing; G7 is OPEN.
 
 - [CKB authenticated settled-state reads](SETTLED_STATE_PROOF_REPORT.md) now verify

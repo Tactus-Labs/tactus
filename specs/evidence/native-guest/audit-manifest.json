@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "files": {
+    "scripts/check-native-guest.py": "ffcb1b882adcc0d96546b32b5dac703c69337fa69e1d2c602f13e15c79659e9e",
+    "scripts/test-native-guest.py": "335be10553cd85ca2d3a1f0107a10c8b4eee809c4cbc1266618d8f8024b1f223",
+    ".github/workflows/ci.yml": "05c170d64d1c03aa83705a3243dc88d12d8c0a706298654715aa9007b4614146",
+    "specs/NATIVE_PROOF_STATEMENT_V2.md": "f9a7cce376b4fd1b2656abadb0bdd0ff0277e6a8e1138cd7b9191cb31c0bf95f",
+    "specs/PRODUCTION_READINESS.md": "d975a92f7e6518f36a748ed3a74b155f3a7d1899c24c51a965d60f47f958fa82",
+    "specs/NATIVE_BRIDGE_EXECUTION_V2.md": "4e3b7192db1875dc221a13be96b1db2ffe6189cd994753d3f8b1cfaecfcd65ca"
+  }
+}
