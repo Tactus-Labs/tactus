@@ -1,0 +1,22 @@
+[
+  {
+    "control": "omit-prefix",
+    "exit_code": 1,
+    "error": "Execution"
+  },
+  {
+    "control": "reorder-inputs",
+    "exit_code": 1,
+    "error": "Execution"
+  },
+  {
+    "control": "restart-at-genesis",
+    "exit_code": 1,
+    "error": "chain export differs from independently replayed journal"
+  },
+  {
+    "control": "wrong-predecessor-state",
+    "exit_code": 1,
+    "error": "chain export differs from independently replayed journal"
+  }
+]

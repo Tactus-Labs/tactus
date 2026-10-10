@@ -677,6 +677,38 @@ fn run() -> Result<(), String> {
             results["settled"] = true.into();
             results["withdrawal_authority"] = false.into();
         }
+        if std::env::var_os("TACTUS_PREPARE_SECOND_PROOF").is_some() {
+            if results["settled"] == true {
+                return Err(
+                    "second-input preparation requires bootstrap mode without proof application"
+                        .into(),
+                );
+            }
+            let continuation: Value = serde_json::from_str(include_str!(
+                "../../../../specs/test-vectors/proof-v1/settlement-continuation.json"
+            ))
+            .map_err(|e| e.to_string())?;
+            let next = tactus_o1_devnet_driver::settlement_inputs::prepare_next_input(
+                &mut lab,
+                &mut anchor,
+                &mut engine,
+                &results["proving_input"],
+                &continuation,
+                checkpoint_code,
+                &root,
+            )?;
+            let cold = cold_recovery(&chain, &anchor.script, &settlement_script)?;
+            if cold["settled_batches"] != 0
+                || cold["published_batches"] != 2
+                || cold["initialized"] != false
+            {
+                return Err("second publication falsely advanced recovered settlement".into());
+            }
+            results["suite"] = "settlement-next-input-v1".into();
+            results["scope"]="two real canonical publications and prefix-one proving input; neither interval is settled".into();
+            results["next_proving_input"] = next;
+            results["cold_after_second_publication"] = cold;
+        }
         results["complete"] = true.into();
         Ok::<_, String>(())
     })();

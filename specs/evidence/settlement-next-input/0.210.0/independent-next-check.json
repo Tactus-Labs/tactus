@@ -1,0 +1,11 @@
+{
+  "evidence_sha256": "a8cc181ab6e5cb961c0cf8768ec6b2d4575061d783bf19f39fa39fcc599c5b65",
+  "journal_sha256": "9ade3461ac1261d3b171b0729f150e7cc327906552d47fd3cd3fcdd10156ea5c",
+  "published_batches": 2,
+  "prefix_batches": 1,
+  "settled_batches": 0,
+  "negative_controls": 20,
+  "proof_generated": false,
+  "settled": false,
+  "production_ready": false
+}

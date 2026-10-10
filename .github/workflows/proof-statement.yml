@@ -31,6 +31,7 @@ jobs:
           (cd specs/evidence/checkpoint-reorg && sha256sum --check SHA256SUMS)
           (cd specs/evidence/settlement-bootstrap && sha256sum --check SHA256SUMS)
           (cd specs/evidence/chain-proof-recovery && sha256sum --check SHA256SUMS)
+          (cd specs/evidence/settlement-next-input && sha256sum --check SHA256SUMS)
       - name: Reconcile retained checkpoint transactions (not script execution)
         run: |
           for version in 0.210.0; do
@@ -42,6 +43,8 @@ jobs:
             python3 scripts/check-settlement-bootstrap.py "$RUNNER_TEMP/settlement-bootstrap-$version.json"
             gzip -dc "specs/evidence/chain-proof-recovery/$version/evidence.json.gz" > "$RUNNER_TEMP/chain-recovery-$version.json"
             python3 scripts/check-settlement-bootstrap.py "$RUNNER_TEMP/chain-recovery-$version.json"
+            gzip -dc "specs/evidence/settlement-next-input/$version/evidence.json.gz" > "$RUNNER_TEMP/next-input-$version.json"
+            python3 scripts/check-next-proof-input.py "$RUNNER_TEMP/next-input-$version.json"
           done
       - name: Reconcile real proof receipt evidence (not cryptographic verification)
         run: |
@@ -59,4 +62,5 @@ jobs:
           "$RUNNER_TEMP/ckb-lazy-tests" --test-threads=1
           for version in 0.210.0; do
             cargo run --locked --manifest-path proofs/sp1/Cargo.toml -p tactus-o1-proof-journal --example check-chain-input -- "specs/evidence/settlement-bootstrap/$version/proving-input.json"
+            cargo run --locked --manifest-path proofs/sp1/Cargo.toml -p tactus-o1-proof-journal --example check-chain-input -- "specs/evidence/settlement-next-input/$version/proving-input-next.json"
           done

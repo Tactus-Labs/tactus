@@ -1,0 +1,19 @@
+{
+  "head_before_commit": "f732f60c400c6723c79f2237292dbe6000fb12ef",
+  "source_sha256": {
+    "Cargo.lock": "d1e83ee7925c86276223c5b01a46cc25c9a1c81d811b713381dd9d3a4e835f92",
+    "crates/tactus-o1-devnet-driver/src/settlement_inputs.rs": "2b4811dbe39722dc486d3f437273898d281facaca920a3255a3ce37d5ae1a6a9",
+    "crates/tactus-o1-devnet-driver/src/bin/replay-settlement-bootstrap.rs": "6edc6ae1a08fa185de8054e822ca8bda48fca14dcc7995b6251cc36a95952081",
+    "crates/tactus-o1-execution/examples/settlement-continuation.rs": "b70d54f99d6825c1ee5a2c189787c4a49835dc6f730c18b8351a90095d14ee18",
+    "scripts/check-next-proof-input.py": "4688b90b358ae9d599ef061aa9db2b04a9df0650e48874a849ef2a7dcfc8a9de",
+    "specs/test-vectors/proof-v1/settlement-continuation.json": "a369f94aa42e24ce9fe5b5b34a96ea55c2d1f78d29f32840210590420bcada7f"
+  },
+  "geth_version": "evm version 1.17.8-stable",
+  "geth_binary_sha256": "6dd182964a3b77def464ba825d5d7d0e38e18e02872604dc583bb8a091cb1e29",
+  "geth_blocks": 2,
+  "geth_state_roots_match_both_exported_journals": true,
+  "published_batches": 2,
+  "settled_batches": 0,
+  "proof_generated": false,
+  "production_ready": false
+}

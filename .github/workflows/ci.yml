@@ -47,11 +47,16 @@ jobs:
         run: |
           cargo run --locked --quiet -p tactus-o1-execution --example execution-vectors -- artifacts/evm-differential
           python3 scripts/check-execution-geth.py "$RUNNER_TEMP/evm-tools/evm" artifacts/evm-differential specs/test-vectors/execution-v1/geth-1.17.8.json
+          cargo run --locked --quiet -p tactus-o1-execution --example settlement-continuation -- specs/evidence/chain-proof-recovery/0.210.0/proving-input.json artifacts/settlement-continuation
+          python3 scripts/check-execution-geth.py "$RUNNER_TEMP/evm-tools/evm" artifacts/settlement-continuation
+          cmp artifacts/settlement-continuation/continuation.json specs/test-vectors/proof-v1/settlement-continuation.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: evm-differential
-          path: artifacts/evm-differential/
+          path: |
+            artifacts/evm-differential/
+            artifacts/settlement-continuation/
 
   ckb-mechanisms:
     runs-on: ubuntu-latest

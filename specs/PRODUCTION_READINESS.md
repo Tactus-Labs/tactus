@@ -115,6 +115,12 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
   checkpoint binding, but accepted valid-proof succession has not yet been measured;
   these initialization/negative results do not close G3.
 
+- [A state-changing second interval](SETTLEMENT_CONTINUATION_REPORT.md) now has
+  canonical CKB 0.210.0 publication, exact prefix-one journal replay and independent
+  Geth comparison across both blocks. Cold recovery distinguishes two published
+  batches from zero settled batches. Actual sequential proof consumption remains
+  pending; preparing inputs does not close G3.
+
 - [Repeated fresh seal contention](SEAL_CONTENTION_REPORT.md) now attains the
   finite `8 × lane_count` valid-append budget, rejects further full-queue churn,
   seals the complete set and processes every payload across two consecutive

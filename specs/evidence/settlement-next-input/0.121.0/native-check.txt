@@ -1,0 +1,5 @@
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.37s
+     Running `proofs/sp1/target/debug/examples/check-chain-input artifacts/settlement-bootstrap-UZkX17W1/proving-input-next.json`
+{"interval_batches":1,"native_journal_match":true,"next_header_hash":"b4da86f67ab735f65fc31c5ee2875d18197ea8bae40e75480e871d93efc46c70","next_state_root":"1afe4d4380885cb37d1f7179daa70cd8b97e381bee3e291581c5c4b9e7484698","prefix_batches":1,"proof_generated":false,"settled":false}
