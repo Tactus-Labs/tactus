@@ -6,6 +6,11 @@ rollup deployment or custody of user assets.
 
 ## Implemented and measured
 
+- [Read-only Ethereum RPC observer](OBSERVER_RPC_REPORT.md) now serves canonical
+  blocks, transactions, receipts and current/genesis state over local HTTP.
+  Thirty-one actual requests qualify A3 dense indices, roots and node outage
+  recovery. Full tooling, incremental indexing and RPC P2P qualification remain open.
+
 - [Abrupt CKB primary restart](OBLIGATION_RESTART_REPORT.md) after A3 republication
   now preserves all four duties and execution outcomes across SIGKILL and same-DB
   restart, matching an uninterrupted peer. This covers a completed-publication

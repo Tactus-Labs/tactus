@@ -1,0 +1,39 @@
+[1;38;2;47;79;79m2026-10-10 04:38:40.637 +00:00[0m [1;34mmain[0m INFO ckb_bin::subcommand::run  ckb version: 0.210.0 (2592ddf 2026-09-17)
+[1;38;2;47;79;79m2026-10-10 04:38:40.637 +00:00[0m [1;34mmain[0m INFO ckb_bin::subcommand::run  run rpc server with 20 threads
+[1;38;2;47;79;79m2026-10-10 04:38:40.641 +00:00[0m [1;34mmain[0m INFO ckb_memory_tracker::process  track current process: disable
+[1;38;2;47;79;79m2026-10-10 04:38:40.644 +00:00[0m [1;34mmain[0m INFO ckb_launcher  chain genesis hash: 0xddd6aea22911805968ca3f89bda08aa9d8024fc00b2c9ffb07b1bcd170673c6a
+[1;38;2;47;79;79m2026-10-10 04:38:40.644 +00:00[0m [1;34mmain[0m INFO ckb_sync::types  header_map.memory_limit 256MB
+[1;38;2;47;79;79m2026-10-10 04:38:40.644 +00:00[0m [1;34mmain[0m INFO ckb_network::network  Loading the peer store. This process may take a few seconds to complete.
+[1;38;2;47;79;79m2026-10-10 04:38:40.644 +00:00[0m [1;34mmain[0m INFO ckb_network::network  Loaded the peer store.
+[1;38;2;47;79;79m2026-10-10 04:38:40.645 +00:00[0m [1;34minit_load_unverified_blocks[0m INFO ckb_chain::init_load_unverified  finding unverified blocks, current tip: 81-Byte32(0x194e47960bc8cbfab3a0c4dcec7faa10c3db14b8efc4e43398e4991fd0034272)
+[1;38;2;47;79;79m2026-10-10 04:38:40.645 +00:00[0m [1;34mGlobalRt-7[0m INFO ckb_network::network  Listen on address: /ip4/127.0.0.1/tcp/18745
+[1;38;2;47;79;79m2026-10-10 04:38:40.645 +00:00[0m [1;34mGlobalRt-7[0m INFO ckb_network::network  Listen on address: /ip4/127.0.0.1/tcp/18745/ws
+[1;38;2;47;79;79m2026-10-10 04:38:40.645 +00:00[0m [1;34mGlobalRt-7[0m INFO ckb_network::network  p2p service event: ListenStarted { address: "/ip4/127.0.0.1/tcp/18745" }
+[1;38;2;47;79;79m2026-10-10 04:38:40.645 +00:00[0m [1;34mGlobalRt-7[0m INFO ckb_network::network  p2p service event: ListenStarted { address: "/ip4/127.0.0.1/tcp/18745/ws" }
+[1;38;2;47;79;79m2026-10-10 04:38:40.646 +00:00[0m [1;34minit_load_unverified_blocks[0m INFO ckb_chain::init_load_unverified  no unverified blocks found after tip, current tip: 81-Byte32(0x194e47960bc8cbfab3a0c4dcec7faa10c3db14b8efc4e43398e4991fd0034272)
+[1;38;2;47;79;79m2026-10-10 04:38:40.646 +00:00[0m [1;34minit_load_unverified_blocks[0m INFO ckb_chain::init_load_unverified  find unverified blocks finished
+[1;38;2;47;79;79m2026-10-10 04:38:40.651 +00:00[0m [1;34mmain[0m INFO ckb_rpc::server  Listen HTTP RPCServer on address: 127.0.0.1:18744
+[1;38;2;47;79;79m2026-10-10 04:38:40.651 +00:00[0m [1;34mmain[0m INFO ckb_launcher  onion_config.listen_on_onion is false, CKB won't listen on the onion hidden network
+[1;38;2;47;79;79m2026-10-10 04:38:40.660 +00:00[0m [1;34mmain[0m INFO ckb_bin::subcommand::run  CKB service started ...
+[1;38;2;47;79;79m2026-10-10 04:38:40.660 +00:00[0m [1;34mmain[0m INFO ckb_stop_handler::stop_register  Waiting exit signal...
+[1;38;2;47;79;79m2026-10-10 04:38:40.685 +00:00[0m [1;34mctrl-c[0m INFO ckb_bin::subcommand::run  Trapped exit signal, exiting...
+[1;38;2;47;79;79m2026-10-10 04:38:40.685 +00:00[0m [1;34mChainService[0m INFO ckb_chain::chain_service  ChainService received exit signal, exit now
+[1;38;2;47;79;79m2026-10-10 04:38:40.685 +00:00[0m [1;34mGlobalRt-6[0m INFO ckb_shared::types::header_map  HeaderMap limit_memory received exit signal, exit now
+[1;38;2;47;79;79m2026-10-10 04:38:40.685 +00:00[0m [1;34mGlobalRt-6[0m INFO ckb_block_filter::filter  BlockFilter received exit signal, exit now
+[1;38;2;47;79;79m2026-10-10 04:38:40.685 +00:00[0m [1;34mGlobalRt-0[0m INFO ckb_network::network  NetworkService receive exit signal, start shutdown...
+[1;38;2;47;79;79m2026-10-10 04:38:40.685 +00:00[0m [1;34mGlobalRt-0[0m INFO ckb_network::network  NetworkService shutdown now
+[1;38;2;47;79;79m2026-10-10 04:38:40.685 +00:00[0m [1;34mGlobalRt-17[0m INFO ckb_tx_pool::service  TxPool reorg process service received exit signal, exit now
+[1;38;2;47;79;79m2026-10-10 04:38:40.685 +00:00[0m [1;34mpreload_unverified_block[0m INFO ckb_chain::preload_unverified_blocks_channel  preload_unverified_blocks thread received exit signal, exit now
+[1;38;2;47;79;79m2026-10-10 04:38:40.685 +00:00[0m [1;34mGlobalRt-0[0m INFO ckb_tx_pool::service  TxPool is saving, please wait...
+[1;38;2;47;79;79m2026-10-10 04:38:40.685 +00:00[0m [1;34mGlobalRt-17[0m INFO ckb_notify  NotifyService received exit signal, exit now
+[1;38;2;47;79;79m2026-10-10 04:38:40.685 +00:00[0m [1;34mGlobalRt-6[0m INFO ckb_tx_pool::verify_mgr  TxPool chunk_command service received exit signal, exit now
+[1;38;2;47;79;79m2026-10-10 04:38:40.685 +00:00[0m [1;34mGlobalRt-6[0m INFO ckb_tx_pool::verify_mgr  TxPool verify_mgr service exited
+[1;38;2;47;79;79m2026-10-10 04:38:40.685 +00:00[0m [1;34mGlobalRt-9[0m INFO ckb_tx_pool::service  TxPool block_assembler process service received exit signal, exit now
+[1;38;2;47;79;79m2026-10-10 04:38:40.685 +00:00[0m [1;34mverify_blocks[0m INFO ckb_chain::verify  truncate_block_tx has been closed, err: receiving on an empty and disconnected channel
+[1;38;2;47;79;79m2026-10-10 04:38:40.685 +00:00[0m [1;34mGlobalRt-13[0m INFO ckb_network::network  p2p service event: ListenClose { address: "/ip4/127.0.0.1/tcp/18745" }
+[1;38;2;47;79;79m2026-10-10 04:38:40.685 +00:00[0m [1;34mGlobalRt-13[0m INFO ckb_network::network  p2p service event: ListenClose { address: "/ip4/127.0.0.1/tcp/18745/ws" }
+[1;38;2;47;79;79m2026-10-10 04:38:40.685 +00:00[0m [1;34mChainService[0m WARN ckb_chain::init  trying to notify consume unverified thread to stop, but unverified_queue_stop_tx already closed
+[1;38;2;47;79;79m2026-10-10 04:38:40.685 +00:00[0m [1;34mmain[0m INFO ckb_stop_handler::stop_register  Waiting thread ChainService done.
+[1;38;2;47;79;79m2026-10-10 04:38:40.685 +00:00[0m [1;34mmain[0m INFO ckb_stop_handler::stop_register  All ckb threads have been stopped
+2026-10-10 04:38:40.688 +00:00 main INFO ckb_bin  Waiting for all tokio tasks to exit...
+2026-10-10 04:38:40.698 +00:00 main INFO ckb_bin  All tokio tasks and threads have exited. CKB shutdown

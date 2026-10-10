@@ -37,6 +37,16 @@ pub fn recover_settlement(
     anchor_script: &[u8],
     settlement_script: &[u8],
 ) -> Result<Value, String> {
+    recover_snapshot(expected_chain, anchor_script, settlement_script).map(|(report, _)| report)
+}
+
+/// Recover settlement and its exact pinned canonical publication snapshot.
+/// Consumers must recheck the pin before serving cached state.
+pub fn recover_snapshot(
+    expected_chain: &str,
+    anchor_script: &[u8],
+    settlement_script: &[u8],
+) -> Result<(Value, recovery::RecoveredAnchor), String> {
     let chain = rpc::call("get_block_hash", json!(["0x0"]))?;
     let expected = molecule::try_script_to_json(settlement_script)?;
     let config = data(&expected["args"])?;
@@ -159,16 +169,15 @@ pub fn recover_settlement(
         return Err("recovered settlement Tip is no longer live".into());
     }
     recovery::assert_canonical(snapshot.pinned_height, &snapshot.pinned_hash)?;
-    Ok(
-        json!({"schema":1,"source":"fresh canonical CKB scan and independent full execution replay",
+    let report = json!({"schema":1,"source":"fresh canonical CKB scan and independent full execution replay",
         "ckb_genesis":expected_chain,"anchor_type_script":rpc::bytes_to_hex(anchor_script),
         "settlement_type_script":rpc::bytes_to_hex(settlement_script),
         "pinned_height":snapshot.pinned_height,"pinned_hash":snapshot.pinned_hash,
         "tip":point,"data":rpc::bytes_to_hex(&bytes),"initialized":bytes[8]==1,
         "settled_batches":engine.anchor().next_batch_number,"published_batches":snapshot.batches.len(),
         "proved_transitions":transitions,"settled":bytes[8]==1,"withdrawal_authority":false,
-        "independent_cryptographic_verification":false,"production_ready":false}),
-    )
+        "independent_cryptographic_verification":false,"production_ready":false});
+    Ok((report, snapshot))
 }
 
 #[cfg(test)]

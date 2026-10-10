@@ -1,0 +1,21 @@
+[workspace]
+resolver = "2"
+members = ["."]
+
+[package]
+name = "tactus-o1-observer-rpc"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.92"
+license = "MIT"
+
+[dependencies]
+axum = "=0.7.9"
+tokio = { version = "=1.53.2", features = ["rt-multi-thread", "net", "signal", "sync", "time", "macros"] }
+serde = { version = "=1.0.229", features = ["derive"] }
+serde_json = "=1.0.151"
+alloy-consensus = { version = "=2.1.1", features = ["k256", "serde"] }
+alloy-eips = "=2.1.1"
+alloy-primitives = { version = "=1.6.0", features = ["serde", "k256"] }
+tactus-o1-devnet-driver = { path = "../../crates/tactus-o1-devnet-driver" }
+tactus-o1-execution = { path = "../../crates/tactus-o1-execution" }

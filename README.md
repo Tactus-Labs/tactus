@@ -18,6 +18,7 @@ experiments testing that goal under competition, censorship, and chain reorgs.
 [Architecture](specs/TACTUS_O1_ARCHITECTURE_SPEC_v0.2.6.md) ·
 [Experiments](specs/EXPERIMENT_A_DESIGN.md) ·
 [Execution](specs/EXECUTION_V1.md) ·
+[Read-only RPC](specs/OBSERVER_RPC_REPORT.md) ·
 [Readiness](specs/PRODUCTION_READINESS.md)
 
 ## Follow a transaction

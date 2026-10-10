@@ -32,6 +32,24 @@ jobs:
       - name: Harness smoke (regression on the A1 fee-effect)
         run: cargo run --locked --quiet --bin tactus-o1-experiment-a >/dev/null
 
+  observer-rpc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@1.92.0
+        with:
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: services/observer-rpc
+      - run: cargo fmt --manifest-path services/observer-rpc/Cargo.toml -- --check
+      - run: cargo clippy --locked --manifest-path services/observer-rpc/Cargo.toml --all-targets -- -D warnings
+      - run: cargo test --locked --manifest-path services/observer-rpc/Cargo.toml
+      - name: Audit HTTP evidence and execution dependency pins
+        run: |
+          (cd specs/evidence/observer-rpc && sha256sum --check SHA256SUMS)
+          python3 -B scripts/test-observer-rpc.py
+
   evm-differential:
     runs-on: ubuntu-latest
     timeout-minutes: 25
