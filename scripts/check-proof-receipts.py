@@ -40,6 +40,20 @@ def witness(tx):
     return option[4:]
 
 
+def wire_bytes(tx):
+    def dynamic(sizes):
+        return 4 + 4 * len(sizes) + sum(sizes)
+    def script_size(script):
+        return 53 + len(raw(script['args']))
+    outputs = [16 + 8 + script_size(out['lock'])
+               + (script_size(out['type']) if out.get('type') is not None else 0)
+               for out in tx['outputs']]
+    raw_size = (28 + 4 + 4 + 37 * len(tx['cell_deps'])
+                + 4 + 32 * len(tx['header_deps']) + 4 + 44 * len(tx['inputs'])
+                + dynamic(outputs) + dynamic([4 + len(raw(v)) for v in tx['outputs_data']]))
+    return 12 + raw_size + dynamic([4 + len(raw(v)) for v in tx['witnesses']])
+
+
 def check(evidence_path, proof_dir):
     evidence_bytes = evidence_path.read_bytes()
     evidence = json.loads(evidence_bytes)
@@ -76,13 +90,14 @@ def check(evidence_path, proof_dir):
         require(tx['outputs'][0]['type'] == {
             'code_hash': code_hash, 'hash_type': 'data1',
             'args': '0x' + key.hex()}, 'receipt verifier identity differs')
-        require(tx['outputs'][1]['type'] is None, 'change unexpectedly typed')
+        require(tx['outputs'][1].get('type') is None, 'change unexpectedly typed')
         require(witness(tx) == encoded, 'receipt proof differs')
         measured = results['receipts'][index]
         require(measured['hash'] == item['hash'] and measured['settled'] is False,
                 'receipt metadata differs')
         require(measured['vm_cycles'] == int(item['cycles']['cycles'], 16),
                 'cycle reports differ')
+        require(measured['node_wire_bytes'] == wire_bytes(tx), 'packed wire bytes differ')
         require(measured['receipt_capacity_shannons'] ==
                 int(tx['outputs'][0]['capacity'], 16), 'receipt capacity differs')
         accepted.append(item['hash'])

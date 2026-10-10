@@ -1,0 +1,174 @@
+{
+  "schema_version": 1,
+  "evidence_sha256": "f1d602e6f5de933f1aa198f7f4ed430eda98d37ff6a6b6a9a777f50af4e14221",
+  "metadata": {
+    "consensus": {
+      "block_version": "0x0",
+      "cellbase_maturity": "0x10000000000",
+      "dao_type_hash": "0x82d76d1b75fe2fd9a27dfbaa65a039221a380d76c926f378d3f81cf3e7e13f2e",
+      "epoch_duration_target": "0x50",
+      "genesis_hash": "0xddd6aea22911805968ca3f89bda08aa9d8024fc00b2c9ffb07b1bcd170673c6a",
+      "hardfork_features": [
+        {
+          "epoch_number": "0x0",
+          "rfc": "0028"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0029"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0030"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0031"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0032"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0036"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0038"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0048"
+        },
+        {
+          "epoch_number": "0x0",
+          "rfc": "0049"
+        }
+      ],
+      "id": "ckb_dev",
+      "initial_primary_epoch_reward": "0xae6c73c3e070",
+      "max_block_bytes": "0x91c08",
+      "max_block_cycles": "0x2540be400",
+      "max_block_proposals_limit": "0x5dc",
+      "max_uncles_num": "0x2",
+      "median_time_block_count": "0x25",
+      "orphan_rate_target": {
+        "denom": "0x28",
+        "numer": "0x1"
+      },
+      "permanent_difficulty_in_dummy": true,
+      "primary_epoch_reward_halving_interval": "0x2238",
+      "proposer_reward_ratio": {
+        "denom": "0xa",
+        "numer": "0x4"
+      },
+      "secondary_epoch_reward": "0x37d0c8e28542",
+      "secp256k1_blake160_multisig_all_type_hash": "0x5c5069eb0857efc65e1bca0c07df34c31663b3622fd3876c876320fc9634e2a8",
+      "secp256k1_blake160_sighash_all_type_hash": "0x9bd7e06f3ecf4be0f2fcd2188b23f1b9fcc88e5d4b65a8637b17723bbda3cce8",
+      "softforks": {
+        "light_client": {
+          "rfc0043": {
+            "bit": 1,
+            "min_activation_epoch": "0x0",
+            "period": "0xa",
+            "start": "0x0",
+            "threshold": {
+              "denom": "0x4",
+              "numer": "0x3"
+            },
+            "timeout": "0x0"
+          },
+          "status": "rfc0043"
+        }
+      },
+      "tx_proposal_window": {
+        "closest": "0x2",
+        "farthest": "0xa"
+      },
+      "tx_version": "0x0",
+      "type_id_code_hash": "0x00000000000000000000000000000000000000000000000000545950455f4944"
+    },
+    "lock_code_hash": "0x1a79ae4b82f5588e07fc0b94a0e8fbcf61f1adc06d05d753d13e2e63eec76dee",
+    "node_version": "0.121.0 (45e4c67 2025-01-22)",
+    "ordering_code_hash": "0x3c906f3b90d72a5aded2f16d0aef9ed216e14eb4e50e080503357970c0fe8573",
+    "production_ready": false,
+    "script_path": "artifacts/tactus_o1_proof_check_script.elf",
+    "tier": "isolated CKB devnet, deterministic block generation"
+  },
+  "results": {
+    "G3": "OPEN",
+    "complete": true,
+    "error": null,
+    "production_ready": false,
+    "proof_ckb_hash": "0x430fdd743b398d14b73fff1d4f9d0f40a6573019ac983f6896d8d22d12118465",
+    "public_values": "0x544f315052463031f0b9906840f2a4426a84075841a39fcbbd9d3fcec0617d0e7eb1997f74af1f380101010101010101010101010101010101010101010101010101010101010101020202020202020202020202020202020202020202020202020202020202020203030303030303030303030303030303030303030303030303030303030303030707070707070707070707070707070707070707070707070707070707070707697a000000000000d8993da2f58676831e445b01c9c012c189d21a03fe60f0a90e79b0a88e06b5f1544f31414e4330310707070707070707070707070707070707070707070707070707070707070707000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000049f6d18f713d8435f5efae966d549c936aa107e62981a31306012c1977bcc530cbade3c38e59f094284ba219216e9ad766068045ef6d737e49b6581bc5a081ccaad9910dae8e2160fa0c03c47d5cbebcc9a5a9377a50478b3daabf3be313a4b3697a000000000000544f31414e4330310707070707070707070707070707070707070707070707070707070707070707010000000000000059949695b508753378fa5f28575f9fe9e6a36236ae693c7fbba0d4151d8da0b801000000000000000a0000000000000049f6d18f713d8435f5efae966d549c936aa107e62981a31306012c1977bcc530cbade3c38e59f094284ba219216e9ad766068045ef6d737e49b6581bc5a081ccaad9910dae8e2160fa0c03c47d5cbebcc9a5a9377a50478b3daabf3be313a4b3697a000000000000a7baf949c792b882fc5e72fd71c17b6268bff6c813001024a1407ba82b80815539d75d240f98e864a088b6003e2f94134baec5a63bd0bdea9c955e14427527e70d6098a6d75ed5e7ec063f9243240b81de22006f71a42e34efb35b100c686b1b4e1fd3184e8d8d78dd8a08541dac5d1c17e7a160aeab9415371f739e6a4432f004fcb3cd3ae69feea6a3af75ae5d9a422d4e42ab079e75379071d07094a79650",
+    "receipts": [
+      {
+        "fee_shannons": 100000000,
+        "hash": "0xcf70daf6aa40d49fd5dcfa6ecb22c0e0b69c0f2b0492cbde375979baecc749bd",
+        "node_wire_bytes": 1759,
+        "receipt_capacity_shannons": 89400000000,
+        "settled": false,
+        "vm_cycles": 3976633357
+      },
+      {
+        "fee_shannons": 100000000,
+        "hash": "0x76a38b09ab9f18b17245308235dedf8a4e72c915b4accfd282e6c9ed31a9e51f",
+        "node_wire_bytes": 1759,
+        "receipt_capacity_shannons": 89400000000,
+        "settled": false,
+        "vm_cycles": 3976637370
+      }
+    ],
+    "scope": "real CKB Groth16 verification and immutable journal publication; no authenticated ordering history, real deployment identity or SettlementTip transition",
+    "settled": false,
+    "source_proof": {
+      "backend": "local CPU, fresh process final wrapping",
+      "circuit_version": "v6.1.0",
+      "ckb_settlement": false,
+      "groth16_wire_bytes": 356,
+      "guest_verifying_key": "0x00eb2677694b390a31db8883db49c1a828d73618173ce6f3e5790b7678958b14",
+      "negative_controls": [
+        "profile",
+        "ckb-network",
+        "ordering-script",
+        "settlement-script",
+        "rollup",
+        "chain",
+        "allocation",
+        "predecessor",
+        "end-history",
+        "previous-state",
+        "next-state",
+        "previous-header",
+        "next-header",
+        "interval-data",
+        "wrong-guest-key"
+      ],
+      "production_ready": false,
+      "proof_bytes": 2463,
+      "proof_generated": true,
+      "proof_kind": "SP1 real Groth16",
+      "public_values_hex": "544f315052463031f0b9906840f2a4426a84075841a39fcbbd9d3fcec0617d0e7eb1997f74af1f380101010101010101010101010101010101010101010101010101010101010101020202020202020202020202020202020202020202020202020202020202020203030303030303030303030303030303030303030303030303030303030303030707070707070707070707070707070707070707070707070707070707070707697a000000000000d8993da2f58676831e445b01c9c012c189d21a03fe60f0a90e79b0a88e06b5f1544f31414e4330310707070707070707070707070707070707070707070707070707070707070707000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000049f6d18f713d8435f5efae966d549c936aa107e62981a31306012c1977bcc530cbade3c38e59f094284ba219216e9ad766068045ef6d737e49b6581bc5a081ccaad9910dae8e2160fa0c03c47d5cbebcc9a5a9377a50478b3daabf3be313a4b3697a000000000000544f31414e4330310707070707070707070707070707070707070707070707070707070707070707010000000000000059949695b508753378fa5f28575f9fe9e6a36236ae693c7fbba0d4151d8da0b801000000000000000a0000000000000049f6d18f713d8435f5efae966d549c936aa107e62981a31306012c1977bcc530cbade3c38e59f094284ba219216e9ad766068045ef6d737e49b6581bc5a081ccaad9910dae8e2160fa0c03c47d5cbebcc9a5a9377a50478b3daabf3be313a4b3697a000000000000a7baf949c792b882fc5e72fd71c17b6268bff6c813001024a1407ba82b80815539d75d240f98e864a088b6003e2f94134baec5a63bd0bdea9c955e14427527e70d6098a6d75ed5e7ec063f9243240b81de22006f71a42e34efb35b100c686b1b4e1fd3184e8d8d78dd8a08541dac5d1c17e7a160aeab9415371f739e6a4432f004fcb3cd3ae69feea6a3af75ae5d9a422d4e42ab079e75379071d07094a79650",
+      "resumed_from_wrapped_witness": true,
+      "schema": 1,
+      "sp1": "6.8.1",
+      "wrapping_and_verification_seconds": 116.254148917
+    },
+    "suite": "groth16-proof-receipt-v1",
+    "valid_preflight_cycles": {
+      "cycles": "0xed069c0d"
+    }
+  },
+  "transactions": {
+    "committed_evidence_records": 3,
+    "rejected_records": 28
+  },
+  "estimated_cycles": {
+    "samples": 3,
+    "minimum": 1643629,
+    "maximum": 3976637370
+  },
+  "interpretation": "Boundary suite completed; full Experiment A and production gates remain OPEN."
+}

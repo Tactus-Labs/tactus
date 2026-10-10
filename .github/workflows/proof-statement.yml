@@ -26,6 +26,7 @@ jobs:
         run: |
           (cd specs/evidence/proof-execution && sha256sum --check SHA256SUMS)
           (cd specs/evidence/execution-core-proof && sha256sum --check SHA256SUMS)
+          (cd specs/evidence/execution-groth16-proof && sha256sum --check SHA256SUMS)
           (cd specs/evidence/history-checkpoint && sha256sum --check SHA256SUMS)
           (cd specs/evidence/checkpoint-reorg && sha256sum --check SHA256SUMS)
           (cd specs/evidence/settlement-bootstrap && sha256sum --check SHA256SUMS)
@@ -38,6 +39,12 @@ jobs:
             python3 scripts/check-checkpoint-reorg.py "$RUNNER_TEMP/checkpoint-reorg-$version.json"
             gzip -dc "specs/evidence/settlement-bootstrap/$version/evidence.json.gz" > "$RUNNER_TEMP/settlement-bootstrap-$version.json"
             python3 scripts/check-settlement-bootstrap.py "$RUNNER_TEMP/settlement-bootstrap-$version.json"
+          done
+      - name: Reconcile real proof receipt evidence (not cryptographic verification)
+        run: |
+          for version in 0.121.0 0.210.0; do
+            gzip -dc "specs/evidence/execution-groth16-proof/$version/evidence.json.gz" > "$RUNNER_TEMP/receipt-$version.json"
+            python3 scripts/check-proof-receipts.py "$RUNNER_TEMP/receipt-$version.json" specs/evidence/execution-groth16-proof/proof
           done
       - name: Check bounded history checkpoint state rules
         run: cargo test --locked --manifest-path proofs/ckb-history-checkpoint/Cargo.toml

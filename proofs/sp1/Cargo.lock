@@ -6495,8 +6495,11 @@ name = "tactus-o1-sp1-host"
 version = "0.1.0"
 dependencies = [
  "hex",
+ "num-bigint 0.4.8",
  "serde_json",
+ "sp1-recursion-gnark-ffi",
  "sp1-sdk",
+ "sp1-verifier",
  "tactus-o1-execution",
  "tactus-o1-proof-journal",
  "tokio",

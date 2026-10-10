@@ -1,0 +1,8 @@
+{
+  "source": "/tmp/.tmpZA9XIg",
+  "source_mtime_ns": 1791579745878642472,
+  "sha256": "29f6b16da528cd8092bebdf8cce25fb3234640cfc44ec115a0861486cf984b5a",
+  "original_prover_pid": 2879694,
+  "original_prover_outcome": "kernel OOM kill at 2026-10-10 06:02:51 JST",
+  "cryptographic_verification_pending": true
+}

@@ -1,0 +1,27 @@
+[
+  {
+    "mutation": "missing-rejection",
+    "rejected": true,
+    "reason": "expected three commits and 28 rejections"
+  },
+  {
+    "mutation": "false-cycles",
+    "rejected": true,
+    "reason": "cycle reports differ"
+  },
+  {
+    "mutation": "false-wire-size",
+    "rejected": true,
+    "reason": "packed wire bytes differ"
+  },
+  {
+    "mutation": "altered-proof-witness",
+    "rejected": true,
+    "reason": "receipt proof differs"
+  },
+  {
+    "mutation": "wrong-script-error",
+    "rejected": true,
+    "reason": "wrong script or return code"
+  }
+]

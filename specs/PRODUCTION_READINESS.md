@@ -93,8 +93,9 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
 - [First real execution proof](EXECUTION_CORE_PROOF_REPORT.md) now proves that
   batch with a local SP1 core STARK, passes 15 public-value/key rejection controls
   and verifies in a fresh process. The proof and measured workstation cost are
-  retained. Compression, authenticated CKB verification and settlement succession
-  remain absent; this does not close G3 or qualify production proving economics.
+  retained. A subsequent [real Groth16 proof](EXECUTION_GROTH16_PROOF_REPORT.md) now
+  verifies in CKB on both versions. Valid-proof settlement succession remains
+  unqualified; neither result closes G3 or qualifies production proving economics.
 
 - [Transition-authenticated history checkpoints](HISTORY_CHECKPOINT_V1.md) now
   retain exact Anchor successor states in immutable typed cells. Both CKB versions
@@ -103,8 +104,16 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
   history mechanism. A [real P2P checkpoint reorg](CHECKPOINT_REORG_REPORT.md) now
   rejects an orphaned checkpoint dependency and accepts its canonical replacement
   on both versions; proof-consuming SettlementTip and unplanned-fault qualification
-  are still absent. The [Groth16 receipt harness](PROOF_RECEIPT_V1.md) is implemented,
-  with its first real compressed proof still pending at this milestone.
+  are still unqualified. The [Groth16 receipt experiment](EXECUTION_GROTH16_PROOF_REPORT.md) now
+  commits two real verified receipts and rejects 28 controls on each version.
+  Final wrapping recovered from an OOM in a fresh process; approximately 3.977
+  billion CKB cycles per verification remains a material throughput cost.
+
+- [SettlementTip atomic genesis](SETTLEMENT_TIP_V1.md) and 20 rejection controls
+  pass on both CKB versions. Canonical chain data exports replay to the exact guest
+  journal under real deployment identities. The script implements proof and
+  checkpoint binding, but accepted valid-proof succession has not yet been measured;
+  these initialization/negative results do not close G3.
 
 - [Repeated fresh seal contention](SEAL_CONTENTION_REPORT.md) now attains the
   finite `8 × lane_count` valid-append budget, rejects further full-queue churn,
@@ -119,7 +128,7 @@ See [devnet results](EXPERIMENT_A_DEVNET_REPORT.md) and the
 | P0 | Full Experiment A / G2 | Add mandatory forced processing beyond the measured challenge-only failure; qualify independent-wallet load and hostile inclusion policy beyond the measured finite seal-churn budget, sustained queue/dependency workload and targeted-lane failure, proof-bound pending-record recovery, hostile miner policies and unplanned reorgs. Individual A2 authenticity, bounded overload/drain and planned-reorg carry-forward now have measurements. |
 | P0 | Batch admission / W-12 | The implemented input encoding/inline-DA bounds have optional authenticated A2 input prefixes and an A3 mandatory sealed-set gate, but still need the production enforcement selection, L1 timestamp bounds, on-chain/proved binding to the new Ethereum envelope and deterministic rejection semantics, plus proved execution resource limits. |
 | P0 | Execution / G5 | Bind published genesis and the implemented execution profile into a verified state transition; add state checkpoints, broader differential conformance and ordinary Ethereum tool deployment; replace experimental genesis/supply limits. |
-| P0 | Validity settlement / G3 | Compress the measured local core proof into the final proof form; implement and qualify the CKB verifier, authenticated history and SettlementTip succession with wrong-state, wrong-order, wrong-domain and wrong-key rejection. The first local full-batch proof does not establish CKB-accepted settlement. |
+| P0 | Validity settlement / G3 | Real Groth16 compression and CKB receipt verification now pass. Qualify real-domain SettlementTip succession with wrong-state, wrong-order, wrong-domain, wrong-key and replay rejection. The verified synthetic-domain receipts do not establish canonical settlement. |
 | P0 | Recovery / G6 | Extend allocation-bound CKB-to-EVM reconstruction to proving inputs and settlement by another prover, with unplanned network reorgs. |
 | P0 | Bridge and exits / G7 | Deposit/withdrawal conservation, replay resistance and operator-independent exit evidence; no release on experimental cursors. |
 | P1 | Operations / G9 | Qualify the local journal under hardware/long-run faults; add network-driven reorg handling, monitored archival retrieval, independent operators and long-duration fault injection. |

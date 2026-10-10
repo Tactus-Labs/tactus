@@ -1,0 +1,23 @@
+{
+  "head_before_commit": "935a4477ae5ceefdb979b971a6fe74f5adf4cb8e",
+  "phase": "final Groth16 wrapping only; original process OOM killed",
+  "files": {
+    "proofs/sp1/host/src/bin/wrap-witness.rs": "f0df2177ac3837570084e03663efa897eb06a9c17c786523e378f52297b52f12",
+    "proofs/sp1/host/Cargo.toml": "3015f52fb708a08cd4315dc196d0d0a8f9c7eba4ff5e46d64ac9ed05235bd708",
+    "proofs/sp1/Cargo.lock": "2fb50d9bde6021c8963f93cc03c1e26fe366b12ad695611fd93a047938f2108b",
+    "Cargo.lock": "d1e83ee7925c86276223c5b01a46cc25c9a1c81d811b713381dd9d3a4e835f92",
+    "artifacts/prover-host/target/release/wrap-witness": "fde032f7167257f2cc58ddd03fd7e692b2ade29374ab0c5a9b76fb4d3546d36b",
+    "artifacts/proof-groth16-resume/wrapped-witness.json": "29f6b16da528cd8092bebdf8cce25fb3234640cfc44ec115a0861486cf984b5a",
+    "artifacts/proof-transfer-groth16/public-values.bin": "5b4a2e160721f23cdd75bd1735b86ed0c1234b4c025adeaaaaba824b42c82145"
+  },
+  "limits": {
+    "systemd_scope": "tactus-groth16-wrap-20261010.scope",
+    "MemoryHigh": "18G",
+    "MemoryMax": "21G",
+    "MemorySwapMax": "6G",
+    "GOMEMLIMIT": "16GiB",
+    "GOGC": "25",
+    "GOMAXPROCS": "2"
+  },
+  "verification": "release VK byte equality, witness public-input binding, real Groth16 verification and negative controls required before result publication"
+}

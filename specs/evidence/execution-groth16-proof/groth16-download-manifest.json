@@ -1,0 +1,10 @@
+{
+  "url": "https://sp1-circuits.s3-us-east-2.amazonaws.com/v6.1.0-groth16.tar.gz",
+  "status": 200,
+  "content_length": "6211807514",
+  "etag": "\"06c0c00b698a872f5a78cb31056d077b-741\"",
+  "last_modified": "Wed, 15 Apr 2026 23:37:14 GMT",
+  "sha256": "18beebb6cd0cc9b4d4a240ee4f49511da6c2a7e51724bad4232de538a9147810",
+  "filename": "v6.1.0-groth16.tar.gz",
+  "source": "Pinned SP1 6.8.1 prover build.rs selects circuit version v6.1.0. Public release artifacts only; no dev setup."
+}

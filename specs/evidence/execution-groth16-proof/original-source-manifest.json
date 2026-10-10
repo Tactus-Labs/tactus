@@ -1,0 +1,41 @@
+{
+  "git_head": "399fa0724265ed79ca4f6979463ef315d77ff8d6",
+  "pid": "2879694",
+  "command": "artifacts/prover-host/target/release/tactus-o1-sp1-host prove-groth16 proofs/sp1/target/elf-compilation/riscv64im-succinct-zkvm-elf/release/tactus-o1-sp1-guest specs/test-vectors/execution-v1/geth-1.17.8.json 0 artifacts/proof-transfer-groth16 proofs/sp1/target/elf-compilation/riscv64im-succinct-zkvm-elf/release/tactus-o1-wrong-guest ",
+  "environment": {
+    "RUST_LOG": "info",
+    "RAYON_NUM_THREADS": "4",
+    "TOKIO_WORKER_THREADS": "4",
+    "GOMAXPROCS": "4",
+    "SP1_CIRCUIT_MODE": "release",
+    "SP1_GROTH16_CIRCUIT_PATH": "/home/arthur/RustRoverProjects/tactus-o1/artifacts/prover-tools/circuits/groth16",
+    "SP1_WORKER_NUM_CORE_WORKERS": "1",
+    "SP1_WORKER_CORE_BUFFER_SIZE": "1",
+    "SP1_WORKER_NUM_SETUP_WORKERS": "1",
+    "SP1_WORKER_SETUP_BUFFER_SIZE": "1",
+    "SP1_WORKER_NUM_PREPARE_REDUCE_WORKERS": "1",
+    "SP1_WORKER_PREPARE_REDUCE_BUFFER_SIZE": "1",
+    "SP1_WORKER_NUM_RECURSION_EXECUTOR_WORKERS": "1",
+    "SP1_WORKER_RECURSION_EXECUTOR_BUFFER_SIZE": "1",
+    "SP1_WORKER_NUM_RECURSION_PROVER_WORKERS": "1",
+    "SP1_WORKER_RECURSION_PROVER_BUFFER_SIZE": "1",
+    "ELEMENT_THRESHOLD": "50331648",
+    "HEIGHT_THRESHOLD": "524288",
+    "SHARD_SIZE": "1048576"
+  },
+  "files_sha256": {
+    "Cargo.lock": "d1e83ee7925c86276223c5b01a46cc25c9a1c81d811b713381dd9d3a4e835f92",
+    "proofs/sp1/Cargo.lock": "929d12d7a774a0153eaa89c547efff027c1124756526b06756e6ed1ed23432f3",
+    "proofs/sp1/host/Cargo.toml": "96010d9964567bb5ae48ea959b7384c603563df3c14f3c585295d966eba9c462",
+    "proofs/sp1/host/src/main.rs": "871240a7a9dd084a0b2a1046d7299d690bc365e30b8eaea81ec531fb580028f7",
+    "proofs/sp1/guest/src/main.rs": "89fe83e3825dbe93d112b24705c4a716b3f091f461a07b922dbeba2944b6ba8b",
+    "proofs/sp1/journal/src/lib.rs": "32359e8a618c2c26d8090e9689d777f67090c67cf7ca27b0e8702e60fe50ae72",
+    "proofs/sp1/wrong-guest/src/main.rs": "a2a8d3f95b0f01c1948dbba0e1d83065d08249f6d3638ae73b300fc21930cd0c",
+    "specs/test-vectors/execution-v1/geth-1.17.8.json": "dbdadec48daf8657b84b16c8d6ca0efd5653912e27939cf44450145cd7858232",
+    "artifacts/prover-host/target/release/tactus-o1-sp1-host": "ab6641c274d5dcaf8cc01b7bf090872566d6c7c54b2e5c96ddd23f63f99dda84",
+    "proofs/sp1/target/elf-compilation/riscv64im-succinct-zkvm-elf/release/tactus-o1-sp1-guest": "63e7879070038b22cab411bd025b0b876511734cb7ef78a6c849c491aa909a3c",
+    "proofs/sp1/target/elf-compilation/riscv64im-succinct-zkvm-elf/release/tactus-o1-wrong-guest": "a22de5c6e3fd2a5f39eb82d4977425e7384e1bef06e4018b7ee6a6b5f7954b1a"
+  },
+  "circuit_manifest": "artifacts/prover-tools/groth16-circuit-manifest.json",
+  "status": "running; not a proof completion claim"
+}

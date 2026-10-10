@@ -1,0 +1,3 @@
+Oct 10 06:02:51 fedora kernel: oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=NetworkManager.service,mems_allowed=0,global_oom,task_memcg=/user.slice/user-1000.slice/user@1000.service/app.slice/app-org.chromium.Chromium-173231.scope,task=tactus-o1-sp1-h,pid=2879694,uid=1000
+Oct 10 06:02:51 fedora kernel: Out of memory: Killed process 2879694 (tactus-o1-sp1-h) total-vm:31604324kB, anon-rss:17997800kB, file-rss:1988kB, shmem-rss:0kB, UID:1000 pgtables:54868kB oom_score_adj:100
+Oct 10 06:02:53 fedora kernel: oom_reaper: reaped process 2879694 (tactus-o1-sp1-h), now anon-rss:0kB, file-rss:0kB, shmem-rss:0kB
