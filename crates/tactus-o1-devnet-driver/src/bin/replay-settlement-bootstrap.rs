@@ -1,6 +1,8 @@
 //! Real deployment, canonical input export and optional real-proof settlement qualification.
 #[path = "replay-settlement-bootstrap/continuation.rs"]
 mod continuation;
+#[path = "replay-settlement-bootstrap/reorg.rs"]
+mod reorg;
 use serde_json::{json, Value};
 use tactus_o1_devnet_driver::{
     batch_lab::{self, Anchor},
@@ -149,6 +151,14 @@ fn cold_recovery(chain: &[u8], anchor: &[u8], tip: &[u8]) -> Result<Value, Strin
     serde_json::from_slice(&output.stdout).map_err(|e| e.to_string())
 }
 fn run() -> Result<(), String> {
+    let reorg_mode = std::env::var_os("TACTUS_SETTLEMENT_REORG").is_some();
+    if reorg_mode
+        && (std::env::var_os("TACTUS_SETTLEMENT_PROOF_DIR").is_none()
+            || std::env::var_os("TACTUS_SECOND_SETTLEMENT_PROOF_DIR").is_some()
+            || std::env::var_os("TACTUS_PREPARE_SECOND_PROOF").is_some())
+    {
+        return Err("settlement reorg requires only the first real proof directory".into());
+    }
     let second_directory = std::env::var_os("TACTUS_SECOND_SETTLEMENT_PROOF_DIR");
     if second_directory.is_some() && std::env::var_os("TACTUS_SETTLEMENT_PROOF_DIR").is_none() {
         return Err("second proof qualification requires the first real proof directory".into());
@@ -670,6 +680,7 @@ fn run() -> Result<(), String> {
                     9,
                 )?;
             }
+            let reorg_plan = reorg_mode.then(|| reorg::prepare(&lab)).transpose()?;
             let settled = lab.commit("settlement/first real proof transition", &valid)?;
             let packed = rpc::call("get_transaction", json!([settled, "0x0"]))?;
             let node_bytes =
@@ -722,6 +733,18 @@ fn run() -> Result<(), String> {
             results["cold_settlement_recovery"] = recovered_tip;
             results["settled"] = true.into();
             results["withdrawal_authority"] = false.into();
+            if let Some(plan) = reorg_plan {
+                results["reorg"] = reorg::qualify(
+                    &mut lab,
+                    plan,
+                    &results["proving_input"],
+                    &valid,
+                    &settled,
+                    &framed(&journal, &proof),
+                )?;
+                results["suite"] = "settlement-proof-p2p-reorg-v1".into();
+                results["scope"] = "real P2P rollback of a proved Tip, cold canonical recovery and same-proof resubmission with fresh funding; planned partition, no custody".into();
+            }
             if let Some((next, second)) = prepared_second {
                 let second_transition = continuation::qualify(
                     &mut lab,

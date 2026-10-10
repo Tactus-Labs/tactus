@@ -1,0 +1,27 @@
+[
+  {
+    "control": "missing first proof",
+    "exit": 1,
+    "stderr": "SETTLEMENT BOOTSTRAP FAILED: settlement reorg requires only the first real proof directory\n"
+  },
+  {
+    "control": "second proof mixed",
+    "exit": 1,
+    "stderr": "SETTLEMENT BOOTSTRAP FAILED: settlement reorg requires only the first real proof directory\n"
+  },
+  {
+    "control": "input preparation mixed",
+    "exit": 1,
+    "stderr": "SETTLEMENT BOOTSTRAP FAILED: settlement reorg requires only the first real proof directory\n"
+  },
+  {
+    "control": "empty flag",
+    "exit": 1,
+    "stderr": "Settlement reorg requires TACTUS_SETTLEMENT_REORG=1 and only a first real proof directory in the settlement suite.\n"
+  },
+  {
+    "control": "wrong suite",
+    "exit": 1,
+    "stderr": "Settlement reorg requires TACTUS_SETTLEMENT_REORG=1 and only a first real proof directory in the settlement suite.\n"
+  }
+]

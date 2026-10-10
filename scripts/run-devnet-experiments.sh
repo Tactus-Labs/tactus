@@ -15,6 +15,12 @@ if [[ "$($CKB_BIN --version)" != "ckb $required_version "* ]]; then
 fi
 suite="${TACTUS_DEVNET_SUITE:-replay-a123}"
 case "$suite" in replay-a123|replay-batch|replay-evm|replay-priority|replay-sealed|replay-admission|replay-network|replay-load|replay-seal-contention|replay-proof-verifier|replay-history-checkpoint|replay-checkpoint-reorg|replay-settlement-bootstrap) ;; *) echo 'Unknown devnet suite' >&2; exit 1 ;; esac
+if [[ -v TACTUS_SETTLEMENT_REORG ]]; then
+  if [[ "$TACTUS_SETTLEMENT_REORG" != 1 || "$suite" != replay-settlement-bootstrap || -z "${TACTUS_SETTLEMENT_PROOF_DIR:-}" || -v TACTUS_SECOND_SETTLEMENT_PROOF_DIR || -v TACTUS_PREPARE_SECOND_PROOF ]]; then
+    echo 'Settlement reorg requires TACTUS_SETTLEMENT_REORG=1 and only a first real proof directory in the settlement suite.' >&2
+    exit 1
+  fi
+fi
 cargo build --locked --bin "$suite"
 if [[ "$suite" == replay-evm || "$suite" == replay-network ]]; then
   cargo build --locked --bin recover-execution
@@ -45,7 +51,7 @@ export TACTUS_DEVNET_SUITE="$suite"
 python3 - <<'PY'
 import os,socket
 ports=[int(os.environ['TACTUS_CKB_RPC_ADDR'].split(':')[1]),int(os.getenv('TACTUS_DEVNET_P2P_PORT','18715'))]
-if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-network','replay-checkpoint-reorg'):ports.extend([int(os.environ['TACTUS_PEER_RPC_ADDR'].split(':')[1]),int(os.getenv('TACTUS_PEER_P2P_PORT','18717'))])
+if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-network','replay-checkpoint-reorg') or os.getenv('TACTUS_SETTLEMENT_REORG'):ports.extend([int(os.environ['TACTUS_PEER_RPC_ADDR'].split(':')[1]),int(os.getenv('TACTUS_PEER_P2P_PORT','18717'))])
 assert len(set(ports))==len(ports), 'Node ports must be distinct'
 for port in ports:
  s=socket.socket();s.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
@@ -71,7 +77,7 @@ lock.args = "0xc155c0113355a061173d1ff21075ec37754ec1ca"
 lock.hash_type = "type"
 
 '''+s[i:];p.write_text(s)
-if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-network','replay-checkpoint-reorg'):
+if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-network','replay-checkpoint-reorg') or os.getenv('TACTUS_SETTLEMENT_REORG'):
  shutil.copytree(root/'node',root/'peer')
  peer=root/'peer/ckb.toml'
  peer.write_text(peer.read_text().replace(os.environ['TACTUS_CKB_RPC_ADDR'],os.environ['TACTUS_PEER_RPC_ADDR']).replace('/tcp/'+os.getenv('TACTUS_DEVNET_P2P_PORT','18715')+'"','/tcp/'+os.getenv('TACTUS_PEER_P2P_PORT','18717')+'"'))
@@ -84,7 +90,7 @@ for name in ['Cargo.lock','scripts/build-ordering-script.sh','scripts/ordering-s
 binaries=['target/debug/'+os.environ['TACTUS_DEVNET_SUITE']]
 if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-evm','replay-network'):binaries.append('target/debug/recover-execution')
 if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-sealed','replay-network'):binaries.append('target/debug/recover-sealed')
-if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-network','replay-checkpoint-reorg'):binaries.extend([str(root/'peer/ckb.toml'),str(root/'peer/specs/dev.toml')])
+if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-network','replay-checkpoint-reorg') or os.getenv('TACTUS_SETTLEMENT_REORG'):binaries.extend([str(root/'peer/ckb.toml'),str(root/'peer/specs/dev.toml')])
 if os.environ['TACTUS_DEVNET_SUITE']=='replay-proof-verifier':
  binaries.append('artifacts/tactus_o1_proof_check_script.elf')
  proof_dir=pathlib.Path(os.environ['TACTUS_PROOF_DIR'])
@@ -114,14 +120,14 @@ cleanup() {
   wait "$node_pid" 2>/dev/null || true
 }
 trap cleanup EXIT
-if [[ "$suite" == replay-network || "$suite" == replay-checkpoint-reorg ]]; then
+if [[ "$suite" == replay-network || "$suite" == replay-checkpoint-reorg || -n "${TACTUS_SETTLEMENT_REORG:-}" ]]; then
   "$CKB_BIN" run -C "$run_dir/peer" --indexer > "$run_dir/peer.log" 2>&1 &
   peer_pid=$!
 fi
 python3 - <<'PY'
 import os,urllib.request,json,time
 addresses=[os.environ['TACTUS_CKB_RPC_ADDR']]
-if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-network','replay-checkpoint-reorg'):addresses.append(os.environ['TACTUS_PEER_RPC_ADDR'])
+if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-network','replay-checkpoint-reorg') or os.getenv('TACTUS_SETTLEMENT_REORG'):addresses.append(os.environ['TACTUS_PEER_RPC_ADDR'])
 for address in addresses:
  url='http://'+address
  for _ in range(150):

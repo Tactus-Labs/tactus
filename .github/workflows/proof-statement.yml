@@ -33,6 +33,7 @@ jobs:
           (cd specs/evidence/chain-proof-recovery && sha256sum --check SHA256SUMS)
           (cd specs/evidence/settlement-next-input && sha256sum --check SHA256SUMS)
           (cd specs/evidence/settlement-proof-guards && sha256sum --check SHA256SUMS)
+          (cd specs/evidence/settlement-reorg-preparation && sha256sum --check SHA256SUMS)
       - name: Reconcile retained checkpoint transactions (not script execution)
         run: |
           for version in 0.210.0; do

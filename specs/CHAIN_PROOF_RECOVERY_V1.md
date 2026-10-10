@@ -114,3 +114,41 @@ TACTUS_DEVNET_SUITE=replay-settlement-bootstrap CKB_BIN=/absolute/path/to/ckb-0.
 python3 scripts/check-two-settlements.py /absolute/path/to/evidence.json \
   /absolute/path/to/completed/first/proof /absolute/path/to/completed/second/proof
 ```
+
+## Prepared real-proof P2P rollback qualification
+
+`TACTUS_SETTLEMENT_REORG=1` adds a two-node partition/rejoin path to the first-proof
+suite. It requires exactly one completed real proof directory and cannot be mixed
+with second-input preparation or two-proof qualification. Five measured mode
+controls reject unsupported combinations before starting or connecting to nodes;
+[build and guard evidence](evidence/settlement-reorg-preparation/) is retained.
+
+The implemented path synchronizes the canonical publication and initial Tip,
+partitions the peers, and commits the real proof on the original branch. The
+alternate branch spends only that proof transaction's fee input, then grows longer.
+Rejoining uses real P2P synchronization without `truncate` or `submit_block`. The
+competing fee spend prevents the orphan proof transaction from silently returning
+through the txpool. Fresh recovery processes query both nodes and must independently
+recover the initial Tip, zero settled batches and the unchanged published batch.
+The original signed transaction must fail because its funding is spent. A newly
+signed transaction reuses the exact proof, checkpoint and successor data with a
+fresh fee input; both nodes must then recover exactly one canonical proved
+transition, without counting the orphan transition.
+
+The independent checker projects the historical first-settlement phase, verifies
+its existing 40 rejection controls, then reconciles the alternate fee spend,
+original-transaction rejection, proof reuse, branch heights, restored cells and
+both nodes' cold-recovery reports. The intended **seven historical commit records
+(including the orphan) and 41 rejections** remain pending assertions until a real
+proof run passes. Compilation and mode guards do not establish rollback safety.
+This is a planned partition experiment; unplanned faults, independent proving,
+production finality policy and custody remain separate requirements.
+
+```bash
+TACTUS_SETTLEMENT_REORG=1 \
+TACTUS_SETTLEMENT_PROOF_DIR=/absolute/path/to/completed/first/proof \
+TACTUS_DEVNET_SUITE=replay-settlement-bootstrap CKB_BIN=/absolute/path/to/ckb-0.210.0 \
+  scripts/run-devnet-experiments.sh
+python3 -B scripts/check-settlement-reorg.py /absolute/path/to/evidence.json \
+  /absolute/path/to/completed/first/proof
+```
