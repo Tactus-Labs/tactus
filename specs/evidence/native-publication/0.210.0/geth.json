@@ -1,0 +1,29 @@
+{
+  "authenticated_publication": false,
+  "blocks": [
+    {
+      "case": "actual-native-publication-v2",
+      "gas_used": 104246,
+      "number": 1,
+      "receipt_root": "0xccca05bf0fdf710b7f14214c467a0c52f5776528bfd0ce38868eb81cd2295e8f",
+      "state_root": "0xeb47be3c178db07bb71f84bdb4b2c88851265158a7cc29967e1bc239b16b165d",
+      "transaction_root": "0x885bdaa3a6ce0850430711fad206eb1695054dedcc0b768719fcf7509caa57ce"
+    },
+    {
+      "case": "actual-native-publication-v2",
+      "gas_used": 70058,
+      "number": 2,
+      "receipt_root": "0xd00f9db9f5a3d81902b835fe2901056c5b59c25b46eaf4570e6b1a6e72b3c6af",
+      "state_root": "0x13556225c70c180edfc135ecdd6445432f08270400017e40213cbdf09b9aabf7",
+      "transaction_root": "0x5a79faf7944167e574677e9d84c2366049e8271d3665d771f2728b8505d264d9"
+    }
+  ],
+  "custody_release": false,
+  "deposits": 2,
+  "fork": "Shanghai",
+  "geth": "1.17.8",
+  "production_ready": false,
+  "proof_settled": false,
+  "reverts": 0,
+  "signed_transactions": 2
+}

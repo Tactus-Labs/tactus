@@ -14,7 +14,7 @@ if [[ "$($CKB_BIN --version)" != "ckb $required_version "* ]]; then
   exit 1
 fi
 suite="${TACTUS_DEVNET_SUITE:-replay-a123}"
-case "$suite" in replay-a123|replay-batch|replay-evm|replay-priority|replay-sealed|replay-admission|replay-network|replay-load|replay-seal-contention|replay-proof-verifier|replay-history-checkpoint|replay-checkpoint-reorg|replay-settlement-bootstrap|replay-sealed-settlement|replay-native-vault) ;; *) echo 'Unknown devnet suite' >&2; exit 1 ;; esac
+case "$suite" in replay-a123|replay-batch|replay-evm|replay-priority|replay-sealed|replay-admission|replay-network|replay-load|replay-seal-contention|replay-proof-verifier|replay-history-checkpoint|replay-checkpoint-reorg|replay-settlement-bootstrap|replay-sealed-settlement|replay-native-vault|replay-native-publication) ;; *) echo 'Unknown devnet suite' >&2; exit 1 ;; esac
 if [[ -v TACTUS_SETTLEMENT_REORG ]]; then
   if [[ "$TACTUS_SETTLEMENT_REORG" != 1 || "$suite" != replay-settlement-bootstrap || -z "${TACTUS_SETTLEMENT_PROOF_DIR:-}" || -v TACTUS_SECOND_SETTLEMENT_PROOF_DIR || -v TACTUS_PREPARE_SECOND_PROOF ]]; then
     echo 'Settlement reorg requires TACTUS_SETTLEMENT_REORG=1 and only a first real proof directory in the settlement suite.' >&2
@@ -47,10 +47,10 @@ if [[ -v TACTUS_STATE_PROOFS_JSON && ( "$suite" != replay-sealed-settlement || -
 fi
 if [[ -v TACTUS_STATE_PROOFS_JSON ]]; then bash scripts/build-state-proof-script.sh; fi
 driver_binary="target/debug/$suite"
-if [[ "$suite" == replay-native-vault ]]; then
-  bash scripts/build-native-vault-script.sh
+if [[ "$suite" == replay-native-vault || "$suite" == replay-native-publication ]]; then
+  bash scripts/build-native-anchor-script.sh
   cargo build --locked --manifest-path services/native-vault-lab/Cargo.toml
-  driver_binary="services/native-vault-lab/target/debug/replay-native-vault"
+  driver_binary="services/native-vault-lab/target/debug/$suite"
 else
   cargo build --locked --bin "$suite"
 fi
@@ -124,7 +124,7 @@ manifest={'node_version':subprocess.check_output([os.environ['TACTUS_CKB_BIN'],'
 for name in ['Cargo.lock','scripts/build-ordering-script.sh','scripts/ordering-script.ld','artifacts/tactus_o1_ordering_script.elf','artifacts/tactus_o1_head_lock.elf','artifacts/tactus_o1_anchor_script.elf','artifacts/tactus_o1_priority_script.elf','artifacts/tactus_o1_sealed_script.elf',str(root/'node/ckb.toml'),str(p),os.environ['TACTUS_CKB_BIN']]:
  manifest['files'][name]=hashlib.sha256(pathlib.Path(name).read_bytes()).hexdigest()
 binaries=[os.environ['TACTUS_DRIVER_BINARY']]
-if os.environ['TACTUS_DEVNET_SUITE']=='replay-native-vault':binaries.extend(['artifacts/tactus_o1_native_vault_script.elf','services/native-vault-lab/target/debug/recover-native-vault'])
+if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-native-vault','replay-native-publication'):binaries.extend(['artifacts/tactus_o1_native_vault_script.elf','artifacts/tactus_o1_native_anchor_script.elf','services/native-vault-lab/target/debug/recover-native-vault'])
 if os.getenv('TACTUS_OBSERVER_RPC_BIN'):binaries.append(os.environ['TACTUS_OBSERVER_RPC_BIN'])
 if os.getenv('TACTUS_STATE_PROOFS_JSON'):binaries.extend(['artifacts/tactus_o1_state_proof_script.elf',os.environ['TACTUS_STATE_PROOFS_JSON']])
 if os.environ['TACTUS_DEVNET_SUITE'] in ('replay-evm','replay-network'):binaries.append('target/debug/recover-execution')

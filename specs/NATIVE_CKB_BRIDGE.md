@@ -35,8 +35,9 @@ receives no mint privilege. A new execution profile must reserve the zero
 address (including prohibiting genesis code there) and make this call only from
 CKB-authenticated, exactly-once deposit processing. **The current v1 executor
 has no such hook.** Its ordinary signed transactions cannot use this entry point.
-The optional candidate v2 hook is separate and still lacks CKB publication/proof
-authentication. The direct VM calls in unit tests deliberately exercise contract logic; they do
+The optional candidate v2 hook is separate. [Standalone CKB publication](NATIVE_PUBLICATION_REPORT.md)
+now authenticates its records, while new proof settlement remains pending.
+The direct VM calls in unit tests deliberately exercise contract logic; they do
 not establish deposit authenticity or permissionless L1 processing.
 
 `withdraw(uint64,bytes32)` burns only the caller's tokens and stores a permanent

@@ -62,6 +62,7 @@ and funded deposit evidence, including twelve deliberately forged archives.
 It checks evidence relationships, not consensus or cryptography.
 
 ```sh
+bash scripts/build-native-anchor-script.sh
 cargo build --locked --manifest-path services/native-vault-lab/Cargo.toml
 TACTUS_CKB_RPC_ADDR=127.0.0.1:18744 \
   services/native-vault-lab/target/debug/recover-native-vault \

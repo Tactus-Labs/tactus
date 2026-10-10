@@ -1721,6 +1721,7 @@ dependencies = [
  "once_cell",
  "serdect",
  "sha2 0.10.9",
+ "signature",
 ]
 
 [[package]]
@@ -2284,9 +2285,16 @@ checksum = "d6f6ff9a378485b298a5286656da665ba74413d36db0979633275d2e708145d4"
 name = "replay-native-vault"
 version = "0.1.0"
 dependencies = [
+ "alloy-consensus",
+ "alloy-eips",
+ "alloy-primitives",
+ "k256",
  "serde_json",
  "tactus-o1-devnet-driver",
+ "tactus-o1-execution",
+ "tactus-o1-native-anchor-script",
  "tactus-o1-native-vault-script",
+ "tactus-o1-protocol",
 ]
 
 [[package]]
@@ -2993,6 +3001,17 @@ dependencies = [
  "alloy-trie",
  "revm",
  "serde",
+ "serde_json",
+ "tactus-o1-protocol",
+]
+
+[[package]]
+name = "tactus-o1-native-anchor-script"
+version = "0.1.0"
+dependencies = [
+ "alloy-primitives",
+ "blake2b-ref",
+ "ckb-std",
  "serde_json",
  "tactus-o1-protocol",
 ]

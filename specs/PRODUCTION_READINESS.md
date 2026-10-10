@@ -6,10 +6,15 @@ rollup deployment or custody of user assets.
 
 ## Implemented and measured
 
+- [Authenticated native publication](NATIVE_PUBLICATION_REPORT.md) binds funded
+  receipts at the CKB script boundary: ten commits and 27 exact rejections on
+  0.210.0. Two published credit/burn blocks match Geth. A3 integration, new proof
+  settlement, v2 observer/reorg recovery and actual payouts remain required.
+
 - [Candidate native custody execution v2](NATIVE_BRIDGE_EXECUTION_V2.md) processes
   contiguous records and signed token burns atomically. Seven blocks match Geth,
-  with six execution tests; CKB publication authentication, a new proof/settlement
-  domain, observer support and actual payouts are still required.
+  with six execution tests. Standalone CKB publication is now authenticated;
+  a new proof/settlement domain, observer support and actual payouts remain required.
 
 - [Canonical native vault recovery](NATIVE_VAULT_RECOVERY_REPORT.md) reconstructs
   funded deposit records in four fresh processes, without an operator database
@@ -24,7 +29,8 @@ rollup deployment or custody of user assets.
 - [Native CKB ledger and burn commitments](NATIVE_CKB_BRIDGE.md) now have pinned
   Solidity bytecode, 27 signed execution/Geth comparisons and independent system-
   call contract tests. Candidate execution v2 is now implemented; authenticated
-  publication, the new proof domain and actual release remain missing; G7 is OPEN.
+  A3 publication integration, the new proof domain and actual release remain
+  missing; G7 is OPEN.
 
 - [CKB authenticated settled-state reads](SETTLED_STATE_PROOF_REPORT.md) now verify
   three actual A3 account/slot witnesses against the live, proof-settled Tip.

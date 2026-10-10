@@ -1,0 +1,20 @@
+{
+  "base_commit": "ce0eb38bb7724ea9a8d2d95aac8a13ee8e8766b9",
+  "files": {
+    "scripts/check-native-publication.py": "f4c19f9481344e7db86e8ea616e2d54685aef7e8ec861bf25d688a7569aad984",
+    "scripts/test-native-publication.py": "d92e811ff7de39f1748069a4333a8400c807eb18e86140937fb3addea6fe1c76",
+    "services/bridge-checker/execution_test.go": "0e601af1267fba65ce6fbd10e6676b0c167d1e17bf0264c942862af28e277f09",
+    ".github/workflows/ci.yml": "b76aca959a607f674aaddd9f0d49211547714f6ff83a78db67f82771075623af",
+    "proofs/ckb-native-anchor/tests/genesis.rs": "07d5fa01bea5250a5d1fb570693c266fd4c1b164e4bcc23a31e44648e3f0cffd"
+  },
+  "validation": {
+    "actual_commits": 10,
+    "exact_script_rejections": 27,
+    "host_genesis_tests": 3,
+    "driver_regression_tests": 22,
+    "cold_recovery_tests": 4,
+    "forged_evidence_controls": 12,
+    "independent_geth_blocks": 2
+  },
+  "root_lock_sha256": "d1e83ee7925c86276223c5b01a46cc25c9a1c81d811b713381dd9d3a4e835f92"
+}

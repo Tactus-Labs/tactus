@@ -168,15 +168,26 @@ pub fn raw_transaction(
     outputs: &[Vec<u8>],      // serialized CellOutput tables
     outputs_data: &[Vec<u8>], // serialized Bytes
 ) -> Vec<u8> {
+    raw_transaction_with_headers(cell_deps, &[], inputs, outputs, outputs_data)
+}
+
+/// Serialize explicit header dependencies; the transaction signature covers them.
+pub fn raw_transaction_with_headers(
+    cell_deps: &[Vec<u8>],
+    headers: &[[u8; 32]],
+    inputs: &[Vec<u8>],
+    outputs: &[Vec<u8>],
+    outputs_data: &[Vec<u8>],
+) -> Vec<u8> {
     let deps_raw: Vec<u8> = cell_deps.concat();
     let inputs_raw: Vec<u8> = inputs.concat();
     table(&[
-        Some(u32_le(0).to_vec()),           // version
-        Some(fix_vec(37, &deps_raw)),       // cell_deps
-        Some(fix_vec(32, &[])),             // header_deps
-        Some(fix_vec(44, &inputs_raw)),     // inputs
-        Some(dyn_collection(outputs)),      // outputs
-        Some(dyn_collection(outputs_data)), // outputs_data
+        Some(u32_le(0).to_vec()),             // version
+        Some(fix_vec(37, &deps_raw)),         // cell_deps
+        Some(fix_vec(32, &headers.concat())), // header_deps
+        Some(fix_vec(44, &inputs_raw)),       // inputs
+        Some(dyn_collection(outputs)),        // outputs
+        Some(dyn_collection(outputs_data)),   // outputs_data
     ])
 }
 

@@ -57,6 +57,19 @@ func TestCandidateNativeExecutionAgainstGeth(t *testing.T) {
 	if path == "" {
 		path = "../../specs/evidence/native-bridge-execution/candidate.json"
 	}
+	checkNativeExecution(t, path, os.Getenv("TACTUS_NATIVE_BRIDGE_GETH_EXPORT"), 2, 7, 5, 5, 1)
+}
+
+func TestPublishedNativeExecutionAgainstGeth(t *testing.T) {
+	path := os.Getenv("TACTUS_NATIVE_PUBLICATION_VECTOR")
+	if path == "" {
+		path = "../../specs/evidence/native-publication/0.210.0/execution.json"
+	}
+	checkNativeExecution(t, path, os.Getenv("TACTUS_NATIVE_PUBLICATION_GETH_EXPORT"), 1, 2, 2, 2, 0)
+}
+
+func checkNativeExecution(t *testing.T, path string, export string, wantCases, wantBlocks, wantDeposits, wantTxs, wantReverts int) {
+	t.Helper()
 	data, err := os.ReadFile(path)
 	if err != nil {
 		t.Fatal(err)
@@ -79,7 +92,7 @@ func TestCandidateNativeExecutionAgainstGeth(t *testing.T) {
 	if err = json.Unmarshal(data, &input); err != nil {
 		t.Fatal(err)
 	}
-	if input.Publication || input.Settled || input.Release || input.Production || len(input.Cases) != 2 {
+	if input.Publication || input.Settled || input.Release || input.Production || len(input.Cases) != wantCases {
 		t.Fatal("candidate scope/cases")
 	}
 	config := common.FromHex(input.Config)
@@ -200,10 +213,10 @@ func TestCandidateNativeExecutionAgainstGeth(t *testing.T) {
 			parent = h
 		}
 	}
-	if len(rows) != 7 || deposits != 5 || transactions != 5 || reverts != 1 {
+	if len(rows) != wantBlocks || deposits != wantDeposits || transactions != wantTxs || reverts != wantReverts {
 		t.Fatalf("coverage: %d blocks %d deposits %d transactions %d reverts", len(rows), deposits, transactions, reverts)
 	}
-	if path := os.Getenv("TACTUS_NATIVE_BRIDGE_GETH_EXPORT"); path != "" {
+	if path := export; path != "" {
 		report := map[string]any{"geth": "1.17.8", "fork": "Shanghai", "blocks": rows, "deposits": deposits, "signed_transactions": transactions, "reverts": reverts, "authenticated_publication": false, "proof_settled": false, "custody_release": false, "production_ready": false}
 		data, err := json.MarshalIndent(report, "", "  ")
 		if err != nil {

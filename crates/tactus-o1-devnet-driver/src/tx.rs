@@ -341,6 +341,7 @@ pub fn build_with_permissionless_prefix_and_since(
         (input_type, None),
         unsigned_prefix,
         since,
+        &[],
     )
 }
 
@@ -362,6 +363,32 @@ pub fn build_with_output_type(
         (None, Some(output_type)),
         0,
         &vec![0; inputs.len()],
+        &[],
+    )
+}
+
+/// Sign explicit header dependencies together with the ordinary transaction.
+#[allow(clippy::too_many_arguments)]
+pub fn build_with_headers(
+    key: &DevKey,
+    secp_dep: &CellOutPoint,
+    extra_deps: &[CellOutPoint],
+    inputs: &[(CellOutPoint, u64)],
+    outputs: &[OutSpec],
+    input_type: Option<&[u8]>,
+    unsigned_prefix: usize,
+    headers: &[[u8; 32]],
+) -> Result<(Vec<u8>, Value), String> {
+    build_signed(
+        key,
+        secp_dep,
+        extra_deps,
+        inputs,
+        outputs,
+        (input_type, None),
+        unsigned_prefix,
+        &vec![0; inputs.len()],
+        headers,
     )
 }
 
@@ -375,6 +402,7 @@ fn build_signed(
     witness_types: (Option<&[u8]>, Option<&[u8]>),
     unsigned_prefix: usize,
     since: &[u64],
+    headers: &[[u8; 32]],
 ) -> Result<(Vec<u8>, Value), String> {
     let (input_type, output_type) = witness_types;
     if since.len() != inputs.len() {
@@ -417,7 +445,8 @@ fn build_signed(
         .collect();
     let out_data: Vec<Vec<u8>> = outputs.iter().map(|o| molecule::bytes(&o.data)).collect();
 
-    let raw = molecule::raw_transaction(&deps, &input_cells, &out_cells, &out_data);
+    let raw =
+        molecule::raw_transaction_with_headers(&deps, headers, &input_cells, &out_cells, &out_data);
     let tx_hash = ckb_blake2b(&raw);
 
     // SECP256K1/blake160 sighash-all message (per the system script source):
@@ -471,7 +500,11 @@ fn build_signed(
     );
 
     let bytes = molecule::transaction(&raw, &witnesses);
-    let json = transaction_to_json(outputs, inputs, secp_dep, extra_deps, &witnesses, since);
+    let mut json = transaction_to_json(outputs, inputs, secp_dep, extra_deps, &witnesses, since);
+    json["header_deps"] = json!(headers
+        .iter()
+        .map(|h| rpc::bytes_to_hex(h))
+        .collect::<Vec<_>>());
     Ok((bytes, json))
 }
 

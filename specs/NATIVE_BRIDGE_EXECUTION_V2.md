@@ -1,7 +1,8 @@
 # Candidate native custody execution v2
 
-Status: **execution implemented and independently compared; publication and
-proof authentication are not implemented yet**. This is a new optional
+Status: **execution implemented and independently compared; new proof
+authentication remains pending**. A [subsequent CKB experiment](NATIVE_PUBLICATION_REPORT.md)
+now implements standalone publication authentication. This is a new optional
 `native-bridge` feature, not a change to the v1 executor or authorization to mint
 against an existing vault. G1–G9 remain OPEN. Only CKB 0.210.0 is in scope.
 
@@ -21,7 +22,8 @@ test case deliberately does so. A CKB publication verifier must resolve each
 record against its live immutable receipt for the trusted vault and reject
 forgeries before canonical admission. The updated proof/settlement statement
 must bind that same domain, ordered prefix and cursor. None of those missing
-checks can be replaced by accepting this executable's JSON output.
+checks can be replaced by accepting this executable's JSON output. The publication
+script now supplies the receipt check; proof and A3 integration are still required.
 
 ## Wire and execution rules
 
@@ -108,9 +110,11 @@ python3 -B scripts/test-native-bridge-execution.py
 
 ## Next integration constraints
 
-Publication must authenticate every included receipt at the script boundary;
-otherwise a forged irreversible publication can prevent valid proof settlement.
-The 256-byte candidate anchor needs explicit A3/sealed/checkpoint/recovery support.
+Standalone publication now authenticates every included receipt at the script
+boundary. That check must be preserved in A3 integration, otherwise a forged
+irreversible publication can prevent valid proof settlement. The 256-byte native
+anchor, carried inside 428-byte publication metadata, still needs explicit
+A3/sealed/checkpoint/recovery support.
 The proof journal must bind full vault identity, before/after cursors, allocation,
 ordering interval and resulting Ethereum roots. The settlement Tip can retain
 the existing root/header layout only if its new verifier binds all those fields.
@@ -119,8 +123,9 @@ Avoid a deployment hash cycle: the vault's EVM DOMAIN omits settlement identity,
 but full vault config includes it. Do not put a full vault type hash in anchor
 type arguments while settlement arguments also contain that anchor type hash.
 Genesis-authenticated immutable metadata/state can bind the final vault config
-after deriving the ordering identity and allocation commitment. This deployment
-construction still needs implementation and actual-node adversarial tests.
+after deriving the ordering identity and allocation commitment. The standalone
+publication experiment now validates this construction on a real node; binding
+the final, actually deployed settlement verifier remains required.
 
 Finally generate the new real proof, settle it, independently derive nonzero burn
 witnesses, and execute CKB payouts with duplicate/redirected/forged controls and

@@ -1,0 +1,37 @@
+deploy immutable code and independent actor funds: committed 0xe851cd5187d051e89cbe7fbad6eb4ea97a469002a624410682a83ebed43fcdc1
+native/deploy pinned vault: committed 0x7c41476204d3bac6e11e344fff6a4a4c428f82da38df66af778b5afc9829f463
+native/missing genesis header: rejected (error code 7)
+native/nonempty genesis cursor: rejected (error code 5)
+native/missing joint vault: rejected (error code 8)
+native/wrong chain genesis: rejected (error code 7)
+native/wrong anchor lock: rejected (error code 9)
+native/inflated anchor reserve: rejected (error code 9)
+native/old execution rules: rejected (error code 4)
+native/seeded bridge storage: rejected (error code 6)
+native/zero caller allocation: rejected (error code 6)
+native/wrong bridge runtime: rejected (error code 6)
+native/wrong singleton identity: rejected (error code 5)
+native/joint genesis: committed 0xe94626ce295d14f3946527510cd0b8eb04d0648dc937c91f4e029d41ca0417c2
+native/deposit actor 0: committed 0x8417001d6b1ea13eb86a63e83aa0118d522406b864ad3838cfa4a578ba0218bb
+native/untyped copied receipt data: committed 0x5cb4403e234db1636440aa86a0c39dcbd18a816720019e84b3105a13820056c9
+native/foreign vault genesis: committed 0x1cef60cf4c8f72ba3c8f0e57e06d01cac1eca465205fdd08a370010722c10e85
+native/foreign funded receipt: committed 0x7ab15ddd22f348721686d586b7dafd4348ad0424e85e52af55e8b976540a774f
+native/missing authenticated receipt: rejected (error code 14)
+native/untyped copied receipt: rejected (error code 14)
+native/cross vault receipt: rejected (error code 14)
+native/forged amount with valid transcript: rejected (error code 14)
+native/forged recipient with valid transcript: rejected (error code 14)
+native/wrong successor cursor: rejected (error code 12)
+native/mutable publication: rejected (error code 10)
+native/metadata rewrite: rejected (error code 4)
+native/truncated batch: rejected (error code 11)
+native/wrong publication pointer: rejected (error code 10)
+native/anchor capacity rewrite: rejected (error code 9)
+native/anchor lock takeover: rejected (error code 9)
+native/duplicate deposit: rejected (error code 11)
+native/publish authenticated batch 0: committed 0xabb08e98625387aa107cac6ea16d1ae84dedb145fb57ff6056bf9ed734d16c90
+native/replay already published deposit: rejected (error code 11)
+native/deposit actor 1: committed 0x6c6150f9cefa0e7902490987bf40e8cdf807bb1a7580d39a734a6b4f7976b4fa
+native/publish authenticated batch 1: committed 0xd06391044f3a72a41ddd9c3092895c3eeec798b93ae01b281b3c96bec33d0437
+native/spend immutable allocation: rejected (error code 1)
+native/spend immutable publication: rejected (error code 1)

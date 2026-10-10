@@ -46,7 +46,13 @@ jobs:
         with:
           workspaces: |
             proofs/ckb-native-vault
+            proofs/ckb-native-anchor
             services/native-vault-lab
+      - run: bash scripts/build-native-anchor-script.sh
+      - run: cargo fmt --manifest-path proofs/ckb-native-anchor/Cargo.toml -- --check
+      - run: cargo clippy --locked --manifest-path proofs/ckb-native-anchor/Cargo.toml --all-targets -- -D warnings
+      - run: cargo clippy --locked --manifest-path proofs/ckb-native-anchor/Cargo.toml --target riscv64imac-unknown-none-elf --lib -- -D warnings
+      - run: cargo test --locked --manifest-path proofs/ckb-native-anchor/Cargo.toml
       - run: cargo fmt --manifest-path proofs/ckb-native-vault/Cargo.toml -- --check
       - run: cargo fmt --manifest-path services/native-vault-lab/Cargo.toml -- --check
       - run: cargo clippy --locked --manifest-path proofs/ckb-native-vault/Cargo.toml --all-targets -- -D warnings
@@ -60,6 +66,8 @@ jobs:
           python3 -B scripts/test-native-vault.py
           (cd specs/evidence/native-vault-recovery && sha256sum --check SHA256SUMS)
           python3 -B scripts/test-native-vault-recovery.py
+          (cd specs/evidence/native-publication && sha256sum --check SHA256SUMS)
+          python3 -B scripts/test-native-publication.py
           python3 -B scripts/check-settled-state-proof.py specs/evidence/native-vault/state-proof-regression/evidence.json.gz
 
   settled-state-proof:
@@ -191,6 +199,10 @@ jobs:
         with:
           targets: riscv64imac-unknown-none-elf
       - uses: Swatinem/rust-cache@v2
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.26.8'
+          cache: false
       - name: Install pinned reference CKB
         shell: bash
         env:
@@ -241,6 +253,17 @@ jobs:
           TACTUS_CKB_VERSION: ${{ matrix.ckb }}
           TACTUS_DEVNET_SUITE: replay-native-vault
         run: CKB_BIN="$RUNNER_TEMP/ckb/ckb" scripts/run-devnet-experiments.sh
+      - name: Authenticate native custody publications and replay their signed burns
+        env:
+          TACTUS_CKB_VERSION: ${{ matrix.ckb }}
+          TACTUS_DEVNET_SUITE: replay-native-publication
+        run: |
+          CKB_BIN="$RUNNER_TEMP/ckb/ckb" scripts/run-devnet-experiments.sh
+          for publication_evidence in artifacts/native-publication-*/evidence.json; do
+            publication_run="${publication_evidence%/evidence.json}"
+            (cd services/bridge-checker && TACTUS_NATIVE_PUBLICATION_VECTOR="$GITHUB_WORKSPACE/$publication_run/execution.json" TACTUS_NATIVE_PUBLICATION_GETH_EXPORT="$GITHUB_WORKSPACE/$publication_run/geth.json" go test -count=1 -mod=readonly -run TestPublishedNativeExecutionAgainstGeth .)
+            python3 -B scripts/check-native-publication.py "$publication_run" > "$publication_run/check.json"
+          done
       - name: Verify bounded churn against freshly rebuilt seals
         env:
           TACTUS_CKB_VERSION: ${{ matrix.ckb }}
@@ -268,6 +291,12 @@ jobs:
             artifacts/native-vault-*/vault-check.json
             artifacts/native-vault-*/canonical-blocks.json
             artifacts/native-vault-*/recovery-check.json
+            artifacts/native-publication-*/evidence.json
+            artifacts/native-publication-*/manifest.json
+            artifacts/native-publication-*/replay.log
+            artifacts/native-publication-*/execution.json
+            artifacts/native-publication-*/geth.json
+            artifacts/native-publication-*/check.json
             artifacts/load-*/summary.json
             artifacts/load-*/manifest.json
             artifacts/load-*/replay.log

@@ -1,0 +1,25 @@
+{
+  "commits": 10,
+  "script_rejections": 27,
+  "authenticated_publications": 2,
+  "deposited_shannons": 25000000000,
+  "local_circulating_shannons": 16000000000,
+  "local_burned_shannons": 9000000000,
+  "vault_capacity_shannons": 64000000000,
+  "anchor_capacity_shannons": 59800000000,
+  "publications": [
+    {
+      "cycles": 1975817,
+      "wire_bytes": 1933,
+      "deposit_amount_shannons": 10000000000
+    },
+    {
+      "cycles": 1990972,
+      "wire_bytes": 1933,
+      "deposit_amount_shannons": 15000000000
+    }
+  ],
+  "proof_settled": false,
+  "withdrawal_executed": false,
+  "production_ready": false
+}
