@@ -6,6 +6,11 @@ rollup deployment or custody of user assets.
 
 ## Implemented and measured
 
+- [Abrupt CKB primary restart](OBLIGATION_RESTART_REPORT.md) after A3 republication
+  now preserves all four duties and execution outcomes across SIGKILL and same-DB
+  restart, matching an uninterrupted peer. This covers a completed-publication
+  boundary, not power loss, write interruption or settled A3 duties.
+
 - [Canonical A3 obligation recovery](OBLIGATION_RECOVERY_REPORT.md) now reconstructs
   each admission, seal and publication, joins them with settlement at the same
   pinned block, and retains deterministic invalid-input outcomes. Actual cold

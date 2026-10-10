@@ -1,0 +1,19 @@
+{
+  "historical_commits_including_orphans": 20,
+  "negative_controls": 5,
+  "orphaned_blocks": 8,
+  "restored_admitted_duties": 4,
+  "republished_duties": 4,
+  "settled_duties": 0,
+  "both_nodes_cold_recovery_match": true,
+  "same_payloads_and_execution": true,
+  "truncate_used": false,
+  "submit_block_used": false,
+  "production_ready": false,
+  "primary_sigkill_exit_status": 137,
+  "same_database_restart": true,
+  "uninterrupted_peer_agrees": true,
+  "recovered_height": 81,
+  "mid_transaction_fault": false,
+  "power_loss_simulated": false
+}

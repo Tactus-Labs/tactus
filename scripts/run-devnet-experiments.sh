@@ -27,6 +27,10 @@ if [[ -v TACTUS_OBLIGATION_REORG ]]; then
     exit 1
   fi
 fi
+if [[ -v TACTUS_OBLIGATION_CRASH && ( "$TACTUS_OBLIGATION_CRASH" != 1 || "${TACTUS_OBLIGATION_REORG:-}" != 1 ) ]]; then
+  echo 'Obligation crash qualification requires TACTUS_OBLIGATION_CRASH=1 and TACTUS_OBLIGATION_REORG=1.' >&2
+  exit 1
+fi
 cargo build --locked --bin "$suite"
 if [[ "$suite" == replay-evm || "$suite" == replay-network ]]; then
   cargo build --locked --bin recover-execution
@@ -151,6 +155,20 @@ for address in addresses:
 PY
 printf 'Evidence directory: %s\n' "$run_dir"
 "target/debug/$suite" 2>&1 | tee "$run_dir/replay.log"
+if [[ "${TACTUS_OBLIGATION_CRASH:-}" == 1 ]]; then
+  crash_old_pid="$node_pid"
+  kill -KILL "$node_pid"
+  set +e
+  wait "$node_pid"
+  crash_status=$?
+  set -e
+  [[ "$crash_status" == 137 ]] || { echo 'Primary child did not exit from SIGKILL.' >&2; exit 1; }
+  node_pid=""
+  python3 -B scripts/qualify-obligation-restart.py peer-after-crash "$run_dir" "$crash_old_pid" 0 "$crash_status"
+  "$CKB_BIN" run -C "$run_dir/node" --indexer > "$run_dir/restarted-node.log" 2>&1 &
+  node_pid=$!
+  python3 -B scripts/qualify-obligation-restart.py after-restart "$run_dir" "$crash_old_pid" "$node_pid" "$crash_status"
+fi
 if [[ "$suite" == replay-admission ]]; then
   python3 -B scripts/check-admission-fees.py "$run_dir/evidence.json" > "$run_dir/fee-check.json"
 fi
